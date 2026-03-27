@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:gongke/comm/shared_preferences.dart';
+import 'package:gongke/comm/platform_tools.dart';
 import 'package:gongke/view/gongke/fayuan_wizard.dart';
 import 'dart:io';
 import 'view/gongke/gongke.dart';
@@ -23,7 +24,6 @@ import 'view/baichan/bai_chan_play.dart';
 import 'view/setting/setting_page.dart';
 import 'view/shanshu/shanshu.dart';
 import 'view/songjing/import_files.dart';
-import '/viewmodel/share_card.dart';
 // 导入 path_provider 库以使用 getApplicationDocumentsDirectory 函数
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -103,12 +103,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    String fontFamily;
-    if (Platform.isWindows) {
-      fontFamily = 'SimSun';
-    } else {
-      fontFamily = 'Roboto';
-    }
+    final fontFamily = PlatformUtils.preferredFontFamily;
     return MaterialApp(
       // title: '诵经助手',
       theme: ThemeData(
@@ -140,7 +135,6 @@ class _MyAppState extends State<MyApp> {
         '/BaiChan/BaiChanPlay': (context) => const BaiChanPlayPage(),
         '/Setting': (context) => const SettingPage(),
         '/ImportFiles': (context) => const ImportFilesPage(),
-        '/ShareCardPage': (context) => const ShareCardPage(),
       },
       initialRoute: '/',
       localizationsDelegates: const [

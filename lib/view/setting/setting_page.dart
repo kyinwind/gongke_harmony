@@ -1,8 +1,6 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:gongke/comm/pub_tools.dart';
-import '../../comm/shared_preferences.dart';
 import 'package:toastification/toastification.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -13,70 +11,10 @@ class SettingPage extends StatefulWidget {
 
 const double picheight = 400;
 
-final help_sllides = Platform.isWindows
-    ? help_slides_windows
-    : help_slides_android;
-
-final List<Widget> imageSliders = help_sllides
-    .map(
-      (item) => Container(
-        margin: const EdgeInsets.all(8.0),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(8.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: Colors.yellow,
-                    width: 1,
-                  ), // 黄色边框，宽度为3
-                ),
-                child: SizedBox(
-                  height: picheight,
-                  child: Image.asset(
-                    item['image']!,
-                    fit: BoxFit.contain,
-                    height: picheight,
-                  ),
-                ),
-              ),
-              const SizedBox(height: 3),
-              Text(
-                item['title'] ?? '',
-                style: const TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(height: 3),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 6),
-                child: Text(
-                  item['description'] ?? '',
-                  style: const TextStyle(fontSize: 14),
-                  textAlign: TextAlign.center,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    )
-    .toList();
-
 class _SettingPageState extends State<SettingPage> {
-  bool _allowWakelock = false;
   @override
   void initState() {
     super.initState();
-
-    getBoolValue('allow_wakelock_flag').then((value) {
-      setState(() {
-        _allowWakelock = value ?? false;
-      });
-    });
   }
 
   @override
@@ -89,33 +27,6 @@ class _SettingPageState extends State<SettingPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Platform.isAndroid || Platform.isIOS
-                  ? _buildSection(
-                      '系统设置',
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SwitchListTile(
-                            title: const Text('允许听书时禁止息屏'),
-                            value: _allowWakelock,
-                            onChanged: (bool value) async {
-                              print('-----------开关值：${value}');
-                              // 处理开关状态改变的逻辑
-                              setState(() {
-                                _allowWakelock = value;
-                                saveBoolValue('allow_wakelock_flag', value);
-                              });
-                            },
-                          ),
-                          const Text(
-                            '如果允许，则听书时一直亮屏。反之则听两三页之后手机自动息屏。',
-                            textAlign: TextAlign.left, // ✅ 添加对齐
-                            style: TextStyle(fontSize: 14, color: Colors.grey),
-                          ),
-                        ],
-                      ),
-                    )
-                  : SizedBox(),
               _buildSection(
                 '意见反馈',
                 Column(
@@ -176,7 +87,7 @@ class _SettingPageState extends State<SettingPage> {
                     enlargeStrategy: CenterPageEnlargeStrategy.zoom,
                     enlargeFactor: 0.3,
                   ),
-                  items: imageSliders,
+                  items: _buildImageSliders(context),
                 ),
               ),
 
@@ -188,7 +99,7 @@ class _SettingPageState extends State<SettingPage> {
                   '''  作者本人为了日常做学佛的功课，所以才起意制作了本app分享，希望也能帮到各位佛友。
   在此鸣谢下列单位、人员以及各个flutter组件的开发者（恕不能一一列出人名，仅列出使用的组件）:
   仁慧草堂:本app所提供的经书电子版、图片多数来自于仁慧草堂分享，少数来自于网络收集。
-  cupertino_icons、intl、styled_widget、sqlite3、drift、drift_flutter、sqlite3_flutter_libs、path_provider、path、fl_chart、shared_preferences、pdfx、flutter_slidable、image_picker、flutter_image_compress、table_calendar、lunar、sensors_plus、flutter_svg、audioplayers、flutter_tts、carousel_slider、wakelock_plus、device_info_plus、flutter_pdf_text、flutter_foreground_task、pdfium_bindings、ffi、msix、file_picker、url_launcher...''',
+  cupertino_icons、intl、styled_widget、sqlite3、drift、drift_flutter、path_provider、path、fl_chart、shared_preferences、pdfx、flutter_slidable、image_picker、flutter_image_compress、table_calendar、lunar、sensors_plus、flutter_svg、audioplayers、carousel_slider、wakelock_plus、ffi、file_selector、url_launcher...''',
                   textAlign: TextAlign.left, // ✅ 添加对齐
                 ),
               ),
@@ -263,5 +174,54 @@ class _SettingPageState extends State<SettingPage> {
         Align(alignment: Alignment.centerLeft, child: content),
       ],
     );
+  }
+
+  List<Widget> _buildImageSliders(BuildContext context) {
+    final helpSlides = getHelpSlidesForWidth(MediaQuery.of(context).size.width);
+    return helpSlides
+        .map(
+          (item) => Container(
+            margin: const EdgeInsets.all(8.0),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(8.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.yellow, width: 1),
+                    ),
+                    child: SizedBox(
+                      height: picheight,
+                      child: Image.asset(
+                        item['image']!,
+                        fit: BoxFit.contain,
+                        height: picheight,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 3),
+                  Text(
+                    item['title'] ?? '',
+                    style: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 3),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 6),
+                    child: Text(
+                      item['description'] ?? '',
+                      style: const TextStyle(fontSize: 14),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        )
+        .toList();
   }
 }

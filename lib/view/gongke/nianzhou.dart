@@ -5,11 +5,11 @@ import 'package:gongke/main.dart';
 import 'package:sensors_plus/sensors_plus.dart';
 import 'dart:async';
 import 'package:drift/drift.dart' hide Column;
-import 'dart:io' show Platform;
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 import '../../comm/audio_tools.dart';
+import '../../comm/platform_tools.dart';
 
 class NianzhouPage extends StatefulWidget {
   const NianzhouPage({Key? key}) : super(key: key);
@@ -53,7 +53,7 @@ class _NianzhouPageState extends State<NianzhouPage> {
       }
     }
 
-    if (Platform.isAndroid) {
+    if (PlatformUtils.supportsShakeSensor) {
       _startListeningShake();
     }
   }

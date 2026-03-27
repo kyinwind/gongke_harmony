@@ -3,19 +3,11 @@ import 'package:gongke/database.dart';
 import 'package:gongke/main.dart';
 import 'package:pdfx/pdfx.dart';
 import 'package:flutter/services.dart';
-import 'dart:io'; // 引入 dart:io 来判断平台
-import 'package:flutter/foundation.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:flutter_foreground_task/flutter_foreground_task.dart';
-import 'package:flutter_pdf_text/flutter_pdf_text.dart';
-import 'package:gongke/comm/pdfium_api_tools.dart';
 import 'package:gongke/comm/thumbnail_list.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gongke/providers/pdf_provider.dart';
-import 'package:gongke/comm/tts_tools.dart';
-import 'package:wakelock_plus/wakelock_plus.dart';
-import 'package:gongke/comm/shared_preferences.dart';
 import 'package:gongke/comm/audio_tools.dart';
+import 'package:gongke/comm/platform_tools.dart';
 
 class PdfViewerPage extends ConsumerStatefulWidget {
   final JingShuData jingshu; //jingshu对象
@@ -29,7 +21,6 @@ class PdfViewerPage extends ConsumerStatefulWidget {
 class _PdfViewerPageState extends ConsumerState<PdfViewerPage> {
   List<PageCache> _pageCaches = []; // 缓存的页码列表，包含缩略图和文本，已经生成的page的image也缓存在这里
   final Map<int, Future<List<Uint8List>>> _doublePageFutures = {};
-  String _bookName = ''; //经书或善书名称
   PdfDocument? _document;
   PdfDocument? _document2; //这个变量用于getpage，不能和_document混用，否则报错
   PdfController? _pdfController; //这是pdfx的controller
@@ -54,65 +45,11 @@ class _PdfViewerPageState extends ConsumerState<PdfViewerPage> {
   bool _showMuyuFlag = false;
   bool _muyuIsPlaying = false; //木鱼是否正在播放
 
-  //pdfdoc
-  late PDFDoc pdfdoc;
-  late WinPDFDoc windoc;
-  //tts工具类
-  TtsTools ttstools = TtsTools(); // TTS工具类实例
-  bool isOnGonging = false; //是否正在播放声音
-
   // 根据条件得出当前是否显示双页，true需要显示双页
   bool _getIsDoubleFlag() {
-    bool result = false; // 默认显示单页
-
-    // 获取当前屏幕方向
     final orientation = MediaQuery.of(context).orientation;
-    // 根据屏幕方向设置双页模式标志
-    if (Platform.isWindows || Platform.isAndroid || Platform.isIOS) {
-      // Android 和 iOS 平台根据屏幕宽度判断
-      final screenWidth = MediaQuery.of(context).size.width;
-      //print('当前屏幕宽度: $screenWidth');
-      if (screenWidth > 600 && orientation == Orientation.landscape) {
-        // 如果屏幕宽度大于600，显示双页
-        result = true;
-      } else {
-        // 否则显示单页
-        result = false;
-      }
-    } else {
-      // 其他平台默认显示单页
-      result = false;
-    }
-    return result;
-  }
-
-  final ValueNotifier<Object?> _taskDataListenable = ValueNotifier(null);
-  void _onReceiveTaskData(Object data) {
-    //print('--------------------------接收到数据: $data');
-    _taskDataListenable.value = data;
-    if (data is Map && data['buttonPressed'] == 'btn_stop') {
-      ttstools.stop(); // 页面中你的 TTS 停止方法
-      setState(() {
-        isOnGonging = false;
-      });
-    } else if (data is Map && data['buttonPressed'] == 'btn_start') {
-      // 开始播放的代码
-      _listenText(_page);
-      setState(() {
-        isOnGonging = true;
-      });
-    }
-  }
-
-  Future<void> setPhoneWakeLock(bool isEnable) async {
-    final flag = await getBoolValue('allow_wakelock_flag') ?? false; //是否允许防止息屏
-    if (flag) {
-      if (isEnable) {
-        WakelockPlus.enable();
-      } else {
-        WakelockPlus.disable();
-      }
-    }
+    final screenWidth = MediaQuery.of(context).size.width;
+    return screenWidth > 600 && orientation == Orientation.landscape;
   }
 
   @override
@@ -121,7 +58,6 @@ class _PdfViewerPageState extends ConsumerState<PdfViewerPage> {
     //print('----------------------initState 开始');
     _doublePageFutures.clear();
     _pageCaches.clear();
-    _bookName = widget.jingshu.name;
 
     Future<void> initAsync() async {
       //print('----------------------initState 初始化_pageController');
@@ -147,30 +83,15 @@ class _PdfViewerPageState extends ConsumerState<PdfViewerPage> {
           focusNode.requestFocus();
         }
       });
-      //print('----------------------initState 初始化初始化前台服务');
-      //初始化前台服务
-      FlutterForegroundTask.initCommunicationPort();
-      // Add a callback to receive data sent from the TaskHandler.
-      FlutterForegroundTask.addTaskDataCallback(_onReceiveTaskData);
 
       WidgetsBinding.instance.addPostFrameCallback((_) async {
         try {
-          await requestPermissions();
-          initService();
-
           ref.read(pdfLoadingDoneProvider.notifier).state = false;
-          ref.read(pdfTextDoneProvider.notifier).state = false;
           ref.read(pdfControllerProvider.notifier).state = null;
           ref.read(pdfThumbnailDoneProvider.notifier).state = false;
 
           await _loadPdf(_curPage);
           //print('----------------------加载 PDF 完成1');
-
-          if (widget.jingshu.type.contains('shanshu') &&
-              (Platform.isIOS || Platform.isAndroid || Platform.isWindows)) {
-            await _loadPdfText();
-            //print('----------------------加载 PDF text 完成');
-          }
 
           await _copyPage(); //复制一份页码缓存，用于双页显示和缩略图显示
           ref.read(pdfThumbnailDoneProvider.notifier).state = true;
@@ -187,20 +108,12 @@ class _PdfViewerPageState extends ConsumerState<PdfViewerPage> {
             _errorMessage = e.toString();
           });
           ref.read(pdfLoadingDoneProvider.notifier).state = false;
-          ref.read(pdfTextDoneProvider.notifier).state = false;
         }
       });
     }
 
     // 调用异步初始化函数
     initAsync();
-
-    //设置 TTS 回调函数
-    if (widget.jingshu.type.contains('shanshu')) {
-      ttstools.flutterTts.setCompletionHandler(() {
-        ttsCallBackOnCompletion(_page);
-      });
-    }
 
     //print('--------------------------initstate 完成');
   }
@@ -265,9 +178,7 @@ class _PdfViewerPageState extends ConsumerState<PdfViewerPage> {
     //先生成缓存list，缩略图先为null，text填写好
     _pages = _document2!.pagesCount;
     for (int i = 1; i <= _pages; i++) {
-      _pageCaches.add(
-        PageCache(pageIndex: i, image: null, thumbnail: null, text: ''),
-      );
+      _pageCaches.add(PageCache(pageIndex: i, image: null, thumbnail: null));
     }
     //print('-----------------开始生成_pageCaches，页码数量: ${_pageCaches.length}');
     for (final pageIndex in pagesToGenerate) {
@@ -295,67 +206,6 @@ class _PdfViewerPageState extends ConsumerState<PdfViewerPage> {
     setState(() {});
   }
 
-  //得到第pagenum页的text
-  Future<String> getText(int pagenum) async {
-    if (!mounted) return Future.value();
-    String txt = '';
-    if (Platform.isWindows) {
-      txt = windoc.pages[pagenum - 1].text;
-    } else {
-      txt = await pdfdoc.pages[pagenum - 1].text;
-    }
-    txt = processText(txt);
-    return txt;
-  }
-
-  Future<void> _loadPdfText() async {
-    if (!mounted) return Future.value();
-    late ByteData data;
-    try {
-      //print('---------------------');
-      // 1. 从 assets 加载 pdf 文件为字节流
-      if (widget.jingshu.type == 'shanshu' ||
-          widget.jingshu.type == 'jingshu') {
-        data = await rootBundle.load('assets/pdfs/${widget.jingshu.fileUrl}');
-      } else {
-        // 当文件不是从 assets 加载时，使用 File 直接读取本地文件
-        data = await File(
-          widget.jingshu.fileUrl,
-        ).readAsBytes().then((bytes) => ByteData.view(bytes.buffer));
-      }
-      Uint8List bytes = data.buffer.asUint8List();
-      //print('------------------第一步加载成功');
-      // 2. 把 PDF 文件写入临时文件（因为 flutter_pdf_text 需要文件路径）
-      final tempDir = await getTemporaryDirectory();
-      final tempFile = File('${tempDir.path}/temp.pdf');
-      await tempFile.writeAsBytes(bytes, flush: true);
-      //print('------------------第二步临时文件生成成功');
-      // 3. 加载 PDF 文本
-      if (Platform.isWindows) {
-        compute(loadPdfAndExtractText, tempFile.path)
-            .then((result) {
-              // 任务完成后在主线程执行
-              windoc = result;
-              setState(() {
-                ref.read(pdfTextDoneProvider.notifier).state = true;
-              });
-              //print('------------------第3步成功');
-            })
-            .catchError((error) {
-              print('PDF文本处理错误: $error');
-            });
-        //windoc = await loadPdfAndExtractText(tempFile.path);
-      } else {
-        pdfdoc = await PDFDoc.fromPath(tempFile.path);
-        setState(() {
-          ref.read(pdfTextDoneProvider.notifier).state = true;
-        });
-      }
-    } catch (e) {
-      print('加载 PDF text 出错: $e');
-    }
-  }
-
   @override
   void dispose() {
     if (!mounted) {
@@ -366,41 +216,26 @@ class _PdfViewerPageState extends ConsumerState<PdfViewerPage> {
     print('--------------------------dispose start');
 
     try {
-      // 1. 先移除所有监听器和同步任务
-      FlutterForegroundTask.removeTaskDataCallback(_onReceiveTaskData);
       focusNode.dispose();
-      _taskDataListenable.dispose();
-      setPhoneWakeLock(false);
 
-      // 2. 停止 TTS
-      if (widget.jingshu.type.contains('shanshu')) {
-        print('--------------------------dispose flutterTts start');
-        ttstools.flutterTts.setCompletionHandler(() {});
-        ttstools.stop();
-        print('--------------------------dispose flutterTts end');
-      }
-
-      // 3. 停止音频
+      // 停止音频
       print('--------------------------dispose AudioTools start');
       AudioTools.clearAndStop();
       print('--------------------------dispose AudioTools end');
 
-      // 4. 清理文档资源
+      // 清理文档资源
       _document?.close();
       _document = null;
       _document2?.close();
       _document2 = null;
 
-      // 5. 清理控制器和缓存
+      // 清理控制器和缓存
       _pdfController?.dispose();
       _pdfController = null;
       _pageController?.dispose();
       _pageController = null;
       _doublePageFutures.clear();
       _pageCaches.clear();
-
-      // 6. 停止服务
-      stopService();
 
       print('--------------------------dispose end');
     } catch (e) {
@@ -555,7 +390,7 @@ class _PdfViewerPageState extends ConsumerState<PdfViewerPage> {
       try {
         final width = page.width;
         final height = page.height;
-        if (width == null || height == null || width <= 0 || height <= 0) {
+        if (width <= 0 || height <= 0) {
           print('PDF page 宽高无效 width=$width height=$height');
           await page.close();
           return null;
@@ -569,7 +404,7 @@ class _PdfViewerPageState extends ConsumerState<PdfViewerPage> {
           return null;
         }
 
-        double clarityFactor = Platform.isWindows ? 1.5 : 0.5;
+        final clarityFactor = PlatformUtils.pdfRenderClarityFactor;
         final renderWidth = (width * devicePixelRatio * clarityFactor);
         final renderHeight = (height * devicePixelRatio * clarityFactor);
 
@@ -712,102 +547,9 @@ class _PdfViewerPageState extends ConsumerState<PdfViewerPage> {
     FocusScope.of(context).requestFocus(focusNode);
   }
 
-  String processText(String input) {
-    List<String> lines = input.split('\n');
-
-    List<String> processedLines = [];
-
-    for (var line in lines) {
-      String trimmedLine = line.trim();
-
-      // 跳过空行
-      if (trimmedLine.isEmpty || trimmedLine == '') continue;
-
-      // 跳过页码行：包含 "of"，前后都是数字（可带 "page"）
-      final pageNumRegex = RegExp(
-        r'^(page\s*)?(\d+\s*(of|\/)\s*\d+)$',
-        caseSensitive: false,
-      );
-
-      if (pageNumRegex.hasMatch(trimmedLine)) continue;
-
-      processedLines.add(trimmedLine);
-    }
-
-    return processedLines.join();
-  }
-
-  void _listenText(int pagenum) async {
-    //pagenum 页码从1开始
-    int pageCnt = _pageCaches.length;
-    if (!_isDoublePage && pagenum >= 1 && pagenum <= pageCnt) {
-      String text = await getText(pagenum);
-      print('${pagenum}');
-      print(text);
-      if (Platform.isAndroid || Platform.isIOS) {
-        startService('正在朗读 ${_bookName}');
-      }
-      print('---page:${_pdfController!.page}-----pagenum:$pagenum');
-      if (_pdfController != null && _pdfController!.page != pagenum) {
-        _pdfController?.jumpToPage(pagenum);
-        _page = pagenum; // 更新当前页码
-      }
-      isOnGonging = true;
-
-      await setPhoneWakeLock(true); //避免息屏
-      await ttstools.speak(text, null);
-      await setPhoneWakeLock(true);
-    }
-  }
-
-  void ttsCallBackOnCompletion(int pagenum) {
-    print('-------------------------------------------回调函数被调用了');
-    isOnGonging = false;
-    _listenText(pagenum + 1);
-  }
-
-  bool _getShowVoiceButtonFlag() {
-    final _isTextDone = ref.read(pdfTextDoneProvider);
-    print('-----------------_isTextDone: ${_isTextDone}');
-
-    final flag =
-        widget.jingshu.type.contains('shanshu') &&
-        (Platform.isIOS || Platform.isAndroid || Platform.isWindows) &&
-        !_isDoublePage &&
-        _isTextDone;
-    print('--------_getShowVoiceButtonFlag: ${flag}');
-    return flag;
-  }
-
   Widget _buildNavigatorButton() {
     return Column(
       children: [
-        _getShowVoiceButtonFlag()
-            ? IconButton(
-                padding: EdgeInsets.zero,
-                constraints: BoxConstraints(),
-                icon: !isOnGonging
-                    ? const Icon(Icons.record_voice_over, color: Colors.blue)
-                    : const Icon(Icons.stop_circle, color: Colors.red),
-                tooltip: '听书',
-                onPressed: () {
-                  setState(() {
-                    if (!isOnGonging) {
-                      _listenText(_page);
-                    } else {
-                      // 如果正在朗读，停止朗读
-                      ttstools.pause();
-                    }
-                    isOnGonging = !isOnGonging;
-                    if (!isOnGonging) {
-                      setPhoneWakeLock(false); //没有播放的时候，就允许息屏了
-                    }
-                  });
-                  focusNode.requestFocus(); // 处理完事件后重新获取焦点
-                },
-              )
-            : SizedBox(),
-        Spacer(),
         IconButton(
           padding: EdgeInsets.zero,
           constraints: BoxConstraints(),
@@ -1081,7 +823,6 @@ class _PdfViewerPageState extends ConsumerState<PdfViewerPage> {
         ),
       ),
     );
-    ;
   }
 }
 
@@ -1113,171 +854,6 @@ class _PdfViewerPageState extends ConsumerState<PdfViewerPage> {
 //       },
 //     );
 //   }
-// }
-
-// The callback function should always be a top-level or static function.
-@pragma('vm:entry-point')
-void startCallback() {
-  FlutterForegroundTask.setTaskHandler(MyTaskHandler());
-}
-
-class MyTaskHandler extends TaskHandler {
-  // Called when the task is started.
-  @override
-  Future<void> onStart(DateTime timestamp, TaskStarter starter) async {
-    print('onStart(starter: ${starter.name})');
-  }
-
-  // Called based on the eventAction set in ForegroundTaskOptions.
-  @override
-  void onRepeatEvent(DateTime timestamp) {
-    // Send data to main isolate.
-    final Map<String, dynamic> data = {
-      "timestampMillis": timestamp.millisecondsSinceEpoch,
-    };
-    FlutterForegroundTask.sendDataToMain(data);
-  }
-
-  // Called when the task is destroyed.
-  @override
-  Future<void> onDestroy(DateTime timestamp, bool isTimeout) async {
-    print('onDestroy(isTimeout: $isTimeout)');
-  }
-
-  // Called when data is sent using `FlutterForegroundTask.sendDataToTask`.
-  @override
-  void onReceiveData(Object data) {
-    print('onReceiveData: $data');
-  }
-
-  // Called when the notification button is pressed.
-  @override
-  void onNotificationButtonPressed(String id) {
-    print('onNotificationButtonPressed: $id');
-    FlutterForegroundTask.sendDataToMain({'buttonPressed': id});
-  }
-
-  // Called when the notification itself is pressed.
-  @override
-  void onNotificationPressed() {
-    print('onNotificationPressed');
-  }
-
-  // Called when the notification itself is dismissed.
-  @override
-  void onNotificationDismissed() {
-    print('onNotificationDismissed');
-  }
-}
-
-//前台服务请求权限
-Future<void> requestPermissions() async {
-  // Android 13+, you need to allow notification permission to display foreground service notification.
-  //
-  // iOS: If you need notification, ask for permission.
-  if (Platform.isAndroid || Platform.isIOS) {
-    final NotificationPermission notificationPermission =
-        await FlutterForegroundTask.checkNotificationPermission();
-    if (notificationPermission != NotificationPermission.granted) {
-      await FlutterForegroundTask.requestNotificationPermission();
-    } else {
-      print('--------------NotificationPermission ok');
-    }
-
-    if (Platform.isAndroid) {
-      // Android 12+, there are restrictions on starting a foreground service.
-      //
-      // To restart the service on device reboot or unexpected problem, you need to allow below permission.
-      if (!await FlutterForegroundTask.isIgnoringBatteryOptimizations) {
-        // This function requires `android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS` permission.
-        await FlutterForegroundTask.requestIgnoreBatteryOptimization();
-      } else {
-        print('--------------isIgnoringBatteryOptimizations ok');
-      }
-
-      // Use this utility only if you provide services that require long-term survival,
-      // such as exact alarm service, healthcare service, or Bluetooth communication.
-      //
-      // This utility requires the "android.permission.SCHEDULE_EXACT_ALARM" permission.
-      // Using this permission may make app distribution difficult due to Google policy.
-      // if (!await FlutterForegroundTask.canScheduleExactAlarms) {
-      //   // When you call this function, will be gone to the settings page.
-      //   // So you need to explain to the user why set it.
-      //   await FlutterForegroundTask.openAlarmsAndRemindersSettings();
-      // } else {
-      //   print('--------------openAlarmsAndRemindersSettings ok');
-      // }
-    }
-  }
-}
-
-void initService() {
-  FlutterForegroundTask.init(
-    androidNotificationOptions: AndroidNotificationOptions(
-      channelId: 'foreground_service',
-      channelName: 'Foreground Service Notification',
-      channelDescription:
-          'This notification appears when the foreground service is running.',
-      onlyAlertOnce: true,
-    ),
-    iosNotificationOptions: const IOSNotificationOptions(
-      showNotification: false,
-      playSound: false,
-    ),
-    foregroundTaskOptions: ForegroundTaskOptions(
-      eventAction: ForegroundTaskEventAction.repeat(5000),
-      autoRunOnBoot: true,
-      autoRunOnMyPackageReplaced: true,
-      allowWakeLock: true,
-      allowWifiLock: true,
-    ),
-  );
-}
-
-Future<ServiceRequestResult> startService(String msg) async {
-  if (await FlutterForegroundTask.isRunningService) {
-    return FlutterForegroundTask.restartService();
-  } else {
-    return FlutterForegroundTask.startService(
-      // You can manually specify the foregroundServiceType for the service
-      // to be started, as shown in the comment below.
-      // serviceTypes: [
-      //   ForegroundServiceTypes.dataSync,
-      //   ForegroundServiceTypes.remoteMessaging,
-      // ],
-      serviceId: 256,
-      notificationTitle: '诵经助手',
-      notificationText: '${msg}',
-      notificationIcon: null,
-      notificationButtons: [
-        const NotificationButton(id: 'btn_stop', text: '停止播放'),
-        const NotificationButton(id: 'btn_start', text: '开始播放'),
-      ],
-      notificationInitialRoute: '/second',
-      callback: startCallback,
-    );
-  }
-}
-
-Future<ServiceRequestResult> stopService() {
-  return FlutterForegroundTask.stopService();
-}
-
-// Future<bool> isPad() async {
-//   if (Platform.isIOS) {
-//     final iosInfo = await DeviceInfoPlugin().iosInfo;
-//     return iosInfo.model.toLowerCase().contains('ipad');
-//   } else if (Platform.isAndroid) {
-//     //final androidInfo = await DeviceInfoPlugin().androidInfo;
-//     // 安卓平板通常屏幕密度和尺寸较大
-//     final view = WidgetsBinding.instance.platformDispatcher.views.first;
-//     final size = view.physicalSize / view.devicePixelRatio;
-//     final diagonal = sqrt(size.width * size.width + size.height * size.height);
-//     return diagonal > 10 * 160; // 10 英寸约为 1600 点
-//   } else if (Platform.isWindows) {
-//     return true;
-//   }
-//   return false;
 // }
 
 //使用状态，在pdf加载完毕再显示pdf页面

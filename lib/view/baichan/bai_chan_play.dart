@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter_tts/flutter_tts.dart';
 import 'package:gongke/main.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 import 'package:gongke/database.dart';
@@ -17,14 +16,13 @@ class BaiChanPlayPage extends StatefulWidget {
 class _BaiChanPlayPageState extends State<BaiChanPlayPage> {
   bool _isInitialized = false; // 添加初始化标记
   late int baichanId;
-  late BaiChanData baichan;
+  BaiChanData? baichan;
   int count = 0;
   bool isPlaying = false;
   bool flag = true;
   int num = 0;
   Timer? _timer;
   String msg = "拜忏中...";
-  final FlutterTts flutterTts = FlutterTts();
 
   @override
   void initState() {
@@ -42,13 +40,11 @@ class _BaiChanPlayPageState extends State<BaiChanPlayPage> {
     baichanId = args['baichanId'] as int;
     BaiChanData? temp;
     temp = args['baichan'] as BaiChanData?;
-    if (temp != null) {
-      baichan = temp;
-    }
+    baichan = temp;
 
     _isInitialized = true;
     if (baichanId > 0 && baichan != null) {
-      _speak(baichan.chanhuiWenStart.toString(), () => _startLoop());
+      _announce(baichan!.chanhuiWenStart.toString(), () => _startLoop());
     }
   }
 
@@ -63,24 +59,29 @@ class _BaiChanPlayPageState extends State<BaiChanPlayPage> {
     _timer = Timer.periodic(Duration(seconds: 1), (timer) {
       if (!isPlaying) return;
       WakelockPlus.enable(); //避免息屏
+      final currentBaiChan = baichan;
+      if (currentBaiChan == null) {
+        return;
+      }
       if (flag) {
-        final int baichanInterval2 = baichan.baichanInterval2.toInt();
+        final int baichanInterval2 = currentBaiChan.baichanInterval2.toInt();
         if (num % baichanInterval2 == 0) {
           setState(() {
             count++;
           });
 
-          if (count <= baichan.baichanTimes && baichan.flagOrderNumber) {
+          if (count <= currentBaiChan.baichanTimes &&
+              currentBaiChan.flagOrderNumber) {
             AudioTools.playLocalAsset('mp3/yinqing.wav').then((_) {
-              _speak("第$count 拜", () {});
+              _announce("第$count 拜", () {});
             });
           }
           num = 0;
           flag = false;
         }
-        if (count == baichan.baichanTimes.toInt() + 1) {
+        if (count == currentBaiChan.baichanTimes.toInt() + 1) {
           AudioTools.playLocalAsset('mp3/yinqing.wav').then((_) {
-            _speak(baichan.chanhuiWenEnd, () {
+            _announce(currentBaiChan.chanhuiWenEnd, () {
               _stop();
               WakelockPlus.disable();
               Navigator.pop(context);
@@ -89,10 +90,10 @@ class _BaiChanPlayPageState extends State<BaiChanPlayPage> {
         }
         num++;
       } else {
-        if (num % baichan.baichanInterval1.toInt() == 0) {
-          if (baichan.flagQiShen) {
+        if (num % currentBaiChan.baichanInterval1.toInt() == 0) {
+          if (currentBaiChan.flagQiShen) {
             AudioTools.playLocalAsset('mp3/yinqing.wav').then((_) {
-              _speak("起身", () {});
+              _announce("起身", () {});
             });
           }
           num = 0;
@@ -103,18 +104,19 @@ class _BaiChanPlayPageState extends State<BaiChanPlayPage> {
     });
   }
 
-  Future<void> _speak(String text, VoidCallback onDone) async {
-    await flutterTts.setLanguage("zh-CN");
-    await flutterTts.setSpeechRate(0.5);
-    await flutterTts.speak(text);
-    flutterTts.setCompletionHandler(() {
-      onDone();
+  Future<void> _announce(String text, VoidCallback onDone) async {
+    if (!mounted) {
+      return;
+    }
+    setState(() {
+      msg = text;
     });
+    await Future<void>.delayed(const Duration(milliseconds: 600));
+    onDone();
   }
 
   void _stop() async {
     _timer?.cancel();
-    await flutterTts.stop();
     if (!mounted) return; // ✅ 避免 setState 后报错
     setState(() => isPlaying = false);
   }
@@ -123,7 +125,6 @@ class _BaiChanPlayPageState extends State<BaiChanPlayPage> {
   void dispose() {
     WakelockPlus.disable(); //放开避免息屏
     _timer?.cancel();
-    flutterTts.stop();
     super.dispose();
   }
 
@@ -131,16 +132,16 @@ class _BaiChanPlayPageState extends State<BaiChanPlayPage> {
   Widget build(BuildContext context) {
     if (baichan == null) {
       return Scaffold(
-        appBar: AppBar(title: Text('拜忏进行中')),
-        body: Center(child: CircularProgressIndicator()),
+        appBar: AppBar(title: const Text('拜忏进行中')),
+        body: const Center(child: CircularProgressIndicator()),
       );
     }
-    final bai = baichan;
+    final bai = baichan!;
     return Scaffold(
       appBar: AppBar(
-        title: Text('拜忏进行中'),
+        title: const Text('拜忏进行中'),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () {
             _stop();
             Navigator.pop(context);
@@ -159,7 +160,7 @@ class _BaiChanPlayPageState extends State<BaiChanPlayPage> {
                   fit: BoxFit.contain,
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Text('$count / ${bai.baichanTimes.toInt()} $msg'),
             ],
           ),

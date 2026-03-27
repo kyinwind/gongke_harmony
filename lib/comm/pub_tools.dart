@@ -970,6 +970,13 @@ final List<Map<String, String>> help_slides_windows = [
   },
 ];
 
+List<Map<String, String>> getHelpSlidesForWidth(double width) {
+  if (width >= 900) {
+    return help_slides_windows;
+  }
+  return help_slides_android;
+}
+
 // 复制文本到系统剪贴板
 void copyToClipboard(String text) {
   Clipboard.setData(ClipboardData(text: text))

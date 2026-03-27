@@ -103,16 +103,6 @@ class _GongKeSettingPageState extends State<GongKeSettingPage> {
                   '当天功课完成情况设定',
                   style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                 ),
-                Spacer(),
-                IconButton(
-                  icon: const Icon(Icons.share),
-                  color: Colors.blue,
-                  iconSize: 35,
-                  onPressed: () {
-                    // 跳转到新增页面
-                    Navigator.pushNamed(context, '/ShareCardPage');
-                  },
-                ),
               ],
             ),
 

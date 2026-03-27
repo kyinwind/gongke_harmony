@@ -306,17 +306,6 @@ class _TipPageState extends State<TipPage> {
                     '预览',
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ).padding(all: 15),
-                  const Spacer(),
-                  IconButton(
-                    icon: const Icon(Icons.share),
-                    color: Colors.blue,
-                    iconSize: 35,
-                    onPressed: () {
-                      // 跳转到新增页面
-                      Navigator.pushNamed(context, '/ShareCardPage');
-                    },
-                  ),
-                  const SizedBox(width: 8),
                 ],
               ),
               Column(

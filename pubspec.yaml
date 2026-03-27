@@ -44,7 +44,6 @@ dependencies:
   sqlite3: ^2.0.0
   drift: ^2.28.0
   drift_flutter: ^0.2.5
-  sqlite3_flutter_libs: ^0.5.13
   path_provider: ^2.1.5
   path: ^1.9.0
   fl_chart: ^1.0.0
@@ -58,22 +57,14 @@ dependencies:
   sensors_plus: ^6.1.1  # 用于传感器数据获取
   flutter_svg: ^2.0.9  # 用于SVG图标支持
   audioplayers: ^6.4.0
-  flutter_tts: 4.2.0    #text to speech
   carousel_slider: ^5.1.1  #图片轮播
   wakelock_plus: ^1.3.2 #防息屏
-  device_info_plus: ^9.1.2 #设备信息
-  flutter_pdf_text: ^0.9.0 #获取pdf文本
-  flutter_foreground_task: ^9.1.0  #android前台服务，用于音频持续播放
-  pdfium_bindings: ^2.0.1  #在win下读取pdf text
   ffi: ^2.1.4
-  msix: ^3.16.9
-  file_picker: ^10.2.0
+  file_selector: ^1.0.4
   toastification: ^3.0.3
   url_launcher: ^6.3.2
   screenshot: ^3.0.0  # 用于截图
-  share_plus: ^11.1.0  # 用于分享
   logger: ^2.6.1
-  pasteboard: ^0.4.0
 
 dev_dependencies:
   flutter_test:
@@ -154,40 +145,3 @@ flutter_launcher_icons:
     generate: true
     image_path: "assets/icons/icon.png"
 #adaptive_icon_foreground: "assets/icons/app_icon_foreground.png"
-
-#- android ：指定 Android 平台图标的名称，默认是 launcher_icon 。
-#- ios ：是否为 iOS 平台生成图标，设为 true 表示生成。
-#- image_path ：指定图标素材的路径，建议使用正方形 PNG 图片。
-#- adaptive_icon_background ：Android 自适应图标背景颜色。
-#- adaptive_icon_foreground ：Android 自适应图标前景图路径。
-
-msix_config:
-  display_name: 诵经助手
-  publisher_display_name: 自在清风
-  identity_name: BF9189DD.48248878B78C1
-  msix_version: 1.0.6.0
-
-  # 发布到 Microsoft Store 必须设置
-  publisher: CN=A760DC78-F7E9-480B-9C7A-33DB2FDBD7EC
-
-  # 应用描述
-  description: |
-    诵经助手是一款帮助佛友管理与记录日常佛学修行功课的免费工具。
-    1、帮助佛友通过发愿建立功课计划，并记录佛友功课每天完成情况
-    2、以小组件形式放置桌面，督促佛友每日完成功课，精进修行。
-    3、40多部常用佛经，包含金刚经、地藏经、六祖坛经等经书，十多部善书供佛友日常学习、念诵。
-    4、可自己制作或导入佛友制作的开示语录，以小组件形式放在桌面，提醒自己每日修行。
-    5、经书排版合理，适合手机、pad观看。
-    6、支持windows、ios、mac、android系统
-    7、app下载使用完全免费
-
-  # 图标设置（建议使用 256x256 的 PNG）
-  logo_path: assets/icons/icon256.png
-  languages: zh-CN
-  # 架构
-  # 可选: x64, x86, arm64, neutral
-  # Store 推荐上传 x64 或 x64+x86。
-  architecture: x64
-
-  # 权限配置
-  capabilities: internetClient, location, microphone, webcam
