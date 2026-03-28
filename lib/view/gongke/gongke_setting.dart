@@ -169,8 +169,8 @@ class _GongKeSettingPageState extends State<GongKeSettingPage> {
                   alignment: Alignment.centerLeft,
                   padding: const EdgeInsets.all(16.0),
                   child: FutureBuilder<FaYuanData?>(
-                    future: globalDB.managers.faYuan
-                        .filter((f) => f.id.equals(fayuanId))
+                    future: (globalDB.select(globalDB.faYuan)
+                          ..where((tbl) => tbl.id.equals(fayuanId)))
                         .getSingleOrNull(),
                     builder: (context, snapshot) {
                       if (!snapshot.hasData) return const SizedBox();

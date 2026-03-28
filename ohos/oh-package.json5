@@ -14,7 +14,11 @@
   },
   "overrides": {
     "@ohos/flutter_ohos": "file:./har/flutter.har",
+    "@ohos/flutter_module": "file:./entry",
     "sqflite": "file:./har/sqflite.har",
-    "@ohos/flutter_module": "file:./entry"
+    "path_provider_ohos": "file:./har/path_provider_ohos.har",
+    "shared_preferences_ohos": "file:./har/shared_preferences_ohos.har",
+    "file_selector_ohos": "file:./har/file_selector_ohos.har",
+    "pdf_render_ohos": "file:./har/pdf_render_ohos.har"
   }
 }

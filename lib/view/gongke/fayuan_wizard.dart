@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:drift/drift.dart' hide Column;
+import '../../database.dart';
 //import 'package:gongke/database.dart';
 //import '../../database.dart';
 import '../../main.dart';
@@ -84,6 +85,7 @@ class _FaYuanWizardPageState extends State<FaYuanWizardPage> {
   late TextEditingController fodiziNameController;
   // 添加初始化标记，避免重复初始化
   bool _initialized = false; // 添加初始化标记
+  bool _isSaving = false;
 
   @override
   void initState() {
@@ -130,8 +132,8 @@ class _FaYuanWizardPageState extends State<FaYuanWizardPage> {
   // 在加载数据后更新控制器的值
   Future<void> _loadExistingData() async {
     //print('--------------------------------_loadExistingData----');
-    final fayuan = await globalDB.managers.faYuan
-        .filter((t) => t.id(fayuanId!))
+    final fayuan = await (globalDB.select(globalDB.faYuan)
+          ..where((tbl) => tbl.id.equals(fayuanId!)))
         .getSingle();
 
     // 移除这个 setState，使用单个 setState
@@ -143,8 +145,8 @@ class _FaYuanWizardPageState extends State<FaYuanWizardPage> {
     _data.endDate = fayuan.endDate;
     _data.yuanwang = fayuan.yuanwang;
 
-    final items = await globalDB.managers.gongKeItemsOneDay
-        .filter((t) => t.fayuanId(fayuanId!))
+    final items = await (globalDB.select(globalDB.gongKeItemsOneDay)
+          ..where((tbl) => tbl.fayuanId.equals(fayuanId!)))
         .get();
 
     setState(() {
@@ -427,7 +429,7 @@ class _FaYuanWizardPageState extends State<FaYuanWizardPage> {
   }
 
   Future<void> _showCopyGongKeDialog() async {
-    final allItems = await globalDB.managers.gongKeItemsOneDay.get();
+    final allItems = await globalDB.select(globalDB.gongKeItemsOneDay).get();
     final uniqueItems = <String>{};
     final itemMap = <String, VMGongKeItemOneDayData>{};
     final selectedItems = <String>{}; // 移到这里
@@ -692,26 +694,29 @@ class _FaYuanWizardPageState extends State<FaYuanWizardPage> {
   }
 
   Future<void> _handleSave() async {
-    // 将 newFaYuanId 移到事务内部声明
-    await globalDB.transaction(() async {
-      int currentFaYuanId;
-      _data.fayuanwen = getFaYuanWen();
-      if (actType == 'M' && fayuanId != null) {
-        // 修改模式
-        currentFaYuanId = fayuanId!;
-        // 删除原有记录
-        await globalDB.managers.gongKeItem
-            .filter((t) => t.fayuanId(currentFaYuanId))
-            .delete();
-        await globalDB.managers.gongKeItemsOneDay
-            .filter((t) => t.fayuanId(currentFaYuanId))
-            .delete();
+    if (_isSaving) return;
+    setState(() {
+      _isSaving = true;
+    });
 
-        // 更新现有发愿记录
-        await globalDB.managers.faYuan
-            .filter((f) => f.id.equals(currentFaYuanId))
-            .update(
-              (o) => o(
+    int? currentFaYuanId;
+    final isModify = actType == 'M' && fayuanId != null;
+    try {
+      _data.fayuanwen = getFaYuanWen();
+      if (isModify) {
+        currentFaYuanId = fayuanId!;
+
+        await (globalDB.delete(globalDB.gongKeItem)
+              ..where((tbl) => tbl.fayuanId.equals(currentFaYuanId!)))
+            .go();
+        await (globalDB.delete(globalDB.gongKeItemsOneDay)
+              ..where((tbl) => tbl.fayuanId.equals(currentFaYuanId!)))
+            .go();
+
+        await (globalDB.update(globalDB.faYuan)
+              ..where((tbl) => tbl.id.equals(currentFaYuanId!)))
+            .write(
+              FaYuanCompanion(
                 name: Value(_data.name!),
                 fodiziname: Value(_data.fodiziName!),
                 startDate: Value(_data.startDate!),
@@ -721,25 +726,23 @@ class _FaYuanWizardPageState extends State<FaYuanWizardPage> {
               ),
             );
       } else {
-        // 新增模式
-        currentFaYuanId = await globalDB.managers.faYuan.create(
-          (o) => o(
+        currentFaYuanId = await globalDB.into(globalDB.faYuan).insert(
+          FaYuanCompanion.insert(
             name: _data.name!,
             fodiziname: _data.fodiziName!,
             startDate: _data.startDate!,
             endDate: _data.endDate!,
             yuanwang: _data.yuanwang ?? '',
             fayuanwen: _data.fayuanwen ?? '',
-            remarks: Value(''),
+            remarks: const Value(''),
           ),
         );
       }
 
-      // 插入每日功课
       for (var item in _data.gkiODList) {
-        await globalDB.managers.gongKeItemsOneDay.create(
-          (o) => o(
-            fayuanId: currentFaYuanId, // 使用 currentFaYuanId
+        await globalDB.into(globalDB.gongKeItemsOneDay).insert(
+          GongKeItemsOneDayCompanion.insert(
+            fayuanId: currentFaYuanId,
             gongketype: Value(item.gongketype.name),
             name: item.name,
             cnt: Value(item.cnt),
@@ -747,9 +750,9 @@ class _FaYuanWizardPageState extends State<FaYuanWizardPage> {
           ),
         );
       }
+
       String gongkedaystr = '';
       bool iscomplete = false;
-      // 插入具体功课记录
       for (var day = 0; day < _data.getDurationDays(); day++) {
         for (var item in _data.gkiODList) {
           gongkedaystr = DateTools.getDateStringByDate(
@@ -759,18 +762,15 @@ class _FaYuanWizardPageState extends State<FaYuanWizardPage> {
             gongkedaystr,
             'yyyy-MM-dd',
           ).isBefore(DateTime.now())) {
-            if (gongkedaystr == DateTools.getDateStringByDate(DateTime.now())) {
-              iscomplete = false;
-            } else {
-              // 如果日期早于今天，则设置为已完成
-              iscomplete = true;
-            }
+            iscomplete =
+                gongkedaystr != DateTools.getDateStringByDate(DateTime.now());
           } else {
             iscomplete = false;
           }
-          await globalDB.managers.gongKeItem.create(
-            (o) => o(
-              fayuanId: currentFaYuanId, // 使用 currentFaYuanId
+
+          await globalDB.into(globalDB.gongKeItem).insert(
+            GongKeItemCompanion.insert(
+              fayuanId: currentFaYuanId,
               gongKeDay: gongkedaystr,
               gongketype: item.gongketype.name,
               name: item.name,
@@ -781,9 +781,36 @@ class _FaYuanWizardPageState extends State<FaYuanWizardPage> {
           );
         }
       }
-    });
 
-    Navigator.pop(context);
+      if (!mounted) return;
+      Navigator.pop(context);
+    } catch (e) {
+      if (currentFaYuanId != null) {
+        try {
+          await (globalDB.delete(globalDB.gongKeItem)
+                ..where((tbl) => tbl.fayuanId.equals(currentFaYuanId!)))
+              .go();
+          await (globalDB.delete(globalDB.gongKeItemsOneDay)
+                ..where((tbl) => tbl.fayuanId.equals(currentFaYuanId!)))
+              .go();
+          if (!isModify) {
+            await (globalDB.delete(globalDB.faYuan)
+                  ..where((tbl) => tbl.id.equals(currentFaYuanId!)))
+                .go();
+          }
+        } catch (_) {}
+      }
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('保存失败: $e')),
+      );
+    } finally {
+      if (mounted) {
+        setState(() {
+          _isSaving = false;
+        });
+      }
+    }
   }
 
   @override
@@ -854,8 +881,8 @@ class _FaYuanWizardPageState extends State<FaYuanWizardPage> {
               const Spacer(),
               ElevatedButton(
                 style: AppButtonStyle.primaryButton,
-                onPressed: controls.onStepContinue,
-                child: Text(_currentStep < 4 ? '下一步' : '保存'),
+                onPressed: _isSaving ? null : controls.onStepContinue,
+                child: Text(_currentStep < 4 ? '下一步' : (_isSaving ? '保存中...' : '保存')),
               ),
               const Spacer(),
             ],

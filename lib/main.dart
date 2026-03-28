@@ -23,9 +23,7 @@ import 'view/baichan/bai_chan_play.dart';
 import 'view/setting/setting_page.dart';
 import 'view/shanshu/shanshu.dart';
 import 'view/songjing/import_files.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter/services.dart';
 
 // 声明全局数据库变量
 late AppDatabase globalDB; // 在main函数中创建单一实例;
@@ -63,11 +61,6 @@ class _BootstrapAppState extends State<BootstrapApp> {
   late final Future<BootstrapResult> _bootstrapFuture = _bootstrap();
 
   Future<BootstrapResult> _bootstrap() async {
-    try {
-      await SharedPreferences.getInstance();
-    } on MissingPluginException {
-      debugPrint('shared_preferences plugin is not available on OHOS yet.');
-    }
     await getBoolValue('hasSeenWelcome');
 
     globalDB = AppDatabase();

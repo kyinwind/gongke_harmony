@@ -19,7 +19,8 @@ class TipPage extends StatefulWidget {
 
 // 在 _TipPageState 类中添加数据库实例和记录列表
 class _TipPageState extends State<TipPage> {
-  Stream<List<TipBookData>> records = Stream.value([]);
+  Stream<List<TipBookData>> records =
+      Stream.value(<TipBookData>[]).asBroadcastStream();
   CurrentRecord curRec = CurrentRecord();
   _TipPageState(); // 添加构造函数
 
@@ -58,59 +59,58 @@ class _TipPageState extends State<TipPage> {
     // 假设文件名为 广钦老和尚开示.json, 第二个文件.json, 第三个文件.json, 第四个文件.json
     final fileNames = ['1.json', '2.json', '3.json', '4.json'];
 
-    // 开启事务
-    await globalDB.transaction(() async {
-      try {
-        for (final fileName in fileNames) {
-          final jsonString = await rootBundle.loadString(
-            'assets/tips/$fileName',
+    final createdBookIds = <int>[];
+    try {
+      for (final fileName in fileNames) {
+        final jsonString = await rootBundle.loadString('assets/tips/$fileName');
+        final jsonData = json.decode(jsonString);
+
+        final quotation = jsonData['quotation'];
+        final bookId = await globalDB.tipBook.insertOne(
+          TipBookCompanion.insert(
+            name: quotation['name'],
+            image: quotation['image'],
+            remarks: Value(quotation['remarks']),
+            favoriteDateTime: const Value(null),
+            createDateTime: Value(DateTime.now()),
+          ),
+        );
+        createdBookIds.add(bookId);
+
+        final records = quotation['records'] as List<dynamic>;
+        for (final recordData in records) {
+          final tipRecordCompanion = TipRecordCompanion.insert(
+            bookId: bookId,
+            content: recordData['content'],
           );
-          final jsonData = json.decode(jsonString);
-
-          // 提取 TipBook 数据
-          final quotation = jsonData['quotation'];
-          final tipBookCompanion = globalDB.tipBook.insertOne(
-            TipBookCompanion.insert(
-              name: quotation['name'],
-              image: quotation['image'],
-              remarks: Value(quotation['remarks']),
-              favoriteDateTime: const Value(null),
-              createDateTime: Value(DateTime.now()),
-            ),
-          );
-
-          // 插入 TipBook 记录并获取插入的 id
-          // 由于 tipBookCompanion 是 Future<int> 类型，需要使用 await 来获取实际的 id 值
-          final bookId = await tipBookCompanion;
-
-          // 提取 TipRecord 数据
-          final records = quotation['records'] as List<dynamic>;
-          for (final recordData in records) {
-            final tipRecordCompanion = TipRecordCompanion.insert(
-              bookId: bookId,
-              content: recordData['content'],
-            );
-
-            // 插入 TipRecord 记录
-            await globalDB.tipRecord.insertOne(tipRecordCompanion);
-          }
+          await globalDB.tipRecord.insertOne(tipRecordCompanion);
         }
-      } catch (e) {
-        // 出现错误，回滚事务
-        //print('导入数据时出错: $e');
-        rethrow;
       }
-    });
+    } catch (e) {
+      for (final bookId in createdBookIds) {
+        try {
+          await (globalDB.delete(globalDB.tipRecord)
+                ..where((tbl) => tbl.bookId.equals(bookId)))
+              .go();
+          await (globalDB.delete(globalDB.tipBook)
+                ..where((tbl) => tbl.id.equals(bookId)))
+              .go();
+        } catch (_) {}
+      }
+      rethrow;
+    }
   }
 
   // 查询所有记录
   Future<void> fetchTip() async {
-    final query = globalDB.managers.tipBook.orderBy(
-      (t) => t.favoriteDateTime.desc() & t.createDateTime.desc(),
-    );
-    final books = query.watch(); // 获取所有记录
+    final books = await (globalDB.select(globalDB.tipBook)
+          ..orderBy([
+            (tbl) => OrderingTerm.desc(tbl.favoriteDateTime),
+            (tbl) => OrderingTerm.desc(tbl.createDateTime),
+          ]))
+        .get();
     setState(() {
-      records = books;
+      records = Stream.value(books).asBroadcastStream();
     });
   }
 
@@ -154,13 +154,17 @@ class _TipPageState extends State<TipPage> {
             icon: const Icon(Icons.arrow_circle_down),
             color: Colors.blue,
             iconSize: 35,
-            onPressed: () {
-              // 跳转到新增页面
-              Navigator.pushNamed(
+            onPressed: () async {
+              final imported = await Navigator.pushNamed(
                 context,
                 '/ImportFiles',
                 arguments: {'jingshutype': 'kaishi'},
               );
+              if (!mounted || imported != true) {
+                return;
+              }
+              await fetchTip();
+              await _loadCurrentRecord();
             },
           ),
           IconButton(

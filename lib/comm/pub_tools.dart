@@ -130,11 +130,9 @@ String getDanWei(String typeString) {
 }
 
 Future<Map<String, String>> getJingShuFiles() async {
-  final query = globalDB.managers.jingShu.filter(
-    (f) => f.type.contains('jingshu'),
-  );
-
-  final results = await query.get();
+  final results = await (globalDB.select(globalDB.jingShu)
+        ..where((tbl) => tbl.type.like('%jingshu%')))
+      .get();
   final map = <String, String>{};
   for (final item in results) {
     map[item.name] = item.fileUrl;
@@ -209,8 +207,8 @@ Future<Map<String, String>> getJingShuFiles() async {
 // }
 
 Future<JingShuData> getJingShuByName(String jingShuName) async {
-  JingShuData? jingshu = await globalDB.managers.jingShu
-      .filter((j) => j.name.equals(jingShuName))
+  final jingshu = await (globalDB.select(globalDB.jingShu)
+        ..where((tbl) => tbl.name.equals(jingShuName)))
       .getSingleOrNull();
   JingShuData nullvalue = JingShuData(
     id: 0,

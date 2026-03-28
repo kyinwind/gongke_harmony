@@ -1,8 +1,7 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:pdfx/pdfx.dart';
+import 'dart:ui' as ui;
 
-// PDF 控制器
-final pdfControllerProvider = StateProvider<PdfController?>((ref) => null);
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 final pdfLoadingDoneProvider = StateProvider<bool>((ref) => false); //pdf加载状态
 final pdfThumbnailDoneProvider = StateProvider<bool>(
   (ref) => false,
@@ -10,8 +9,8 @@ final pdfThumbnailDoneProvider = StateProvider<bool>(
 
 class PageCache {
   final int pageIndex; // 页码（从 1 开始）
-  PdfPageImage? image; // 页面的图像
-  PdfPageImage? thumbnail;
+  ui.Image? image; // 页面的图像
+  ui.Image? thumbnail;
 
   PageCache({
     required this.pageIndex,

@@ -32,7 +32,8 @@ class _GongKePageState extends State<GongKePage> {
   //默认显示当前还有效的发愿，用户可以自己设定过滤条件
   int flagFaYuanFilter = 0; //默认0，只显示有效的发愿 1：显示所有发愿（包括已过期的）
   // 添加发愿列表的Stream
-  Stream<List<FaYuanData>> fayuandatalist = Stream.value([]);
+  Stream<List<FaYuanData>> fayuandatalist =
+      Stream.value(<FaYuanData>[]).asBroadcastStream();
 
   // 添加日历控制变量
   DateTime _focusedDay = DateTime.now(); // 当前聚焦的日期
@@ -64,30 +65,24 @@ class _GongKePageState extends State<GongKePage> {
   // 查询所有记录,以及计算功课完成率
   Future<void> fetchAllFaYuan() async {
     try {
-      final query;
+      final now = DateTime.now();
+      final query = globalDB.select(globalDB.faYuan);
       if (flagFaYuanFilter == 0) {
-        // 只显示有效的发愿
-        query = globalDB.managers.faYuan
-            .filter(
-              (f) =>
-                  f.startDate.isBeforeOrOn(DateTime.now()) &
-                  f.endDate.isAfterOrOn(DateTime.now()),
-            )
-            .orderBy((o) => o.createDateTime.desc());
-      } else {
-        query = globalDB.managers.faYuan.orderBy(
-          (o) => o.createDateTime.desc(),
+        query.where(
+          (tbl) =>
+              tbl.startDate.isSmallerOrEqualValue(now) &
+              tbl.endDate.isBiggerOrEqualValue(now),
         );
       }
+      query.orderBy([(tbl) => OrderingTerm.desc(tbl.createDateTime)]);
 
-      final result = await query.watch();
       final tempfayuanlist = await query.get();
       //print(tempfayuanlist.toString());
       // 计算所有发愿的功课完成率
       for (var fayuan in tempfayuanlist) {
         // 获取该发愿的所有功课项目记录
-        final gongkeItems = await globalDB.managers.gongKeItem
-            .filter((f) => f.fayuanId.equals(fayuan.id))
+        final gongkeItems = await (globalDB.select(globalDB.gongKeItem)
+              ..where((tbl) => tbl.fayuanId.equals(fayuan.id)))
             .get();
         //print(gongkeItems.length);
         if (gongkeItems.isNotEmpty) {
@@ -103,7 +98,7 @@ class _GongKePageState extends State<GongKePage> {
         }
       }
       setState(() {
-        fayuandatalist = result;
+        fayuandatalist = Stream.value(tempfayuanlist).asBroadcastStream();
       });
     } catch (e) {
       print('查询所有记录时出错: $e');
@@ -120,12 +115,10 @@ class _GongKePageState extends State<GongKePage> {
     DateTime lastDayOfMonth = DateTime(month.year, month.month + 1, 0);
 
     // 查询当月的所有功课记录
-    final allItems = await globalDB.managers.gongKeItem
-        .filter(
-          (f) => f.gongKeDay.startsWith(
-            '${firstDayOfMonth.year}-${firstDayOfMonth.month.toString().padLeft(2, '0')}-',
-          ),
-        )
+    final monthPrefix =
+        '${firstDayOfMonth.year}-${firstDayOfMonth.month.toString().padLeft(2, '0')}-';
+    final allItems = await (globalDB.select(globalDB.gongKeItem)
+          ..where((tbl) => tbl.gongKeDay.like('$monthPrefix%')))
         .get();
 
     for (var record in allItems) {
@@ -531,26 +524,20 @@ class _GongKePageState extends State<GongKePage> {
                                     false;
 
                                 if (confirm) {
-                                  await globalDB.transaction(() async {
-                                    // 删除关联的功课项目记录
-                                    await (globalDB.delete(globalDB.gongKeItem)
-                                          ..where(
-                                            (t) => t.fayuanId.equals(fayuan.id),
-                                          ))
-                                        .go();
-                                    // 删除关联的每日功课记录
-                                    await (globalDB.delete(
-                                      globalDB.gongKeItemsOneDay,
-                                    )..where(
-                                            (t) => t.fayuanId.equals(fayuan.id),
-                                          ))
-                                        .go();
-                                    // 删除发愿记录
-                                    await (globalDB.delete(
-                                      globalDB.faYuan,
-                                    )..where((t) => t.id.equals(fayuan.id)))
-                                        .go();
-                                  });
+                                  await (globalDB.delete(globalDB.gongKeItem)
+                                        ..where(
+                                          (t) => t.fayuanId.equals(fayuan.id),
+                                        ))
+                                      .go();
+                                  await (globalDB.delete(
+                                    globalDB.gongKeItemsOneDay,
+                                  )..where(
+                                          (t) => t.fayuanId.equals(fayuan.id),
+                                        ))
+                                      .go();
+                                  await (globalDB.delete(globalDB.faYuan)
+                                        ..where((t) => t.id.equals(fayuan.id)))
+                                      .go();
                                   setState(() {
                                     // 刷新数据
                                     _refreshAllData();

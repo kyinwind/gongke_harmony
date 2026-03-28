@@ -35,19 +35,21 @@ Future<CurrentRecord> getCurrentRecord() async {
   var curRecord = CurrentRecord();
 
   // 获取所有按照favoriteDateTime和createDateTime排序的tipbooks
-  final books = await (globalDB.managers.tipBook.orderBy(
-    (t) => t.favoriteDateTime.desc() & t.createDateTime.desc(),
-  )).get();
+  final books = await (globalDB.select(globalDB.tipBook)
+        ..orderBy([
+          (tbl) => OrderingTerm.desc(tbl.favoriteDateTime),
+          (tbl) => OrderingTerm.desc(tbl.createDateTime),
+        ]))
+      .get();
 
   List<TipRecordData> allRecords = [];
 
   // 遍历每个tipbook获取其对应的tiprecords
   for (var book in books) {
-    List<TipRecordData> temprecords =
-        await (globalDB.managers.tipRecord
-                .filter((t) => t.bookId.equals(book.id))
-                .orderBy((t) => t.id.asc()))
-            .get();
+    final temprecords = await (globalDB.select(globalDB.tipRecord)
+          ..where((tbl) => tbl.bookId.equals(book.id))
+          ..orderBy([(tbl) => OrderingTerm.asc(tbl.id)]))
+        .get();
     //print('Book: ${book.name}, Records Count: ${temprecords.length}');
     allRecords.addAll(temprecords);
     // 打印前五个记录的id
@@ -67,8 +69,8 @@ Future<CurrentRecord> getCurrentRecord() async {
     curRecord.content = record.content;
 
     // 获取对应的tipbook信息
-    final book = await globalDB.managers.tipBook
-        .filter((t) => t.id(record.bookId))
+    final book = await (globalDB.select(globalDB.tipBook)
+          ..where((tbl) => tbl.id.equals(record.bookId)))
         .getSingle();
     curRecord.bookName = book.name;
     curRecord.bookImage = book.image;

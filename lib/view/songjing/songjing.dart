@@ -16,7 +16,8 @@ class SongJingPage extends StatefulWidget {
 
 class _SongJingPageState extends State<SongJingPage> {
   final TextEditingController _searchController = TextEditingController();
-  Stream<List<JingShuData>> jingshudatalist = Stream.value([]);
+  Stream<List<JingShuData>> jingshudatalist =
+      Stream.value(<JingShuData>[]).asBroadcastStream();
   //String? imagePath = 'assets/images/jingshu.png';
   bool _appBuildFlag = false;
 
@@ -58,12 +59,15 @@ class _SongJingPageState extends State<SongJingPage> {
   // 查询所有记录
   Future<void> fetchAll() async {
     try {
-      final query = globalDB.managers.jingShu
-          .filter((f) => f.type.contains('jingshu'))
-          .orderBy((t) => t.favoriteDateTime.desc() & t.name.asc());
-      final list = query.watch(); // 获取所有记录
+      final list = await (globalDB.select(globalDB.jingShu)
+            ..where((tbl) => tbl.type.like('%jingshu%'))
+            ..orderBy([
+              (tbl) => OrderingTerm.desc(tbl.favoriteDateTime),
+              (tbl) => OrderingTerm.asc(tbl.name),
+            ]))
+          .get();
       setState(() {
-        jingshudatalist = list;
+        jingshudatalist = Stream.value(list).asBroadcastStream();
       });
     } catch (e) {
       print('查询所有记录时出错: $e');
@@ -77,14 +81,19 @@ class _SongJingPageState extends State<SongJingPage> {
   // 查询所有记录
   Future<void> fetchByWords(String str) async {
     try {
-      final query = globalDB.managers.jingShu
-          .orderBy((t) => t.favoriteDateTime.desc() & t.name.asc())
-          .filter(
-            (f) => f.name.contains(str.trim()) & f.type.contains('jingshu'),
-          );
-      final list = query.watch(); // 获取所有记录
+      final keyword = str.trim();
+      final list = await (globalDB.select(globalDB.jingShu)
+            ..where(
+              (tbl) =>
+                  tbl.name.like('%$keyword%') & tbl.type.like('%jingshu%'),
+            )
+            ..orderBy([
+              (tbl) => OrderingTerm.desc(tbl.favoriteDateTime),
+              (tbl) => OrderingTerm.asc(tbl.name),
+            ]))
+          .get();
       setState(() {
-        jingshudatalist = list;
+        jingshudatalist = Stream.value(list).asBroadcastStream();
       });
     } catch (e) {
       // print('根据关键字查询记录时出错: $e');
@@ -119,6 +128,22 @@ class _SongJingPageState extends State<SongJingPage> {
     );
   }
 
+  Future<void> _openImportPage() async {
+    final imported = await Navigator.pushNamed(
+      context,
+      '/ImportFiles',
+      arguments: {'jingshutype': 'jingshu'},
+    );
+    if (!mounted || imported != true) {
+      return;
+    }
+    if (_searchController.text.isNotEmpty) {
+      await fetchByWords(_searchController.text);
+    } else {
+      await fetchAll();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -145,13 +170,8 @@ class _SongJingPageState extends State<SongJingPage> {
               icon: const Icon(Icons.arrow_circle_down),
               color: Colors.blue,
               iconSize: 35,
-              onPressed: () {
-                // 跳转到新增页面
-                Navigator.pushNamed(
-                  context,
-                  '/ImportFiles',
-                  arguments: {'jingshutype': 'jingshu'},
-                );
+              onPressed: () async {
+                await _openImportPage();
               },
             ),
           ],

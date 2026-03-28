@@ -61,8 +61,8 @@ class _AddTipPageState extends State<AddTipPage> {
   }
 
   Future<void> _loadData() async {
-    final data = await globalDB.managers.tipBook
-        .filter((f) => f.id(recordId))
+    final data = await (globalDB.select(globalDB.tipBook)
+          ..where((tbl) => tbl.id.equals(recordId)))
         .getSingle();
     setState(() {
       _nameController.text = data.name;

@@ -29,8 +29,8 @@ class _ModifyFaYuanWenPageState extends State<ModifyFaYuanWenPage> {
   }
 
   Future<void> _loadFayuan() async {
-    final fayuan = await globalDB.managers.faYuan
-        .filter((f) => f.id.equals(fayuanId))
+    final fayuan = await (globalDB.select(globalDB.faYuan)
+          ..where((tbl) => tbl.id.equals(fayuanId)))
         .getSingleOrNull();
 
     setState(() {

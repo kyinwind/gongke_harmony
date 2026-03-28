@@ -54,16 +54,16 @@ class _PdfThumbnailListState extends State<PdfThumbnailList> {
           print('---------------点击缩略图: ${cache.pageIndex}');
           widget.onPageSelected(cache.pageIndex);
         },
-        child: Container(
-          margin: const EdgeInsets.all(4),
-          decoration: BoxDecoration(
+          child: Container(
+            margin: const EdgeInsets.all(4),
+            decoration: BoxDecoration(
             border: Border.all(
               color: isSelected ? Colors.blue : Colors.transparent,
               width: 2,
             ),
           ),
-          child: Image.memory(
-            cache.thumbnail!.bytes,
+          child: RawImage(
+            image: cache.thumbnail!,
             width: widget.thumbnailWidth,
             fit: widget.direction == Axis.horizontal
                 ? BoxFit.fitWidth

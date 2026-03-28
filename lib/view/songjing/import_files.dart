@@ -83,7 +83,7 @@ class _ImportFilesPageState extends State<ImportFilesPage> {
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(SnackBar(content: Text('导入完成，共导入$count 个文件')));
-      Navigator.pop(context);
+      Navigator.pop(context, true);
     } catch (e) {
       if (!mounted) {
         return;
@@ -156,7 +156,7 @@ class _ImportFilesPageState extends State<ImportFilesPage> {
                           overflow: TextOverflow.ellipsis,
                         ),
                         subtitle: Text(
-                          selectedFile.path,
+                          selectedFile.displayPath,
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                         ),
@@ -178,7 +178,7 @@ class _ImportFilesPageState extends State<ImportFilesPage> {
                     ),
                     ElevatedButton(
                       style: AppButtonStyle.primaryButton,
-                      onPressed: () => Navigator.pop(context),
+                      onPressed: () => Navigator.pop(context, false),
                       child: const Text('退出'),
                     ),
                   ],

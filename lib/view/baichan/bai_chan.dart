@@ -17,7 +17,8 @@ class BaiChanPage extends StatefulWidget {
 }
 
 class _BaiChanListPageState extends State<BaiChanPage> {
-  Stream<List<BaiChanData>> baiChanList = Stream.value([]);
+  Stream<List<BaiChanData>> baiChanList =
+      Stream.value(<BaiChanData>[]).asBroadcastStream();
 
   bool isRefresh = false;
 
@@ -44,9 +45,15 @@ class _BaiChanListPageState extends State<BaiChanPage> {
   }
 
   Future<void> loadAllData() async {
-    baiChanList = globalDB.managers.baiChan
-        .orderBy((o) => o.favoriteDateTime.desc() & o.createDateTime.desc())
-        .watch();
+    final list = await (globalDB.select(globalDB.baiChan)
+          ..orderBy([
+            (tbl) => OrderingTerm.desc(tbl.favoriteDateTime),
+            (tbl) => OrderingTerm.desc(tbl.createDateTime),
+          ]))
+        .get();
+    setState(() {
+      baiChanList = Stream.value(list).asBroadcastStream();
+    });
   }
 
   void deleteBaiChan(int id) {

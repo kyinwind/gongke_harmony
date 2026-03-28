@@ -37,7 +37,7 @@ class _GongKeStatPageState extends State<GongKeStatPage> {
     // 计算总天数
     totalDays = _endDate.difference(_startDate).inDays + 1;
 
-    final records = await globalDB.managers.gongKeItem.get();
+    final records = await globalDB.select(globalDB.gongKeItem).get();
     // 过滤出在指定日期范围内的记录
     final filteredRecords = records.where((record) {
       final recordDate = DateTime.parse(record.gongKeDay);

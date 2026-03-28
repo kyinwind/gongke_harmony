@@ -13,7 +13,8 @@ class TipRecordPage extends StatefulWidget {
 }
 
 class _TipRecordPageState extends State<TipRecordPage> {
-  Stream<List<TipRecordData>> tipRecords = Stream.value([]);
+  Stream<List<TipRecordData>> tipRecords =
+      Stream.value(<TipRecordData>[]).asBroadcastStream();
   int bookId = 0; // 默认值，实际使用时可能需要从路由参数获取
 
   @override
@@ -42,12 +43,12 @@ class _TipRecordPageState extends State<TipRecordPage> {
   }
 
   Future<void> _loadTipRecords(int bookId) async {
-    final records = globalDB.managers.tipRecord
-        .orderBy((o) => o.id.asc())
-        .filter((f) => f.bookId.equals(bookId))
-        .watch();
+    final records = await (globalDB.select(globalDB.tipRecord)
+          ..where((tbl) => tbl.bookId.equals(bookId))
+          ..orderBy([(tbl) => OrderingTerm.asc(tbl.id)]))
+        .get();
     setState(() {
-      tipRecords = records;
+      tipRecords = Stream.value(records).asBroadcastStream();
     });
   }
 

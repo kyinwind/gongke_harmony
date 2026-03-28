@@ -88,8 +88,8 @@ class _NewBaiChanPageState extends State<NewBaiChanPage> {
   }
 
   Future<BaiChanData> _loadBaiChanData(id) async {
-    return await globalDB.managers.baiChan
-        .filter((f) => f.id.equals(id))
+    return await (globalDB.select(globalDB.baiChan)
+          ..where((tbl) => tbl.id.equals(id)))
         .getSingle();
   }
 
