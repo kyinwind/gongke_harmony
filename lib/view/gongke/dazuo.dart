@@ -5,7 +5,7 @@ import '../../main.dart';
 import 'package:drift/drift.dart' hide Column;
 import '../../comm/pub_tools.dart';
 import '../../comm/audio_tools.dart';
-import 'package:wakelock_plus/wakelock_plus.dart';
+import '../../comm/wakelock_tools.dart';
 
 class DaZuoPage extends StatefulWidget {
   const DaZuoPage({super.key});
@@ -57,7 +57,7 @@ class _DaZuoPageState extends State<DaZuoPage> {
         setState(() {
           if (loopIndex > 0) {
             loopIndex--;
-            WakelockPlus.enable();
+            WakelockTools.enable();
           } else {
             isGoingon = false;
             playYinqingSequence(() {
@@ -66,7 +66,7 @@ class _DaZuoPageState extends State<DaZuoPage> {
               // }
             });
             timer.cancel();
-            WakelockPlus.disable();
+            WakelockTools.disable();
           }
         });
       });
@@ -104,7 +104,7 @@ class _DaZuoPageState extends State<DaZuoPage> {
   void dispose() {
     _timer?.cancel();
     AudioTools.stop();
-    WakelockPlus.disable();
+    WakelockTools.disable();
     super.dispose();
   }
 

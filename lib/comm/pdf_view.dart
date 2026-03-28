@@ -360,8 +360,8 @@ class _PdfViewerPageState extends ConsumerState<PdfViewerPage> {
                   flex: 10,
                   child: (rightPage <= _pages)
                       ? (images[1].isNotEmpty
-                            ? Image.memory(images[1], fit: BoxFit.contain)
-                            : const Center(child: Text('右页加载失败')))
+                          ? Image.memory(images[1], fit: BoxFit.contain)
+                          : const Center(child: Text('右页加载失败')))
                       : const SizedBox(),
                 ),
                 const Expanded(flex: 4, child: SizedBox()),
@@ -726,7 +726,7 @@ class _PdfViewerPageState extends ConsumerState<PdfViewerPage> {
     }
     return PopScope(
       canPop: false,
-      onPopInvokedWithResult: (didPop, result) {
+      onPopInvoked: (didPop) {
         //print('-----------didpop:$didPop,result:$result');
         if (!didPop) {
           _backToParentPage();

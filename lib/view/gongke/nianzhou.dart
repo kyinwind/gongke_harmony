@@ -7,9 +7,9 @@ import 'dart:async';
 import 'package:drift/drift.dart' hide Column;
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:wakelock_plus/wakelock_plus.dart';
 import '../../comm/audio_tools.dart';
 import '../../comm/platform_tools.dart';
+import '../../comm/wakelock_tools.dart';
 
 class NianzhouPage extends StatefulWidget {
   const NianzhouPage({Key? key}) : super(key: key);
@@ -59,7 +59,7 @@ class _NianzhouPageState extends State<NianzhouPage> {
   }
 
   void _startListeningShake() {
-    _accelerometerSubscription = accelerometerEventStream().listen((
+    _accelerometerSubscription = accelerometerEvents.listen((
       AccelerometerEvent event,
     ) {
       if (!shakeEnabled) return;
@@ -76,7 +76,7 @@ class _NianzhouPageState extends State<NianzhouPage> {
   }
 
   void _incrementCount() {
-    WakelockPlus.enable();
+    WakelockTools.enable();
     setState(() {
       count += 1;
     });
@@ -98,7 +98,7 @@ class _NianzhouPageState extends State<NianzhouPage> {
   @override
   void dispose() {
     _accelerometerSubscription?.cancel();
-    WakelockPlus.disable();
+    WakelockTools.disable();
     // 先保存数据
     _updateCountBeforeExit().then((_) {
       // 数据保存完成后，使用 SchedulerBinding 在下一帧回调
@@ -211,10 +211,7 @@ class _NianzhouPageState extends State<NianzhouPage> {
               ),
               icon: SvgPicture.asset(
                 'assets/images/muyu-yellow-32.svg',
-                colorFilter: const ColorFilter.mode(
-                  Colors.yellow,
-                  BlendMode.srcIn,
-                ),
+                color: Colors.yellow,
                 width: 24,
                 height: 24,
               ),

@@ -92,9 +92,8 @@ class _GongKePageState extends State<GongKePage> {
         //print(gongkeItems.length);
         if (gongkeItems.isNotEmpty) {
           // 计算完成率
-          int completedCount = gongkeItems
-              .where((item) => item.isComplete)
-              .length;
+          int completedCount =
+              gongkeItems.where((item) => item.isComplete).length;
           double completionRate = completedCount / gongkeItems.length;
           // 存储完成率
           _fayuanCompletionRates[fayuan.id] = completionRate;
@@ -141,9 +140,8 @@ class _GongKePageState extends State<GongKePage> {
     groupedCurrentMonthRecords.forEach((date, dayRecords) {
       int totalItems = dayRecords.length;
       int completedItems = dayRecords.where((item) => item.isComplete).length;
-      double completionRate = totalItems > 0
-          ? completedItems / totalItems
-          : 0.0;
+      double completionRate =
+          totalItems > 0 ? completedItems / totalItems : 0.0;
       _completionRates[date] = completionRate;
     });
 
@@ -267,14 +265,12 @@ class _GongKePageState extends State<GongKePage> {
 
         decoration: BoxDecoration(
           color: groupedCurrentMonthRecords[dateString] == null
-              ? Colors
-                    .white // 有功课记录时背景为白色
+              ? Colors.white // 有功课记录时背景为白色
               : (completion > 0 ? Colors.green : Colors.yellow), // 没有记录时背景为浅灰色
           // 添加背景颜色
           border: Border.all(
-            color: dateString == todayString
-                ? Colors.red
-                : Colors.grey.shade200,
+            color:
+                dateString == todayString ? Colors.red : Colors.grey.shade200,
             width: 1.5,
           ),
           borderRadius: BorderRadius.circular(4),
@@ -304,9 +300,8 @@ class _GongKePageState extends State<GongKePage> {
               style: TextStyle(
                 fontSize: 10,
                 // 节日显示红色
-                color: lunar.getFestivals().isNotEmpty
-                    ? Colors.red
-                    : Colors.black,
+                color:
+                    lunar.getFestivals().isNotEmpty ? Colors.red : Colors.black,
               ),
             ),
           ],
@@ -361,8 +356,6 @@ class _GongKePageState extends State<GongKePage> {
                 ),
               ],
             ),
-            duration: const Duration(milliseconds: 800),
-            curve: Curves.easeInOut,
           ),
 
           // 中间的百分比文字
@@ -514,8 +507,7 @@ class _GongKePageState extends State<GongKePage> {
                               icon: Icons.delete,
                               label: '删除',
                               onPressed: (context) async {
-                                bool confirm =
-                                    await showDialog(
+                                bool confirm = await showDialog(
                                       context: context,
                                       builder: (context) => AlertDialog(
                                         title: const Text('确认删除'),
@@ -548,15 +540,15 @@ class _GongKePageState extends State<GongKePage> {
                                         .go();
                                     // 删除关联的每日功课记录
                                     await (globalDB.delete(
-                                          globalDB.gongKeItemsOneDay,
-                                        )..where(
-                                          (t) => t.fayuanId.equals(fayuan.id),
-                                        ))
+                                      globalDB.gongKeItemsOneDay,
+                                    )..where(
+                                            (t) => t.fayuanId.equals(fayuan.id),
+                                          ))
                                         .go();
                                     // 删除发愿记录
                                     await (globalDB.delete(
-                                          globalDB.faYuan,
-                                        )..where((t) => t.id.equals(fayuan.id)))
+                                      globalDB.faYuan,
+                                    )..where((t) => t.id.equals(fayuan.id)))
                                         .go();
                                   });
                                   setState(() {

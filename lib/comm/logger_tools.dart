@@ -5,7 +5,6 @@ import 'package:flutter/foundation.dart'; // 获取 kReleaseMode
 final logger = Logger(
   printer: PrettyPrinter(
     methodCount: 2,
-    dateTimeFormat: DateTimeFormat.dateAndTime,
   ),
-  level: kReleaseMode ? Level.off : Level.all,
+  level: kReleaseMode ? Level.nothing : Level.debug,
 );

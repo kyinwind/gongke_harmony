@@ -1,10 +1,10 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:gongke/main.dart';
-import 'package:wakelock_plus/wakelock_plus.dart';
 import 'package:gongke/database.dart';
 import 'package:gongke/comm/pub_tools.dart';
 import 'package:gongke/comm/audio_tools.dart';
+import 'package:gongke/comm/wakelock_tools.dart';
 
 class BaiChanPlayPage extends StatefulWidget {
   const BaiChanPlayPage({super.key});
@@ -58,7 +58,7 @@ class _BaiChanPlayPageState extends State<BaiChanPlayPage> {
     setState(() => isPlaying = true);
     _timer = Timer.periodic(Duration(seconds: 1), (timer) {
       if (!isPlaying) return;
-      WakelockPlus.enable(); //避免息屏
+      WakelockTools.enable(); //避免息屏
       final currentBaiChan = baichan;
       if (currentBaiChan == null) {
         return;
@@ -83,7 +83,7 @@ class _BaiChanPlayPageState extends State<BaiChanPlayPage> {
           AudioTools.playLocalAsset('mp3/yinqing.wav').then((_) {
             _announce(currentBaiChan.chanhuiWenEnd, () {
               _stop();
-              WakelockPlus.disable();
+              WakelockTools.disable();
               Navigator.pop(context);
             });
           });
@@ -123,7 +123,7 @@ class _BaiChanPlayPageState extends State<BaiChanPlayPage> {
 
   @override
   void dispose() {
-    WakelockPlus.disable(); //放开避免息屏
+    WakelockTools.disable(); //放开避免息屏
     _timer?.cancel();
     super.dispose();
   }

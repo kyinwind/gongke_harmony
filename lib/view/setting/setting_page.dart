@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:gongke/comm/pub_tools.dart';
-import 'package:toastification/toastification.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class SettingPage extends StatefulWidget {
@@ -52,14 +51,18 @@ class _SettingPageState extends State<SettingPage> {
                             mode: LaunchMode.externalApplication,
                           );
                         } else {
-                          Toastification().show(
-                            title: TextButton(
-                              onPressed: () {
-                                copyToClipboard(url);
-                              },
-                              child: Text('打开链接失败，请点击复制链接后手动打开'),
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: const Text(
+                                '打开链接失败，已为你保留复制入口，请手动打开。',
+                              ),
+                              action: SnackBarAction(
+                                label: '复制链接',
+                                onPressed: () {
+                                  copyToClipboard(url);
+                                },
+                              ),
                             ),
-                            type: ToastificationType.error,
                           );
                         }
                       },
@@ -75,9 +78,7 @@ class _SettingPageState extends State<SettingPage> {
                   ],
                 ),
               ),
-
               const SizedBox(height: 24),
-
               _buildSection(
                 '使用帮助',
                 CarouselSlider(
@@ -90,22 +91,18 @@ class _SettingPageState extends State<SettingPage> {
                   items: _buildImageSliders(context),
                 ),
               ),
-
               const SizedBox(height: 24),
-
               _buildSection(
                 '关于',
                 const Text(
                   '''  作者本人为了日常做学佛的功课，所以才起意制作了本app分享，希望也能帮到各位佛友。
   在此鸣谢下列单位、人员以及各个flutter组件的开发者（恕不能一一列出人名，仅列出使用的组件）:
   仁慧草堂:本app所提供的经书电子版、图片多数来自于仁慧草堂分享，少数来自于网络收集。
-  cupertino_icons、intl、styled_widget、sqlite3、drift、drift_flutter、path_provider、path、fl_chart、shared_preferences、pdfx、flutter_slidable、image_picker、flutter_image_compress、table_calendar、lunar、sensors_plus、flutter_svg、audioplayers、carousel_slider、wakelock_plus、ffi、file_selector、url_launcher...''',
+  cupertino_icons、intl、styled_widget、sqlite3、drift、path_provider、path、fl_chart、shared_preferences、pdfx、flutter_slidable、image_picker、flutter_image_compress、table_calendar、lunar、sensors_plus、flutter_svg、audioplayers、carousel_slider、ffi、file_selector、url_launcher...''',
                   textAlign: TextAlign.left, // ✅ 添加对齐
                 ),
               ),
-
               const SizedBox(height: 24),
-
               _buildSection(
                 '版本历史',
                 Column(
@@ -161,7 +158,6 @@ class _SettingPageState extends State<SettingPage> {
   Widget _buildSection(String title, Widget content) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-
       children: [
         Align(
           alignment: Alignment.centerLeft,

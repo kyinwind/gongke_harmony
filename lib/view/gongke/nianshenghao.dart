@@ -2,8 +2,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:gongke/database.dart';
 import '../../comm/audio_tools.dart';
-import 'package:wakelock_plus/wakelock_plus.dart';
 import '../../comm/pub_tools.dart';
+import '../../comm/wakelock_tools.dart';
 
 class NianShengHaoPage extends StatefulWidget {
   const NianShengHaoPage({super.key});
@@ -54,7 +54,7 @@ class _NianShengHaoPageState extends State<NianShengHaoPage> {
         stop();
         return;
       }
-      WakelockPlus.enable();
+      WakelockTools.enable();
       if (mounted) {
         // 先播放音频
         await AudioTools.playLocalAsset('mp3/muyu.wav');
@@ -67,7 +67,7 @@ class _NianShengHaoPageState extends State<NianShengHaoPage> {
         }
         if (currentCount >= gongkeitem!.cnt) {
           AudioTools.playLocalAsset('mp3/yinqing.wav');
-          WakelockPlus.disable();
+          WakelockTools.disable();
         }
       }
     });
@@ -90,7 +90,7 @@ class _NianShengHaoPageState extends State<NianShengHaoPage> {
 
   @override
   void dispose() {
-    WakelockPlus.disable();
+    WakelockTools.disable();
     timer?.cancel();
     super.dispose();
   }

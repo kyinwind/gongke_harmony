@@ -3,7 +3,6 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:gongke/comm/shared_preferences.dart';
 import 'package:gongke/comm/platform_tools.dart';
 import 'package:gongke/view/gongke/fayuan_wizard.dart';
-import 'dart:io';
 import 'view/gongke/gongke.dart';
 import 'view/gongke/modify_fayuanwen.dart';
 import 'view/gongke/gongke_setting.dart';
@@ -24,15 +23,9 @@ import 'view/baichan/bai_chan_play.dart';
 import 'view/setting/setting_page.dart';
 import 'view/shanshu/shanshu.dart';
 import 'view/songjing/import_files.dart';
-// 导入 path_provider 库以使用 getApplicationDocumentsDirectory 函数
-import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:path/path.dart' as p;
-import 'package:drift/native.dart';
-import 'welcome.dart'; // 导入你的 WelcomePage
-
-import 'package:toastification/toastification.dart';
+import 'package:flutter/services.dart';
 
 // 声明全局数据库变量
 late AppDatabase globalDB; // 在main函数中创建单一实例;
@@ -40,67 +33,129 @@ late AppDatabase globalDB; // 在main函数中创建单一实例;
 // 声明全局变量 app第一次运行的日期，用于后续显示开示
 late String? firstDate;
 
-void main() async {
-  // 添加这一行来初始化 Flutter 绑定
+void main() {
+  FlutterError.onError = (details) {
+    FlutterError.presentError(details);
+    debugPrint(details.exceptionAsString());
+    debugPrintStack(stackTrace: details.stack);
+  };
+
   WidgetsFlutterBinding.ensureInitialized();
+  runApp(const ProviderScope(child: BootstrapApp()));
+}
 
-  // 等待 SharedPreferences 初始化
-  await SharedPreferences.getInstance();
-  final hasSeenWelcome = await getBoolValue('hasSeenWelcome') ?? false;
-  // 根据平台选择合适的数据库存储路径
-  late String dbPath;
+class BootstrapResult {
+  const BootstrapResult({
+    required this.db,
+  });
 
-  final dbFolder = await getApplicationSupportDirectory();
-  dbPath = p.join(dbFolder.path, 'app.db');
+  final AppDatabase db;
+}
 
-  final executor = NativeDatabase(File(dbPath));
-  globalDB = AppDatabase(executor);
+class BootstrapApp extends StatefulWidget {
+  const BootstrapApp({super.key});
 
-  // 检查并存储首次运行时间
-  firstDate = await getDateValue('firstDate');
-  if (firstDate == null) {
-    await saveDateValue('firstDate', DateTime.now());
+  @override
+  State<BootstrapApp> createState() => _BootstrapAppState();
+}
+
+class _BootstrapAppState extends State<BootstrapApp> {
+  late final Future<BootstrapResult> _bootstrapFuture = _bootstrap();
+
+  Future<BootstrapResult> _bootstrap() async {
+    try {
+      await SharedPreferences.getInstance();
+    } on MissingPluginException {
+      debugPrint('shared_preferences plugin is not available on OHOS yet.');
+    }
+    await getBoolValue('hasSeenWelcome');
+
+    globalDB = AppDatabase();
+    await globalDB.customSelect('SELECT 1').get();
+
+    firstDate = await getDateValue('firstDate');
+    if (firstDate == null) {
+      await saveDateValue('firstDate', DateTime.now());
+    }
+
+    return BootstrapResult(
+      db: globalDB,
+    );
   }
-  WidgetsFlutterBinding.ensureInitialized();
-  //print(firstDate);
-  runApp(
-    ProviderScope(
-      child: ToastificationWrapper(
-        child: MyApp(db: globalDB, hasSeenWelcome: hasSeenWelcome),
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<BootstrapResult>(
+      future: _bootstrapFuture,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState != ConnectionState.done) {
+          return const BootstrapStatusApp(
+            title: '鸿蒙诊断页',
+            message: 'Flutter 已启动，正在初始化本地能力...',
+          );
+        }
+
+        if (snapshot.hasError) {
+          return BootstrapStatusApp(
+            title: '初始化失败',
+            message: snapshot.error.toString(),
+            details: snapshot.stackTrace?.toString(),
+          );
+        }
+
+        final data = snapshot.requireData;
+        return MyApp(db: data.db);
+      },
+    );
+  }
+}
+
+class BootstrapStatusApp extends StatelessWidget {
+  const BootstrapStatusApp({
+    super.key,
+    required this.title,
+    required this.message,
+    this.details,
+  });
+
+  final String title;
+  final String message;
+  final String? details;
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(title: Text(title)),
+        body: Padding(
+          padding: const EdgeInsets.all(24),
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(message, style: const TextStyle(fontSize: 20)),
+                if (details != null && details!.isNotEmpty) ...[
+                  const SizedBox(height: 16),
+                  SelectableText(details!),
+                ],
+              ],
+            ),
+          ),
+        ),
       ),
-    ),
-  ); // 传入数据库实例
+    );
+  }
 }
 
 class MyApp extends StatefulWidget {
   final AppDatabase db; // 添加数据库字段
-  final bool hasSeenWelcome;
-  const MyApp({
-    super.key,
-    required this.db,
-    required this.hasSeenWelcome,
-  }); // 修改构造函数
+  const MyApp({super.key, required this.db}); // 修改构造函数
 
   @override
   State<MyApp> createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
-  bool _hasSeenWelcome = false;
-
-  @override
-  void initState() {
-    super.initState();
-    _hasSeenWelcome = widget.hasSeenWelcome;
-  }
-
-  Future<void> _finishWelcome() async {
-    await saveBoolValue('hasSeenWelcome', true);
-    setState(() {
-      _hasSeenWelcome = true;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     final fontFamily = PlatformUtils.preferredFontFamily;
@@ -112,9 +167,7 @@ class _MyAppState extends State<MyApp> {
           bodyMedium: TextStyle(fontFamily: fontFamily),
         ).apply(fontFamily: fontFamily),
       ),
-      home: _hasSeenWelcome
-          ? TabbedHomePage(title: '诵经助手')
-          : WelcomePage(onFinish: _finishWelcome),
+      home: const TabbedHomePage(title: '诵经助手'),
       // 添加路由配置
       routes: {
         '/Tip': (context) => const TipPage(),
@@ -164,13 +217,13 @@ class TabbedHomePage extends StatefulWidget {
 class _TabbedHomePageState extends State<TabbedHomePage> {
   int _selectedIndex = 0;
   static List<Widget> _widgetOptions() => <Widget>[
-    GongKePage(),
-    SongJingPage(),
-    ShanShuPage(),
-    TipPage(), // 传入数据库实例
-    BaiChanPage(),
-    SettingPage(),
-  ];
+        GongKePage(),
+        SongJingPage(),
+        ShanShuPage(),
+        TipPage(), // 传入数据库实例
+        BaiChanPage(),
+        SettingPage(),
+      ];
 
   @override
   Widget build(BuildContext context) {

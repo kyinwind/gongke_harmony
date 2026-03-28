@@ -11,7 +11,7 @@ class WelcomePage extends StatefulWidget {
 }
 
 class _WelcomePageState extends State<WelcomePage> {
-  final CarouselSliderController _controller = CarouselSliderController();
+  final CarouselController _controller = CarouselController();
   int _current = 0;
 
   @override
@@ -87,9 +87,8 @@ class _WelcomePageState extends State<WelcomePage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   TextButton(
-                    onPressed: _current > 0
-                        ? () => _controller.previousPage()
-                        : null,
+                    onPressed:
+                        _current > 0 ? () => _controller.previousPage() : null,
                     child: const Text('上一页'),
                   ),
                   TextButton(
