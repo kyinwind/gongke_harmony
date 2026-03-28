@@ -18,6 +18,8 @@ class PdfViewerPage extends StatefulWidget {
 class _PdfViewerPageState extends State<PdfViewerPage> {
   final FocusNode _focusNode = FocusNode();
   final AppPdfViewerController _viewerController = AppPdfViewerController();
+  static const double _swipeVelocityThreshold = 250;
+  static const double _swipeDistanceThreshold = 24;
 
   int _page = 1;
   int _pageCount = 1;
@@ -27,6 +29,7 @@ class _PdfViewerPageState extends State<PdfViewerPage> {
   bool _showMuyuFlag = false;
   bool _muyuIsPlaying = false;
   String? _errorMessage;
+  double _verticalDragDistance = 0;
 
   @override
   void initState() {
@@ -103,6 +106,34 @@ class _PdfViewerPageState extends State<PdfViewerPage> {
     });
     await _viewerController.goToPage(_page);
     _focusNode.requestFocus();
+  }
+
+  void _handleVerticalDragStart(DragStartDetails details) {
+    _verticalDragDistance = 0;
+  }
+
+  void _handleVerticalDragUpdate(DragUpdateDetails details) {
+    _verticalDragDistance += details.delta.dy;
+  }
+
+  Future<void> _handleVerticalDragEnd(DragEndDetails details) async {
+    final velocity = details.primaryVelocity ?? 0;
+    final distance = _verticalDragDistance;
+    _verticalDragDistance = 0;
+
+    if (velocity.abs() < _swipeVelocityThreshold &&
+        distance.abs() < _swipeDistanceThreshold) {
+      return;
+    }
+
+    if (velocity < 0 || distance < -_swipeDistanceThreshold) {
+      await _handleNextPage();
+      return;
+    }
+
+    if (velocity > 0 || distance > _swipeDistanceThreshold) {
+      await _handlePreviousPage();
+    }
   }
 
   Widget _buildMuyuButton({
@@ -324,9 +355,35 @@ class _PdfViewerPageState extends State<PdfViewerPage> {
           child: Stack(
             alignment: Alignment.center,
             children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 6),
-                child: ClipRect(child: _buildPdfBody()),
+              LayoutBuilder(
+                builder: (context, constraints) {
+                  final reservedBottomSpace = (constraints.maxHeight * 0.045)
+                      .clamp(24.0, 40.0);
+                  final viewportHeight =
+                      (constraints.maxHeight - reservedBottomSpace)
+                          .clamp(0.0, constraints.maxHeight);
+
+                  return Align(
+                    alignment: Alignment.topCenter,
+                    child: SizedBox(
+                      width: constraints.maxWidth,
+                      height: viewportHeight,
+                      child: Stack(
+                        children: [
+                          ClipRect(child: _buildPdfBody()),
+                          Positioned.fill(
+                            child: GestureDetector(
+                              behavior: HitTestBehavior.translucent,
+                              onVerticalDragStart: _handleVerticalDragStart,
+                              onVerticalDragUpdate: _handleVerticalDragUpdate,
+                              onVerticalDragEnd: _handleVerticalDragEnd,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                },
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,

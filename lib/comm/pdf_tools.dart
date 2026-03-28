@@ -72,10 +72,10 @@ class AppPdfTools {
     return PDFView(
       key: ValueKey(filePath),
       filePath: filePath,
-      enableSwipe: true,
+      enableSwipe: false,
       swipeHorizontal: false,
       autoSpacing: true,
-      pageFling: true,
+      pageFling: false,
       pageSnap: true,
       defaultPage: initialPage,
       fitPolicy: FitPolicy.HEIGHT,
