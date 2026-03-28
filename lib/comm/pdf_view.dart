@@ -17,9 +17,12 @@ class PdfViewerPage extends StatefulWidget {
 
 class _PdfViewerPageState extends State<PdfViewerPage> {
   final FocusNode _focusNode = FocusNode();
+  final AppPdfViewerController _viewerController = AppPdfViewerController();
 
   int _page = 1;
   int _pageCount = 1;
+  int? _initialPageIndex;
+  String? _filePath;
   bool _isLoading = true;
   bool _showMuyuFlag = false;
   bool _muyuIsPlaying = false;
@@ -41,17 +44,15 @@ class _PdfViewerPageState extends State<PdfViewerPage> {
     if (widget.jingshu.type.contains('shanshu')) {
       _page = await _getCurPage();
     }
-    final document = await AppPdfTools.openDocument(widget.jingshu);
+    final filePath = await AppPdfTools.resolveFilePath(widget.jingshu);
     if (!mounted) {
-      await document.dispose();
       return;
     }
     setState(() {
-      _pageCount = document.pageCount;
-      _page = _page.clamp(1, _pageCount);
+      _filePath = filePath;
+      _initialPageIndex = _page - 1;
       _isLoading = false;
     });
-    await document.dispose();
   }
 
   Future<int> _getCurPage() async {
@@ -87,20 +88,20 @@ class _PdfViewerPageState extends State<PdfViewerPage> {
       return;
     }
     setState(() {
-      _page -= 1;
       _errorMessage = null;
     });
+    await _viewerController.goToPage(_page - 2);
     _focusNode.requestFocus();
   }
 
   Future<void> _handleNextPage() async {
-    if (_page >= _pageCount) {
+    if (_pageCount > 0 && _page >= _pageCount) {
       return;
     }
     setState(() {
-      _page += 1;
       _errorMessage = null;
     });
+    await _viewerController.goToPage(_page);
     _focusNode.requestFocus();
   }
 
@@ -208,9 +209,47 @@ class _PdfViewerPageState extends State<PdfViewerPage> {
   }
 
   Widget _buildPdfBody() {
-    return AppPdfTools.buildPageViewer(
-      jingshu: widget.jingshu,
-      pageNumber: _page,
+    if (_filePath == null) {
+      return const Center(child: CircularProgressIndicator());
+    }
+    return AppPdfTools.buildViewer(
+      filePath: _filePath!,
+      controller: _viewerController,
+      initialPage: _initialPageIndex ?? (_page - 1),
+      onViewCreated: (controller) async {
+        final pageCount = await controller.getPageCount();
+        final currentPage = await controller.getCurrentPage();
+        if (!mounted) {
+          return;
+        }
+        setState(() {
+          _pageCount = pageCount ?? _pageCount;
+          _page = ((currentPage ?? (_page - 1)) + 1).clamp(
+            1,
+            pageCount ?? 999999,
+          );
+          _errorMessage = null;
+        });
+      },
+      onRender: (controller, pageCount) {
+        if (!mounted) {
+          return;
+        }
+        setState(() {
+          _pageCount = pageCount ?? _pageCount;
+          _errorMessage = null;
+        });
+      },
+      onPageChanged: (page, pageCount) {
+        if (!mounted) {
+          return;
+        }
+        setState(() {
+          _page = (page ?? 0) + 1;
+          _pageCount = pageCount ?? _pageCount;
+          _errorMessage = null;
+        });
+      },
       onError: (error) {
         if (!mounted) {
           return;
@@ -285,7 +324,10 @@ class _PdfViewerPageState extends State<PdfViewerPage> {
           child: Stack(
             alignment: Alignment.center,
             children: [
-              _buildPdfBody(),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 6),
+                child: ClipRect(child: _buildPdfBody()),
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [

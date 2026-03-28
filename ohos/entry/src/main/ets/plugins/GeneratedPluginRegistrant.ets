@@ -1,8 +1,4 @@
 import { FlutterEngine, Log } from '@ohos/flutter_ohos';
-import FileSelectorOhosPlugin from 'file_selector_ohos';
-import PathProviderPlugin from 'path_provider_ohos';
-import PdfRenderOhosPlugin from 'pdf_render_ohos';
-import SharedPreferencesPlugin from 'shared_preferences_ohos';
 import SqflitePlugin from 'sqflite';
 
 /**
@@ -17,10 +13,6 @@ export class GeneratedPluginRegistrant {
 
   static registerWith(flutterEngine: FlutterEngine) {
     try {
-      flutterEngine.getPlugins()?.add(new FileSelectorOhosPlugin());
-      flutterEngine.getPlugins()?.add(new PathProviderPlugin());
-      flutterEngine.getPlugins()?.add(new PdfRenderOhosPlugin());
-      flutterEngine.getPlugins()?.add(new SharedPreferencesPlugin());
       flutterEngine.getPlugins()?.add(new SqflitePlugin());
     } catch (e) {
       Log.e(
