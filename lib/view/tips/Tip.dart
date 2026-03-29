@@ -19,30 +19,33 @@ class TipPage extends StatefulWidget {
 
 // 在 _TipPageState 类中添加数据库实例和记录列表
 class _TipPageState extends State<TipPage> {
-  Stream<List<TipBookData>> records =
-      Stream.value(<TipBookData>[]).asBroadcastStream();
+  List<TipBookData> records = <TipBookData>[];
+  bool _isLoading = true;
   CurrentRecord curRec = CurrentRecord();
   _TipPageState(); // 添加构造函数
 
   @override
   void initState() {
     super.initState();
-    fetchTip();
-    _checkRecords();
+    _initializePage();
   }
 
-  Future<void> _checkRecords() async {
-    // 监听 Stream 的第一个值
-    final firstValue = await records.first;
-    if (firstValue.isEmpty) {
+  Future<void> _initializePage() async {
+    await fetchTip();
+    if (records.isEmpty) {
       if (appBuildFlag) {
         //如果是完整版本，则导入内置开示文件
         await importTip();
       }
-
-      fetchTip();
+      await fetchTip();
     }
     await _loadCurrentRecord();
+    if (!mounted) {
+      return;
+    }
+    setState(() {
+      _isLoading = false;
+    });
   }
 
   // 新增方法处理异步加载
@@ -103,15 +106,56 @@ class _TipPageState extends State<TipPage> {
 
   // 查询所有记录
   Future<void> fetchTip() async {
-    final books = await (globalDB.select(globalDB.tipBook)
-          ..orderBy([
-            (tbl) => OrderingTerm.desc(tbl.favoriteDateTime),
-            (tbl) => OrderingTerm.desc(tbl.createDateTime),
-          ]))
-        .get();
+    final rows = await globalDB.customSelect(
+      '''
+      SELECT id, create_date_time, favorite_date_time, remarks, bk1, bk2, name, image
+      FROM tip_book
+      ORDER BY
+        CASE WHEN favorite_date_time IS NULL THEN 0 ELSE 1 END DESC,
+        favorite_date_time DESC,
+        create_date_time DESC
+      ''',
+    ).get();
+    final books = rows.map(_mapTipBookRow).toList();
+    debugPrint(
+      '加载开示录列表: total=${books.length}, books=${books.map((e) => '${e.id}:${e.name}').join(' | ')}',
+    );
+    if (!mounted) {
+      records = books;
+      return;
+    }
     setState(() {
-      records = Stream.value(books).asBroadcastStream();
+      records = books;
     });
+  }
+
+  TipBookData _mapTipBookRow(QueryRow row) {
+    return TipBookData(
+      id: row.read<int>('id'),
+      createDateTime: _readDateTime(row.data['create_date_time'])!,
+      favoriteDateTime: _readDateTime(row.data['favorite_date_time']),
+      remarks: row.readNullable<String>('remarks'),
+      bk1: row.readNullable<String>('bk1'),
+      bk2: row.readNullable<String>('bk2'),
+      name: row.read<String>('name'),
+      image: row.read<String>('image'),
+    );
+  }
+
+  DateTime? _readDateTime(Object? value) {
+    if (value == null) {
+      return null;
+    }
+    if (value is DateTime) {
+      return value;
+    }
+    if (value is int) {
+      return DateTime.fromMillisecondsSinceEpoch(value);
+    }
+    if (value is String) {
+      return DateTime.tryParse(value);
+    }
+    return null;
   }
 
   @override
@@ -169,13 +213,18 @@ class _TipPageState extends State<TipPage> {
           ),
           IconButton(
             icon: const Icon(Icons.add_circle, color: Colors.blue, size: 35),
-            onPressed: () {
+            onPressed: () async {
               // 跳转到新增页面
-              Navigator.pushNamed(
+              final changed = await Navigator.pushNamed(
                 context,
                 '/AddTip',
                 arguments: {'acttype': 'new'},
               );
+              if (!mounted || changed != true) {
+                return;
+              }
+              await fetchTip();
+              await _loadCurrentRecord();
             },
           ),
         ],
@@ -186,31 +235,23 @@ class _TipPageState extends State<TipPage> {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // 移除SizedBox包装器，直接使用StreamBuilder
-              StreamBuilder<List<TipBookData>>(
-                stream: records,
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(child: CircularProgressIndicator());
-                  }
-                  if (snapshot.hasError) {
-                    return Text('错误: ${snapshot.error}');
-                  }
-                  final books = snapshot.data ?? [];
-                  return ListView.builder(
-                    shrinkWrap: true, // 保持这个属性确保正确嵌套
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: books.length,
-                    itemBuilder: (context, index) {
-                      final record = books[index];
-                      return Slidable(
+              if (_isLoading)
+                const Center(child: CircularProgressIndicator())
+              else
+                ListView.builder(
+                  shrinkWrap: true, // 保持这个属性确保正确嵌套
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: records.length,
+                  itemBuilder: (context, index) {
+                    final record = records[index];
+                    return Slidable(
                         startActionPane: ActionPane(
                           motion: const ScrollMotion(),
                           children: [
                             SlidableAction(
-                              onPressed: (context) {
+                              onPressed: (context) async {
                                 // 跳转到修改页面
-                                Navigator.pushNamed(
+                                final changed = await Navigator.pushNamed(
                                   context,
                                   '/AddTip',
                                   arguments: {
@@ -218,6 +259,11 @@ class _TipPageState extends State<TipPage> {
                                     'id': record.id,
                                   },
                                 );
+                                if (!mounted || changed != true) {
+                                  return;
+                                }
+                                await fetchTip();
+                                await _loadCurrentRecord();
                               },
                               backgroundColor: Color(0xFF2196F3),
                               foregroundColor: Colors.white,
@@ -226,7 +272,7 @@ class _TipPageState extends State<TipPage> {
                             ),
                             SlidableAction(
                               onPressed: (context) {
-                                _setFavorite(books[index]);
+                                _setFavorite(records[index]);
                               },
                               backgroundColor: Color.fromARGB(
                                 5,
@@ -258,7 +304,7 @@ class _TipPageState extends State<TipPage> {
                                     .delete();
                                 // 重新获取数据
                                 await fetchTip();
-                                _checkRecords();
+                                await _loadCurrentRecord();
                               },
                               backgroundColor: Color(0xFFFE4A49),
                               foregroundColor: Colors.white,
@@ -300,10 +346,8 @@ class _TipPageState extends State<TipPage> {
                           ),
                         ).padding(all: 10),
                       );
-                    },
-                  );
-                },
-              ),
+                  },
+                ),
               Row(
                 children: [
                   const Text(

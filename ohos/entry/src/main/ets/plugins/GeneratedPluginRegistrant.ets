@@ -1,4 +1,5 @@
 import { FlutterEngine, Log } from '@ohos/flutter_ohos';
+import AudioplayersPlugin from 'audioplayers_ohos';
 import FileSelectorOhosPlugin from 'file_selector_ohos';
 import FlutterPdfviewOhosPlugin from 'flutter_pdfview_ohos';
 import PathProviderPlugin from 'path_provider_ohos';
@@ -17,6 +18,7 @@ export class GeneratedPluginRegistrant {
 
   static registerWith(flutterEngine: FlutterEngine) {
     try {
+      flutterEngine.getPlugins()?.add(new AudioplayersPlugin());
       flutterEngine.getPlugins()?.add(new FileSelectorOhosPlugin());
       flutterEngine.getPlugins()?.add(new FlutterPdfviewOhosPlugin());
       flutterEngine.getPlugins()?.add(new PathProviderPlugin());

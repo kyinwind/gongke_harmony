@@ -20,6 +20,7 @@
     "shared_preferences_ohos": "file:./har/shared_preferences_ohos.har",
     "file_selector_ohos": "file:./har/file_selector_ohos.har",
     "pdf_render_ohos": "file:./har/pdf_render_ohos.har",
-    "flutter_pdfview_ohos": "file:./har/flutter_pdfview_ohos.har"
+    "flutter_pdfview_ohos": "file:./har/flutter_pdfview_ohos.har",
+    "audioplayers_ohos": "file:./har/audioplayers_ohos.har"
   }
 }

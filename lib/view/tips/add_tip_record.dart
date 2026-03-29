@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gongke/main.dart';
 import 'package:styled_widget/styled_widget.dart';
-import 'package:drift/drift.dart' hide Column;
+import '../../database.dart';
 import '../../comm/pub_tools.dart';
 
 class AddTipRecordPage extends StatefulWidget {
@@ -43,14 +43,16 @@ class _AddTipRecordPageState extends State<AddTipRecordPage> {
   Future<void> _submitForm() async {
     if (_formKey.currentState!.validate()) {
       if (acttype == 'new') {
-        await globalDB.managers.tipRecord.create(
-          (o) => o(content: _contentController.text, bookId: bookId),
-          mode: InsertMode.replace,
+        await globalDB.into(globalDB.tipRecord).insert(
+          TipRecordCompanion.insert(
+            content: _contentController.text,
+            bookId: bookId,
+          ),
         );
       }
       if (!mounted) return; // 添加这行检查
       // 返回上一级路由
-      Navigator.of(context).pop();
+      Navigator.of(context).pop(true);
     }
   }
 

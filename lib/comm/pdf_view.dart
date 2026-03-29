@@ -30,6 +30,12 @@ class _PdfViewerPageState extends State<PdfViewerPage> {
   bool _muyuIsPlaying = false;
   String? _errorMessage;
   double _verticalDragDistance = 0;
+  bool _didAlignInitialPage = false;
+
+  bool get _supportsPageMemory {
+    final type = widget.jingshu.type;
+    return type.contains('shanshu') || type.contains('jingshu');
+  }
 
   @override
   void initState() {
@@ -44,7 +50,7 @@ class _PdfViewerPageState extends State<PdfViewerPage> {
   }
 
   Future<void> _initialize() async {
-    if (widget.jingshu.type.contains('shanshu')) {
+    if (_supportsPageMemory) {
       _page = await _getCurPage();
     }
     final filePath = await AppPdfTools.resolveFilePath(widget.jingshu);
@@ -60,8 +66,7 @@ class _PdfViewerPageState extends State<PdfViewerPage> {
 
   Future<int> _getCurPage() async {
     final results = await (globalDB.select(globalDB.jingShu)
-          ..where((tbl) => tbl.name.equals(widget.jingshu.name))
-          ..where((tbl) => tbl.type.equals(widget.jingshu.type)))
+          ..where((tbl) => tbl.id.equals(widget.jingshu.id)))
         .get();
     if (results.isEmpty) {
       return 1;
@@ -70,7 +75,7 @@ class _PdfViewerPageState extends State<PdfViewerPage> {
   }
 
   Future<void> _saveCurrentPage() async {
-    if (!widget.jingshu.type.contains('shanshu')) {
+    if (!_supportsPageMemory) {
       return;
     }
     await (globalDB.update(globalDB.jingShu)
@@ -134,6 +139,22 @@ class _PdfViewerPageState extends State<PdfViewerPage> {
     if (velocity > 0 || distance > _swipeDistanceThreshold) {
       await _handlePreviousPage();
     }
+  }
+
+  Future<void> _alignInitialPageIfNeeded() async {
+    if (_didAlignInitialPage || _initialPageIndex == null || _filePath == null) {
+      return;
+    }
+    _didAlignInitialPage = true;
+    final targetPage = _initialPageIndex!;
+
+    // The OHOS PDF viewer can restore the correct page index but stop between
+    // two visual pages. Re-issuing setPage after the view has rendered nudges
+    // it to a strict single-page position.
+    await Future<void>.delayed(const Duration(milliseconds: 60));
+    await _viewerController.goToPage(targetPage);
+    await Future<void>.delayed(const Duration(milliseconds: 160));
+    await _viewerController.goToPage(targetPage);
   }
 
   Widget _buildMuyuButton({
@@ -249,18 +270,18 @@ class _PdfViewerPageState extends State<PdfViewerPage> {
       initialPage: _initialPageIndex ?? (_page - 1),
       onViewCreated: (controller) async {
         final pageCount = await controller.getPageCount();
-        final currentPage = await controller.getCurrentPage();
         if (!mounted) {
           return;
         }
         setState(() {
           _pageCount = pageCount ?? _pageCount;
-          _page = ((currentPage ?? (_page - 1)) + 1).clamp(
+          _page = ((_initialPageIndex ?? (_page - 1)) + 1).clamp(
             1,
             pageCount ?? 999999,
           );
           _errorMessage = null;
         });
+        _alignInitialPageIfNeeded();
       },
       onRender: (controller, pageCount) {
         if (!mounted) {
@@ -270,6 +291,7 @@ class _PdfViewerPageState extends State<PdfViewerPage> {
           _pageCount = pageCount ?? _pageCount;
           _errorMessage = null;
         });
+        _alignInitialPageIfNeeded();
       },
       onPageChanged: (page, pageCount) {
         if (!mounted) {

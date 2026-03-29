@@ -121,10 +121,31 @@ class _SongJingPageState extends State<SongJingPage> {
   }
 
   // 跳转到PDF页面
-  void _navigateToPdfView(JingShuData jingshu) {
-    Navigator.push(
+  Future<void> _navigateToPdfView(JingShuData jingshu) async {
+    final int? selectedPage = await Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => PdfViewerPage(jingshu: jingshu)),
+    );
+    if (selectedPage == null) {
+      return;
+    }
+    await globalDB.managers.jingShu
+        .filter((f) => f.id(jingshu.id))
+        .update((o) => o(curPageNum: Value(selectedPage)));
+    if (!mounted) {
+      return;
+    }
+    if (_searchController.text.isNotEmpty) {
+      await fetchByWords(_searchController.text);
+    } else {
+      await fetchAll();
+    }
+  }
+
+  Widget showPageNumText(JingShuData jingshu) {
+    final pageNum = jingshu.curPageNum;
+    return Text(
+      pageNum != null && pageNum > 0 ? '已读至第${pageNum.toInt()}页' : '',
     );
   }
 
@@ -260,11 +281,11 @@ class _SongJingPageState extends State<SongJingPage> {
                           const Icon(Icons.favorite, color: Colors.yellow)
                         else
                           const SizedBox.shrink(),
-                        //Spacer(),
+                        showPageNumText(list[index]),
                       ],
                     ),
-                    onTap: () {
-                      _navigateToPdfView(list[index]);
+                    onTap: () async {
+                      await _navigateToPdfView(list[index]);
                     },
                   ).padding(all: 10),
                 );

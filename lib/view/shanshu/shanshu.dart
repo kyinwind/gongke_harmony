@@ -127,10 +127,19 @@ class _ShanShuPageState extends State<ShanShuPage> {
       MaterialPageRoute(builder: (context) => PdfViewerPage(jingshu: jingshu)),
     );
     // 处理返回的页码（用户点击返回按钮时 selectedPage 可能为 null）
-    if (selectedPage != null) {
-      globalDB.managers.jingShu
-          .filter((f) => f.id(jingshu.id))
-          .update((o) => o(curPageNum: Value(selectedPage)));
+    if (selectedPage == null) {
+      return;
+    }
+    await globalDB.managers.jingShu
+        .filter((f) => f.id(jingshu.id))
+        .update((o) => o(curPageNum: Value(selectedPage)));
+    if (!mounted) {
+      return;
+    }
+    if (_searchController.text.isNotEmpty) {
+      await fetchByWords(_searchController.text);
+    } else {
+      await fetchAll();
     }
   }
 

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:gongke/main.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:styled_widget/styled_widget.dart';
-//import '../../database.dart';
+import '../../database.dart';
 import 'package:drift/drift.dart' hide Column;
 import 'package:flutter/services.dart';
 import '../../comm/pub_tools.dart';
@@ -116,14 +116,29 @@ class _AddTipPageState extends State<AddTipPage> {
 
   Future<void> _submitForm() async {
     if (_formKey.currentState!.validate()) {
+      final beforeCountRow = await globalDB
+          .customSelect('SELECT COUNT(*) AS cnt FROM tip_book')
+          .getSingle();
+      debugPrint('保存开示录前 tip_book count=${beforeCountRow.data['cnt']}');
       if (acttype == 'new') {
-        await globalDB.managers.tipBook.create(
-          (o) => o(
+        final insertedId = await globalDB.into(globalDB.tipBook).insert(
+          TipBookCompanion.insert(
             name: _nameController.text,
             remarks: Value(_remarksController.text),
             image: _base64Image ?? '',
           ),
-          mode: InsertMode.replace,
+        );
+        final rawCountRow = await globalDB
+            .customSelect('SELECT COUNT(*) AS cnt FROM tip_book')
+            .getSingle();
+        final rawRows = await globalDB.customSelect(
+          'SELECT id, name FROM tip_book ORDER BY id ASC',
+        ).get();
+        final allBooks = await (globalDB.select(globalDB.tipBook)
+              ..orderBy([(tbl) => OrderingTerm.asc(tbl.id)]))
+            .get();
+        debugPrint(
+          '新增开示录完成: insertedId=$insertedId, rawCount=${rawCountRow.data['cnt']}, rawRows=${rawRows.map((e) => '${e.data['id']}:${e.data['name']}').join(' | ')}, total=${allBooks.length}, books=${allBooks.map((e) => '${e.id}:${e.name}').join(' | ')}',
         );
       } else {
         await globalDB.managers.tipBook
@@ -135,9 +150,15 @@ class _AddTipPageState extends State<AddTipPage> {
                 image: Value(_base64Image ?? ''),
               ),
             );
+        final allBooks = await (globalDB.select(globalDB.tipBook)
+              ..orderBy([(tbl) => OrderingTerm.asc(tbl.id)]))
+            .get();
+        debugPrint(
+          '修改开示录完成: recordId=$recordId, total=${allBooks.length}, books=${allBooks.map((e) => '${e.id}:${e.name}').join(' | ')}',
+        );
       }
       // 返回上一级路由
-      Navigator.of(context).pop();
+      Navigator.of(context).pop(true);
     }
   }
 
@@ -152,46 +173,48 @@ class _AddTipPageState extends State<AddTipPage> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            children: [
-              TextFormField(
-                controller: _nameController,
-                decoration: const InputDecoration(
-                  labelText: '名称',
-                  border: OutlineInputBorder(),
-                ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return '请输入名称';
-                  }
-                  return null;
-                },
-              ).padding(bottom: 16),
-              TextFormField(
-                controller: _remarksController,
-                decoration: const InputDecoration(
-                  labelText: '备注',
-                  border: OutlineInputBorder(),
-                ),
-                maxLines: 5,
-              ).padding(bottom: 16),
-              ElevatedButton(
-                style: AppButtonStyle.primaryButton,
-                onPressed: _pickImage,
-                child: const Text('选择图片'),
-              ),
-              if (_base64Image != null)
-                Padding(
-                  padding: const EdgeInsets.only(top: 16),
-                  child: Image.memory(
-                    base64Decode(_base64Image!),
-                    width: 200,
-                    fit: BoxFit.cover,
+        child: SingleChildScrollView(
+          child: Form(
+            key: _formKey,
+            child: Column(
+              children: [
+                TextFormField(
+                  controller: _nameController,
+                  decoration: const InputDecoration(
+                    labelText: '名称',
+                    border: OutlineInputBorder(),
                   ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return '请输入名称';
+                    }
+                    return null;
+                  },
+                ).padding(bottom: 16),
+                TextFormField(
+                  controller: _remarksController,
+                  decoration: const InputDecoration(
+                    labelText: '备注',
+                    border: OutlineInputBorder(),
+                  ),
+                  maxLines: 5,
+                ).padding(bottom: 16),
+                ElevatedButton(
+                  style: AppButtonStyle.primaryButton,
+                  onPressed: _pickImage,
+                  child: const Text('选择图片'),
                 ),
-            ],
+                if (_base64Image != null)
+                  Padding(
+                    padding: const EdgeInsets.only(top: 16),
+                    child: Image.memory(
+                      base64Decode(_base64Image!),
+                      width: 200,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+              ],
+            ),
           ),
         ),
       ),

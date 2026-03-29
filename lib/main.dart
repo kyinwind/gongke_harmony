@@ -82,9 +82,11 @@ class _BootstrapAppState extends State<BootstrapApp> {
       future: _bootstrapFuture,
       builder: (context, snapshot) {
         if (snapshot.connectionState != ConnectionState.done) {
-          return const BootstrapStatusApp(
-            title: '鸿蒙诊断页',
-            message: 'Flutter 已启动，正在初始化本地能力...',
+          return const MaterialApp(
+            home: Scaffold(
+              backgroundColor: Colors.white,
+              body: SizedBox.expand(),
+            ),
           );
         }
 

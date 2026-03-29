@@ -31,16 +31,20 @@ Future<CurrentRecord> getCurrentRecord() async {
       .difference(DateFormat('yyyy-MM-dd').parse(firstDate!))
       .inDays;
   final seq = difference + 1;
-  print('-------------应该读取第${seq}个记录');
+  //print('-------------应该读取第${seq}个记录');
   var curRecord = CurrentRecord();
 
   // 获取所有按照favoriteDateTime和createDateTime排序的tipbooks
-  final books = await (globalDB.select(globalDB.tipBook)
-        ..orderBy([
-          (tbl) => OrderingTerm.desc(tbl.favoriteDateTime),
-          (tbl) => OrderingTerm.desc(tbl.createDateTime),
-        ]))
-      .get();
+  final books = (await globalDB.customSelect(
+    '''
+    SELECT id, create_date_time, favorite_date_time, remarks, bk1, bk2, name, image
+    FROM tip_book
+    ORDER BY
+      CASE WHEN favorite_date_time IS NULL THEN 0 ELSE 1 END DESC,
+      favorite_date_time DESC,
+      create_date_time DESC
+    ''',
+  ).get()).map(_mapTipBookRow).toList();
 
   List<TipRecordData> allRecords = [];
 
@@ -69,12 +73,46 @@ Future<CurrentRecord> getCurrentRecord() async {
     curRecord.content = record.content;
 
     // 获取对应的tipbook信息
-    final book = await (globalDB.select(globalDB.tipBook)
-          ..where((tbl) => tbl.id.equals(record.bookId)))
-        .getSingle();
+    final bookRows = await globalDB.customSelect(
+      'SELECT id, create_date_time, favorite_date_time, remarks, bk1, bk2, name, image FROM tip_book WHERE id = ?',
+      variables: [Variable.withInt(record.bookId)],
+    ).get();
+    if (bookRows.isEmpty) {
+      return curRecord;
+    }
+    final book = _mapTipBookRow(bookRows.first);
     curRecord.bookName = book.name;
     curRecord.bookImage = book.image;
   }
 
   return curRecord;
+}
+
+TipBookData _mapTipBookRow(QueryRow row) {
+  return TipBookData(
+    id: row.read<int>('id'),
+    createDateTime: _readDateTime(row.data['create_date_time'])!,
+    favoriteDateTime: _readDateTime(row.data['favorite_date_time']),
+    remarks: row.readNullable<String>('remarks'),
+    bk1: row.readNullable<String>('bk1'),
+    bk2: row.readNullable<String>('bk2'),
+    name: row.read<String>('name'),
+    image: row.read<String>('image'),
+  );
+}
+
+DateTime? _readDateTime(Object? value) {
+  if (value == null) {
+    return null;
+  }
+  if (value is DateTime) {
+    return value;
+  }
+  if (value is int) {
+    return DateTime.fromMillisecondsSinceEpoch(value);
+  }
+  if (value is String) {
+    return DateTime.tryParse(value);
+  }
+  return null;
 }

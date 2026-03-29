@@ -62,13 +62,17 @@ class _TipRecordPageState extends State<TipRecordPage> {
           Spacer(),
           IconButton(
             icon: const Icon(Icons.add_circle, color: Colors.blue, size: 35),
-            onPressed: () {
+            onPressed: () async {
               // 跳转到新增页面
-              Navigator.pushNamed(
+              final changed = await Navigator.pushNamed(
                 context,
                 '/AddTipRecord',
                 arguments: {'acttype': 'new', 'bookId': bookId},
               );
+              if (!mounted || changed != true) {
+                return;
+              }
+              await _loadTipRecords(bookId);
             },
           ),
         ],
@@ -88,11 +92,15 @@ class _TipRecordPageState extends State<TipRecordPage> {
                       motion: const ScrollMotion(),
                       children: [
                         SlidableAction(
-                          onPressed: (context) {
+                          onPressed: (context) async {
                             // 删除操作
-                            globalDB.managers.tipRecord
+                            await globalDB.managers.tipRecord
                                 .filter((f) => f.id(record.id))
                                 .delete();
+                            if (!mounted) {
+                              return;
+                            }
+                            await _loadTipRecords(bookId);
                           },
                           backgroundColor: Colors.red,
                           foregroundColor: Colors.white,
