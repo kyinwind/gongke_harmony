@@ -117,18 +117,21 @@ export default class OhosTtsPlugin implements FlutterPlugin, MethodCallHandler {
         this.engine = engine;
         this.engine.setListener({
           onStart: (requestId: string) => {
+            console.info(`[gongke_tts] onStart ${requestId}`);
             this.channel?.invokeMethod('onStart', { requestId });
           },
           onComplete: (requestId: string) => {
             if (this.currentRequestId === requestId) {
               this.currentRequestId = '';
             }
+            console.info(`[gongke_tts] onComplete ${requestId}`);
             this.channel?.invokeMethod('onComplete', { requestId });
           },
           onStop: (requestId: string) => {
             if (this.currentRequestId === requestId) {
               this.currentRequestId = '';
             }
+            console.info(`[gongke_tts] onStop ${requestId}`);
             this.channel?.invokeMethod('onStop', { requestId });
           },
           onData: (requestId: string, audio: ArrayBuffer) => {},
@@ -136,6 +139,9 @@ export default class OhosTtsPlugin implements FlutterPlugin, MethodCallHandler {
             if (this.currentRequestId === requestId) {
               this.currentRequestId = '';
             }
+            console.error(
+              `[gongke_tts] onError ${requestId} ${errorCode} ${errorMessage}`,
+            );
             this.channel?.invokeMethod('onError', {
               requestId,
               code: `${errorCode}`,
@@ -166,7 +172,6 @@ export default class OhosTtsPlugin implements FlutterPlugin, MethodCallHandler {
         volume: 1.0,
         pitch: speak.pitch,
         languageContext: 'zh-CN',
-        audioType: 'pcm',
         soundChannel: 3,
         playType: 1,
       },

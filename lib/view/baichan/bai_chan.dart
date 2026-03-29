@@ -96,11 +96,13 @@ class _BaiChanListPageState extends State<BaiChanPage> {
                 '/BaiChan/NewBaiChan',
                 arguments: {'acttype': 'new'},
               );
+              if (result == true) {
+                await loadAllData();
+              }
             },
           ),
         ],
       ),
-
       body: SlidableAutoCloseBehavior(
         child: StreamBuilder<List<BaiChanData>>(
           stream: baiChanList,
@@ -139,9 +141,8 @@ class _BaiChanListPageState extends State<BaiChanPage> {
                         backgroundColor: Colors.white,
                         foregroundColor: Color.fromARGB(255, 226, 203, 50),
                         icon: Icons.favorite,
-                        label: list[index].favoriteDateTime != null
-                            ? '取消'
-                            : '最爱',
+                        label:
+                            list[index].favoriteDateTime != null ? '取消' : '最爱',
                       ),
                     ],
                   ),

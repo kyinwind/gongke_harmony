@@ -25,6 +25,7 @@ class _BaiChanPlayPageState extends State<BaiChanPlayPage> {
   Timer? _timer;
   String msg = "拜忏中...";
   final TtsTools _ttsTools = TtsTools();
+  bool _isAnnouncing = false;
 
   @override
   void initState() {
@@ -59,7 +60,7 @@ class _BaiChanPlayPageState extends State<BaiChanPlayPage> {
   void _startLoop() async {
     setState(() => isPlaying = true);
     _timer = Timer.periodic(Duration(seconds: 1), (timer) {
-      if (!isPlaying) return;
+      if (!isPlaying || _isAnnouncing) return;
       WakelockTools.enable(); //避免息屏
       final currentBaiChan = baichan;
       if (currentBaiChan == null) {
@@ -74,29 +75,23 @@ class _BaiChanPlayPageState extends State<BaiChanPlayPage> {
 
           if (count <= currentBaiChan.baichanTimes &&
               currentBaiChan.flagOrderNumber) {
-            AudioTools.playLocalAsset('mp3/yinqing.wav').then((_) {
-              _announce("第$count 拜", () {});
-            });
+            _speakAfterBell("第$count拜");
           }
           num = 0;
           flag = false;
         }
         if (count == currentBaiChan.baichanTimes.toInt() + 1) {
-          AudioTools.playLocalAsset('mp3/yinqing.wav').then((_) {
-            _announce(currentBaiChan.chanhuiWenEnd, () {
-              _stop();
-              WakelockTools.disable();
-              Navigator.pop(context);
-            });
+          _speakAfterBell(currentBaiChan.chanhuiWenEnd, onDone: () {
+            _stop();
+            WakelockTools.disable();
+            Navigator.pop(context);
           });
         }
         num++;
       } else {
         if (num % currentBaiChan.baichanInterval1.toInt() == 0) {
           if (currentBaiChan.flagQiShen) {
-            AudioTools.playLocalAsset('mp3/yinqing.wav').then((_) {
-              _announce("起身", () {});
-            });
+            _speakAfterBell("起身");
           }
           num = 0;
           flag = true;
@@ -113,11 +108,25 @@ class _BaiChanPlayPageState extends State<BaiChanPlayPage> {
     setState(() {
       msg = text;
     });
-    await _ttsTools.speak(text, onDone);
+    _isAnnouncing = true;
+    await _ttsTools.speak(text, () {
+      _isAnnouncing = false;
+      onDone();
+    });
+  }
+
+  Future<void> _speakAfterBell(String text, {VoidCallback? onDone}) async {
+    _isAnnouncing = true;
+    await AudioTools.playLocalAsset('mp3/yinqing.wav');
+    if (!mounted) {
+      return;
+    }
+    await _announce(text, onDone ?? () {});
   }
 
   void _stop() async {
     _timer?.cancel();
+    _isAnnouncing = false;
     await _ttsTools.stop();
     if (!mounted) return; // ✅ 避免 setState 后报错
     setState(() => isPlaying = false);
