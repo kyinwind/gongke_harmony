@@ -4,6 +4,7 @@ import 'package:gongke/main.dart';
 import 'package:gongke/database.dart';
 import 'package:gongke/comm/pub_tools.dart';
 import 'package:gongke/comm/audio_tools.dart';
+import 'package:gongke/comm/tts_tools.dart';
 import 'package:gongke/comm/wakelock_tools.dart';
 
 class BaiChanPlayPage extends StatefulWidget {
@@ -23,6 +24,7 @@ class _BaiChanPlayPageState extends State<BaiChanPlayPage> {
   int num = 0;
   Timer? _timer;
   String msg = "拜忏中...";
+  final TtsTools _ttsTools = TtsTools();
 
   @override
   void initState() {
@@ -111,12 +113,12 @@ class _BaiChanPlayPageState extends State<BaiChanPlayPage> {
     setState(() {
       msg = text;
     });
-    await Future<void>.delayed(const Duration(milliseconds: 600));
-    onDone();
+    await _ttsTools.speak(text, onDone);
   }
 
   void _stop() async {
     _timer?.cancel();
+    await _ttsTools.stop();
     if (!mounted) return; // ✅ 避免 setState 后报错
     setState(() => isPlaying = false);
   }
@@ -125,6 +127,7 @@ class _BaiChanPlayPageState extends State<BaiChanPlayPage> {
   void dispose() {
     WakelockTools.disable(); //放开避免息屏
     _timer?.cancel();
+    _ttsTools.stop();
     super.dispose();
   }
 
