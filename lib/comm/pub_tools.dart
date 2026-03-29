@@ -903,11 +903,11 @@ final List<Map<String, String>> help_slides_android = [
     'title': '藏经阁',
     'description': '40多部常用经书供持诵学习',
   },
-  {
-    'image': 'assets/help/08.jpg',
-    'title': '大德开示',
-    'description': '每天一句大德开示，勉励自己精进修行。',
-  },
+  // {
+  //   'image': 'assets/help/08.jpg',
+  //   'title': '大德开示',
+  //   'description': '每天一句大德开示，勉励自己精进修行。',
+  // },
   {
     'image': 'assets/help/09.jpg',
     'title': '拜忏',
@@ -977,13 +977,11 @@ List<Map<String, String>> getHelpSlidesForWidth(double width) {
 
 // 复制文本到系统剪贴板
 void copyToClipboard(String text) {
-  Clipboard.setData(ClipboardData(text: text))
-      .then((_) {
-        // 复制成功后的回调，可以在这里显示提示信息
-        print('内容已复制到剪贴板');
-      })
-      .catchError((error) {
-        // 复制失败的处理
-        print('复制失败: $error');
-      });
+  Clipboard.setData(ClipboardData(text: text)).then((_) {
+    // 复制成功后的回调，可以在这里显示提示信息
+    print('内容已复制到剪贴板');
+  }).catchError((error) {
+    // 复制失败的处理
+    print('复制失败: $error');
+  });
 }

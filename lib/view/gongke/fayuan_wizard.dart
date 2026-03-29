@@ -514,7 +514,9 @@ class _FaYuanWizardPageState extends State<FaYuanWizardPage> {
     GongKeType? selectedType;
     String? selectedJingShu;
     final TextEditingController nameController = TextEditingController();
-    final TextEditingController cntController = TextEditingController();
+    final TextEditingController cntController = TextEditingController(
+      text: '1',
+    );
 
     await showDialog(
       context: context,

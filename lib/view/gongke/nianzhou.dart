@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:gongke/database.dart';
 import 'package:gongke/main.dart';
-import 'package:sensors_plus/sensors_plus.dart';
 import 'dart:async';
 import 'package:drift/drift.dart' hide Column;
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../comm/audio_tools.dart';
 import '../../comm/platform_tools.dart';
+import '../../comm/sensor_tools.dart';
+import '../../comm/vibration_tools.dart';
 import '../../comm/wakelock_tools.dart';
 
 class NianzhouPage extends StatefulWidget {
@@ -59,8 +59,8 @@ class _NianzhouPageState extends State<NianzhouPage> {
   }
 
   void _startListeningShake() {
-    _accelerometerSubscription = accelerometerEvents.listen((
-      AccelerometerEvent event,
+    _accelerometerSubscription = SensorTools.accelerometerEvents().listen((
+      AccelerometerReading event,
     ) {
       if (!shakeEnabled) return;
 
@@ -82,7 +82,7 @@ class _NianzhouPageState extends State<NianzhouPage> {
     });
     if (vibrateEnabled) {
       AudioTools.playLocalAsset('mp3/muyu.wav');
-      HapticFeedback.vibrate();
+      VibrationTools.vibrate();
     }
     if (count >= gongkeitem.cnt) {
       AudioTools.playLocalAsset('mp3/yinqing.wav');
@@ -220,9 +220,8 @@ class _NianzhouPageState extends State<NianzhouPage> {
                 textAlign: TextAlign.center,
                 style: const TextStyle(color: Colors.white, fontSize: 16),
               ),
-              onPressed: () async {
+              onPressed: () {
                 _incrementCount();
-                await AudioTools.playLocalAsset('mp3/muyu.wav');
               },
             ),
             const SizedBox(width: 16),

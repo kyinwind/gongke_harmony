@@ -11,9 +11,59 @@ class SettingPage extends StatefulWidget {
 const double picheight = 400;
 
 class _SettingPageState extends State<SettingPage> {
+  static const String _supportEmail = 'yangxuehui@outlook.com';
+  static const String _supportUrl = 'https://tieba.baidu.com/p/9908596817';
+
   @override
   void initState() {
     super.initState();
+  }
+
+  Future<void> _launchEmail() async {
+    final uri = Uri(
+      scheme: 'mailto',
+      path: _supportEmail,
+    );
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri);
+      return;
+    }
+    if (!mounted) {
+      return;
+    }
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: const Text('无法打开邮件客户端，已为你保留复制入口。'),
+        action: SnackBarAction(
+          label: '复制邮箱',
+          onPressed: () {
+            copyToClipboard(_supportEmail);
+          },
+        ),
+      ),
+    );
+  }
+
+  Future<void> _launchSupportUrl() async {
+    final uri = Uri.parse(_supportUrl);
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri, mode: LaunchMode.externalApplication);
+      return;
+    }
+    if (!mounted) {
+      return;
+    }
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: const Text('打开链接失败，已为你保留复制入口，请手动打开。'),
+        action: SnackBarAction(
+          label: '复制链接',
+          onPressed: () {
+            copyToClipboard(_supportUrl);
+          },
+        ),
+      ),
+    );
   }
 
   @override
@@ -35,37 +85,28 @@ class _SettingPageState extends State<SettingPage> {
                       '如有任何问题或建议，请发邮件给我，感谢您的反馈：',
                       textAlign: TextAlign.left, // ✅ 添加对齐
                     ),
-                    SelectableText(
-                      'yangxuehui@outlook.com',
-                      style: TextStyle(color: Theme.of(context).primaryColor),
-                      textAlign: TextAlign.left, // ✅ 添加对齐
+                    InkWell(
+                      onTap: _launchEmail,
+                      child: Text(
+                        _supportEmail,
+                        style: TextStyle(
+                          color: Theme.of(context).primaryColor,
+                          decoration: TextDecoration.underline,
+                        ),
+                        textAlign: TextAlign.left,
+                      ),
                     ),
-                    ElevatedButton(
-                      child: Text('https://tieba.baidu.com/p/9908596817'),
-                      onPressed: () async {
-                        final url = 'https://tieba.baidu.com/p/9908596817';
-                        final uri = Uri.parse(url);
-                        if (await canLaunchUrl(uri)) {
-                          await launchUrl(
-                            uri,
-                            mode: LaunchMode.externalApplication,
-                          );
-                        } else {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: const Text(
-                                '打开链接失败，已为你保留复制入口，请手动打开。',
-                              ),
-                              action: SnackBarAction(
-                                label: '复制链接',
-                                onPressed: () {
-                                  copyToClipboard(url);
-                                },
-                              ),
-                            ),
-                          );
-                        }
-                      },
+                    const SizedBox(height: 8),
+                    InkWell(
+                      onTap: _launchSupportUrl,
+                      child: Text(
+                        _supportUrl,
+                        style: TextStyle(
+                          color: Theme.of(context).primaryColor,
+                          decoration: TextDecoration.underline,
+                        ),
+                        textAlign: TextAlign.left,
+                      ),
                     ),
                     // const SelectableText(
                     //   '技术支持网站: https://tieba.baidu.com/p/9908596817',

@@ -80,6 +80,10 @@ dev_dependencies:
   flutter_launcher_icons: ^0.13.1
 
 dependency_overrides:
+  sensors_plus:
+    git:
+      url: https://gitee.com/openharmony-sig/flutter_plus_plugins.git
+      path: packages/sensors_plus/sensors_plus
   file_selector:
     git:
       url: https://gitee.com/openharmony-sig/flutter_packages.git

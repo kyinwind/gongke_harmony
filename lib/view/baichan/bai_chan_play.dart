@@ -173,7 +173,11 @@ class _BaiChanPlayPageState extends State<BaiChanPlayPage> {
                 ),
               ),
               const SizedBox(height: 20),
-              Text('$count / ${bai.baichanTimes.toInt()} $msg'),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 24),
+                child: Text('$count / ${bai.baichanTimes.toInt()} \n$msg'),
+              ),
+              const SizedBox(height: 20),
             ],
           ),
         ),

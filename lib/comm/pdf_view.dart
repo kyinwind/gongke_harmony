@@ -37,6 +37,21 @@ class _PdfViewerPageState extends State<PdfViewerPage> {
     return type.contains('shanshu') || type.contains('jingshu');
   }
 
+  bool get _shouldResetToStartForJingShu {
+    final type = widget.jingshu.type;
+    if (!type.contains('jingshu')) {
+      return false;
+    }
+    if (_pageCount <= 0) {
+      return false;
+    }
+    return (_pageCount - _page) < 3;
+  }
+
+  int get _pageToPersist {
+    return _shouldResetToStartForJingShu ? 0 : _page;
+  }
+
   @override
   void initState() {
     super.initState();
@@ -80,7 +95,7 @@ class _PdfViewerPageState extends State<PdfViewerPage> {
     }
     await (globalDB.update(globalDB.jingShu)
           ..where((tbl) => tbl.id.equals(widget.jingshu.id)))
-        .write(JingShuCompanion(curPageNum: Value(_page)));
+        .write(JingShuCompanion(curPageNum: Value(_pageToPersist)));
   }
 
   Future<void> _backToParentPage() async {
@@ -88,7 +103,7 @@ class _PdfViewerPageState extends State<PdfViewerPage> {
     if (!mounted) {
       return;
     }
-    Navigator.pop(context, _page);
+    Navigator.pop(context, _pageToPersist);
   }
 
   Future<void> _handlePreviousPage() async {

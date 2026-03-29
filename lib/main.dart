@@ -23,6 +23,7 @@ import 'view/baichan/bai_chan_play.dart';
 import 'view/setting/setting_page.dart';
 import 'view/shanshu/shanshu.dart';
 import 'view/songjing/import_files.dart';
+import 'welcome.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 // 声明全局数据库变量
@@ -45,9 +46,11 @@ void main() {
 class BootstrapResult {
   const BootstrapResult({
     required this.db,
+    required this.hasSeenWelcome,
   });
 
   final AppDatabase db;
+  final bool hasSeenWelcome;
 }
 
 class BootstrapApp extends StatefulWidget {
@@ -61,7 +64,7 @@ class _BootstrapAppState extends State<BootstrapApp> {
   late final Future<BootstrapResult> _bootstrapFuture = _bootstrap();
 
   Future<BootstrapResult> _bootstrap() async {
-    await getBoolValue('hasSeenWelcome');
+    final hasSeenWelcome = await getBoolValue('hasSeenWelcome') ?? false;
 
     globalDB = AppDatabase();
     await globalDB.customSelect('SELECT 1').get();
@@ -73,6 +76,7 @@ class _BootstrapAppState extends State<BootstrapApp> {
 
     return BootstrapResult(
       db: globalDB,
+      hasSeenWelcome: hasSeenWelcome,
     );
   }
 
@@ -99,7 +103,10 @@ class _BootstrapAppState extends State<BootstrapApp> {
         }
 
         final data = snapshot.requireData;
-        return MyApp(db: data.db);
+        return MyApp(
+          db: data.db,
+          initialHasSeenWelcome: data.hasSeenWelcome,
+        );
       },
     );
   }
@@ -144,13 +151,31 @@ class BootstrapStatusApp extends StatelessWidget {
 
 class MyApp extends StatefulWidget {
   final AppDatabase db; // 添加数据库字段
-  const MyApp({super.key, required this.db}); // 修改构造函数
+  final bool initialHasSeenWelcome;
+
+  const MyApp({
+    super.key,
+    required this.db,
+    required this.initialHasSeenWelcome,
+  }); // 修改构造函数
 
   @override
   State<MyApp> createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
+  late bool _hasSeenWelcome = widget.initialHasSeenWelcome;
+
+  Future<void> _finishWelcome() async {
+    await saveBoolValue('hasSeenWelcome', true);
+    if (!mounted) {
+      return;
+    }
+    setState(() {
+      _hasSeenWelcome = true;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final fontFamily = PlatformUtils.preferredFontFamily;
@@ -162,7 +187,9 @@ class _MyAppState extends State<MyApp> {
           bodyMedium: TextStyle(fontFamily: fontFamily),
         ).apply(fontFamily: fontFamily),
       ),
-      home: const TabbedHomePage(title: '诵经助手'),
+      home: _hasSeenWelcome
+          ? const TabbedHomePage(title: '诵经助手')
+          : WelcomePage(onFinish: _finishWelcome),
       // 添加路由配置
       routes: {
         '/Tip': (context) => const TipPage(),
@@ -215,7 +242,7 @@ class _TabbedHomePageState extends State<TabbedHomePage> {
         GongKePage(),
         SongJingPage(),
         ShanShuPage(),
-        TipPage(), // 传入数据库实例
+        //TipPage(), // 传入数据库实例
         BaiChanPage(),
         SettingPage(),
       ];
@@ -229,7 +256,7 @@ class _TabbedHomePageState extends State<TabbedHomePage> {
           BottomNavigationBarItem(icon: Icon(Icons.book), label: '功课'),
           BottomNavigationBarItem(icon: Icon(Icons.menu_book), label: '诵经'),
           BottomNavigationBarItem(icon: Icon(Icons.auto_graph), label: '善书'),
-          BottomNavigationBarItem(icon: Icon(Icons.chat), label: '开示'),
+          //BottomNavigationBarItem(icon: Icon(Icons.chat), label: '开示'),
           BottomNavigationBarItem(icon: Icon(Icons.announcement), label: '拜忏'),
           BottomNavigationBarItem(icon: Icon(Icons.settings), label: '设置'),
         ],

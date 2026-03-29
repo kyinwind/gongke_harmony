@@ -1,7 +1,7 @@
 {
   "app": {
     "bundleName": "com.michaeldev.gongke_harmony",
-    "vendor": "example",
+    "vendor": "杨学辉",
     "versionCode": 1,
     "versionName": "1.0.6",
     "icon": "$media:app_icon",
