@@ -61,6 +61,8 @@ class ImportService {
         jingshuType: jingshuType,
       );
       count++;
+      // Give the UI/event loop a chance to breathe during large imports.
+      await Future<void>.delayed(Duration.zero);
     }
     return count;
   }
@@ -153,8 +155,7 @@ class ImportService {
 
     final fileName = _resolvedFileName(file);
     final targetFile = File(path.join(importRoot.path, fileName));
-    final bytes = await file.readBytes();
-    await targetFile.writeAsBytes(bytes, flush: true);
+    await file.writeTo(targetFile);
     return targetFile.path;
   }
 

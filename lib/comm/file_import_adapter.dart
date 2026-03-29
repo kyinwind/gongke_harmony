@@ -1,19 +1,22 @@
 import 'dart:convert';
+import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:file_selector/file_selector.dart';
+import 'package:file_picker_ohos/file_picker_ohos.dart';
 
 class ImportFileRef {
   final String path;
   final String name;
   final String displayPath;
   final Future<Uint8List> Function() readBytes;
+  final Future<void> Function(File targetFile) writeTo;
 
   ImportFileRef({
     required this.path,
     required this.name,
     required this.displayPath,
     required this.readBytes,
+    required this.writeTo,
   });
 }
 
@@ -34,39 +37,44 @@ class FileSelectorSelectionGateway implements FileSelectionGateway {
     required List<String> allowedExtensions,
     bool allowMultiple = true,
   }) async {
-    final typeGroup = XTypeGroup(
-      label: 'import_files',
-      extensions: allowedExtensions,
+    final result = await FilePicker.platform.pickFiles(
+      allowMultiple: allowMultiple,
+      type: FileType.custom,
+      allowedExtensions: allowedExtensions,
+      withData: false,
+      withReadStream: false,
     );
-    final List<XFile> files;
-    if (allowMultiple) {
-      files = await openFiles(
-        acceptedTypeGroups: [typeGroup],
-        confirmButtonText: '选择',
-      );
-    } else {
-      final file = await openFile(
-        acceptedTypeGroups: [typeGroup],
-        confirmButtonText: '选择',
-      );
-      files = file == null ? const [] : [file];
-    }
+    final files = result?.files ?? const <PlatformFile>[];
 
     return files
-        .where((file) => file.path.isNotEmpty)
+        .where((file) => (file.path ?? '').isNotEmpty)
         .map(
           (file) => ImportFileRef(
-            path: file.path,
-            name: _normalizeFileName(file.name, file.path),
-            displayPath: _normalizeDisplayPath(file.path),
-            readBytes: file.readAsBytes,
+            path: file.path!,
+            name: _normalizeFileName(file.name, file.path!),
+            displayPath: _normalizeDisplayPath(file.path!),
+            readBytes: () async {
+              if (file.bytes != null) {
+                return file.bytes!;
+              }
+              return File(file.path!).readAsBytes();
+            },
+            writeTo: (targetFile) async {
+              final sink = targetFile.openWrite();
+              try {
+                await sink.addStream(File(file.path!).openRead());
+              } finally {
+                await sink.close();
+              }
+            },
           ),
         )
         .toList();
   }
 
   String _normalizeFileName(String rawName, String rawPath) {
-    final candidate = rawName.trim().isNotEmpty ? rawName : _lastPathSegment(rawPath);
+    final candidate =
+        rawName.trim().isNotEmpty ? rawName : _lastPathSegment(rawPath);
     final decoded = _decodeUri(candidate);
     return _repairMojibake(decoded);
   }
@@ -110,7 +118,20 @@ class FileSelectorSelectionGateway implements FileSelectionGateway {
   }
 
   bool _looksMojibake(String value) {
-    const markers = ['Ã', 'Â', 'å', 'ä', 'ç', 'é', 'è', 'ê', 'ï', 'ð', 'Ñ', '�'];
+    const markers = [
+      'Ã',
+      'Â',
+      'å',
+      'ä',
+      'ç',
+      'é',
+      'è',
+      'ê',
+      'ï',
+      'ð',
+      'Ñ',
+      '�'
+    ];
     return markers.any(value.contains);
   }
 

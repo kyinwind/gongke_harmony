@@ -901,7 +901,7 @@ final List<Map<String, String>> help_slides_android = [
   {
     'image': 'assets/help/07.jpg',
     'title': '藏经阁',
-    'description': '40多部常用经书供持诵学习',
+    'description': '可导入常用经书供持诵学习',
   },
   // {
   //   'image': 'assets/help/08.jpg',

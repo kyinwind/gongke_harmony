@@ -13,6 +13,7 @@
     "file_selector_ohos": "file:../har/file_selector_ohos.har",
     "pdf_render_ohos": "file:../har/pdf_render_ohos.har",
     "flutter_pdfview_ohos": "file:../har/flutter_pdfview_ohos.har",
-    "audioplayers_ohos": "file:../har/audioplayers_ohos.har"
+    "audioplayers_ohos": "file:../har/audioplayers_ohos.har",
+    "file_picker_ohos": "file:../har/file_picker_ohos.har"
   }
 }

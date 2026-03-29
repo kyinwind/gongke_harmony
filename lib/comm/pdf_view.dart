@@ -128,6 +128,89 @@ class _PdfViewerPageState extends State<PdfViewerPage> {
     _focusNode.requestFocus();
   }
 
+  Future<void> _showPageNavigator() async {
+    final selectedPage = await showModalBottomSheet<int>(
+      context: context,
+      isScrollControlled: true,
+      builder: (context) {
+        return SafeArea(
+          child: SizedBox(
+            height: MediaQuery.of(context).size.height * 0.6,
+            child: Column(
+              children: [
+                const SizedBox(height: 12),
+                const Text(
+                  '快速跳页',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  '当前第 $_page 页 / 共 $_pageCount 页',
+                  style: const TextStyle(color: Colors.black54),
+                ),
+                const SizedBox(height: 12),
+                Expanded(
+                  child: GridView.builder(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 5,
+                          crossAxisSpacing: 8,
+                          mainAxisSpacing: 8,
+                          childAspectRatio: 1.4,
+                        ),
+                    itemCount: _pageCount,
+                    itemBuilder: (context, index) {
+                      final pageNumber = index + 1;
+                      final isCurrent = pageNumber == _page;
+                      return InkWell(
+                        borderRadius: BorderRadius.circular(10),
+                        onTap: () => Navigator.pop(context, pageNumber),
+                        child: Container(
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            color: isCurrent
+                                ? Colors.blueAccent
+                                : Colors.grey.shade200,
+                            borderRadius: BorderRadius.circular(10),
+                            border: Border.all(
+                              color: isCurrent
+                                  ? Colors.blueAccent
+                                  : Colors.grey.shade400,
+                            ),
+                          ),
+                          child: Text(
+                            '$pageNumber',
+                            style: TextStyle(
+                              color: isCurrent ? Colors.white : Colors.black87,
+                              fontWeight: isCurrent
+                                  ? FontWeight.bold
+                                  : FontWeight.normal,
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+
+    if (selectedPage == null || !mounted) {
+      return;
+    }
+
+    setState(() {
+      _errorMessage = null;
+    });
+    await _viewerController.goToPage(selectedPage - 1);
+    _focusNode.requestFocus();
+  }
+
   void _handleVerticalDragStart(DragStartDetails details) {
     _verticalDragDistance = 0;
   }
@@ -250,6 +333,14 @@ class _PdfViewerPageState extends State<PdfViewerPage> {
         const Spacer(),
         if (_showMuyuFlag) _buildMuyuButtonGroup(),
         const SizedBox(height: 10),
+        IconButton(
+          padding: EdgeInsets.zero,
+          constraints: const BoxConstraints(),
+          icon: const Icon(Icons.grid_view, color: Colors.grey),
+          tooltip: '页码导航',
+          onPressed: _showPageNavigator,
+        ),
+        const Spacer(),
         IconButton(
           padding: EdgeInsets.zero,
           constraints: const BoxConstraints(),

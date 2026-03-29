@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:gongke/comm/external_launcher_tools.dart';
 import 'package:gongke/comm/pub_tools.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class SettingPage extends StatefulWidget {
   const SettingPage({super.key});
@@ -12,7 +12,7 @@ const double picheight = 400;
 
 class _SettingPageState extends State<SettingPage> {
   static const String _supportEmail = 'yangxuehui@outlook.com';
-  static const String _supportUrl = 'https://tieba.baidu.com/p/9908596817';
+  static const String _supportUrl = 'https://zhuanlan.zhihu.com/p/713033250';
 
   @override
   void initState() {
@@ -20,14 +20,10 @@ class _SettingPageState extends State<SettingPage> {
   }
 
   Future<void> _launchEmail() async {
-    final uri = Uri(
-      scheme: 'mailto',
-      path: _supportEmail,
-    );
-    if (await canLaunchUrl(uri)) {
-      await launchUrl(uri);
+    try {
+      await ExternalLauncherTools.launch('mailto:$_supportEmail');
       return;
-    }
+    } catch (_) {}
     if (!mounted) {
       return;
     }
@@ -45,11 +41,10 @@ class _SettingPageState extends State<SettingPage> {
   }
 
   Future<void> _launchSupportUrl() async {
-    final uri = Uri.parse(_supportUrl);
-    if (await canLaunchUrl(uri)) {
-      await launchUrl(uri, mode: LaunchMode.externalApplication);
+    try {
+      await ExternalLauncherTools.launch(_supportUrl);
       return;
-    }
+    } catch (_) {}
     if (!mounted) {
       return;
     }

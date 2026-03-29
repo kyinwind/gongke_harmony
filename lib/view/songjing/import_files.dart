@@ -13,6 +13,8 @@ class ImportFilesPage extends StatefulWidget {
 }
 
 class _ImportFilesPageState extends State<ImportFilesPage> {
+  static const int _maxImportFileCount = 15;
+
   final FileImportAdapter _fileImportAdapter = const FileImportAdapter();
   final ImportService _importService = const ImportService();
 
@@ -21,6 +23,7 @@ class _ImportFilesPageState extends State<ImportFilesPage> {
   String _title = '';
   String _content = '';
   bool _isImporting = false;
+  String? _importStatus;
 
   @override
   void didChangeDependencies() {
@@ -50,18 +53,36 @@ class _ImportFilesPageState extends State<ImportFilesPage> {
   }
 
   Future<void> _selectFiles() async {
-    final allowedExtensions = _jingshuType == 'kaishi'
-        ? const ['json']
-        : const ['pdf'];
-    final selected = await _fileImportAdapter.pickImportFiles(
-      allowedExtensions: allowedExtensions,
-    );
-    if (!mounted) {
-      return;
+    try {
+      final allowedExtensions =
+          _jingshuType == 'kaishi' ? const ['json'] : const ['pdf'];
+      final selected = await _fileImportAdapter.pickImportFiles(
+        allowedExtensions: allowedExtensions,
+      );
+      if (!mounted) {
+        return;
+      }
+      if (selected.length > _maxImportFileCount) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('一次最多导入 $_maxImportFileCount 个文件，请分批导入')),
+        );
+        setState(() {
+          _selectedFiles = [];
+        });
+        return;
+      }
+      setState(() {
+        _selectedFiles = selected;
+      });
+    } catch (e) {
+      debugPrint('select files error: $e');
+      if (!mounted) {
+        return;
+      }
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('选择文件失败：$e')));
     }
-    setState(() {
-      _selectedFiles = selected;
-    });
   }
 
   Future<void> _confirmImport() async {
@@ -71,12 +92,27 @@ class _ImportFilesPageState extends State<ImportFilesPage> {
 
     setState(() {
       _isImporting = true;
+      _importStatus = '准备导入...';
     });
+    // Let the loading state render before heavy import work starts.
+    await Future<void>.delayed(const Duration(milliseconds: 16));
     try {
-      final count = await _importService.importFiles(
-        importType: _jingshuType,
-        files: _selectedFiles,
-      );
+      final filesToImport = List<ImportFileRef>.from(_selectedFiles);
+      var count = 0;
+      for (var i = 0; i < filesToImport.length; i++) {
+        if (!mounted) {
+          return;
+        }
+        setState(() {
+          _importStatus = '导入中 ${i + 1}/${filesToImport.length}';
+        });
+        count += await _importService.importFiles(
+          importType: _jingshuType,
+          files: [filesToImport[i]],
+        );
+        // Avoid holding onto large file batches in one uninterrupted task.
+        await Future<void>.delayed(const Duration(milliseconds: 8));
+      }
       if (!mounted) {
         return;
       }
@@ -95,6 +131,7 @@ class _ImportFilesPageState extends State<ImportFilesPage> {
       if (mounted) {
         setState(() {
           _isImporting = false;
+          _importStatus = null;
         });
       }
     }
@@ -165,6 +202,13 @@ class _ImportFilesPageState extends State<ImportFilesPage> {
                   ),
                 ),
               const SizedBox(height: 20),
+              if (_importStatus != null) ...[
+                Text(
+                  _importStatus!,
+                  style: Theme.of(context).textTheme.bodyMedium,
+                ),
+                const SizedBox(height: 12),
+              ],
               if (canImport)
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,

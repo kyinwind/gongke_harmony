@@ -50,7 +50,7 @@ dependencies:
   flutter_pdfview: ^1.4.1+1
   flutter_pdfview_ohos: ^1.0.0
   flutter_slidable: ^3.1.2
-  image_picker: ^0.8.7+5
+  image_picker: ^1.0.4
   flutter_image_compress: ^1.1.3
   table_calendar: ^3.0.8  # 用于日历显示
   lunar: ^1.7.5  # 用于农历转换
@@ -62,7 +62,8 @@ dependencies:
       url: https://gitee.com/openharmony-sig/flutter_audioplayers.git
       path: packages/audioplayers
   ffi: ^2.0.1
-  file_selector: ^0.9.3
+  file_picker: ^5.3.1
+  file_picker_ohos: ^1.0.1
   url_launcher: ^6.1.10
   logger: ^1.4.0
 
@@ -84,10 +85,6 @@ dependency_overrides:
     git:
       url: https://gitee.com/openharmony-sig/flutter_plus_plugins.git
       path: packages/sensors_plus/sensors_plus
-  file_selector:
-    git:
-      url: https://gitee.com/openharmony-sig/flutter_packages.git
-      path: packages/file_selector/file_selector
   shared_preferences:
     git:
       url: https://gitee.com/openharmony-sig/flutter_packages.git
