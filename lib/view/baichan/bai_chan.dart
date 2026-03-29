@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:gongke/model/tables.dart';
 import 'package:drift/drift.dart' hide Column;
-import 'package:gongke/view/baichan/new_bai_chan.dart';
-import 'package:gongke/view/baichan/bai_chan_play.dart';
 import 'package:gongke/database.dart';
 import 'package:gongke/main.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:gongke/view/baichan/bai_chan_play.dart';
 import 'package:styled_widget/styled_widget.dart';
 import 'package:gongke/comm/pub_tools.dart';
 
@@ -83,7 +79,7 @@ class _BaiChanListPageState extends State<BaiChanPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           '拜忏',
           style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
         ),
@@ -114,8 +110,8 @@ class _BaiChanListPageState extends State<BaiChanPage> {
               return Center(child: Text('数据加载出错: ${snapshot.error}'));
             }
             final list = snapshot.data ?? [];
-            if (list.length == 0) {
-              return Center(child: Text('暂无拜忏记录，请先添加'));
+            if (list.isEmpty) {
+              return const Center(child: Text('暂无拜忏记录，请先添加'));
             }
             return ListView.builder(
               itemCount: list.length,
@@ -139,7 +135,8 @@ class _BaiChanListPageState extends State<BaiChanPage> {
                           );
                         },
                         backgroundColor: Colors.white,
-                        foregroundColor: Color.fromARGB(255, 226, 203, 50),
+                        foregroundColor:
+                            const Color.fromARGB(255, 226, 203, 50),
                         icon: Icons.favorite,
                         label:
                             list[index].favoriteDateTime != null ? '取消' : '最爱',
@@ -158,7 +155,7 @@ class _BaiChanListPageState extends State<BaiChanPage> {
                           // 重新获取数据
                           await loadAllData();
                         },
-                        backgroundColor: Color(0xFFFE4A49),
+                        backgroundColor: const Color(0xFFFE4A49),
                         foregroundColor: Colors.white,
                         icon: Icons.delete,
                         label: '删除',

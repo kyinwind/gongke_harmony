@@ -28,5 +28,43 @@ doc/api/
 .flutter-plugins
 .flutter-plugins-dependencies
 
-packages
-build
+# macOS Finder metadata
+.DS_Store
+
+# Flutter / Dart local lockfile
+pubspec.lock
+
+# Local helper scripts
+scripts/
+
+# Keep only the local OHOS PDF viewer plugin source.
+packages/*
+!packages/flutter_pdfview_ohos/
+!packages/flutter_pdfview_ohos/**
+
+# Ignore generated artifacts inside the local plugin.
+packages/flutter_pdfview_ohos/.dart_tool/
+packages/flutter_pdfview_ohos/build/
+packages/flutter_pdfview_ohos/ohos/build/
+packages/flutter_pdfview_ohos/ohos/oh_modules/
+packages/flutter_pdfview_ohos/example/.dart_tool/
+packages/flutter_pdfview_ohos/example/build/
+packages/flutter_pdfview_ohos/example/ohos/build/
+packages/flutter_pdfview_ohos/example/ohos/oh_modules/
+packages/flutter_pdfview_ohos/example/.flutter-plugins
+packages/flutter_pdfview_ohos/example/.flutter-plugins-dependencies
+packages/flutter_pdfview_ohos/example/pubspec.lock
+packages/flutter_pdfview_ohos/pubspec.lock
+
+# Old experimental PDF plugin, no longer used.
+packages/pdf_render_ohos/
+
+# DevEco / HarmonyOS local build caches and machine-specific files.
+ohos/.hvigor/
+ohos/.idea/
+ohos/local.properties
+ohos/oh-package-lock.json5
+ohos/entry/oh-package-lock.json5
+ohos/entry/libs/
+ohos/entry/src/main/resources/rawfile/
+packages/flutter_pdfview_ohos/.DS_Store

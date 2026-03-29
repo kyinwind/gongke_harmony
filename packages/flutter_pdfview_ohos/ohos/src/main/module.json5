@@ -1,0 +1,10 @@
+{
+  "module": {
+    "name": "flutter_pdfview_ohos",
+    "type": "har",
+    "deviceTypes": [
+      "default",
+      "tablet"
+    ]
+  }
+}
