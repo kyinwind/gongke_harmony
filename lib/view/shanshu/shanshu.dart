@@ -84,8 +84,7 @@ class _ShanShuPageState extends State<ShanShuPage> {
       final keyword = str.trim();
       final list = await (globalDB.select(globalDB.jingShu)
             ..where(
-              (tbl) =>
-                  tbl.name.like('%$keyword%') & tbl.type.like('%shanshu%'),
+              (tbl) => tbl.name.like('%$keyword%') & tbl.type.like('%shanshu%'),
             )
             ..orderBy([
               (tbl) => OrderingTerm.desc(tbl.favoriteDateTime),
@@ -105,19 +104,24 @@ class _ShanShuPageState extends State<ShanShuPage> {
   }
 
   // 设置为最爱
-  void _setFavorite(JingShuData jingshu) {
-    setState(() {
-      var favoriteDateTime = jingshu.favoriteDateTime;
-      if (jingshu.favoriteDateTime != null) {
-        favoriteDateTime = null; // 如果已经是最爱，则取消
-      } else {
-        favoriteDateTime = DateTime.now();
-      }
-      // 添加数据库更新逻辑
-      globalDB.managers.jingShu
-          .filter((f) => f.id(jingshu.id))
-          .update((o) => o(favoriteDateTime: Value(favoriteDateTime)));
-    });
+  Future<void> _setFavorite(JingShuData jingshu) async {
+    var favoriteDateTime = jingshu.favoriteDateTime;
+    if (jingshu.favoriteDateTime != null) {
+      favoriteDateTime = null; // 如果已经是最爱，则取消
+    } else {
+      favoriteDateTime = DateTime.now();
+    }
+    await globalDB.managers.jingShu
+        .filter((f) => f.id(jingshu.id))
+        .update((o) => o(favoriteDateTime: Value(favoriteDateTime)));
+    if (!mounted) {
+      return;
+    }
+    if (_searchController.text.isNotEmpty) {
+      await fetchByWords(_searchController.text);
+    } else {
+      await fetchAll();
+    }
   }
 
   // 跳转到PDF页面
@@ -196,7 +200,6 @@ class _ShanShuPageState extends State<ShanShuPage> {
           ],
         ),
       ),
-
       body: SlidableAutoCloseBehavior(
         child: StreamBuilder<List<JingShuData>>(
           stream: shanshudatalist,
@@ -225,8 +228,11 @@ class _ShanShuPageState extends State<ShanShuPage> {
                     motion: const DrawerMotion(),
                     children: [
                       SlidableAction(
-                        onPressed: (context) {
-                          _setFavorite(list[index]);
+                        onPressed: (context) async {
+                          await _setFavorite(list[index]);
+                          if (!mounted) {
+                            return;
+                          }
                           ScaffoldMessenger.of(context).hideCurrentSnackBar();
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
@@ -241,9 +247,8 @@ class _ShanShuPageState extends State<ShanShuPage> {
                         backgroundColor: Colors.white,
                         foregroundColor: Color.fromARGB(255, 226, 203, 50),
                         icon: Icons.favorite,
-                        label: list[index].favoriteDateTime != null
-                            ? '取消'
-                            : '最爱',
+                        label:
+                            list[index].favoriteDateTime != null ? '取消' : '最爱',
                       ),
                     ],
                   ),

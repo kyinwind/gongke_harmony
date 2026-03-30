@@ -41,8 +41,7 @@ class _GongKeSettingPageState extends State<GongKeSettingPage> {
 
     setState(() {
       // 只有今天和昨天可以编辑
-      _canEdit =
-          inputDate.year == today.year &&
+      _canEdit = inputDate.year == today.year &&
           inputDate.month == today.month &&
           (inputDate.day == today.day || inputDate.day == yesterday.day);
 
@@ -105,7 +104,6 @@ class _GongKeSettingPageState extends State<GongKeSettingPage> {
                 ),
               ],
             ),
-
             const SizedBox(height: 16),
             _buildDateCard(),
             const SizedBox(height: 12),
@@ -146,7 +144,9 @@ class _GongKeSettingPageState extends State<GongKeSettingPage> {
     //根据pdfname找到经书
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => PdfViewerPage(jingshu: jingshu)),
+      MaterialPageRoute(
+          builder: (context) =>
+              PdfViewerPage(jingshu: jingshu, startPageIndex: 1)),
     );
   }
 
@@ -254,8 +254,7 @@ class _GongKeSettingPageState extends State<GongKeSettingPage> {
                             child: Text(
                               getGongkeItemLabel(item),
                               style: TextStyle(
-                                color:
-                                    item.gongketype == 'songjing' ||
+                                color: item.gongketype == 'songjing' ||
                                         item.gongketype == 'nianzhou' ||
                                         item.gongketype == 'nianshenghao' ||
                                         item.gongketype == 'dazuo'

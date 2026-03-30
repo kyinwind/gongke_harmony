@@ -25,19 +25,20 @@ class _BaiChanListPageState extends State<BaiChanPage> {
   }
 
   // 设置为最爱
-  void _setFavorite(BaiChanData baichan) {
-    setState(() {
-      var favoriteDateTime = baichan.favoriteDateTime;
-      if (baichan.favoriteDateTime != null) {
-        favoriteDateTime = null; // 如果已经是最爱，则取消
-      } else {
-        favoriteDateTime = DateTime.now();
-      }
-      // 添加数据库更新逻辑
-      globalDB.managers.baiChan
-          .filter((f) => f.id(baichan.id))
-          .update((o) => o(favoriteDateTime: Value(favoriteDateTime)));
-    });
+  Future<void> _setFavorite(BaiChanData baichan) async {
+    var favoriteDateTime = baichan.favoriteDateTime;
+    if (baichan.favoriteDateTime != null) {
+      favoriteDateTime = null; // 如果已经是最爱，则取消
+    } else {
+      favoriteDateTime = DateTime.now();
+    }
+    await globalDB.managers.baiChan
+        .filter((f) => f.id(baichan.id))
+        .update((o) => o(favoriteDateTime: Value(favoriteDateTime)));
+    if (!mounted) {
+      return;
+    }
+    await loadAllData();
   }
 
   Future<void> loadAllData() async {
@@ -121,8 +122,11 @@ class _BaiChanListPageState extends State<BaiChanPage> {
                     motion: const DrawerMotion(),
                     children: [
                       SlidableAction(
-                        onPressed: (context) {
-                          _setFavorite(list[index]);
+                        onPressed: (context) async {
+                          await _setFavorite(list[index]);
+                          if (!mounted) {
+                            return;
+                          }
                           ScaffoldMessenger.of(context).hideCurrentSnackBar();
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(

@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:drift/drift.dart' hide Column;
@@ -7,9 +9,12 @@ import 'package:gongke/database.dart';
 import 'package:gongke/main.dart';
 
 class PdfViewerPage extends StatefulWidget {
-  const PdfViewerPage({super.key, required this.jingshu});
+  const PdfViewerPage({super.key, required this.jingshu, this.startPageIndex});
 
   final JingShuData jingshu;
+  //打开时跳到第几页，可以不设置
+  //如果不设置，且支持记忆页码，则跳到上次阅读的页码；如果不设置且不支持记忆页码，则跳到第一页
+  final int? startPageIndex;
 
   @override
   State<PdfViewerPage> createState() => _PdfViewerPageState();
@@ -65,7 +70,9 @@ class _PdfViewerPageState extends State<PdfViewerPage> {
   }
 
   Future<void> _initialize() async {
-    if (_supportsPageMemory) {
+    if (widget.startPageIndex != null) {
+      _page = widget.startPageIndex!.clamp(1, 999999);
+    } else if (_supportsPageMemory) {
       _page = await _getCurPage();
     }
     final filePath = await AppPdfTools.resolveFilePath(widget.jingshu);
@@ -154,11 +161,11 @@ class _PdfViewerPageState extends State<PdfViewerPage> {
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 5,
-                          crossAxisSpacing: 8,
-                          mainAxisSpacing: 8,
-                          childAspectRatio: 1.4,
-                        ),
+                      crossAxisCount: 5,
+                      crossAxisSpacing: 8,
+                      mainAxisSpacing: 8,
+                      childAspectRatio: 1.4,
+                    ),
                     itemCount: _pageCount,
                     itemBuilder: (context, index) {
                       final pageNumber = index + 1;
@@ -240,7 +247,9 @@ class _PdfViewerPageState extends State<PdfViewerPage> {
   }
 
   Future<void> _alignInitialPageIfNeeded() async {
-    if (_didAlignInitialPage || _initialPageIndex == null || _filePath == null) {
+    if (_didAlignInitialPage ||
+        _initialPageIndex == null ||
+        _filePath == null) {
       return;
     }
     _didAlignInitialPage = true;
@@ -485,8 +494,8 @@ class _PdfViewerPageState extends State<PdfViewerPage> {
             children: [
               LayoutBuilder(
                 builder: (context, constraints) {
-                  final reservedBottomSpace = (constraints.maxHeight * 0.045)
-                      .clamp(24.0, 40.0);
+                  final reservedBottomSpace =
+                      (constraints.maxHeight * 0.045).clamp(24.0, 40.0);
                   final viewportHeight =
                       (constraints.maxHeight - reservedBottomSpace)
                           .clamp(0.0, constraints.maxHeight);
