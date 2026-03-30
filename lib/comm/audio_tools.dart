@@ -1,4 +1,5 @@
 import 'package:audioplayers/audioplayers.dart';
+import 'dart:async';
 
 class AudioTools {
   static AudioPlayer? _player;
@@ -34,6 +35,23 @@ class AudioTools {
       await player.setPlaybackRate(1.0);
     }
     await player.play(AssetSource(file));
+  }
+
+  static Future<void> playLocalAssetAndWait(
+    String file, {
+    double? playbackRate,
+  }) async {
+    final completer = Completer<void>();
+    await playLocalAsset(
+      file,
+      playbackRate: playbackRate,
+      onComplete: () {
+        if (!completer.isCompleted) {
+          completer.complete();
+        }
+      },
+    );
+    await completer.future;
   }
 
   static Future<void> stop() async {

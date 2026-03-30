@@ -7,20 +7,34 @@
         "material": {
           "certpath": "/Users/yangxuehui/.ohos/config/default_ohos_-KdX8hiqsIiZ2MGX1ZdisSWvbjxvMkpeAvnVyMWgJic=.cer",
           "keyAlias": "debugKey",
-          "keyPassword": "0000001A93B087FB100A9B6F134DD16D28093B29B6CB6031AE263A0CD0624F99B7627BE8411866CB8C99",
+          "keyPassword": "0000001A1AB058D7FC83335D307ABE6487605ECE71642BD729736AA81F270AF9F205DF02F7F383CBCFCE",
           "profile": "/Users/yangxuehui/.ohos/config/default_ohos_-KdX8hiqsIiZ2MGX1ZdisSWvbjxvMkpeAvnVyMWgJic=.p7b",
           "signAlg": "SHA256withECDSA",
           "storeFile": "/Users/yangxuehui/.ohos/config/default_ohos_-KdX8hiqsIiZ2MGX1ZdisSWvbjxvMkpeAvnVyMWgJic=.p12",
-          "storePassword": "0000001A788AAD31888C3C182D0EA79DA26B925FFC31AF4FE91F1E05F872B8E17F8DA96F0F57BCD105F8"
+          "storePassword": "0000001AB99F91AEA252CDCE0D02351AA5EDF33F5F29B52090B11D10B46FE76F90123C1CA30AB3704BA4"
+        }
+      },
+      {
+        "name": "songjingRelease",
+        "type": "HarmonyOS",
+        "material": {
+          "certpath": "/Users/yangxuehui/Documents/NAS同步盘/app上架发布/证书/诵经助手鸿蒙版发布证书/songjing_release.cer",
+          "keyAlias": "songjing_release",
+          "keyPassword": "0000001C53BCA354D21D5DD67ACB30983590A176223CE605AB24738223362B17D11610D86C4160E58F1A9131",
+          "profile": "/Users/yangxuehui/Documents/NAS同步盘/app上架发布/证书/诵经助手鸿蒙版发布证书/songjing_release_profileRelease.p7b",
+          "signAlg": "SHA256withECDSA",
+          "storeFile": "/Users/yangxuehui/Documents/NAS同步盘/app上架发布/证书/诵经助手鸿蒙版发布证书/songjing_release.p12",
+          "storePassword": "0000001C28CF7EC42A7C228FB5CEEFEF78D222E75DAD6E7EB48D61260E5D1FB3246ACC17F9EF3BC172667931"
         }
       }
     ],
     "products": [
       {
         "name": "default",
-        "signingConfig": "default",
+        "signingConfig": "songjingRelease",
         "compatibleSdkVersion": "5.0.0(12)",
-        "runtimeOS": "HarmonyOS"
+        "runtimeOS": "HarmonyOS",
+        "targetSdkVersion": "5.0.0(12)"
       }
     ]
   },

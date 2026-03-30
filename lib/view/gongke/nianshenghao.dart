@@ -41,23 +41,27 @@ class _NianShengHaoPageState extends State<NianShengHaoPage> {
     }
   }
 
-  void start() {
+  Future<void> start() async {
     setState(() {
       isRunning = true;
     });
 
     timer?.cancel();
+    await AudioTools.playLocalAssetAndWait('mp3/yinqing.wav');
+    if (!mounted || !isRunning) {
+      return;
+    }
     timer = Timer.periodic(Duration(milliseconds: (interval * 1000).toInt()), (
       timer,
     ) async {
       if (currentCount >= (gongkeitem?.cnt ?? 0)) {
-        stop();
+        pause();
         return;
       }
       WakelockTools.enable();
       if (mounted) {
         // 先播放音频
-        await AudioTools.playLocalAsset('mp3/muyu.wav');
+        await AudioTools.playLocalAssetAndWait('mp3/muyu.wav');
 
         // 再更新计数
         if (mounted) {
@@ -66,8 +70,7 @@ class _NianShengHaoPageState extends State<NianShengHaoPage> {
           });
         }
         if (currentCount >= gongkeitem!.cnt) {
-          AudioTools.playLocalAsset('mp3/yinqing.wav');
-          WakelockTools.disable();
+          await _finishSequence();
         }
       }
     });
@@ -86,6 +89,17 @@ class _NianShengHaoPageState extends State<NianShengHaoPage> {
     setState(() {
       currentCount = gongkeitem?.cnt ?? 0;
     });
+  }
+
+  Future<void> _finishSequence() async {
+    pause();
+    if (mounted) {
+      setState(() {
+        currentCount = gongkeitem?.cnt ?? 0;
+      });
+    }
+    await AudioTools.playLocalAssetAndWait('mp3/yinqing.wav');
+    WakelockTools.disable();
   }
 
   @override

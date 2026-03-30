@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
-
 import 'package:file_picker_ohos/file_picker_ohos.dart';
 
 class ImportFileRef {
