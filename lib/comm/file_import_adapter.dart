@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:file_picker_ohos/file_picker_ohos.dart';
+import 'package:flutter/services.dart';
 
 class ImportFileRef {
   final String path;
@@ -36,13 +37,21 @@ class FileSelectorSelectionGateway implements FileSelectionGateway {
     required List<String> allowedExtensions,
     bool allowMultiple = true,
   }) async {
-    final result = await FilePicker.platform.pickFiles(
-      allowMultiple: allowMultiple,
-      type: FileType.custom,
-      allowedExtensions: allowedExtensions,
-      withData: false,
-      withReadStream: false,
-    );
+    FilePickerResult? result;
+    try {
+      result = await FilePicker.platform.pickFiles(
+        allowMultiple: allowMultiple,
+        type: FileType.custom,
+        allowedExtensions: allowedExtensions,
+        withData: false,
+        withReadStream: false,
+      );
+    } on PlatformException catch (e) {
+      if (_isUserCancelledSelection(e)) {
+        return const <ImportFileRef>[];
+      }
+      rethrow;
+    }
     final files = result?.files ?? const <PlatformFile>[];
 
     return files
@@ -69,6 +78,13 @@ class FileSelectorSelectionGateway implements FileSelectionGateway {
           ),
         )
         .toList();
+  }
+
+  bool _isUserCancelledSelection(PlatformException exception) {
+    final code = exception.code.toLowerCase();
+    final message = (exception.message ?? '').toLowerCase();
+    return code.contains('unknown_activity') ||
+        message.contains('unknown activity');
   }
 
   String _normalizeFileName(String rawName, String rawPath) {

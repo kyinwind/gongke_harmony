@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:gongke/comm/shared_preferences.dart';
 import 'package:gongke/comm/platform_tools.dart';
@@ -47,10 +48,12 @@ class BootstrapResult {
   const BootstrapResult({
     required this.db,
     required this.hasSeenWelcome,
+    required this.hasAcceptedPrivacyPolicy,
   });
 
   final AppDatabase db;
   final bool hasSeenWelcome;
+  final bool hasAcceptedPrivacyPolicy;
 }
 
 class BootstrapApp extends StatefulWidget {
@@ -65,6 +68,8 @@ class _BootstrapAppState extends State<BootstrapApp> {
 
   Future<BootstrapResult> _bootstrap() async {
     final hasSeenWelcome = await getBoolValue('hasSeenWelcome') ?? false;
+    final hasAcceptedPrivacyPolicy =
+        await getBoolValue('hasAcceptedPrivacyPolicy') ?? false;
 
     globalDB = AppDatabase();
     await globalDB.customSelect('SELECT 1').get();
@@ -77,6 +82,7 @@ class _BootstrapAppState extends State<BootstrapApp> {
     return BootstrapResult(
       db: globalDB,
       hasSeenWelcome: hasSeenWelcome,
+      hasAcceptedPrivacyPolicy: hasAcceptedPrivacyPolicy,
     );
   }
 
@@ -106,6 +112,7 @@ class _BootstrapAppState extends State<BootstrapApp> {
         return MyApp(
           db: data.db,
           initialHasSeenWelcome: data.hasSeenWelcome,
+          initialHasAcceptedPrivacyPolicy: data.hasAcceptedPrivacyPolicy,
         );
       },
     );
@@ -152,19 +159,31 @@ class BootstrapStatusApp extends StatelessWidget {
 class MyApp extends StatefulWidget {
   final AppDatabase db; // 添加数据库字段
   final bool initialHasSeenWelcome;
+  final bool initialHasAcceptedPrivacyPolicy;
 
   const MyApp({
     super.key,
     required this.db,
     required this.initialHasSeenWelcome,
+    required this.initialHasAcceptedPrivacyPolicy,
   }); // 修改构造函数
 
   @override
   State<MyApp> createState() => _MyAppState();
 }
 
-class _MyAppState extends State<MyApp> {
+class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   late bool _hasSeenWelcome = widget.initialHasSeenWelcome;
+  late bool _hasAcceptedPrivacyPolicy =
+      widget.initialHasAcceptedPrivacyPolicy;
+  bool _isPrivacyDialogVisible = false;
+  final GlobalKey<NavigatorState> _navigatorKey = GlobalKey<NavigatorState>();
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
 
   Future<void> _finishWelcome() async {
     await saveBoolValue('hasSeenWelcome', true);
@@ -174,13 +193,89 @@ class _MyAppState extends State<MyApp> {
     setState(() {
       _hasSeenWelcome = true;
     });
+    _ensurePrivacyDialogIfNeeded();
+  }
+
+  void _ensurePrivacyDialogIfNeeded() {
+    if (!_hasSeenWelcome || _hasAcceptedPrivacyPolicy || _isPrivacyDialogVisible) {
+      return;
+    }
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final dialogContext = _navigatorKey.currentContext;
+      if (!mounted ||
+          dialogContext == null ||
+          !_hasSeenWelcome ||
+          _hasAcceptedPrivacyPolicy ||
+          _isPrivacyDialogVisible) {
+        return;
+      }
+      _showPrivacyPolicyDialog(dialogContext);
+    });
+  }
+
+  Future<void> _showPrivacyPolicyDialog(BuildContext dialogContext) async {
+    _isPrivacyDialogVisible = true;
+    await showDialog<void>(
+      context: dialogContext,
+      barrierDismissible: false,
+      builder: (popupContext) => AlertDialog(
+        title: const Text('隐私说明'),
+        content: const SizedBox(
+          width: 420,
+          child: SingleChildScrollView(
+            child: Text(
+              '本软件尊重并保护所有使用服务用户的个人隐私权。本软件不会收集您的个人信息，也不会存储和向第三方提供您的个人信息。本软件会不时更新本隐私权政策。您在同意本软件服务使用协议之时，即视为您已经同意本隐私权政策全部内容。本隐私权政策属于本软件服务使用协议不可分割的一部分。\n\n'
+              '1.适用范围\n\n'
+              'a)在您使用本软件期间，本软件不会收集您的个人信息，本软件也不具备联网访问其他网站信息的功能，所以请放心使用本软件。\n\n'
+              '2.信息披露\n\n'
+              'a)本软件不会收集也不会将您的信息披露给不受信任的第三方。\n\n'
+              '3.信息存储和交换\n\n'
+              '本软件不会收集也不会存储您的个人信息。',
+              style: TextStyle(fontSize: 15, height: 1.5),
+            ),
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () async {
+              Navigator.of(popupContext).pop();
+              await SystemNavigator.pop();
+            },
+            child: const Text('退出'),
+          ),
+          FilledButton(
+            onPressed: () async {
+              await saveBoolValue('hasAcceptedPrivacyPolicy', true);
+              if (!popupContext.mounted || !mounted) {
+                return;
+              }
+              setState(() {
+                _hasAcceptedPrivacyPolicy = true;
+              });
+              Navigator.of(popupContext).pop();
+            },
+            child: const Text('同意'),
+          ),
+        ],
+      ),
+    );
+    _isPrivacyDialogVisible = false;
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      _ensurePrivacyDialogIfNeeded();
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+    _ensurePrivacyDialogIfNeeded();
     final fontFamily = PlatformUtils.preferredFontFamily;
     return MaterialApp(
       // title: '诵经助手',
+      navigatorKey: _navigatorKey,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         textTheme: TextTheme(
@@ -224,6 +319,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
     widget.db.close();
     super.dispose();
   }
