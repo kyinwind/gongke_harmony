@@ -1,9 +1,12 @@
 
 import common from '@ohos.app.ability.common';
 import { FlutterPage } from '@ohos/flutter_ohos'
+import { pdfService } from '@kit.PDFKit'
+
 
 let storage = LocalStorage.getShared()
 const EVENT_BACK_PRESS = 'EVENT_BACK_PRESS'
+
 
 @Entry(storage)
 @Component

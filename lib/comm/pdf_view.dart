@@ -1,12 +1,12 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:drift/drift.dart' hide Column;
 import 'package:gongke/comm/audio_tools.dart';
 import 'package:gongke/comm/pdf_tools.dart';
+import 'package:gongke/comm/tts_tools.dart';
 import 'package:gongke/database.dart';
 import 'package:gongke/main.dart';
+import 'dart:async';
 
 class PdfViewerPage extends StatefulWidget {
   const PdfViewerPage({super.key, required this.jingshu, this.startPageIndex});
@@ -23,6 +23,7 @@ class PdfViewerPage extends StatefulWidget {
 class _PdfViewerPageState extends State<PdfViewerPage> {
   final FocusNode _focusNode = FocusNode();
   final AppPdfViewerController _viewerController = AppPdfViewerController();
+  final TtsTools _ttsTools = TtsTools();
   static const double _swipeVelocityThreshold = 250;
   static const double _swipeDistanceThreshold = 24;
 
@@ -33,9 +34,14 @@ class _PdfViewerPageState extends State<PdfViewerPage> {
   bool _isLoading = true;
   bool _showMuyuFlag = false;
   bool _muyuIsPlaying = false;
+  bool _isReadingPage = false;
+  bool _isExtractingPageText = false;
   String? _errorMessage;
   double _verticalDragDistance = 0;
   bool _didAlignInitialPage = false;
+  final Map<int, String> _pageTextCache = <int, String>{};
+  int _readingSessionId = 0;
+  Completer<void>? _speechCompleter;
 
   bool get _supportsPageMemory {
     final type = widget.jingshu.type;
@@ -117,6 +123,7 @@ class _PdfViewerPageState extends State<PdfViewerPage> {
     if (_page <= 1) {
       return;
     }
+    await _stopReadingForUserAction();
     setState(() {
       _errorMessage = null;
     });
@@ -128,11 +135,158 @@ class _PdfViewerPageState extends State<PdfViewerPage> {
     if (_pageCount > 0 && _page >= _pageCount) {
       return;
     }
+    await _stopReadingForUserAction();
     setState(() {
       _errorMessage = null;
     });
     await _viewerController.goToPage(_page);
     _focusNode.requestFocus();
+  }
+
+  Future<void> _toggleReadCurrentPage() async {
+    if (_isReadingPage || _isExtractingPageText) {
+      await _stopReading(resetUi: true);
+      if (mounted) {
+        _focusNode.requestFocus();
+      }
+      return;
+    }
+
+    setState(() {
+      _errorMessage = null;
+      _isReadingPage = true;
+    });
+
+    final sessionId = ++_readingSessionId;
+    unawaited(_readFromPage(sessionId, _page));
+  }
+
+  Future<void> _readFromPage(int sessionId, int startPage) async {
+    var targetPage = startPage;
+
+    while (mounted &&
+        sessionId == _readingSessionId &&
+        targetPage >= 1 &&
+        targetPage <= _pageCount) {
+      try {
+        if (_page != targetPage) {
+          await _viewerController.goToPage(targetPage - 1);
+          await Future<void>.delayed(const Duration(milliseconds: 220));
+        }
+
+        if (!mounted || sessionId != _readingSessionId) {
+          return;
+        }
+
+        setState(() {
+          _isExtractingPageText = true;
+          _errorMessage = null;
+        });
+
+        final text = await _getPageText(targetPage);
+
+        if (!mounted || sessionId != _readingSessionId) {
+          return;
+        }
+
+        if (text.isEmpty) {
+          setState(() {
+            _isExtractingPageText = false;
+            _errorMessage = '第 $targetPage 页未读取到可朗读的文本';
+          });
+          break;
+        }
+
+        setState(() {
+          _isExtractingPageText = false;
+        });
+
+        await _speakAndWait(sessionId, text);
+
+        if (!mounted || sessionId != _readingSessionId) {
+          return;
+        }
+
+        if (targetPage >= _pageCount) {
+          break;
+        }
+
+        targetPage += 1;
+      } catch (error) {
+        if (!mounted || sessionId != _readingSessionId) {
+          return;
+        }
+        setState(() {
+          _isExtractingPageText = false;
+          _errorMessage = '当前页文本提取失败: $error';
+        });
+        break;
+      }
+    }
+
+    if (!mounted || sessionId != _readingSessionId) {
+      return;
+    }
+
+    setState(() {
+      _isReadingPage = false;
+      _isExtractingPageText = false;
+    });
+    _focusNode.requestFocus();
+  }
+
+  Future<void> _speakAndWait(int sessionId, String text) async {
+    final completer = Completer<void>();
+    _speechCompleter = completer;
+
+    await _ttsTools.speak(text, () {
+      if (!completer.isCompleted) {
+        completer.complete();
+      }
+    });
+
+    await completer.future;
+
+    if (identical(_speechCompleter, completer)) {
+      _speechCompleter = null;
+    }
+  }
+
+  Future<void> _stopReadingForUserAction() async {
+    if (!_isReadingPage && !_isExtractingPageText) {
+      return;
+    }
+    await _stopReading(resetUi: true);
+  }
+
+  Future<void> _stopReading({required bool resetUi}) async {
+    _readingSessionId += 1;
+    if (_speechCompleter != null && !_speechCompleter!.isCompleted) {
+      _speechCompleter!.complete();
+    }
+    _speechCompleter = null;
+    await _ttsTools.stop();
+    if (!mounted || !resetUi) {
+      return;
+    }
+    setState(() {
+      _isReadingPage = false;
+      _isExtractingPageText = false;
+    });
+  }
+
+  Future<String> _getPageText(int pageNumber) async {
+    final cachedText = _pageTextCache[pageNumber];
+    if (cachedText != null) {
+      return cachedText;
+    }
+    final text = await _viewerController.getPageText(pageNumber - 1) ?? '';
+    final normalizedText = text
+        .replaceAll(RegExp(r'[\r\n]+'), '')
+        .replaceAll(RegExp(r'\s{2,}'), ' ')
+        .trim();
+    _pageTextCache[pageNumber] = normalizedText;
+    return normalizedText;
   }
 
   Future<void> _showPageNavigator() async {
@@ -211,6 +365,7 @@ class _PdfViewerPageState extends State<PdfViewerPage> {
       return;
     }
 
+    await _stopReadingForUserAction();
     setState(() {
       _errorMessage = null;
     });
@@ -335,6 +490,23 @@ class _PdfViewerPageState extends State<PdfViewerPage> {
         IconButton(
           padding: EdgeInsets.zero,
           constraints: const BoxConstraints(),
+          icon: _isExtractingPageText
+              ? const SizedBox(
+                  width: 22,
+                  height: 22,
+                  child: CircularProgressIndicator(strokeWidth: 2.2),
+                )
+              : Icon(
+                  _isReadingPage ? Icons.stop_circle : Icons.record_voice_over,
+                  color: _isReadingPage ? Colors.red : Colors.blue,
+                ),
+          tooltip: _isReadingPage ? '停止朗读' : '朗读当前页',
+          onPressed: _isExtractingPageText ? null : _toggleReadCurrentPage,
+        ),
+        const Spacer(),
+        IconButton(
+          padding: EdgeInsets.zero,
+          constraints: const BoxConstraints(),
           icon: const Icon(Icons.arrow_downward, color: Colors.blue),
           tooltip: '下一页',
           onPressed: _handleNextPage,
@@ -432,6 +604,7 @@ class _PdfViewerPageState extends State<PdfViewerPage> {
   @override
   void dispose() {
     _focusNode.dispose();
+    unawaited(_stopReading(resetUi: false));
     AudioTools.clearAndStop();
     super.dispose();
   }

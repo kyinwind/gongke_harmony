@@ -366,6 +366,14 @@ class PDFViewController {
     return isSet;
   }
 
+  Future<String?> getPageText(int page) async {
+    final String? text =
+        await _channel.invokeMethod('getPageText', <String, dynamic>{
+      'page': page,
+    });
+    return text;
+  }
+
   Future<void> _updateWidget(PDFView widget) async {
     _widget = widget;
     await _updateSettings(_PDFViewSettings.fromWidget(widget));
@@ -374,7 +382,7 @@ class PDFViewController {
   Future<void> _updateSettings(_PDFViewSettings setting) async {
     final Map<String, dynamic> updateMap = _settings.updatesMap(setting);
     if (updateMap.isEmpty) {
-      return null;
+      return;
     }
     _settings = setting;
     return _channel.invokeMethod('updateSettings', updateMap);

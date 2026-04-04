@@ -31,6 +31,7 @@ import common from '@ohos.app.ability.common';
 import { BinaryMessenger } from '@ohos/flutter_ohos/src/main/ets/plugin/common/BinaryMessenger';
 import StandardMethodCodec from '@ohos/flutter_ohos/src/main/ets/plugin/common/StandardMethodCodec';
 import MethodCall from '@ohos/flutter_ohos/src/main/ets/plugin/common/MethodCall';
+import { pdfService } from '@kit.PDFKit';
 import { PdfBuilder } from './PDFView';
 
 @Observed
@@ -40,6 +41,8 @@ export class FlutterPDFView extends PlatformView implements MethodCallHandler {
   context: common.UIAbilityContext;
   filePath: string;
   password: string;
+  document: pdfService.PdfDocument = new pdfService.PdfDocument();
+  isDocumentLoaded: boolean = false;
   defaultPage: number;
   enableSwipe: boolean;
   swipeHorizontal: boolean;
@@ -76,6 +79,9 @@ export class FlutterPDFView extends PlatformView implements MethodCallHandler {
       case "setPage":
         this.setPage(call, result);
         break;
+      case "getPageText":
+        this.getPageText(call, result);
+        break;
       case "updateSettings":
         this.updateSettings(call, result);
         break;
@@ -99,6 +105,46 @@ export class FlutterPDFView extends PlatformView implements MethodCallHandler {
       this.context?.eventHub.emit('setPage', this.pageIndex);
     }
     result.success(true);
+  }
+
+  public getPageText(call: MethodCall, result: MethodResult) {
+    try {
+      this.ensureDocumentLoaded();
+      let pageNumber = call.argument("page") as number;
+      if (pageNumber < 0 || pageNumber >= this.document.getPageCount()) {
+        result.success('');
+        return;
+      }
+
+      let page: pdfService.PdfPage = this.document.getPage(pageNumber);
+      let objects: Array<pdfService.GraphicsObject> = page.getGraphicsObjects();
+      let texts: Array<string> = [];
+      for (let i = 0; i < objects.length; i++) {
+        let object = objects[i];
+        if (object.type === pdfService.GraphicsObjectType.OBJECT_TEXT) {
+          let textObject = object as pdfService.TextObject;
+          let text = textObject.text;
+          if (text && text.trim().length > 0) {
+            texts.push(text.trim());
+          }
+        }
+      }
+      page.release();
+      result.success(texts.join('\n'));
+    } catch (err) {
+      result.error('getPageText', JSON.stringify(err), null);
+    }
+  }
+
+  private ensureDocumentLoaded() {
+    if (this.isDocumentLoaded) {
+      return;
+    }
+    let loadResult = this.document.loadDocument(this.filePath, this.password);
+    if (loadResult !== pdfService.ParseResult.PARSE_SUCCESS) {
+      throw new Error(`loadDocument failed: ${loadResult}`);
+    }
+    this.isDocumentLoaded = true;
   }
 
   private updateSettings(methodCall: MethodCall, result: MethodResult) {
@@ -188,6 +234,10 @@ export class FlutterPDFView extends PlatformView implements MethodCallHandler {
   }
 
   dispose(): void {
+    if (this.isDocumentLoaded) {
+      this.document.releaseDocument();
+      this.isDocumentLoaded = false;
+    }
     this.context.eventHub.off('setPage');
     this.context.eventHub.off('setSwipeEnabled');
     this.context.eventHub.off('setPreventLinkNavigation');

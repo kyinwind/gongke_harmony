@@ -9,7 +9,8 @@ import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
 
 class AppPdfViewerController {
-  final Completer<PDFViewController> _controller = Completer<PDFViewController>();
+  final Completer<PDFViewController> _controller =
+      Completer<PDFViewController>();
 
   Future<void> attach(PDFViewController controller) async {
     if (_controller.isCompleted) {
@@ -31,6 +32,14 @@ class AppPdfViewerController {
       return;
     }
     await controller.setPage(pageNumber);
+  }
+
+  Future<String?> getPageText(int pageNumber) async {
+    final controller = await ready;
+    if (controller == null) {
+      return null;
+    }
+    return controller.getPageText(pageNumber);
   }
 }
 
@@ -65,7 +74,7 @@ class AppPdfTools {
     required int initialPage,
     required void Function(PDFViewController controller) onViewCreated,
     required void Function(PDFViewController controller, int? pageCount)
-    onRender,
+        onRender,
     required void Function(int? page, int? pageCount) onPageChanged,
     required void Function(dynamic error) onError,
   }) {

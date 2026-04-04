@@ -34,7 +34,7 @@
         "signingConfig": "songjingRelease",
         "compatibleSdkVersion": "5.0.0(12)",
         "runtimeOS": "HarmonyOS",
-        "targetSdkVersion": "5.0.0(12)",
+        "targetSdkVersion": "5.0.0(12)"
       }
     ]
   },
