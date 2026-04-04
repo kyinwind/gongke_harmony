@@ -201,7 +201,7 @@ class _PdfViewerPageState extends State<PdfViewerPage> {
           _isExtractingPageText = false;
         });
 
-        await _speakAndWait(sessionId, text);
+        await _speakPageText(sessionId, text);
 
         if (!mounted || sessionId != _readingSessionId) {
           return;
@@ -235,7 +235,7 @@ class _PdfViewerPageState extends State<PdfViewerPage> {
     _focusNode.requestFocus();
   }
 
-  Future<void> _speakAndWait(int sessionId, String text) async {
+  Future<void> _speakPageText(int sessionId, String text) async {
     final completer = Completer<void>();
     _speechCompleter = completer;
 

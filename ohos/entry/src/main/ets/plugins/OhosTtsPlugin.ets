@@ -18,6 +18,20 @@ class PendingSpeak {
   pitch: number = 1.0;
 }
 
+class TtsRequestEvent {
+  requestId: string = '';
+}
+
+class TtsCompleteEvent extends TtsRequestEvent {
+  type: number = -1;
+  message: string = '';
+}
+
+class TtsErrorEvent extends TtsRequestEvent {
+  code: string = '';
+  message: string = '';
+}
+
 export default class OhosTtsPlugin implements FlutterPlugin, MethodCallHandler {
   private channel: MethodChannel | null = null;
   private engine: textToSpeech.TextToSpeechEngine | null = null;
@@ -57,6 +71,40 @@ export default class OhosTtsPlugin implements FlutterPlugin, MethodCallHandler {
       default:
         result.notImplemented();
     }
+  }
+
+  private emit(method: string, args: Object): void {
+    this.channel?.invokeMethod(method, args);
+  }
+
+  private createRequestEvent(requestId: string): TtsRequestEvent {
+    let event = new TtsRequestEvent();
+    event.requestId = requestId;
+    return event;
+  }
+
+  private createCompleteEvent(
+    requestId: string,
+    type: number,
+    message: string,
+  ): TtsCompleteEvent {
+    let event = new TtsCompleteEvent();
+    event.requestId = requestId;
+    event.type = type;
+    event.message = message;
+    return event;
+  }
+
+  private createErrorEvent(
+    requestId: string,
+    code: string,
+    message: string,
+  ): TtsErrorEvent {
+    let event = new TtsErrorEvent();
+    event.requestId = requestId;
+    event.code = code;
+    event.message = message;
+    return event;
   }
 
   private handleSpeak(call: MethodCall, result: MethodResult): void {
@@ -106,11 +154,12 @@ export default class OhosTtsPlugin implements FlutterPlugin, MethodCallHandler {
       (err: BusinessError, engine: textToSpeech.TextToSpeechEngine) => {
         this.isInitializing = false;
         if (err) {
-          this.channel?.invokeMethod('onError', {
-            requestId: this.pendingSpeak?.requestId ?? '',
-            code: `${err.code}`,
-            message: err.message,
-          });
+          const event = this.createErrorEvent(
+            this.pendingSpeak?.requestId ?? '',
+            `${err.code}`,
+            err.message,
+          );
+          this.emit('onError', event);
           return;
         }
 
@@ -118,21 +167,42 @@ export default class OhosTtsPlugin implements FlutterPlugin, MethodCallHandler {
         this.engine.setListener({
           onStart: (requestId: string) => {
             console.info(`[gongke_tts] onStart ${requestId}`);
-            this.channel?.invokeMethod('onStart', { requestId });
+            const event = this.createRequestEvent(requestId);
+            this.emit('onStart', event);
           },
-          onComplete: (requestId: string) => {
-            if (this.currentRequestId === requestId) {
-              this.currentRequestId = '';
+          onComplete: (
+            requestId: string,
+            response: textToSpeech.CompleteResponse,
+          ) => {
+            const event = this.createCompleteEvent(
+              requestId,
+              response.type,
+              response.message,
+            );
+            console.info(
+              `[gongke_tts] onComplete ${requestId} type=${response.type}`,
+            );
+            if (response.type === 1) {
+              if (this.currentRequestId === requestId) {
+                this.currentRequestId = '';
+              }
+              this.emit('onComplete', event);
             }
-            console.info(`[gongke_tts] onComplete ${requestId}`);
-            this.channel?.invokeMethod('onComplete', { requestId });
           },
-          onStop: (requestId: string) => {
+          onStop: (
+            requestId: string,
+            response: textToSpeech.StopResponse,
+          ) => {
             if (this.currentRequestId === requestId) {
               this.currentRequestId = '';
             }
             console.info(`[gongke_tts] onStop ${requestId}`);
-            this.channel?.invokeMethod('onStop', { requestId });
+            const event = this.createCompleteEvent(
+              requestId,
+              response.type,
+              response.message,
+            );
+            this.emit('onStop', event);
           },
           onData: (requestId: string, audio: ArrayBuffer) => {},
           onError: (requestId: string, errorCode: number, errorMessage: string) => {
@@ -142,11 +212,12 @@ export default class OhosTtsPlugin implements FlutterPlugin, MethodCallHandler {
             console.error(
               `[gongke_tts] onError ${requestId} ${errorCode} ${errorMessage}`,
             );
-            this.channel?.invokeMethod('onError', {
+            const event = this.createErrorEvent(
               requestId,
-              code: `${errorCode}`,
-              message: errorMessage,
-            });
+              `${errorCode}`,
+              errorMessage,
+            );
+            this.emit('onError', event);
           },
         });
         onReady?.();
