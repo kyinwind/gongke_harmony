@@ -52,7 +52,9 @@ class TtsTools {
       return;
     }
 
-    await stop();
+    if (_activeRequestId != null) {
+      await stop();
+    }
 
     final requestId = DateTime.now().microsecondsSinceEpoch.toString();
     _activeRequestId = requestId;

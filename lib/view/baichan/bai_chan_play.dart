@@ -117,7 +117,7 @@ class _BaiChanPlayPageState extends State<BaiChanPlayPage> {
 
   Future<void> _speakAfterBell(String text, {VoidCallback? onDone}) async {
     _isAnnouncing = true;
-    await AudioTools.playLocalAsset('mp3/yinqing.wav');
+    await AudioTools.playLocalAssetAndWait('mp3/yinqing.wav');
     if (!mounted) {
       return;
     }

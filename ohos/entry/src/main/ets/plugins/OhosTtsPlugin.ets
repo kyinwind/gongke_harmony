@@ -231,7 +231,6 @@ export default class OhosTtsPlugin implements FlutterPlugin, MethodCallHandler {
       return;
     }
 
-    this.stopInternal();
     this.pendingSpeak = null;
     this.currentRequestId = speak.requestId;
 
