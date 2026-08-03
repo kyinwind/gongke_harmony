@@ -12,6 +12,18 @@ Future<void> saveIntValue(String key, int value) async {
   await prefs.setInt(key, value);
 }
 
+// 存储浮点数（如时间间隔，单位秒）
+Future<void> saveDoubleValue(String key, double value) async {
+  final prefs = await SharedPreferences.getInstance();
+  await prefs.setDouble(key, value);
+}
+
+// 读取浮点数
+Future<double?> getDoubleValue(String key) async {
+  final prefs = await SharedPreferences.getInstance();
+  return prefs.getDouble(key);
+}
+
 // 存储字符串
 Future<void> saveStringValue(String key, String value) async {
   final prefs = await SharedPreferences.getInstance();

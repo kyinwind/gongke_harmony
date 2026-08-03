@@ -4,6 +4,10 @@ import 'package:gongke/database.dart';
 import '../../comm/audio_tools.dart';
 import '../../comm/pub_tools.dart';
 import '../../comm/wakelock_tools.dart';
+import 'package:gongke/comm/shared_preferences.dart';
+import 'package:gongke/comm/muyu_rhythm_store.dart';
+import 'package:gongke/comm/nianfo_muyu_session_controller.dart';
+import 'package:gongke/model/muyu_rhythm_pattern.dart';
 
 class NianShengHaoPage extends StatefulWidget {
   const NianShengHaoPage({super.key});
@@ -14,11 +18,41 @@ class NianShengHaoPage extends StatefulWidget {
 
 class _NianShengHaoPageState extends State<NianShengHaoPage> {
   GongKeItemData? gongkeitem;
-  bool isRunning = false;
-  Timer? timer;
-  double interval = 1.0;
-  int currentCount = 0;
   bool isLoaded = false;
+  double interval = 1.0;
+  Timer? _uiTimer;
+
+  /// 电子木鱼时间间隔持久化键（全局设置，单位秒）
+  static const String _kMuyuIntervalKey = 'gongke.muyuIntervalSeconds';
+
+  late final NianFoMuyuSessionController _session;
+  String _selectedPatternId = 'regular';
+
+  @override
+  void initState() {
+    super.initState();
+    _session = NianFoMuyuSessionController(onCompleted: () {
+      WakelockTools.disable();
+      if (mounted) setState(() {});
+    });
+    _loadInterval();
+  }
+
+  /// 读取上次保存的时间间隔，没有则保持默认 1.0 秒
+  Future<void> _loadInterval() async {
+    final saved = await getDoubleValue(_kMuyuIntervalKey);
+    if (saved != null && mounted) {
+      setState(() => interval = saved);
+    }
+  }
+
+  /// 持久化当前时间间隔，下次进入界面自动恢复
+  Future<void> _saveInterval() async {
+    await saveDoubleValue(_kMuyuIntervalKey, interval);
+  }
+
+  MuyuRhythmPattern get _currentPattern =>
+      muyuRhythmStore.patternFor(_selectedPatternId);
 
   @override
   void didChangeDependencies() {
@@ -28,84 +62,110 @@ class _NianShengHaoPageState extends State<NianShengHaoPage> {
       if (args != null && args['gongkeitem'] is GongKeItemData) {
         gongkeitem = args['gongkeitem'] as GongKeItemData;
         isLoaded = true;
+        _selectedPatternId = muyuRhythmStore.selectedPatternId(
+          gongKeType: gongkeitem!.gongketype,
+          gongKeName: gongkeitem!.name,
+        );
       }
-      print(gongkeitem.toString());
     }
   }
 
-  void startOrPause() {
-    if (isRunning) {
-      pause();
+  bool get _isRunning => _session.isActive;
+
+  bool get _canResume {
+    final total = gongkeitem?.cnt ?? 0;
+    return !_isRunning &&
+        _session.remainingCount > 0 &&
+        _session.remainingCount < total;
+  }
+
+  String get _primaryLabel {
+    if (_isRunning) return '暂停';
+    if (_canResume) return '继续';
+    return '开始';
+  }
+
+  void _onPrimary() {
+    if (_isRunning) {
+      _pause();
+    } else if (_canResume) {
+      _resume();
     } else {
-      start();
+      _start();
     }
   }
 
-  Future<void> start() async {
-    setState(() {
-      isRunning = true;
-    });
-
-    timer?.cancel();
-    await AudioTools.playLocalAssetAndWait('mp3/yinqing.wav');
-    if (!mounted || !isRunning) {
-      return;
-    }
-    timer = Timer.periodic(Duration(milliseconds: (interval * 1000).toInt()), (
-      timer,
-    ) async {
-      if (currentCount >= (gongkeitem?.cnt ?? 0)) {
-        pause();
-        return;
-      }
-      WakelockTools.enable();
-      if (mounted) {
-        // 先播放音频
-        await AudioTools.playLocalAssetAndWait('mp3/muyu.wav');
-
-        // 再更新计数
-        if (mounted) {
-          setState(() {
-            currentCount++;
-          });
-        }
-        if (currentCount >= gongkeitem!.cnt) {
-          await _finishSequence();
-        }
-      }
-    });
+  Future<void> _start() async {
+    if (gongkeitem == null) return;
+    WakelockTools.enable();
+    await _session.start(
+      pattern: _currentPattern,
+      totalCount: gongkeitem!.cnt,
+      interval: Duration(milliseconds: (interval * 1000).toInt()),
+    );
+    _startUiTicker();
+    setState(() {});
   }
 
-  void pause() {
-    setState(() {
-      isRunning = false;
-    });
-    timer?.cancel();
-    timer = null;
+  Future<void> _resume() async {
+    if (gongkeitem == null) return;
+    WakelockTools.enable();
+    await _session.resume(
+      pattern: _currentPattern,
+      interval: Duration(milliseconds: (interval * 1000).toInt()),
+    );
+    _startUiTicker();
+    setState(() {});
   }
 
-  void stop() {
-    pause();
-    setState(() {
-      currentCount = gongkeitem?.cnt ?? 0;
-    });
-  }
-
-  Future<void> _finishSequence() async {
-    pause();
-    if (mounted) {
-      setState(() {
-        currentCount = gongkeitem?.cnt ?? 0;
-      });
-    }
-    await AudioTools.playLocalAssetAndWait('mp3/yinqing.wav');
+  void _pause() {
+    _session.pause();
+    _uiTimer?.cancel();
     WakelockTools.disable();
+    setState(() {});
+  }
+
+  void _startUiTicker() {
+    _uiTimer?.cancel();
+    _uiTimer = Timer.periodic(const Duration(milliseconds: 200), (_) {
+      if (mounted) setState(() {});
+      if (!_session.isActive) {
+        _uiTimer?.cancel();
+        _uiTimer = null;
+      }
+    });
+  }
+
+  Future<void> _onModeChanged(String? id) async {
+    if (id == null || gongkeitem == null) return;
+    if (_session.isActive) _pause();
+    setState(() => _selectedPatternId = id);
+    await muyuRhythmStore.select(
+      patternID: id,
+      gongKeType: gongkeitem!.gongketype,
+      gongKeName: gongkeitem!.name,
+    );
+  }
+
+  void _openManagement() {
+    Navigator.pushNamed(context, '/GongKe/MuyuRhythmManagement').then((_) {
+      if (mounted && gongkeitem != null) {
+        setState(() {
+          _selectedPatternId = muyuRhythmStore.selectedPatternId(
+            gongKeType: gongkeitem!.gongketype,
+            gongKeName: gongkeitem!.name,
+          );
+        });
+      }
+    });
   }
 
   @override
   void dispose() {
+    _uiTimer?.cancel();
+    _session.dispose();
     WakelockTools.disable();
-    timer?.cancel();
+    AudioTools.stop();
     super.dispose();
   }
 
@@ -113,20 +173,20 @@ class _NianShengHaoPageState extends State<NianShengHaoPage> {
   Widget build(BuildContext context) {
     if (gongkeitem == null) {
       return Scaffold(
-        appBar: AppBar(leading: BackButton()),
+        appBar: AppBar(leading: const BackButton()),
         body: const Center(child: Text("加载中...")),
       );
     }
 
     final total = gongkeitem!.cnt;
-    final current = currentCount;
+    final current = _session.playedCount;
+    final patterns = muyuRhythmStore.selectablePatterns;
 
     return Scaffold(
-      appBar: AppBar(title: const Text("电子木鱼"), leading: BackButton()),
+      appBar: AppBar(title: const Text("电子木鱼"), leading: const BackButton()),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: ListView(
           children: [
             const Text("功课内容", style: TextStyle(fontWeight: FontWeight.bold)),
             Container(
@@ -139,8 +199,38 @@ class _NianShengHaoPageState extends State<NianShengHaoPage> {
               child: Text("${gongkeitem!.name} ${gongkeitem!.cnt}遍"),
             ),
             const SizedBox(height: 12),
-            Row(
-              children: const [
+            const Text("播放模式", style: TextStyle(fontWeight: FontWeight.bold)),
+            const SizedBox(height: 8),
+            DropdownButton<String>(
+              isExpanded: true,
+              value: _selectedPatternId,
+              disabledHint: Text(_currentPattern.displayName),
+              items: patterns
+                  .map((p) => DropdownMenuItem(
+                        value: p.id,
+                        child: Text(p.displayName),
+                      ))
+                  .toList(),
+              onChanged: _isRunning ? null : _onModeChanged,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 4),
+              child: Text(
+                _currentPattern.groupedDescription,
+                style: const TextStyle(color: Colors.grey, fontSize: 13),
+              ),
+            ),
+            ListTile(
+              contentPadding: EdgeInsets.zero,
+              leading: const Icon(Icons.tune, color: Colors.blue),
+              title: const Text('管理十念法'),
+              trailing: const Icon(Icons.chevron_right),
+              onTap: _openManagement,
+            ),
+            const Divider(),
+            const SizedBox(height: 8),
+            const Row(
+              children: [
                 Text(
                   "请设置电子木鱼时间间隔：",
                   style: TextStyle(fontWeight: FontWeight.bold),
@@ -160,7 +250,7 @@ class _NianShengHaoPageState extends State<NianShengHaoPage> {
             ),
             Row(
               children: [
-                Text('0.5秒'),
+                const Text('0.5秒'),
                 const SizedBox(width: 8),
                 Expanded(
                   child: Slider(
@@ -168,15 +258,18 @@ class _NianShengHaoPageState extends State<NianShengHaoPage> {
                     max: 3.0,
                     value: interval,
                     divisions: 45,
-                    onChanged: (value) {
-                      setState(() {
-                        interval = value;
-                      });
-                      if (isRunning) {
-                        pause();
-                        start(); // 重启计时器以应用新间隔
-                      }
-                    },
+                    onChanged: _isRunning
+                        ? null
+                        : (value) {
+                            setState(() {
+                              interval = value;
+                            });
+                          },
+                    onChangeEnd: _isRunning
+                        ? null
+                        : (value) {
+                            _saveInterval();
+                          },
                   ),
                 ),
                 const SizedBox(width: 8),
@@ -202,9 +295,9 @@ class _NianShengHaoPageState extends State<NianShengHaoPage> {
                     child: SizedBox(
                       width: 200,
                       child: ElevatedButton(
-                        onPressed: startOrPause,
+                        onPressed: _onPrimary,
                         style: AppButtonStyle.primaryButton,
-                        child: Text(isRunning ? "暂停" : "开始"),
+                        child: Text(_primaryLabel),
                       ),
                     ),
                   ),

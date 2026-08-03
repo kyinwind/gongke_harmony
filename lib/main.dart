@@ -11,6 +11,9 @@ import 'view/gongke/nianshenghao.dart';
 import 'view/gongke/dazuo.dart';
 import 'view/gongke/nianzhou.dart';
 import 'view/gongke/gongke_stat.dart';
+import 'view/gongke/muyu_rhythm_management_page.dart';
+import 'view/gongke/muyu_rhythm_editor_page.dart';
+import 'comm/muyu_rhythm_store.dart';
 import 'database.dart';
 import 'view/songjing/songjing.dart';
 import 'view/tips/tip.dart';
@@ -78,6 +81,9 @@ class _BootstrapAppState extends State<BootstrapApp> {
     if (firstDate == null) {
       await saveDateValue('firstDate', DateTime.now());
     }
+
+    // 十念法模式仓库：启动即加载一次，之后全 App 直接引用单例。
+    await muyuRhythmStore.load();
 
     return BootstrapResult(
       db: globalDB,
@@ -299,6 +305,11 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
         '/GongKe/GongKeSetting/nianshenghao': (context) =>
             const NianShengHaoPage(),
         '/GongKe/GongKeSetting/dazuo': (context) => const DaZuoPage(),
+        '/GongKe/MuyuRhythmManagement': (context) =>
+            const MuyuRhythmManagementPage(),
+        '/GongKe/MuyuRhythmEditor': (context) => const MuyuRhythmEditorPage(
+              mode: EditorMode.newCustom,
+            ),
         '/GongKeStat': (context) => const GongKeStatPage(),
         '/BaiChan': (context) => const BaiChanPage(),
         '/BaiChan/NewBaiChan': (context) => const NewBaiChanPage(),
@@ -334,7 +345,7 @@ class TabbedHomePage extends StatefulWidget {
 
 class _TabbedHomePageState extends State<TabbedHomePage> {
   int _selectedIndex = 0;
-  static List<Widget> _widgetOptions() => <Widget>[
+  static List<Widget> _widgetOptions() => const <Widget>[
         GongKePage(),
         SongJingPage(),
         ShanShuPage(),

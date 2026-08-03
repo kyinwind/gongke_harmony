@@ -30,7 +30,8 @@ doc/api/
 
 # macOS Finder metadata
 .DS_Store
-
+**/.DS_Store
+**/*.workbuddy
 # Flutter / Dart local lockfile
 pubspec.lock
 
