@@ -145,6 +145,8 @@ class _SettingPageState extends State<SettingPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: const [
                     SizedBox(height: 8),
+                    Text('v1.0.8 (2026-08-05)', textAlign: TextAlign.left),
+                    Text('• 电子木鱼增加十念法', textAlign: TextAlign.left),
                     Text('v1.0.7 (2026-04-05)', textAlign: TextAlign.left),
                     Text('• 增加听书功能', textAlign: TextAlign.left),
                     Text('v1.0.6 (2025-09-09)', textAlign: TextAlign.left),

@@ -74,13 +74,11 @@ class MuyuRhythmPattern {
     return sequence[index % sequence.length];
   }
 
-  /// 音序说明，如 "B B B C C｜A A A A"。由 sequence 计算，不单独存。
+  /// 音序说明，如 "B B B  C C C A A A A"。
   String get groupedDescription {
     if (source == MuyuRhythmPatternSource.regular) return '使用普通木鱼声';
     if (sequence.isEmpty) return '';
-    final g1 = sequence.take(5).map((v) => v.shortName).join(' ');
-    final g2 = sequence.skip(5).map((v) => v.shortName).join(' ');
-    return '$g1｜$g2';
+    return sequence.map((v) => v.shortName).join();
   }
 
   Map<String, dynamic> toJson() => {

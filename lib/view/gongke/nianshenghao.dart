@@ -22,8 +22,9 @@ class _NianShengHaoPageState extends State<NianShengHaoPage> {
   double interval = 1.0;
   Timer? _uiTimer;
 
-  /// 电子木鱼时间间隔持久化键（全局设置，单位秒）
-  static const String _kMuyuIntervalKey = 'gongke.muyuIntervalSeconds';
+  /// 电子木鱼时间间隔持久化键（按 gongketype+name 分别存储，单位秒）
+  String get _intervalKey =>
+      'gongke.muyuIntervalSeconds.${gongkeitem!.gongketype}.${gongkeitem!.name}';
 
   late final NianFoMuyuSessionController _session;
   String _selectedPatternId = 'regular';
@@ -35,20 +36,21 @@ class _NianShengHaoPageState extends State<NianShengHaoPage> {
       WakelockTools.disable();
       if (mounted) setState(() {});
     });
-    _loadInterval();
   }
 
-  /// 读取上次保存的时间间隔，没有则保持默认 1.0 秒
+  /// 读取该功课上次保存的时间间隔，没有则保持默认 1.0 秒
   Future<void> _loadInterval() async {
-    final saved = await getDoubleValue(_kMuyuIntervalKey);
+    if (gongkeitem == null) return;
+    final saved = await getDoubleValue(_intervalKey);
     if (saved != null && mounted) {
       setState(() => interval = saved);
     }
   }
 
-  /// 持久化当前时间间隔，下次进入界面自动恢复
+  /// 持久化该功课当前时间间隔，下次进入界面自动恢复
   Future<void> _saveInterval() async {
-    await saveDoubleValue(_kMuyuIntervalKey, interval);
+    if (gongkeitem == null) return;
+    await saveDoubleValue(_intervalKey, interval);
   }
 
   MuyuRhythmPattern get _currentPattern =>
@@ -66,6 +68,7 @@ class _NianShengHaoPageState extends State<NianShengHaoPage> {
           gongKeType: gongkeitem!.gongketype,
           gongKeName: gongkeitem!.name,
         );
+        _loadInterval();
       }
     }
   }
