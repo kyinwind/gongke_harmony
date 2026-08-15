@@ -11,6 +11,38 @@
     {
       "name": "EntryAbility_label",
       "value": "诵经助手"
+    },
+    {
+      "name": "GongKeFormAbility_label",
+      "value": "诵经助手卡片"
+    },
+    {
+      "name": "GongKeFormAbility_desc",
+      "value": "诵经助手桌面卡片服务"
+    },
+    {
+      "name": "today_tasks_card_name",
+      "value": "今日功课"
+    },
+    {
+      "name": "today_tasks_card_desc",
+      "value": "查看今日功课完成情况"
+    },
+    {
+      "name": "calendar_card_name",
+      "value": "功课日历"
+    },
+    {
+      "name": "calendar_card_desc",
+      "value": "查看本月功课完成情况"
+    },
+    {
+      "name": "today_tip_card_name",
+      "value": "开示语录"
+    },
+    {
+      "name": "today_tip_card_desc",
+      "value": "每日显示一则开示语录"
     }
   ]
 }

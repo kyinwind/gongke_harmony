@@ -10,6 +10,7 @@ import '../../comm/platform_tools.dart';
 import '../../comm/sensor_tools.dart';
 import '../../comm/vibration_tools.dart';
 import '../../comm/wakelock_tools.dart';
+import '../../comm/widget_sync_hooks.dart';
 
 class NianzhouPage extends StatefulWidget {
   const NianzhouPage({Key? key}) : super(key: key);
@@ -37,6 +38,7 @@ class _NianzhouPageState extends State<NianzhouPage> {
           .filter((f) => f.id.equals(gongkeitem.id))
           .update((f) => f(curCnt: Value(count)));
     }
+    await syncTaskAndCalendarCards();
   }
 
   @override

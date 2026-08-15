@@ -47,7 +47,8 @@ class MuyuRhythmPreviewController {
       _timer = Timer(Duration(milliseconds: (_interval * 1000).toInt()), stop);
       return;
     }
-    _timer = Timer(Duration(milliseconds: (_interval * 1000).toInt()), _playOne);
+    _timer =
+        Timer(Duration(milliseconds: (_interval * 1000).toInt()), _playOne);
   }
 
   /// 停止试听：停止声音，播放数与索引归零。

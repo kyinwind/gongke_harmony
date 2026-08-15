@@ -8,6 +8,9 @@ import OhosSensorPlugin from '../plugins/OhosSensorPlugin';
 import OhosTtsPlugin from '../plugins/OhosTtsPlugin';
 import OhosVibrationPlugin from '../plugins/OhosVibrationPlugin';
 import OhosWakelockPlugin from '../plugins/OhosWakelockPlugin';
+import HarmonyWidgetPlugin from '../plugins/HarmonyWidgetPlugin';
+import HarmonySharePlugin from '../plugins/HarmonySharePlugin';
+import HarmonyDeepLinkPlugin from '../plugins/HarmonyDeepLinkPlugin';
 
 export default class EntryAbility extends FlutterAbility {
   onWindowStageCreate(windowStage: window.WindowStage) {
@@ -28,5 +31,8 @@ export default class EntryAbility extends FlutterAbility {
     flutterEngine.getPlugins()?.add(new OhosTtsPlugin())
     flutterEngine.getPlugins()?.add(new OhosVibrationPlugin())
     flutterEngine.getPlugins()?.add(new OhosWakelockPlugin())
+    flutterEngine.getPlugins()?.add(new HarmonyWidgetPlugin())
+    flutterEngine.getPlugins()?.add(new HarmonySharePlugin())
+    flutterEngine.getPlugins()?.add(new HarmonyDeepLinkPlugin())
   }
 }

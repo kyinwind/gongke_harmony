@@ -3,6 +3,22 @@
     {
       "name": "start_window_background",
       "value": "#FFFFFF"
+    },
+    {
+      "name": "widget_background",
+      "value": "#FFFFFF"
+    },
+    {
+      "name": "widget_tip_background",
+      "value": "#FFFDF8"
+    },
+    {
+      "name": "widget_text_primary",
+      "value": "#222222"
+    },
+    {
+      "name": "widget_text_secondary",
+      "value": "#666666"
     }
   ]
 }

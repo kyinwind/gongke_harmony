@@ -30,9 +30,9 @@ class _PdfThumbnailListState extends State<PdfThumbnailList> {
         : (localPos.dx / size.width).clamp(0.0, 1.0);
 
     final actualPage = (percent * widget.pageCaches.length).floor().clamp(
-      0,
-      widget.pageCaches.length - 1,
-    );
+          0,
+          widget.pageCaches.length - 1,
+        );
 
     setState(() {
       _previewPage = actualPage + 1;
@@ -54,9 +54,9 @@ class _PdfThumbnailListState extends State<PdfThumbnailList> {
           print('---------------点击缩略图: ${cache.pageIndex}');
           widget.onPageSelected(cache.pageIndex);
         },
-          child: Container(
-            margin: const EdgeInsets.all(4),
-            decoration: BoxDecoration(
+        child: Container(
+          margin: const EdgeInsets.all(4),
+          decoration: BoxDecoration(
             border: Border.all(
               color: isSelected ? Colors.blue : Colors.transparent,
               width: 2,

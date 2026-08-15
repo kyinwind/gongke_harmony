@@ -8,6 +8,7 @@ class WakelockTools {
       await _channel.invokeMethod('enable');
     } catch (_) {}
   }
+
   //允许息屏
   static Future<void> disable() async {
     try {

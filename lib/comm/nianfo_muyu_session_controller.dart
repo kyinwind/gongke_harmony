@@ -100,8 +100,9 @@ class NianFoMuyuSessionController {
       _complete();
       return;
     }
-    final variant = activePattern?.variantForZeroBasedStrikeIndex(strikeIndex) ??
-        MuyuSoundVariant.regular;
+    final variant =
+        activePattern?.variantForZeroBasedStrikeIndex(strikeIndex) ??
+            MuyuSoundVariant.regular;
     _audio.playMuyu(variant);
     strikeIndex++;
     remainingCount--;

@@ -116,12 +116,30 @@ class TipBook extends Table
         RemarksColumn {
   TextColumn get name => text()();
   TextColumn get image => text()();
+  TextColumn get sourceId => text().nullable()();
+  TextColumn get version => text().nullable()();
+  TextColumn get sourceType =>
+      text().withDefault(const Constant('userCreated'))();
+  TextColumn get productId => text().nullable()();
+  DateTimeColumn get updatedDateTime =>
+      dateTime().withDefault(currentDateAndTime)();
 }
 
 class TipRecord extends Table
     with AutoIncrementingPrimaryKey, CreateDateTimeColumn, RemarksColumn {
   TextColumn get content => text()();
   IntColumn get bookId => integer()();
+  TextColumn get jsonId => text().nullable()();
+  DateTimeColumn get favoriteDateTime => dateTime().nullable()();
+  DateTimeColumn get completedDateTime => dateTime().nullable()();
+  TextColumn get comments => text().withDefault(const Constant(''))();
+  TextColumn get tag => text().nullable()();
+  IntColumn get sortOrder => integer().withDefault(const Constant(0))();
+
+  @override
+  List<Set<Column<Object>>> get uniqueKeys => [
+        {bookId, jsonId},
+      ];
 }
 
 mixin AutoIncrementingPrimaryKey on Table {

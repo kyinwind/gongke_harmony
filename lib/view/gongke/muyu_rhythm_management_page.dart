@@ -57,8 +57,8 @@ class _MuyuRhythmManagementPageState extends State<MuyuRhythmManagementPage> {
           ListTile(
             leading: const Icon(Icons.add_circle_outline, color: Colors.blue),
             title: const Text('新建十念法'),
-            onTap: () =>
-                _openEditor(context, mode: EditorMode.newCustom).then((_) => _refresh()),
+            onTap: () => _openEditor(context, mode: EditorMode.newCustom)
+                .then((_) => _refresh()),
           ),
           const SizedBox(height: 16),
         ],
@@ -77,8 +77,7 @@ class _MuyuRhythmManagementPageState extends State<MuyuRhythmManagementPage> {
       trailing: trailing ?? const Icon(Icons.chevron_right),
       onTap: isRegular
           ? null
-          : () => _openEditor(context,
-                  mode: EditorMode.builtIn, pattern: p)
+          : () => _openEditor(context, mode: EditorMode.builtIn, pattern: p)
               .then((_) => _refresh()),
     );
     return Card(
@@ -110,8 +109,7 @@ class _MuyuRhythmManagementPageState extends State<MuyuRhythmManagementPage> {
           title: Text(p.displayName),
           subtitle: Text(p.groupedDescription),
           trailing: const Icon(Icons.chevron_right),
-          onTap: () => _openEditor(context,
-                  mode: EditorMode.custom, pattern: p)
+          onTap: () => _openEditor(context, mode: EditorMode.custom, pattern: p)
               .then((_) => _refresh()),
         ),
       ),
@@ -119,9 +117,8 @@ class _MuyuRhythmManagementPageState extends State<MuyuRhythmManagementPage> {
   }
 
   Future<bool> _confirmDelete(BuildContext context, MuyuRhythmPattern p) async {
-    final candidates = muyuRhythmStore.selectablePatterns
-        .where((c) => c.id != p.id)
-        .toList();
+    final candidates =
+        muyuRhythmStore.selectablePatterns.where((c) => c.id != p.id).toList();
     String? replacement = candidates.isNotEmpty ? candidates.first.id : null;
 
     final confirmed = await showDialog<bool>(
@@ -163,8 +160,7 @@ class _MuyuRhythmManagementPageState extends State<MuyuRhythmManagementPage> {
     final err = await muyuRhythmStore.deleteCustom(
         id: p.id, replacementID: replacement!);
     if (err != null && context.mounted) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text(err)));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(err)));
       return false;
     }
     if (context.mounted) {

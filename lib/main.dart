@@ -14,6 +14,8 @@ import 'view/gongke/gongke_stat.dart';
 import 'view/gongke/muyu_rhythm_management_page.dart';
 import 'view/gongke/muyu_rhythm_editor_page.dart';
 import 'comm/muyu_rhythm_store.dart';
+import 'comm/widget_snapshot_service.dart';
+import 'comm/harmony_deep_link_service.dart';
 import 'database.dart';
 import 'view/songjing/songjing.dart';
 import 'view/tips/tip.dart';
@@ -180,15 +182,62 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   late bool _hasSeenWelcome = widget.initialHasSeenWelcome;
-  late bool _hasAcceptedPrivacyPolicy =
-      widget.initialHasAcceptedPrivacyPolicy;
+  late bool _hasAcceptedPrivacyPolicy = widget.initialHasAcceptedPrivacyPolicy;
   bool _isPrivacyDialogVisible = false;
   final GlobalKey<NavigatorState> _navigatorKey = GlobalKey<NavigatorState>();
+  final HarmonyDeepLinkService _deepLinks = HarmonyDeepLinkService();
 
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
+    WidgetsBinding.instance.addPostFrameCallback((_) => _syncWidgets());
+    WidgetsBinding.instance.addPostFrameCallback((_) => _initializeDeepLinks());
+  }
+
+  Future<void> _initializeDeepLinks() async {
+    if (!PlatformUtils.isHarmonyOS) return;
+    try {
+      await _deepLinks.initialize(_openDeepLink);
+    } catch (error) {
+      debugPrint('初始化卡片深链失败：$error');
+    }
+  }
+
+  Future<void> _openDeepLink(Map<String, dynamic> link) async {
+    if (!_hasSeenWelcome || !_hasAcceptedPrivacyPolicy) return;
+    final navigator = _navigatorKey.currentState;
+    if (navigator == null) return;
+    switch (link['route']) {
+      case 'tasks':
+        navigator.pushNamed('/GongKe');
+        break;
+      case 'calendar':
+        navigator.pushNamed('/GongKeStat');
+        break;
+      case 'tips':
+        final bookId = link['bookId'];
+        if (bookId is int && bookId > 0) {
+          navigator.pushNamed('/TipRecord', arguments: {
+            'bookId': bookId,
+            'recordId': link['recordId'],
+          });
+        } else {
+          navigator.pushNamed('/Tip');
+        }
+        break;
+    }
+  }
+
+  Future<void> _syncWidgets() async {
+    if (!PlatformUtils.isHarmonyOS) return;
+    try {
+      await WidgetSnapshotService(widget.db).syncAll();
+    } on PlatformException catch (error) {
+      debugPrint('同步鸿蒙卡片失败：${error.code} ${error.message}');
+    } catch (error) {
+      debugPrint('生成鸿蒙卡片快照失败：$error');
+    }
   }
 
   Future<void> _finishWelcome() async {
@@ -203,7 +252,9 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   }
 
   void _ensurePrivacyDialogIfNeeded() {
-    if (!_hasSeenWelcome || _hasAcceptedPrivacyPolicy || _isPrivacyDialogVisible) {
+    if (!_hasSeenWelcome ||
+        _hasAcceptedPrivacyPolicy ||
+        _isPrivacyDialogVisible) {
       return;
     }
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -272,6 +323,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.resumed) {
       _ensurePrivacyDialogIfNeeded();
+      _syncWidgets();
     }
   }
 
@@ -294,6 +346,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
       // 添加路由配置
       routes: {
         '/Tip': (context) => const TipPage(),
+        '/GongKe': (context) => const GongKePage(),
         '/AddTip': (context) => const AddTipPage(),
         '/ImportTip': (context) => const ImportTipPage(),
         '/TipRecord': (context) => const TipRecordPage(),
@@ -349,7 +402,7 @@ class _TabbedHomePageState extends State<TabbedHomePage> {
         GongKePage(),
         SongJingPage(),
         ShanShuPage(),
-        //TipPage(), // 传入数据库实例
+        TipPage(),
         BaiChanPage(),
         SettingPage(),
       ];
@@ -363,7 +416,7 @@ class _TabbedHomePageState extends State<TabbedHomePage> {
           BottomNavigationBarItem(icon: Icon(Icons.book), label: '功课'),
           BottomNavigationBarItem(icon: Icon(Icons.menu_book), label: '诵经'),
           BottomNavigationBarItem(icon: Icon(Icons.auto_graph), label: '善书'),
-          //BottomNavigationBarItem(icon: Icon(Icons.chat), label: '开示'),
+          BottomNavigationBarItem(icon: Icon(Icons.chat), label: '开示'),
           BottomNavigationBarItem(icon: Icon(Icons.announcement), label: '拜忏'),
           BottomNavigationBarItem(icon: Icon(Icons.settings), label: '设置'),
         ],

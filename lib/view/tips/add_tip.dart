@@ -86,26 +86,8 @@ class _AddTipPageState extends State<AddTipPage> {
     }
   }
 
-  Future<File> _processImage(File imageFile) async {
-    final decodedImage = await decodeImageFromList(imageFile.readAsBytesSync());
-
-    // 如果图片宽或高大于1024，则等比例缩小
-    if (decodedImage.width > 1024 || decodedImage.height > 1024) {
-      final scale =
-          1024 /
-          (decodedImage.width > decodedImage.height
-              ? decodedImage.width
-              : decodedImage.height);
-
-      final newWidth = (decodedImage.width * scale).round();
-      final newHeight = (decodedImage.height * scale).round();
-
-      // 这里简化处理，实际应用中可能需要更复杂的图片缩放逻辑
-      return imageFile; // 实际应用中应返回缩放后的图片
-    }
-
-    return imageFile;
-  }
+  // 当前图片选择器返回原文件；卡片缩略图会在快照生成时单独压缩。
+  Future<File> _processImage(File imageFile) => Future.value(imageFile);
 
   @override
   void dispose() {
@@ -122,18 +104,20 @@ class _AddTipPageState extends State<AddTipPage> {
       debugPrint('保存开示录前 tip_book count=${beforeCountRow.data['cnt']}');
       if (acttype == 'new') {
         final insertedId = await globalDB.into(globalDB.tipBook).insert(
-          TipBookCompanion.insert(
-            name: _nameController.text,
-            remarks: Value(_remarksController.text),
-            image: _base64Image ?? '',
-          ),
-        );
+              TipBookCompanion.insert(
+                name: _nameController.text,
+                remarks: Value(_remarksController.text),
+                image: _base64Image ?? '',
+              ),
+            );
         final rawCountRow = await globalDB
             .customSelect('SELECT COUNT(*) AS cnt FROM tip_book')
             .getSingle();
-        final rawRows = await globalDB.customSelect(
-          'SELECT id, name FROM tip_book ORDER BY id ASC',
-        ).get();
+        final rawRows = await globalDB
+            .customSelect(
+              'SELECT id, name FROM tip_book ORDER BY id ASC',
+            )
+            .get();
         final allBooks = await (globalDB.select(globalDB.tipBook)
               ..orderBy([(tbl) => OrderingTerm.asc(tbl.id)]))
             .get();
@@ -141,9 +125,7 @@ class _AddTipPageState extends State<AddTipPage> {
           '新增开示录完成: insertedId=$insertedId, rawCount=${rawCountRow.data['cnt']}, rawRows=${rawRows.map((e) => '${e.data['id']}:${e.data['name']}').join(' | ')}, total=${allBooks.length}, books=${allBooks.map((e) => '${e.id}:${e.name}').join(' | ')}',
         );
       } else {
-        await globalDB.managers.tipBook
-            .filter((f) => f.id(recordId))
-            .update(
+        await globalDB.managers.tipBook.filter((f) => f.id(recordId)).update(
               (o) => o(
                 name: Value(_nameController.text),
                 remarks: Value(_remarksController.text),
@@ -158,7 +140,7 @@ class _AddTipPageState extends State<AddTipPage> {
         );
       }
       // 返回上一级路由
-      Navigator.of(context).pop(true);
+      if (mounted) Navigator.of(context).pop(true);
     }
   }
 

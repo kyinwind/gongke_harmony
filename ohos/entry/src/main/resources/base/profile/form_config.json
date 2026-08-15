@@ -1,0 +1,49 @@
+{
+  "forms": [
+    {
+      "name": "TodayTasksCard",
+      "displayName": "$string:today_tasks_card_name",
+      "description": "$string:today_tasks_card_desc",
+      "src": "./ets/widget/pages/TodayTasksCard.ets",
+      "uiSyntax": "arkts",
+      "window": { "designWidth": 720, "autoDesignWidth": true },
+      "colorMode": "auto",
+      "isDynamic": true,
+      "isDefault": true,
+      "updateEnabled": true,
+      "updateDuration": 2,
+      "defaultDimension": "2*4",
+      "supportDimensions": ["2*4"]
+    },
+    {
+      "name": "GongKeCalendarCard",
+      "displayName": "$string:calendar_card_name",
+      "description": "$string:calendar_card_desc",
+      "src": "./ets/widget/pages/GongKeCalendarCard.ets",
+      "uiSyntax": "arkts",
+      "window": { "designWidth": 720, "autoDesignWidth": true },
+      "colorMode": "auto",
+      "isDynamic": true,
+      "isDefault": false,
+      "updateEnabled": true,
+      "updateDuration": 2,
+      "defaultDimension": "4*4",
+      "supportDimensions": ["4*4"]
+    },
+    {
+      "name": "TodayTipCard",
+      "displayName": "$string:today_tip_card_name",
+      "description": "$string:today_tip_card_desc",
+      "src": "./ets/widget/pages/TodayTipCard.ets",
+      "uiSyntax": "arkts",
+      "window": { "designWidth": 720, "autoDesignWidth": true },
+      "colorMode": "auto",
+      "isDynamic": true,
+      "isDefault": false,
+      "updateEnabled": true,
+      "updateDuration": 2,
+      "defaultDimension": "4*4",
+      "supportDimensions": ["4*4", "6*4"]
+    }
+  ]
+}

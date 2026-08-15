@@ -2,15 +2,15 @@
   "string": [
     {
       "name": "module_desc",
-      "value": "module description"
+      "value": "Sutra recitation and daily practice assistant"
     },
     {
       "name": "EntryAbility_desc",
-      "value": "description"
+      "value": "Sutra Assistant"
     },
     {
       "name": "EntryAbility_label",
-      "value": "Song Helper"
+      "value": "Sutra Assistant"
     }
   ]
 }

@@ -6,6 +6,11 @@ import 'package:drift/drift.dart' hide Column;
 import 'package:flutter_slidable/flutter_slidable.dart'; // 导入 Slidable 库
 import 'dart:convert'; // 导入 dart:convert 库，确保已导入
 import 'package:flutter/services.dart';
+import 'package:gongke/comm/harmony_share_service.dart';
+import 'package:gongke/comm/import_service.dart';
+import 'package:gongke/comm/tip_export_service.dart';
+import 'package:gongke/comm/today_tip_service.dart';
+import 'package:gongke/comm/widget_snapshot_service.dart';
 import 'package:gongke/viewmodel/current_record.dart';
 import 'package:gongke/comm/pub_tools.dart';
 
@@ -19,9 +24,13 @@ class TipPage extends StatefulWidget {
 
 // 在 _TipPageState 类中添加数据库实例和记录列表
 class _TipPageState extends State<TipPage> {
+  static const _importService = ImportService();
+  static const _exportService = TipExportService();
+  static const _shareService = HarmonyShareService();
   List<TipBookData> records = <TipBookData>[];
   bool _isLoading = true;
   CurrentRecord curRec = CurrentRecord();
+  TodayTipMode _todayTipMode = TodayTipMode.sequential;
   _TipPageState(); // 添加构造函数
 
   @override
@@ -31,6 +40,7 @@ class _TipPageState extends State<TipPage> {
   }
 
   Future<void> _initializePage() async {
+    _todayTipMode = await TodayTipSettings.loadMode();
     await fetchTip();
     if (records.isEmpty) {
       if (appBuildFlag) {
@@ -48,6 +58,14 @@ class _TipPageState extends State<TipPage> {
     });
   }
 
+  Future<void> _setTodayTipMode(TodayTipMode mode) async {
+    if (mode == _todayTipMode) return;
+    await TodayTipSettings.saveMode(mode);
+    if (mounted) setState(() => _todayTipMode = mode);
+    await _loadCurrentRecord();
+    await WidgetSnapshotService(globalDB).syncAll();
+  }
+
   // 新增方法处理异步加载
   Future<void> _loadCurrentRecord() async {
     final record = await getCurrentRecord();
@@ -62,45 +80,42 @@ class _TipPageState extends State<TipPage> {
     // 假设文件名为 广钦老和尚开示.json, 第二个文件.json, 第三个文件.json, 第四个文件.json
     final fileNames = ['1.json', '2.json', '3.json', '4.json'];
 
-    final createdBookIds = <int>[];
+    for (final fileName in fileNames) {
+      final data = await rootBundle.load('assets/tips/$fileName');
+      await _importService.importTipBytes(data.buffer.asUint8List());
+    }
+  }
+
+  Future<void> _exportBook(TipBookData book) async {
     try {
-      for (final fileName in fileNames) {
-        final jsonString = await rootBundle.loadString('assets/tips/$fileName');
-        final jsonData = json.decode(jsonString);
-
-        final quotation = jsonData['quotation'];
-        final bookId = await globalDB.tipBook.insertOne(
-          TipBookCompanion.insert(
-            name: quotation['name'],
-            image: quotation['image'],
-            remarks: Value(quotation['remarks']),
-            favoriteDateTime: const Value(null),
-            createDateTime: Value(DateTime.now()),
-          ),
-        );
-        createdBookIds.add(bookId);
-
-        final records = quotation['records'] as List<dynamic>;
-        for (final recordData in records) {
-          final tipRecordCompanion = TipRecordCompanion.insert(
-            bookId: bookId,
-            content: recordData['content'],
-          );
-          await globalDB.tipRecord.insertOne(tipRecordCompanion);
-        }
+      final saved = await _exportService.saveBook(globalDB, book.id);
+      if (mounted && saved) {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(const SnackBar(content: Text('开示文件已保存')));
       }
-    } catch (e) {
-      for (final bookId in createdBookIds) {
-        try {
-          await (globalDB.delete(globalDB.tipRecord)
-                ..where((tbl) => tbl.bookId.equals(bookId)))
-              .go();
-          await (globalDB.delete(globalDB.tipBook)
-                ..where((tbl) => tbl.id.equals(bookId)))
-              .go();
-        } catch (_) {}
+    } catch (error) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('导出失败：$error')),
+      );
+    }
+  }
+
+  Future<void> _shareBookFile(TipBookData book) async {
+    final file = await _exportService.createTemporaryJson(globalDB, book.id);
+    try {
+      await _shareService.shareFile(
+        title: '${book.name}.json',
+        path: file.path,
+        utd: 'general.json',
+      );
+    } catch (error) {
+      if (mounted) {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text('分享失败：$error')));
       }
-      rethrow;
+    } finally {
+      if (await file.exists()) await file.delete();
     }
   }
 
@@ -139,6 +154,8 @@ class _TipPageState extends State<TipPage> {
       bk2: row.readNullable<String>('bk2'),
       name: row.read<String>('name'),
       image: row.read<String>('image'),
+      sourceType: 'userCreated',
+      updatedDateTime: _readDateTime(row.data['create_date_time'])!,
     );
   }
 
@@ -178,6 +195,7 @@ class _TipPageState extends State<TipPage> {
         .update((o) => o(favoriteDateTime: Value(favoriteDateTime)));
 
     await _loadCurrentRecord();
+    await WidgetSnapshotService(globalDB).syncAll();
   }
 
   @override
@@ -194,6 +212,27 @@ class _TipPageState extends State<TipPage> {
         actions: [
           //Spacer(),
           const SizedBox(width: 8),
+          PopupMenuButton<TodayTipMode>(
+            tooltip: '今日开示显示方式',
+            initialValue: _todayTipMode,
+            onSelected: _setTodayTipMode,
+            itemBuilder: (context) => const [
+              PopupMenuItem(
+                value: TodayTipMode.sequential,
+                child: Text('顺序模式（每日一条）'),
+              ),
+              PopupMenuItem(
+                value: TodayTipMode.random,
+                child: Text('随机模式（当天固定）'),
+              ),
+            ],
+            icon: Icon(
+              _todayTipMode == TodayTipMode.sequential
+                  ? Icons.format_list_numbered
+                  : Icons.shuffle,
+              color: Colors.blue,
+            ),
+          ),
           IconButton(
             icon: const Icon(Icons.arrow_circle_down),
             color: Colors.blue,
@@ -245,107 +284,127 @@ class _TipPageState extends State<TipPage> {
                   itemBuilder: (context, index) {
                     final record = records[index];
                     return Slidable(
-                        startActionPane: ActionPane(
-                          motion: const ScrollMotion(),
-                          children: [
-                            SlidableAction(
-                              onPressed: (context) async {
-                                // 跳转到修改页面
-                                final changed = await Navigator.pushNamed(
-                                  context,
-                                  '/AddTip',
-                                  arguments: {
-                                    'acttype': 'mod',
-                                    'id': record.id,
-                                  },
-                                );
-                                if (!mounted || changed != true) {
-                                  return;
-                                }
-                                await fetchTip();
-                                await _loadCurrentRecord();
-                              },
-                              backgroundColor: Color(0xFF2196F3),
-                              foregroundColor: Colors.white,
-                              icon: Icons.edit,
-                              label: '修改',
+                      startActionPane: ActionPane(
+                        motion: const ScrollMotion(),
+                        children: [
+                          SlidableAction(
+                            onPressed: (context) async {
+                              // 跳转到修改页面
+                              final changed = await Navigator.pushNamed(
+                                context,
+                                '/AddTip',
+                                arguments: {
+                                  'acttype': 'mod',
+                                  'id': record.id,
+                                },
+                              );
+                              if (!mounted || changed != true) {
+                                return;
+                              }
+                              await fetchTip();
+                              await _loadCurrentRecord();
+                            },
+                            backgroundColor: Color(0xFF2196F3),
+                            foregroundColor: Colors.white,
+                            icon: Icons.edit,
+                            label: '修改',
+                          ),
+                          SlidableAction(
+                            onPressed: (context) {
+                              _setFavorite(records[index]);
+                            },
+                            backgroundColor: Color.fromARGB(
+                              5,
+                              201,
+                              223,
+                              36,
+                            ), // 使用不同颜色区分
+                            foregroundColor: const Color.fromARGB(
+                              255,
+                              226,
+                              203,
+                              50,
                             ),
-                            SlidableAction(
-                              onPressed: (context) {
-                                _setFavorite(records[index]);
-                              },
-                              backgroundColor: Color.fromARGB(
-                                5,
-                                201,
-                                223,
-                                36,
-                              ), // 使用不同颜色区分
-                              foregroundColor: const Color.fromARGB(
-                                255,
-                                226,
-                                203,
-                                50,
-                              ),
-                              icon: Icons.favorite,
-                              label: record.favoriteDateTime == null
-                                  ? '最爱'
-                                  : '取消',
-                            ),
-                          ],
-                        ),
-                        endActionPane: ActionPane(
-                          motion: const ScrollMotion(),
-                          children: [
-                            SlidableAction(
-                              onPressed: (context) async {
-                                // 在这里处理删除操作
+                            icon: Icons.favorite,
+                            label:
+                                record.favoriteDateTime == null ? '最爱' : '取消',
+                          ),
+                        ],
+                      ),
+                      endActionPane: ActionPane(
+                        motion: const ScrollMotion(),
+                        children: [
+                          SlidableAction(
+                            onPressed: (context) async {
+                              await globalDB.transaction(() async {
+                                await (globalDB.delete(globalDB.tipRecord)
+                                      ..where(
+                                        (table) =>
+                                            table.bookId.equals(record.id),
+                                      ))
+                                    .go();
                                 await globalDB.managers.tipBook
                                     .filter((f) => f.id(record.id))
                                     .delete();
-                                // 重新获取数据
-                                await fetchTip();
-                                await _loadCurrentRecord();
-                              },
-                              backgroundColor: Color(0xFFFE4A49),
-                              foregroundColor: Colors.white,
-                              icon: Icons.delete,
-                              label: '删除',
-                            ),
+                              });
+                              // 重新获取数据
+                              await fetchTip();
+                              await _loadCurrentRecord();
+                              await WidgetSnapshotService(globalDB).syncAll();
+                            },
+                            backgroundColor: Color(0xFFFE4A49),
+                            foregroundColor: Colors.white,
+                            icon: Icons.delete,
+                            label: '删除',
+                          ),
+                        ],
+                      ),
+                      child: ListTile(
+                        onTap: () {
+                          Navigator.pushNamed(
+                            context,
+                            '/TipRecord',
+                            arguments: {'bookId': record.id},
+                          );
+                        },
+                        leading: (record.image != '')
+                            ? ClipRRect(
+                                borderRadius: BorderRadius.circular(8.0),
+                                child: Image.memory(
+                                  const Base64Codec().decode(record.image),
+                                  //height: 200,
+                                  width: 60,
+                                  fit: BoxFit.cover,
+                                ),
+                              )
+                            : Image.asset(
+                                'assets/images/jingshu.png',
+                                height: 100,
+                              ),
+                        title: Text(record.name),
+                        subtitle: Row(
+                          children: [
+                            if (record.favoriteDateTime != null)
+                              const Icon(Icons.favorite, color: Colors.yellow)
+                            else
+                              const SizedBox.shrink(),
                           ],
                         ),
-                        child: ListTile(
-                          onTap: () {
-                            Navigator.pushNamed(
-                              context,
-                              '/TipRecord',
-                              arguments: {'bookId': record.id},
-                            );
-                          },
-                          leading: (record.image != '')
-                              ? ClipRRect(
-                                  borderRadius: BorderRadius.circular(8.0),
-                                  child: Image.memory(
-                                    const Base64Codec().decode(record.image),
-                                    //height: 200,
-                                    width: 60,
-                                    fit: BoxFit.cover,
-                                  ),
-                                )
-                              : Image.asset(
-                                  'assets/images/jingshu.png',
-                                  height: 100,
-                                ),
-                          title: Text(record.name),
-                          subtitle: Row(
-                            children: [
-                              if (record.favoriteDateTime != null)
-                                const Icon(Icons.favorite, color: Colors.yellow)
-                              else
-                                const SizedBox.shrink(),
-                            ],
-                          ),
-                        ).padding(all: 10),
-                      );
+                        trailing: PopupMenuButton<String>(
+                          tooltip: '导出/分享 JSON',
+                          onSelected: (value) => value == 'save'
+                              ? _exportBook(record)
+                              : _shareBookFile(record),
+                          itemBuilder: (context) => const [
+                            PopupMenuItem(
+                                value: 'save', child: Text('保存 JSON 文件')),
+                            PopupMenuItem(
+                                value: 'share', child: Text('分享 JSON 文件')),
+                          ],
+                          icon: const Icon(Icons.ios_share_outlined),
+                        ),
+                      ).padding(all: 10),
+                    );
                   },
                 ),
               Row(

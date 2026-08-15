@@ -262,8 +262,7 @@ class MuyuRhythmPreferencesSnapshot {
 
   Map<String, dynamic> toJson() => {
         'schemaVersion': schemaVersion,
-        'builtInOverrides':
-            builtInOverrides.map((e) => e.toJson()).toList(),
+        'builtInOverrides': builtInOverrides.map((e) => e.toJson()).toList(),
         'customPatterns': customPatterns.map((e) => e.toJson()).toList(),
         'selections': selections.map((e) => e.toJson()).toList(),
       };
@@ -274,17 +273,18 @@ class MuyuRhythmPreferencesSnapshot {
     try {
       final version = json['schemaVersion'] as int? ?? currentSchemaVersion;
       final overrides = (json['builtInOverrides'] as List?)
-              ?.map((e) =>
-                  StoredMuyuRhythmDefinition.fromJson(e as Map<String, dynamic>))
+              ?.map((e) => StoredMuyuRhythmDefinition.fromJson(
+                  e as Map<String, dynamic>))
               .toList() ??
           <StoredMuyuRhythmDefinition>[];
       final customs = (json['customPatterns'] as List?)
-              ?.map((e) =>
-                  StoredMuyuRhythmDefinition.fromJson(e as Map<String, dynamic>))
+              ?.map((e) => StoredMuyuRhythmDefinition.fromJson(
+                  e as Map<String, dynamic>))
               .toList() ??
           <StoredMuyuRhythmDefinition>[];
       final sels = (json['selections'] as List?)
-              ?.map((e) => MuyuRhythmSelection.fromJson(e as Map<String, dynamic>))
+              ?.map((e) =>
+                  MuyuRhythmSelection.fromJson(e as Map<String, dynamic>))
               .toList() ??
           <MuyuRhythmSelection>[];
       return MuyuRhythmPreferencesSnapshot(

@@ -45,9 +45,8 @@ class _GongKeStatPageState extends State<GongKeStatPage> {
           recordDate.isBefore(_endDate);
     }).toList();
     // 统计计划做功课的天数（去重）
-    final planDates = filteredRecords
-        .map((e) => e.gongKeDay)
-        .toSet(); // 使用 Set 去重
+    final planDates =
+        filteredRecords.map((e) => e.gongKeDay).toSet(); // 使用 Set 去重
     planDays = planDates.length;
     // 统计功课天数（去重，只统计已完成的记录）
     final practiceDates = filteredRecords

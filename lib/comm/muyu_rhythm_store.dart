@@ -45,7 +45,8 @@ class MuyuRhythmPatternStore {
       final json = jsonDecode(raw) as Map<String, dynamic>;
       final snapshot = MuyuRhythmPreferencesSnapshot.fromJson(json);
       // 版本高于当前支持版本：只读回退内置，不覆盖原数据。
-      if (snapshot.schemaVersion > MuyuRhythmPreferencesSnapshot.currentSchemaVersion) {
+      if (snapshot.schemaVersion >
+          MuyuRhythmPreferencesSnapshot.currentSchemaVersion) {
         _overrides.clear();
         _customs.clear();
         _selections.clear();
@@ -79,8 +80,7 @@ class MuyuRhythmPatternStore {
   List<StoredMuyuRhythmDefinition> _filterValidCustoms(
       List<StoredMuyuRhythmDefinition> list) {
     return list
-        .where((d) =>
-            d.id.startsWith('user.') && _isValidSequence(d.sequence))
+        .where((d) => d.id.startsWith('user.') && _isValidSequence(d.sequence))
         .toList();
   }
 
@@ -166,16 +166,14 @@ class MuyuRhythmPatternStore {
     required List<MuyuSoundVariant> sequence,
   }) async {
     final seq = sequence.map((v) => v.name).toList();
-    final err = _validateName(name, ignoreId: null) ??
-        _validateSequence(seq);
+    final err = _validateName(name, ignoreId: null) ?? _validateSequence(seq);
     if (err != null) return err;
 
     final id = 'user.${DateTime.now().microsecondsSinceEpoch}'
         '_${Random().nextInt(999999)}';
     final now = DateTime.now().millisecondsSinceEpoch;
-    final maxOrder = _customs.isEmpty
-        ? 0
-        : _customs.map((c) => c.sortOrder).reduce(max);
+    final maxOrder =
+        _customs.isEmpty ? 0 : _customs.map((c) => c.sortOrder).reduce(max);
     _customs.add(StoredMuyuRhythmDefinition(
       id: id,
       name: name.trim(),

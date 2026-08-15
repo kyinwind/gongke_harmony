@@ -43,7 +43,8 @@ class _MuyuRhythmEditorPageState extends State<MuyuRhythmEditorPage> {
   void initState() {
     super.initState();
     if (widget.pattern != null) {
-      _nameController = TextEditingController(text: widget.pattern!.displayName);
+      _nameController =
+          TextEditingController(text: widget.pattern!.displayName);
       _draft = List<MuyuSoundVariant>.from(widget.pattern!.sequence);
     } else {
       _nameController = TextEditingController();
@@ -162,9 +163,8 @@ class _MuyuRhythmEditorPageState extends State<MuyuRhythmEditorPage> {
 
   Future<void> _deleteCustom() async {
     final id = widget.pattern!.id;
-    final candidates = muyuRhythmStore.selectablePatterns
-        .where((c) => c.id != id)
-        .toList();
+    final candidates =
+        muyuRhythmStore.selectablePatterns.where((c) => c.id != id).toList();
     String? replacement = candidates.isNotEmpty ? candidates.first.id : null;
 
     final confirmed = await showDialog<bool>(
@@ -202,8 +202,8 @@ class _MuyuRhythmEditorPageState extends State<MuyuRhythmEditorPage> {
       ),
     );
     if (confirmed != true || replacement == null) return;
-    final err = await muyuRhythmStore.deleteCustom(
-        id: id, replacementID: replacement!);
+    final err =
+        await muyuRhythmStore.deleteCustom(id: id, replacementID: replacement!);
     if (err != null && mounted) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(err)));
       return;
@@ -275,11 +275,13 @@ class _MuyuRhythmEditorPageState extends State<MuyuRhythmEditorPage> {
                     style: TextStyle(fontWeight: FontWeight.bold)),
                 const Spacer(),
                 TextButton(
-                  onPressed: () => _applyPreset(MuyuRhythmTemplateCatalog.masterYinguang),
+                  onPressed: () =>
+                      _applyPreset(MuyuRhythmTemplateCatalog.masterYinguang),
                   child: const Text('印光大师推荐'),
                 ),
                 TextButton(
-                  onPressed: () => _applyPreset(MuyuRhythmTemplateCatalog.antiDrowsiness),
+                  onPressed: () =>
+                      _applyPreset(MuyuRhythmTemplateCatalog.antiDrowsiness),
                   child: const Text('防昏沉'),
                 ),
               ],
@@ -341,7 +343,8 @@ class _MuyuRhythmEditorPageState extends State<MuyuRhythmEditorPage> {
     final current = _draft[index];
     return Column(
       children: [
-        Text('第${index + 1}声', style: const TextStyle(fontSize: 11, color: Colors.grey)),
+        Text('第${index + 1}声',
+            style: const TextStyle(fontSize: 11, color: Colors.grey)),
         DropdownButton<MuyuSoundVariant>(
           isExpanded: true,
           value: current,

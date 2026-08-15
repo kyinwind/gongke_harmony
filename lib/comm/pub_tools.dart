@@ -903,11 +903,11 @@ final List<Map<String, String>> help_slides_android = [
     'title': '藏经阁',
     'description': '可导入常用经书供持诵学习',
   },
-  // {
-  //   'image': 'assets/help/08.jpg',
-  //   'title': '大德开示',
-  //   'description': '每天一句大德开示，勉励自己精进修行。',
-  // },
+  {
+    'image': 'assets/help/08.jpg',
+    'title': '开示录',
+    'description': '可批量导入、导出、收藏、标记完成、评论、朗读和分享开示；冲突时可选择跳过、覆盖或另存副本。',
+  },
   {
     'image': 'assets/help/09.jpg',
     'title': '拜忏',
@@ -916,7 +916,12 @@ final List<Map<String, String>> help_slides_android = [
   {
     'image': 'assets/help/10.jpg',
     'title': '文件导入',
-    'description': '本app不包含经书、善书和开示文件，需要用户自己导入使用，请关注app技术支持网站。',
+    'description': '经书和善书可从文件选择器导入；开示录支持 JSON 导入、保存到文件及通过系统面板分享。',
+  },
+  {
+    'image': 'assets/help/01.jpg',
+    'title': '桌面卡片',
+    'description': '在桌面长按空白处添加“诵经助手”卡片，可选今日功课、开示语录或功课日历；卡片按日稳定刷新，打开应用后会立即同步。',
   },
 ];
 

@@ -1,4 +1,6 @@
 class PlatformUtils {
+  static bool get isHarmonyOS => true;
+
   static bool get isMobileLike => true;
 
   static bool get supportsFileImport => true;
@@ -7,9 +9,9 @@ class PlatformUtils {
 
   static bool get supportsShakeSensor => true;
 
-  static bool get supportsShare => false;
+  static bool get supportsShare => true;
 
-  static bool get supportsTts => false;
+  static bool get supportsTts => true;
 
   static bool get supportsForegroundService => false;
 

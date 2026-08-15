@@ -5,6 +5,7 @@ import '../../main.dart';
 import '../../comm/pdf_view.dart';
 import '../../comm/pub_tools.dart';
 import 'package:flutter/services.dart';
+import '../../comm/widget_sync_hooks.dart';
 
 class GongKeSettingPage extends StatefulWidget {
   const GongKeSettingPage({super.key});
@@ -32,6 +33,7 @@ class _GongKeSettingPageState extends State<GongKeSettingPage> {
     await globalDB.managers.gongKeItem
         .filter((item) => item.gongKeDay.equals(date))
         .update((o) => o(isComplete: const Value(true)));
+    await syncTaskAndCalendarCards();
   }
 
   void _updateEditState(String dateStr) {
@@ -196,6 +198,7 @@ class _GongKeSettingPageState extends State<GongKeSettingPage> {
                             await globalDB.managers.gongKeItem
                                 .filter((t) => t.id.equals(item.id))
                                 .update((o) => o(isComplete: Value(value)));
+                            await syncTaskAndCalendarCards();
                             updateCallback();
                           }
                         : null,

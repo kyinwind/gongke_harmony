@@ -11,200 +11,130 @@ class $FaYuanTable extends FaYuan with TableInfo<$FaYuanTable, FaYuanData> {
   static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
-    'id',
-    aliasedName,
-    false,
-    hasAutoIncrement: true,
-    type: DriftSqlType.int,
-    requiredDuringInsert: false,
-    defaultConstraints: GeneratedColumn.constraintIsAlways(
-      'PRIMARY KEY AUTOINCREMENT',
-    ),
-  );
-  static const VerificationMeta _createDateTimeMeta = const VerificationMeta(
-    'createDateTime',
-  );
+      'id', aliasedName, false,
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _createDateTimeMeta =
+      const VerificationMeta('createDateTime');
   @override
   late final GeneratedColumn<DateTime> createDateTime =
-      GeneratedColumn<DateTime>(
-        'create_date_time',
-        aliasedName,
-        false,
-        type: DriftSqlType.dateTime,
-        requiredDuringInsert: false,
-        defaultValue: currentDateAndTime,
-      );
-  static const VerificationMeta _modifyDateTimeMeta = const VerificationMeta(
-    'modifyDateTime',
-  );
+      GeneratedColumn<DateTime>('create_date_time', aliasedName, false,
+          type: DriftSqlType.dateTime,
+          requiredDuringInsert: false,
+          defaultValue: currentDateAndTime);
+  static const VerificationMeta _modifyDateTimeMeta =
+      const VerificationMeta('modifyDateTime');
   @override
   late final GeneratedColumn<DateTime> modifyDateTime =
-      GeneratedColumn<DateTime>(
-        'modify_date_time',
-        aliasedName,
-        false,
-        type: DriftSqlType.dateTime,
-        requiredDuringInsert: false,
-        defaultValue: currentDateAndTime,
-      );
-  static const VerificationMeta _remarksMeta = const VerificationMeta(
-    'remarks',
-  );
+      GeneratedColumn<DateTime>('modify_date_time', aliasedName, false,
+          type: DriftSqlType.dateTime,
+          requiredDuringInsert: false,
+          defaultValue: currentDateAndTime);
+  static const VerificationMeta _remarksMeta =
+      const VerificationMeta('remarks');
   @override
   late final GeneratedColumn<String> remarks = GeneratedColumn<String>(
-    'remarks',
-    aliasedName,
-    true,
-    type: DriftSqlType.string,
-    requiredDuringInsert: false,
-  );
+      'remarks', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
   static const VerificationMeta _bk1Meta = const VerificationMeta('bk1');
   @override
   late final GeneratedColumn<String> bk1 = GeneratedColumn<String>(
-    'bk1',
-    aliasedName,
-    true,
-    type: DriftSqlType.string,
-    requiredDuringInsert: false,
-  );
+      'bk1', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
   static const VerificationMeta _bk2Meta = const VerificationMeta('bk2');
   @override
   late final GeneratedColumn<String> bk2 = GeneratedColumn<String>(
-    'bk2',
-    aliasedName,
-    true,
-    type: DriftSqlType.string,
-    requiredDuringInsert: false,
-  );
+      'bk2', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
   static const VerificationMeta _nameMeta = const VerificationMeta('name');
   @override
   late final GeneratedColumn<String> name = GeneratedColumn<String>(
-    'name',
-    aliasedName,
-    false,
-    type: DriftSqlType.string,
-    requiredDuringInsert: true,
-  );
-  static const VerificationMeta _fodizinameMeta = const VerificationMeta(
-    'fodiziname',
-  );
+      'name', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _fodizinameMeta =
+      const VerificationMeta('fodiziname');
   @override
   late final GeneratedColumn<String> fodiziname = GeneratedColumn<String>(
-    'fodiziname',
-    aliasedName,
-    false,
-    type: DriftSqlType.string,
-    requiredDuringInsert: true,
-  );
-  static const VerificationMeta _startDateMeta = const VerificationMeta(
-    'startDate',
-  );
+      'fodiziname', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _startDateMeta =
+      const VerificationMeta('startDate');
   @override
   late final GeneratedColumn<DateTime> startDate = GeneratedColumn<DateTime>(
-    'start_date',
-    aliasedName,
-    false,
-    type: DriftSqlType.dateTime,
-    requiredDuringInsert: true,
-  );
-  static const VerificationMeta _endDateMeta = const VerificationMeta(
-    'endDate',
-  );
+      'start_date', aliasedName, false,
+      type: DriftSqlType.dateTime, requiredDuringInsert: true);
+  static const VerificationMeta _endDateMeta =
+      const VerificationMeta('endDate');
   @override
   late final GeneratedColumn<DateTime> endDate = GeneratedColumn<DateTime>(
-    'end_date',
-    aliasedName,
-    false,
-    type: DriftSqlType.dateTime,
-    requiredDuringInsert: true,
-  );
-  static const VerificationMeta _yuanwangMeta = const VerificationMeta(
-    'yuanwang',
-  );
+      'end_date', aliasedName, false,
+      type: DriftSqlType.dateTime, requiredDuringInsert: true);
+  static const VerificationMeta _yuanwangMeta =
+      const VerificationMeta('yuanwang');
   @override
   late final GeneratedColumn<String> yuanwang = GeneratedColumn<String>(
-    'yuanwang',
-    aliasedName,
-    false,
-    type: DriftSqlType.string,
-    requiredDuringInsert: true,
-  );
-  static const VerificationMeta _isCompleteMeta = const VerificationMeta(
-    'isComplete',
-  );
+      'yuanwang', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _isCompleteMeta =
+      const VerificationMeta('isComplete');
   @override
   late final GeneratedColumn<bool> isComplete = GeneratedColumn<bool>(
-    'is_complete',
-    aliasedName,
-    false,
-    type: DriftSqlType.bool,
-    requiredDuringInsert: false,
-    defaultConstraints: GeneratedColumn.constraintIsAlways(
-      'CHECK ("is_complete" IN (0, 1))',
-    ),
-    defaultValue: const Constant(false),
-  );
-  static const VerificationMeta _fayuanwenMeta = const VerificationMeta(
-    'fayuanwen',
-  );
+      'is_complete', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('CHECK ("is_complete" IN (0, 1))'),
+      defaultValue: const Constant(false));
+  static const VerificationMeta _fayuanwenMeta =
+      const VerificationMeta('fayuanwen');
   @override
   late final GeneratedColumn<String> fayuanwen = GeneratedColumn<String>(
-    'fayuanwen',
-    aliasedName,
-    false,
-    type: DriftSqlType.string,
-    requiredDuringInsert: true,
-  );
+      'fayuanwen', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
   static const VerificationMeta _stsMeta = const VerificationMeta('sts');
   @override
   late final GeneratedColumn<String> sts = GeneratedColumn<String>(
-    'sts',
-    aliasedName,
-    false,
-    type: DriftSqlType.string,
-    requiredDuringInsert: false,
-    defaultValue: const Constant('A'),
-  );
-  static const VerificationMeta _percentValueMeta = const VerificationMeta(
-    'percentValue',
-  );
+      'sts', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: false,
+      defaultValue: const Constant('A'));
+  static const VerificationMeta _percentValueMeta =
+      const VerificationMeta('percentValue');
   @override
   late final GeneratedColumn<double> percentValue = GeneratedColumn<double>(
-    'percent_value',
-    aliasedName,
-    false,
-    type: DriftSqlType.double,
-    requiredDuringInsert: false,
-    defaultValue: const Constant(0.0),
-  );
+      'percent_value', aliasedName, false,
+      type: DriftSqlType.double,
+      requiredDuringInsert: false,
+      defaultValue: const Constant(0.0));
   @override
   List<GeneratedColumn> get $columns => [
-    id,
-    createDateTime,
-    modifyDateTime,
-    remarks,
-    bk1,
-    bk2,
-    name,
-    fodiziname,
-    startDate,
-    endDate,
-    yuanwang,
-    isComplete,
-    fayuanwen,
-    sts,
-    percentValue,
-  ];
+        id,
+        createDateTime,
+        modifyDateTime,
+        remarks,
+        bk1,
+        bk2,
+        name,
+        fodiziname,
+        startDate,
+        endDate,
+        yuanwang,
+        isComplete,
+        fayuanwen,
+        sts,
+        percentValue
+      ];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
   String get actualTableName => $name;
   static const String $name = 'fa_yuan';
   @override
-  VerificationContext validateIntegrity(
-    Insertable<FaYuanData> instance, {
-    bool isInserting = false,
-  }) {
+  VerificationContext validateIntegrity(Insertable<FaYuanData> instance,
+      {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
@@ -212,108 +142,81 @@ class $FaYuanTable extends FaYuan with TableInfo<$FaYuanTable, FaYuanData> {
     }
     if (data.containsKey('create_date_time')) {
       context.handle(
-        _createDateTimeMeta,
-        createDateTime.isAcceptableOrUnknown(
-          data['create_date_time']!,
           _createDateTimeMeta,
-        ),
-      );
+          createDateTime.isAcceptableOrUnknown(
+              data['create_date_time']!, _createDateTimeMeta));
     }
     if (data.containsKey('modify_date_time')) {
       context.handle(
-        _modifyDateTimeMeta,
-        modifyDateTime.isAcceptableOrUnknown(
-          data['modify_date_time']!,
           _modifyDateTimeMeta,
-        ),
-      );
+          modifyDateTime.isAcceptableOrUnknown(
+              data['modify_date_time']!, _modifyDateTimeMeta));
     }
     if (data.containsKey('remarks')) {
-      context.handle(
-        _remarksMeta,
-        remarks.isAcceptableOrUnknown(data['remarks']!, _remarksMeta),
-      );
+      context.handle(_remarksMeta,
+          remarks.isAcceptableOrUnknown(data['remarks']!, _remarksMeta));
     }
     if (data.containsKey('bk1')) {
       context.handle(
-        _bk1Meta,
-        bk1.isAcceptableOrUnknown(data['bk1']!, _bk1Meta),
-      );
+          _bk1Meta, bk1.isAcceptableOrUnknown(data['bk1']!, _bk1Meta));
     }
     if (data.containsKey('bk2')) {
       context.handle(
-        _bk2Meta,
-        bk2.isAcceptableOrUnknown(data['bk2']!, _bk2Meta),
-      );
+          _bk2Meta, bk2.isAcceptableOrUnknown(data['bk2']!, _bk2Meta));
     }
     if (data.containsKey('name')) {
       context.handle(
-        _nameMeta,
-        name.isAcceptableOrUnknown(data['name']!, _nameMeta),
-      );
+          _nameMeta, name.isAcceptableOrUnknown(data['name']!, _nameMeta));
     } else if (isInserting) {
       context.missing(_nameMeta);
     }
     if (data.containsKey('fodiziname')) {
       context.handle(
-        _fodizinameMeta,
-        fodiziname.isAcceptableOrUnknown(data['fodiziname']!, _fodizinameMeta),
-      );
+          _fodizinameMeta,
+          fodiziname.isAcceptableOrUnknown(
+              data['fodiziname']!, _fodizinameMeta));
     } else if (isInserting) {
       context.missing(_fodizinameMeta);
     }
     if (data.containsKey('start_date')) {
-      context.handle(
-        _startDateMeta,
-        startDate.isAcceptableOrUnknown(data['start_date']!, _startDateMeta),
-      );
+      context.handle(_startDateMeta,
+          startDate.isAcceptableOrUnknown(data['start_date']!, _startDateMeta));
     } else if (isInserting) {
       context.missing(_startDateMeta);
     }
     if (data.containsKey('end_date')) {
-      context.handle(
-        _endDateMeta,
-        endDate.isAcceptableOrUnknown(data['end_date']!, _endDateMeta),
-      );
+      context.handle(_endDateMeta,
+          endDate.isAcceptableOrUnknown(data['end_date']!, _endDateMeta));
     } else if (isInserting) {
       context.missing(_endDateMeta);
     }
     if (data.containsKey('yuanwang')) {
-      context.handle(
-        _yuanwangMeta,
-        yuanwang.isAcceptableOrUnknown(data['yuanwang']!, _yuanwangMeta),
-      );
+      context.handle(_yuanwangMeta,
+          yuanwang.isAcceptableOrUnknown(data['yuanwang']!, _yuanwangMeta));
     } else if (isInserting) {
       context.missing(_yuanwangMeta);
     }
     if (data.containsKey('is_complete')) {
       context.handle(
-        _isCompleteMeta,
-        isComplete.isAcceptableOrUnknown(data['is_complete']!, _isCompleteMeta),
-      );
+          _isCompleteMeta,
+          isComplete.isAcceptableOrUnknown(
+              data['is_complete']!, _isCompleteMeta));
     }
     if (data.containsKey('fayuanwen')) {
-      context.handle(
-        _fayuanwenMeta,
-        fayuanwen.isAcceptableOrUnknown(data['fayuanwen']!, _fayuanwenMeta),
-      );
+      context.handle(_fayuanwenMeta,
+          fayuanwen.isAcceptableOrUnknown(data['fayuanwen']!, _fayuanwenMeta));
     } else if (isInserting) {
       context.missing(_fayuanwenMeta);
     }
     if (data.containsKey('sts')) {
       context.handle(
-        _stsMeta,
-        sts.isAcceptableOrUnknown(data['sts']!, _stsMeta),
-      );
+          _stsMeta, sts.isAcceptableOrUnknown(data['sts']!, _stsMeta));
     }
     if (data.containsKey('percent_value')) {
       context.handle(
-        _percentValueMeta,
-        percentValue.isAcceptableOrUnknown(
-          data['percent_value']!,
           _percentValueMeta,
-        ),
-      );
+          percentValue.isAcceptableOrUnknown(
+              data['percent_value']!, _percentValueMeta));
     }
     return context;
   }
@@ -324,66 +227,36 @@ class $FaYuanTable extends FaYuan with TableInfo<$FaYuanTable, FaYuanData> {
   FaYuanData map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return FaYuanData(
-      id: attachedDatabase.typeMapping.read(
-        DriftSqlType.int,
-        data['${effectivePrefix}id'],
-      )!,
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
       createDateTime: attachedDatabase.typeMapping.read(
-        DriftSqlType.dateTime,
-        data['${effectivePrefix}create_date_time'],
-      )!,
+          DriftSqlType.dateTime, data['${effectivePrefix}create_date_time'])!,
       modifyDateTime: attachedDatabase.typeMapping.read(
-        DriftSqlType.dateTime,
-        data['${effectivePrefix}modify_date_time'],
-      )!,
-      remarks: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}remarks'],
-      ),
-      bk1: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}bk1'],
-      ),
-      bk2: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}bk2'],
-      ),
-      name: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}name'],
-      )!,
-      fodiziname: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}fodiziname'],
-      )!,
-      startDate: attachedDatabase.typeMapping.read(
-        DriftSqlType.dateTime,
-        data['${effectivePrefix}start_date'],
-      )!,
-      endDate: attachedDatabase.typeMapping.read(
-        DriftSqlType.dateTime,
-        data['${effectivePrefix}end_date'],
-      )!,
-      yuanwang: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}yuanwang'],
-      )!,
-      isComplete: attachedDatabase.typeMapping.read(
-        DriftSqlType.bool,
-        data['${effectivePrefix}is_complete'],
-      )!,
-      fayuanwen: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}fayuanwen'],
-      )!,
-      sts: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}sts'],
-      )!,
-      percentValue: attachedDatabase.typeMapping.read(
-        DriftSqlType.double,
-        data['${effectivePrefix}percent_value'],
-      )!,
+          DriftSqlType.dateTime, data['${effectivePrefix}modify_date_time'])!,
+      remarks: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}remarks']),
+      bk1: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}bk1']),
+      bk2: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}bk2']),
+      name: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}name'])!,
+      fodiziname: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}fodiziname'])!,
+      startDate: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}start_date'])!,
+      endDate: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}end_date'])!,
+      yuanwang: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}yuanwang'])!,
+      isComplete: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}is_complete'])!,
+      fayuanwen: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}fayuanwen'])!,
+      sts: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}sts'])!,
+      percentValue: attachedDatabase.typeMapping
+          .read(DriftSqlType.double, data['${effectivePrefix}percent_value'])!,
     );
   }
 
@@ -409,23 +282,22 @@ class FaYuanData extends DataClass implements Insertable<FaYuanData> {
   final String fayuanwen;
   final String sts;
   final double percentValue;
-  const FaYuanData({
-    required this.id,
-    required this.createDateTime,
-    required this.modifyDateTime,
-    this.remarks,
-    this.bk1,
-    this.bk2,
-    required this.name,
-    required this.fodiziname,
-    required this.startDate,
-    required this.endDate,
-    required this.yuanwang,
-    required this.isComplete,
-    required this.fayuanwen,
-    required this.sts,
-    required this.percentValue,
-  });
+  const FaYuanData(
+      {required this.id,
+      required this.createDateTime,
+      required this.modifyDateTime,
+      this.remarks,
+      this.bk1,
+      this.bk2,
+      required this.name,
+      required this.fodiziname,
+      required this.startDate,
+      required this.endDate,
+      required this.yuanwang,
+      required this.isComplete,
+      required this.fayuanwen,
+      required this.sts,
+      required this.percentValue});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -475,10 +347,8 @@ class FaYuanData extends DataClass implements Insertable<FaYuanData> {
     );
   }
 
-  factory FaYuanData.fromJson(
-    Map<String, dynamic> json, {
-    ValueSerializer? serializer,
-  }) {
+  factory FaYuanData.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return FaYuanData(
       id: serializer.fromJson<int>(json['id']),
@@ -520,39 +390,39 @@ class FaYuanData extends DataClass implements Insertable<FaYuanData> {
     };
   }
 
-  FaYuanData copyWith({
-    int? id,
-    DateTime? createDateTime,
-    DateTime? modifyDateTime,
-    Value<String?> remarks = const Value.absent(),
-    Value<String?> bk1 = const Value.absent(),
-    Value<String?> bk2 = const Value.absent(),
-    String? name,
-    String? fodiziname,
-    DateTime? startDate,
-    DateTime? endDate,
-    String? yuanwang,
-    bool? isComplete,
-    String? fayuanwen,
-    String? sts,
-    double? percentValue,
-  }) => FaYuanData(
-    id: id ?? this.id,
-    createDateTime: createDateTime ?? this.createDateTime,
-    modifyDateTime: modifyDateTime ?? this.modifyDateTime,
-    remarks: remarks.present ? remarks.value : this.remarks,
-    bk1: bk1.present ? bk1.value : this.bk1,
-    bk2: bk2.present ? bk2.value : this.bk2,
-    name: name ?? this.name,
-    fodiziname: fodiziname ?? this.fodiziname,
-    startDate: startDate ?? this.startDate,
-    endDate: endDate ?? this.endDate,
-    yuanwang: yuanwang ?? this.yuanwang,
-    isComplete: isComplete ?? this.isComplete,
-    fayuanwen: fayuanwen ?? this.fayuanwen,
-    sts: sts ?? this.sts,
-    percentValue: percentValue ?? this.percentValue,
-  );
+  FaYuanData copyWith(
+          {int? id,
+          DateTime? createDateTime,
+          DateTime? modifyDateTime,
+          Value<String?> remarks = const Value.absent(),
+          Value<String?> bk1 = const Value.absent(),
+          Value<String?> bk2 = const Value.absent(),
+          String? name,
+          String? fodiziname,
+          DateTime? startDate,
+          DateTime? endDate,
+          String? yuanwang,
+          bool? isComplete,
+          String? fayuanwen,
+          String? sts,
+          double? percentValue}) =>
+      FaYuanData(
+        id: id ?? this.id,
+        createDateTime: createDateTime ?? this.createDateTime,
+        modifyDateTime: modifyDateTime ?? this.modifyDateTime,
+        remarks: remarks.present ? remarks.value : this.remarks,
+        bk1: bk1.present ? bk1.value : this.bk1,
+        bk2: bk2.present ? bk2.value : this.bk2,
+        name: name ?? this.name,
+        fodiziname: fodiziname ?? this.fodiziname,
+        startDate: startDate ?? this.startDate,
+        endDate: endDate ?? this.endDate,
+        yuanwang: yuanwang ?? this.yuanwang,
+        isComplete: isComplete ?? this.isComplete,
+        fayuanwen: fayuanwen ?? this.fayuanwen,
+        sts: sts ?? this.sts,
+        percentValue: percentValue ?? this.percentValue,
+      );
   FaYuanData copyWithCompanion(FaYuanCompanion data) {
     return FaYuanData(
       id: data.id.present ? data.id.value : this.id,
@@ -566,15 +436,13 @@ class FaYuanData extends DataClass implements Insertable<FaYuanData> {
       bk1: data.bk1.present ? data.bk1.value : this.bk1,
       bk2: data.bk2.present ? data.bk2.value : this.bk2,
       name: data.name.present ? data.name.value : this.name,
-      fodiziname: data.fodiziname.present
-          ? data.fodiziname.value
-          : this.fodiziname,
+      fodiziname:
+          data.fodiziname.present ? data.fodiziname.value : this.fodiziname,
       startDate: data.startDate.present ? data.startDate.value : this.startDate,
       endDate: data.endDate.present ? data.endDate.value : this.endDate,
       yuanwang: data.yuanwang.present ? data.yuanwang.value : this.yuanwang,
-      isComplete: data.isComplete.present
-          ? data.isComplete.value
-          : this.isComplete,
+      isComplete:
+          data.isComplete.present ? data.isComplete.value : this.isComplete,
       fayuanwen: data.fayuanwen.present ? data.fayuanwen.value : this.fayuanwen,
       sts: data.sts.present ? data.sts.value : this.sts,
       percentValue: data.percentValue.present
@@ -607,22 +475,21 @@ class FaYuanData extends DataClass implements Insertable<FaYuanData> {
 
   @override
   int get hashCode => Object.hash(
-    id,
-    createDateTime,
-    modifyDateTime,
-    remarks,
-    bk1,
-    bk2,
-    name,
-    fodiziname,
-    startDate,
-    endDate,
-    yuanwang,
-    isComplete,
-    fayuanwen,
-    sts,
-    percentValue,
-  );
+      id,
+      createDateTime,
+      modifyDateTime,
+      remarks,
+      bk1,
+      bk2,
+      name,
+      fodiziname,
+      startDate,
+      endDate,
+      yuanwang,
+      isComplete,
+      fayuanwen,
+      sts,
+      percentValue);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -693,12 +560,12 @@ class FaYuanCompanion extends UpdateCompanion<FaYuanData> {
     required String fayuanwen,
     this.sts = const Value.absent(),
     this.percentValue = const Value.absent(),
-  }) : name = Value(name),
-       fodiziname = Value(fodiziname),
-       startDate = Value(startDate),
-       endDate = Value(endDate),
-       yuanwang = Value(yuanwang),
-       fayuanwen = Value(fayuanwen);
+  })  : name = Value(name),
+        fodiziname = Value(fodiziname),
+        startDate = Value(startDate),
+        endDate = Value(endDate),
+        yuanwang = Value(yuanwang),
+        fayuanwen = Value(fayuanwen);
   static Insertable<FaYuanData> custom({
     Expression<int>? id,
     Expression<DateTime>? createDateTime,
@@ -735,23 +602,22 @@ class FaYuanCompanion extends UpdateCompanion<FaYuanData> {
     });
   }
 
-  FaYuanCompanion copyWith({
-    Value<int>? id,
-    Value<DateTime>? createDateTime,
-    Value<DateTime>? modifyDateTime,
-    Value<String?>? remarks,
-    Value<String?>? bk1,
-    Value<String?>? bk2,
-    Value<String>? name,
-    Value<String>? fodiziname,
-    Value<DateTime>? startDate,
-    Value<DateTime>? endDate,
-    Value<String>? yuanwang,
-    Value<bool>? isComplete,
-    Value<String>? fayuanwen,
-    Value<String>? sts,
-    Value<double>? percentValue,
-  }) {
+  FaYuanCompanion copyWith(
+      {Value<int>? id,
+      Value<DateTime>? createDateTime,
+      Value<DateTime>? modifyDateTime,
+      Value<String?>? remarks,
+      Value<String?>? bk1,
+      Value<String?>? bk2,
+      Value<String>? name,
+      Value<String>? fodiziname,
+      Value<DateTime>? startDate,
+      Value<DateTime>? endDate,
+      Value<String>? yuanwang,
+      Value<bool>? isComplete,
+      Value<String>? fayuanwen,
+      Value<String>? sts,
+      Value<double>? percentValue}) {
     return FaYuanCompanion(
       id: id ?? this.id,
       createDateTime: createDateTime ?? this.createDateTime,
@@ -854,77 +720,48 @@ class $GongKeItemsOneDayTable extends GongKeItemsOneDay
   static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
-    'id',
-    aliasedName,
-    false,
-    hasAutoIncrement: true,
-    type: DriftSqlType.int,
-    requiredDuringInsert: false,
-    defaultConstraints: GeneratedColumn.constraintIsAlways(
-      'PRIMARY KEY AUTOINCREMENT',
-    ),
-  );
-  static const VerificationMeta _fayuanIdMeta = const VerificationMeta(
-    'fayuanId',
-  );
+      'id', aliasedName, false,
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _fayuanIdMeta =
+      const VerificationMeta('fayuanId');
   @override
   late final GeneratedColumn<int> fayuanId = GeneratedColumn<int>(
-    'fayuan_id',
-    aliasedName,
-    false,
-    type: DriftSqlType.int,
-    requiredDuringInsert: true,
-  );
-  static const VerificationMeta _gongketypeMeta = const VerificationMeta(
-    'gongketype',
-  );
+      'fayuan_id', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _gongketypeMeta =
+      const VerificationMeta('gongketype');
   @override
   late final GeneratedColumn<String> gongketype = GeneratedColumn<String>(
-    'gongketype',
-    aliasedName,
-    false,
-    type: DriftSqlType.string,
-    requiredDuringInsert: false,
-    defaultValue: const Constant('songjing'),
-  );
+      'gongketype', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: false,
+      defaultValue: const Constant('songjing'));
   static const VerificationMeta _nameMeta = const VerificationMeta('name');
   @override
   late final GeneratedColumn<String> name = GeneratedColumn<String>(
-    'name',
-    aliasedName,
-    false,
-    type: DriftSqlType.string,
-    requiredDuringInsert: true,
-  );
+      'name', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
   static const VerificationMeta _cntMeta = const VerificationMeta('cnt');
   @override
   late final GeneratedColumn<int> cnt = GeneratedColumn<int>(
-    'cnt',
-    aliasedName,
-    false,
-    type: DriftSqlType.int,
-    requiredDuringInsert: false,
-    defaultValue: const Constant(0),
-  );
+      'cnt', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultValue: const Constant(0));
   static const VerificationMeta _idxMeta = const VerificationMeta('idx');
   @override
   late final GeneratedColumn<int> idx = GeneratedColumn<int>(
-    'idx',
-    aliasedName,
-    false,
-    type: DriftSqlType.int,
-    requiredDuringInsert: false,
-    defaultValue: const Constant(0),
-  );
+      'idx', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultValue: const Constant(0));
   @override
-  List<GeneratedColumn> get $columns => [
-    id,
-    fayuanId,
-    gongketype,
-    name,
-    cnt,
-    idx,
-  ];
+  List<GeneratedColumn> get $columns =>
+      [id, fayuanId, gongketype, name, cnt, idx];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
@@ -932,47 +769,38 @@ class $GongKeItemsOneDayTable extends GongKeItemsOneDay
   static const String $name = 'gong_ke_items_one_day';
   @override
   VerificationContext validateIntegrity(
-    Insertable<GongKeItemsOneDayData> instance, {
-    bool isInserting = false,
-  }) {
+      Insertable<GongKeItemsOneDayData> instance,
+      {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
     }
     if (data.containsKey('fayuan_id')) {
-      context.handle(
-        _fayuanIdMeta,
-        fayuanId.isAcceptableOrUnknown(data['fayuan_id']!, _fayuanIdMeta),
-      );
+      context.handle(_fayuanIdMeta,
+          fayuanId.isAcceptableOrUnknown(data['fayuan_id']!, _fayuanIdMeta));
     } else if (isInserting) {
       context.missing(_fayuanIdMeta);
     }
     if (data.containsKey('gongketype')) {
       context.handle(
-        _gongketypeMeta,
-        gongketype.isAcceptableOrUnknown(data['gongketype']!, _gongketypeMeta),
-      );
+          _gongketypeMeta,
+          gongketype.isAcceptableOrUnknown(
+              data['gongketype']!, _gongketypeMeta));
     }
     if (data.containsKey('name')) {
       context.handle(
-        _nameMeta,
-        name.isAcceptableOrUnknown(data['name']!, _nameMeta),
-      );
+          _nameMeta, name.isAcceptableOrUnknown(data['name']!, _nameMeta));
     } else if (isInserting) {
       context.missing(_nameMeta);
     }
     if (data.containsKey('cnt')) {
       context.handle(
-        _cntMeta,
-        cnt.isAcceptableOrUnknown(data['cnt']!, _cntMeta),
-      );
+          _cntMeta, cnt.isAcceptableOrUnknown(data['cnt']!, _cntMeta));
     }
     if (data.containsKey('idx')) {
       context.handle(
-        _idxMeta,
-        idx.isAcceptableOrUnknown(data['idx']!, _idxMeta),
-      );
+          _idxMeta, idx.isAcceptableOrUnknown(data['idx']!, _idxMeta));
     }
     return context;
   }
@@ -983,30 +811,18 @@ class $GongKeItemsOneDayTable extends GongKeItemsOneDay
   GongKeItemsOneDayData map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return GongKeItemsOneDayData(
-      id: attachedDatabase.typeMapping.read(
-        DriftSqlType.int,
-        data['${effectivePrefix}id'],
-      )!,
-      fayuanId: attachedDatabase.typeMapping.read(
-        DriftSqlType.int,
-        data['${effectivePrefix}fayuan_id'],
-      )!,
-      gongketype: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}gongketype'],
-      )!,
-      name: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}name'],
-      )!,
-      cnt: attachedDatabase.typeMapping.read(
-        DriftSqlType.int,
-        data['${effectivePrefix}cnt'],
-      )!,
-      idx: attachedDatabase.typeMapping.read(
-        DriftSqlType.int,
-        data['${effectivePrefix}idx'],
-      )!,
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      fayuanId: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}fayuan_id'])!,
+      gongketype: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}gongketype'])!,
+      name: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}name'])!,
+      cnt: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}cnt'])!,
+      idx: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}idx'])!,
     );
   }
 
@@ -1024,14 +840,13 @@ class GongKeItemsOneDayData extends DataClass
   final String name;
   final int cnt;
   final int idx;
-  const GongKeItemsOneDayData({
-    required this.id,
-    required this.fayuanId,
-    required this.gongketype,
-    required this.name,
-    required this.cnt,
-    required this.idx,
-  });
+  const GongKeItemsOneDayData(
+      {required this.id,
+      required this.fayuanId,
+      required this.gongketype,
+      required this.name,
+      required this.cnt,
+      required this.idx});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -1055,10 +870,8 @@ class GongKeItemsOneDayData extends DataClass
     );
   }
 
-  factory GongKeItemsOneDayData.fromJson(
-    Map<String, dynamic> json, {
-    ValueSerializer? serializer,
-  }) {
+  factory GongKeItemsOneDayData.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return GongKeItemsOneDayData(
       id: serializer.fromJson<int>(json['id']),
@@ -1082,28 +895,27 @@ class GongKeItemsOneDayData extends DataClass
     };
   }
 
-  GongKeItemsOneDayData copyWith({
-    int? id,
-    int? fayuanId,
-    String? gongketype,
-    String? name,
-    int? cnt,
-    int? idx,
-  }) => GongKeItemsOneDayData(
-    id: id ?? this.id,
-    fayuanId: fayuanId ?? this.fayuanId,
-    gongketype: gongketype ?? this.gongketype,
-    name: name ?? this.name,
-    cnt: cnt ?? this.cnt,
-    idx: idx ?? this.idx,
-  );
+  GongKeItemsOneDayData copyWith(
+          {int? id,
+          int? fayuanId,
+          String? gongketype,
+          String? name,
+          int? cnt,
+          int? idx}) =>
+      GongKeItemsOneDayData(
+        id: id ?? this.id,
+        fayuanId: fayuanId ?? this.fayuanId,
+        gongketype: gongketype ?? this.gongketype,
+        name: name ?? this.name,
+        cnt: cnt ?? this.cnt,
+        idx: idx ?? this.idx,
+      );
   GongKeItemsOneDayData copyWithCompanion(GongKeItemsOneDayCompanion data) {
     return GongKeItemsOneDayData(
       id: data.id.present ? data.id.value : this.id,
       fayuanId: data.fayuanId.present ? data.fayuanId.value : this.fayuanId,
-      gongketype: data.gongketype.present
-          ? data.gongketype.value
-          : this.gongketype,
+      gongketype:
+          data.gongketype.present ? data.gongketype.value : this.gongketype,
       name: data.name.present ? data.name.value : this.name,
       cnt: data.cnt.present ? data.cnt.value : this.cnt,
       idx: data.idx.present ? data.idx.value : this.idx,
@@ -1160,8 +972,8 @@ class GongKeItemsOneDayCompanion
     required String name,
     this.cnt = const Value.absent(),
     this.idx = const Value.absent(),
-  }) : fayuanId = Value(fayuanId),
-       name = Value(name);
+  })  : fayuanId = Value(fayuanId),
+        name = Value(name);
   static Insertable<GongKeItemsOneDayData> custom({
     Expression<int>? id,
     Expression<int>? fayuanId,
@@ -1180,14 +992,13 @@ class GongKeItemsOneDayCompanion
     });
   }
 
-  GongKeItemsOneDayCompanion copyWith({
-    Value<int>? id,
-    Value<int>? fayuanId,
-    Value<String>? gongketype,
-    Value<String>? name,
-    Value<int>? cnt,
-    Value<int>? idx,
-  }) {
+  GongKeItemsOneDayCompanion copyWith(
+      {Value<int>? id,
+      Value<int>? fayuanId,
+      Value<String>? gongketype,
+      Value<String>? name,
+      Value<int>? cnt,
+      Value<int>? idx}) {
     return GongKeItemsOneDayCompanion(
       id: id ?? this.id,
       fayuanId: fayuanId ?? this.fayuanId,
@@ -1245,171 +1056,114 @@ class $GongKeItemTable extends GongKeItem
   static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
-    'id',
-    aliasedName,
-    false,
-    hasAutoIncrement: true,
-    type: DriftSqlType.int,
-    requiredDuringInsert: false,
-    defaultConstraints: GeneratedColumn.constraintIsAlways(
-      'PRIMARY KEY AUTOINCREMENT',
-    ),
-  );
-  static const VerificationMeta _createDateTimeMeta = const VerificationMeta(
-    'createDateTime',
-  );
+      'id', aliasedName, false,
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _createDateTimeMeta =
+      const VerificationMeta('createDateTime');
   @override
   late final GeneratedColumn<DateTime> createDateTime =
-      GeneratedColumn<DateTime>(
-        'create_date_time',
-        aliasedName,
-        false,
-        type: DriftSqlType.dateTime,
-        requiredDuringInsert: false,
-        defaultValue: currentDateAndTime,
-      );
-  static const VerificationMeta _remarksMeta = const VerificationMeta(
-    'remarks',
-  );
+      GeneratedColumn<DateTime>('create_date_time', aliasedName, false,
+          type: DriftSqlType.dateTime,
+          requiredDuringInsert: false,
+          defaultValue: currentDateAndTime);
+  static const VerificationMeta _remarksMeta =
+      const VerificationMeta('remarks');
   @override
   late final GeneratedColumn<String> remarks = GeneratedColumn<String>(
-    'remarks',
-    aliasedName,
-    true,
-    type: DriftSqlType.string,
-    requiredDuringInsert: false,
-  );
+      'remarks', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
   static const VerificationMeta _bk1Meta = const VerificationMeta('bk1');
   @override
   late final GeneratedColumn<String> bk1 = GeneratedColumn<String>(
-    'bk1',
-    aliasedName,
-    true,
-    type: DriftSqlType.string,
-    requiredDuringInsert: false,
-  );
+      'bk1', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
   static const VerificationMeta _bk2Meta = const VerificationMeta('bk2');
   @override
   late final GeneratedColumn<String> bk2 = GeneratedColumn<String>(
-    'bk2',
-    aliasedName,
-    true,
-    type: DriftSqlType.string,
-    requiredDuringInsert: false,
-  );
+      'bk2', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
   static const VerificationMeta _nameMeta = const VerificationMeta('name');
   @override
   late final GeneratedColumn<String> name = GeneratedColumn<String>(
-    'name',
-    aliasedName,
-    false,
-    type: DriftSqlType.string,
-    requiredDuringInsert: true,
-  );
-  static const VerificationMeta _fayuanIdMeta = const VerificationMeta(
-    'fayuanId',
-  );
+      'name', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _fayuanIdMeta =
+      const VerificationMeta('fayuanId');
   @override
   late final GeneratedColumn<int> fayuanId = GeneratedColumn<int>(
-    'fayuan_id',
-    aliasedName,
-    false,
-    type: DriftSqlType.int,
-    requiredDuringInsert: true,
-  );
-  static const VerificationMeta _gongketypeMeta = const VerificationMeta(
-    'gongketype',
-  );
+      'fayuan_id', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _gongketypeMeta =
+      const VerificationMeta('gongketype');
   @override
   late final GeneratedColumn<String> gongketype = GeneratedColumn<String>(
-    'gongketype',
-    aliasedName,
-    false,
-    type: DriftSqlType.string,
-    requiredDuringInsert: true,
-  );
+      'gongketype', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
   static const VerificationMeta _cntMeta = const VerificationMeta('cnt');
   @override
   late final GeneratedColumn<int> cnt = GeneratedColumn<int>(
-    'cnt',
-    aliasedName,
-    false,
-    type: DriftSqlType.int,
-    requiredDuringInsert: false,
-    defaultValue: const Constant(0),
-  );
-  static const VerificationMeta _gongKeDayMeta = const VerificationMeta(
-    'gongKeDay',
-  );
+      'cnt', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultValue: const Constant(0));
+  static const VerificationMeta _gongKeDayMeta =
+      const VerificationMeta('gongKeDay');
   @override
   late final GeneratedColumn<String> gongKeDay = GeneratedColumn<String>(
-    'gong_ke_day',
-    aliasedName,
-    false,
-    type: DriftSqlType.string,
-    requiredDuringInsert: true,
-  );
-  static const VerificationMeta _isCompleteMeta = const VerificationMeta(
-    'isComplete',
-  );
+      'gong_ke_day', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _isCompleteMeta =
+      const VerificationMeta('isComplete');
   @override
   late final GeneratedColumn<bool> isComplete = GeneratedColumn<bool>(
-    'is_complete',
-    aliasedName,
-    false,
-    type: DriftSqlType.bool,
-    requiredDuringInsert: false,
-    defaultConstraints: GeneratedColumn.constraintIsAlways(
-      'CHECK ("is_complete" IN (0, 1))',
-    ),
-    defaultValue: const Constant(false),
-  );
+      'is_complete', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('CHECK ("is_complete" IN (0, 1))'),
+      defaultValue: const Constant(false));
   static const VerificationMeta _idxMeta = const VerificationMeta('idx');
   @override
   late final GeneratedColumn<int> idx = GeneratedColumn<int>(
-    'idx',
-    aliasedName,
-    false,
-    type: DriftSqlType.int,
-    requiredDuringInsert: false,
-    defaultValue: const Constant(0),
-  );
+      'idx', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultValue: const Constant(0));
   static const VerificationMeta _curCntMeta = const VerificationMeta('curCnt');
   @override
   late final GeneratedColumn<int> curCnt = GeneratedColumn<int>(
-    'cur_cnt',
-    aliasedName,
-    false,
-    type: DriftSqlType.int,
-    requiredDuringInsert: false,
-    defaultValue: const Constant(0),
-  );
+      'cur_cnt', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultValue: const Constant(0));
   @override
   List<GeneratedColumn> get $columns => [
-    id,
-    createDateTime,
-    remarks,
-    bk1,
-    bk2,
-    name,
-    fayuanId,
-    gongketype,
-    cnt,
-    gongKeDay,
-    isComplete,
-    idx,
-    curCnt,
-  ];
+        id,
+        createDateTime,
+        remarks,
+        bk1,
+        bk2,
+        name,
+        fayuanId,
+        gongketype,
+        cnt,
+        gongKeDay,
+        isComplete,
+        idx,
+        curCnt
+      ];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
   String get actualTableName => $name;
   static const String $name = 'gong_ke_item';
   @override
-  VerificationContext validateIntegrity(
-    Insertable<GongKeItemData> instance, {
-    bool isInserting = false,
-  }) {
+  VerificationContext validateIntegrity(Insertable<GongKeItemData> instance,
+      {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
@@ -1417,86 +1171,67 @@ class $GongKeItemTable extends GongKeItem
     }
     if (data.containsKey('create_date_time')) {
       context.handle(
-        _createDateTimeMeta,
-        createDateTime.isAcceptableOrUnknown(
-          data['create_date_time']!,
           _createDateTimeMeta,
-        ),
-      );
+          createDateTime.isAcceptableOrUnknown(
+              data['create_date_time']!, _createDateTimeMeta));
     }
     if (data.containsKey('remarks')) {
-      context.handle(
-        _remarksMeta,
-        remarks.isAcceptableOrUnknown(data['remarks']!, _remarksMeta),
-      );
+      context.handle(_remarksMeta,
+          remarks.isAcceptableOrUnknown(data['remarks']!, _remarksMeta));
     }
     if (data.containsKey('bk1')) {
       context.handle(
-        _bk1Meta,
-        bk1.isAcceptableOrUnknown(data['bk1']!, _bk1Meta),
-      );
+          _bk1Meta, bk1.isAcceptableOrUnknown(data['bk1']!, _bk1Meta));
     }
     if (data.containsKey('bk2')) {
       context.handle(
-        _bk2Meta,
-        bk2.isAcceptableOrUnknown(data['bk2']!, _bk2Meta),
-      );
+          _bk2Meta, bk2.isAcceptableOrUnknown(data['bk2']!, _bk2Meta));
     }
     if (data.containsKey('name')) {
       context.handle(
-        _nameMeta,
-        name.isAcceptableOrUnknown(data['name']!, _nameMeta),
-      );
+          _nameMeta, name.isAcceptableOrUnknown(data['name']!, _nameMeta));
     } else if (isInserting) {
       context.missing(_nameMeta);
     }
     if (data.containsKey('fayuan_id')) {
-      context.handle(
-        _fayuanIdMeta,
-        fayuanId.isAcceptableOrUnknown(data['fayuan_id']!, _fayuanIdMeta),
-      );
+      context.handle(_fayuanIdMeta,
+          fayuanId.isAcceptableOrUnknown(data['fayuan_id']!, _fayuanIdMeta));
     } else if (isInserting) {
       context.missing(_fayuanIdMeta);
     }
     if (data.containsKey('gongketype')) {
       context.handle(
-        _gongketypeMeta,
-        gongketype.isAcceptableOrUnknown(data['gongketype']!, _gongketypeMeta),
-      );
+          _gongketypeMeta,
+          gongketype.isAcceptableOrUnknown(
+              data['gongketype']!, _gongketypeMeta));
     } else if (isInserting) {
       context.missing(_gongketypeMeta);
     }
     if (data.containsKey('cnt')) {
       context.handle(
-        _cntMeta,
-        cnt.isAcceptableOrUnknown(data['cnt']!, _cntMeta),
-      );
+          _cntMeta, cnt.isAcceptableOrUnknown(data['cnt']!, _cntMeta));
     }
     if (data.containsKey('gong_ke_day')) {
       context.handle(
-        _gongKeDayMeta,
-        gongKeDay.isAcceptableOrUnknown(data['gong_ke_day']!, _gongKeDayMeta),
-      );
+          _gongKeDayMeta,
+          gongKeDay.isAcceptableOrUnknown(
+              data['gong_ke_day']!, _gongKeDayMeta));
     } else if (isInserting) {
       context.missing(_gongKeDayMeta);
     }
     if (data.containsKey('is_complete')) {
       context.handle(
-        _isCompleteMeta,
-        isComplete.isAcceptableOrUnknown(data['is_complete']!, _isCompleteMeta),
-      );
+          _isCompleteMeta,
+          isComplete.isAcceptableOrUnknown(
+              data['is_complete']!, _isCompleteMeta));
     }
     if (data.containsKey('idx')) {
       context.handle(
-        _idxMeta,
-        idx.isAcceptableOrUnknown(data['idx']!, _idxMeta),
-      );
+          _idxMeta, idx.isAcceptableOrUnknown(data['idx']!, _idxMeta));
     }
     if (data.containsKey('cur_cnt')) {
-      context.handle(
-        _curCntMeta,
-        curCnt.isAcceptableOrUnknown(data['cur_cnt']!, _curCntMeta),
-      );
+      context.handle(_curCntMeta,
+          curCnt.isAcceptableOrUnknown(data['cur_cnt']!, _curCntMeta));
     }
     return context;
   }
@@ -1507,58 +1242,32 @@ class $GongKeItemTable extends GongKeItem
   GongKeItemData map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return GongKeItemData(
-      id: attachedDatabase.typeMapping.read(
-        DriftSqlType.int,
-        data['${effectivePrefix}id'],
-      )!,
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
       createDateTime: attachedDatabase.typeMapping.read(
-        DriftSqlType.dateTime,
-        data['${effectivePrefix}create_date_time'],
-      )!,
-      remarks: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}remarks'],
-      ),
-      bk1: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}bk1'],
-      ),
-      bk2: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}bk2'],
-      ),
-      name: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}name'],
-      )!,
-      fayuanId: attachedDatabase.typeMapping.read(
-        DriftSqlType.int,
-        data['${effectivePrefix}fayuan_id'],
-      )!,
-      gongketype: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}gongketype'],
-      )!,
-      cnt: attachedDatabase.typeMapping.read(
-        DriftSqlType.int,
-        data['${effectivePrefix}cnt'],
-      )!,
-      gongKeDay: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}gong_ke_day'],
-      )!,
-      isComplete: attachedDatabase.typeMapping.read(
-        DriftSqlType.bool,
-        data['${effectivePrefix}is_complete'],
-      )!,
-      idx: attachedDatabase.typeMapping.read(
-        DriftSqlType.int,
-        data['${effectivePrefix}idx'],
-      )!,
-      curCnt: attachedDatabase.typeMapping.read(
-        DriftSqlType.int,
-        data['${effectivePrefix}cur_cnt'],
-      )!,
+          DriftSqlType.dateTime, data['${effectivePrefix}create_date_time'])!,
+      remarks: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}remarks']),
+      bk1: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}bk1']),
+      bk2: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}bk2']),
+      name: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}name'])!,
+      fayuanId: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}fayuan_id'])!,
+      gongketype: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}gongketype'])!,
+      cnt: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}cnt'])!,
+      gongKeDay: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}gong_ke_day'])!,
+      isComplete: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}is_complete'])!,
+      idx: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}idx'])!,
+      curCnt: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}cur_cnt'])!,
     );
   }
 
@@ -1582,21 +1291,20 @@ class GongKeItemData extends DataClass implements Insertable<GongKeItemData> {
   final bool isComplete;
   final int idx;
   final int curCnt;
-  const GongKeItemData({
-    required this.id,
-    required this.createDateTime,
-    this.remarks,
-    this.bk1,
-    this.bk2,
-    required this.name,
-    required this.fayuanId,
-    required this.gongketype,
-    required this.cnt,
-    required this.gongKeDay,
-    required this.isComplete,
-    required this.idx,
-    required this.curCnt,
-  });
+  const GongKeItemData(
+      {required this.id,
+      required this.createDateTime,
+      this.remarks,
+      this.bk1,
+      this.bk2,
+      required this.name,
+      required this.fayuanId,
+      required this.gongketype,
+      required this.cnt,
+      required this.gongKeDay,
+      required this.isComplete,
+      required this.idx,
+      required this.curCnt});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -1642,10 +1350,8 @@ class GongKeItemData extends DataClass implements Insertable<GongKeItemData> {
     );
   }
 
-  factory GongKeItemData.fromJson(
-    Map<String, dynamic> json, {
-    ValueSerializer? serializer,
-  }) {
+  factory GongKeItemData.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return GongKeItemData(
       id: serializer.fromJson<int>(json['id']),
@@ -1683,35 +1389,35 @@ class GongKeItemData extends DataClass implements Insertable<GongKeItemData> {
     };
   }
 
-  GongKeItemData copyWith({
-    int? id,
-    DateTime? createDateTime,
-    Value<String?> remarks = const Value.absent(),
-    Value<String?> bk1 = const Value.absent(),
-    Value<String?> bk2 = const Value.absent(),
-    String? name,
-    int? fayuanId,
-    String? gongketype,
-    int? cnt,
-    String? gongKeDay,
-    bool? isComplete,
-    int? idx,
-    int? curCnt,
-  }) => GongKeItemData(
-    id: id ?? this.id,
-    createDateTime: createDateTime ?? this.createDateTime,
-    remarks: remarks.present ? remarks.value : this.remarks,
-    bk1: bk1.present ? bk1.value : this.bk1,
-    bk2: bk2.present ? bk2.value : this.bk2,
-    name: name ?? this.name,
-    fayuanId: fayuanId ?? this.fayuanId,
-    gongketype: gongketype ?? this.gongketype,
-    cnt: cnt ?? this.cnt,
-    gongKeDay: gongKeDay ?? this.gongKeDay,
-    isComplete: isComplete ?? this.isComplete,
-    idx: idx ?? this.idx,
-    curCnt: curCnt ?? this.curCnt,
-  );
+  GongKeItemData copyWith(
+          {int? id,
+          DateTime? createDateTime,
+          Value<String?> remarks = const Value.absent(),
+          Value<String?> bk1 = const Value.absent(),
+          Value<String?> bk2 = const Value.absent(),
+          String? name,
+          int? fayuanId,
+          String? gongketype,
+          int? cnt,
+          String? gongKeDay,
+          bool? isComplete,
+          int? idx,
+          int? curCnt}) =>
+      GongKeItemData(
+        id: id ?? this.id,
+        createDateTime: createDateTime ?? this.createDateTime,
+        remarks: remarks.present ? remarks.value : this.remarks,
+        bk1: bk1.present ? bk1.value : this.bk1,
+        bk2: bk2.present ? bk2.value : this.bk2,
+        name: name ?? this.name,
+        fayuanId: fayuanId ?? this.fayuanId,
+        gongketype: gongketype ?? this.gongketype,
+        cnt: cnt ?? this.cnt,
+        gongKeDay: gongKeDay ?? this.gongKeDay,
+        isComplete: isComplete ?? this.isComplete,
+        idx: idx ?? this.idx,
+        curCnt: curCnt ?? this.curCnt,
+      );
   GongKeItemData copyWithCompanion(GongKeItemCompanion data) {
     return GongKeItemData(
       id: data.id.present ? data.id.value : this.id,
@@ -1723,14 +1429,12 @@ class GongKeItemData extends DataClass implements Insertable<GongKeItemData> {
       bk2: data.bk2.present ? data.bk2.value : this.bk2,
       name: data.name.present ? data.name.value : this.name,
       fayuanId: data.fayuanId.present ? data.fayuanId.value : this.fayuanId,
-      gongketype: data.gongketype.present
-          ? data.gongketype.value
-          : this.gongketype,
+      gongketype:
+          data.gongketype.present ? data.gongketype.value : this.gongketype,
       cnt: data.cnt.present ? data.cnt.value : this.cnt,
       gongKeDay: data.gongKeDay.present ? data.gongKeDay.value : this.gongKeDay,
-      isComplete: data.isComplete.present
-          ? data.isComplete.value
-          : this.isComplete,
+      isComplete:
+          data.isComplete.present ? data.isComplete.value : this.isComplete,
       idx: data.idx.present ? data.idx.value : this.idx,
       curCnt: data.curCnt.present ? data.curCnt.value : this.curCnt,
     );
@@ -1757,21 +1461,8 @@ class GongKeItemData extends DataClass implements Insertable<GongKeItemData> {
   }
 
   @override
-  int get hashCode => Object.hash(
-    id,
-    createDateTime,
-    remarks,
-    bk1,
-    bk2,
-    name,
-    fayuanId,
-    gongketype,
-    cnt,
-    gongKeDay,
-    isComplete,
-    idx,
-    curCnt,
-  );
+  int get hashCode => Object.hash(id, createDateTime, remarks, bk1, bk2, name,
+      fayuanId, gongketype, cnt, gongKeDay, isComplete, idx, curCnt);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -1834,10 +1525,10 @@ class GongKeItemCompanion extends UpdateCompanion<GongKeItemData> {
     this.isComplete = const Value.absent(),
     this.idx = const Value.absent(),
     this.curCnt = const Value.absent(),
-  }) : name = Value(name),
-       fayuanId = Value(fayuanId),
-       gongketype = Value(gongketype),
-       gongKeDay = Value(gongKeDay);
+  })  : name = Value(name),
+        fayuanId = Value(fayuanId),
+        gongketype = Value(gongketype),
+        gongKeDay = Value(gongKeDay);
   static Insertable<GongKeItemData> custom({
     Expression<int>? id,
     Expression<DateTime>? createDateTime,
@@ -1870,21 +1561,20 @@ class GongKeItemCompanion extends UpdateCompanion<GongKeItemData> {
     });
   }
 
-  GongKeItemCompanion copyWith({
-    Value<int>? id,
-    Value<DateTime>? createDateTime,
-    Value<String?>? remarks,
-    Value<String?>? bk1,
-    Value<String?>? bk2,
-    Value<String>? name,
-    Value<int>? fayuanId,
-    Value<String>? gongketype,
-    Value<int>? cnt,
-    Value<String>? gongKeDay,
-    Value<bool>? isComplete,
-    Value<int>? idx,
-    Value<int>? curCnt,
-  }) {
+  GongKeItemCompanion copyWith(
+      {Value<int>? id,
+      Value<DateTime>? createDateTime,
+      Value<String?>? remarks,
+      Value<String?>? bk1,
+      Value<String?>? bk2,
+      Value<String>? name,
+      Value<int>? fayuanId,
+      Value<String>? gongketype,
+      Value<int>? cnt,
+      Value<String>? gongKeDay,
+      Value<bool>? isComplete,
+      Value<int>? idx,
+      Value<int>? curCnt}) {
     return GongKeItemCompanion(
       id: id ?? this.id,
       createDateTime: createDateTime ?? this.createDateTime,
@@ -1976,269 +1666,168 @@ class $JingShuTable extends JingShu with TableInfo<$JingShuTable, JingShuData> {
   static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
-    'id',
-    aliasedName,
-    false,
-    hasAutoIncrement: true,
-    type: DriftSqlType.int,
-    requiredDuringInsert: false,
-    defaultConstraints: GeneratedColumn.constraintIsAlways(
-      'PRIMARY KEY AUTOINCREMENT',
-    ),
-  );
-  static const VerificationMeta _createDateTimeMeta = const VerificationMeta(
-    'createDateTime',
-  );
+      'id', aliasedName, false,
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _createDateTimeMeta =
+      const VerificationMeta('createDateTime');
   @override
   late final GeneratedColumn<DateTime> createDateTime =
-      GeneratedColumn<DateTime>(
-        'create_date_time',
-        aliasedName,
-        false,
-        type: DriftSqlType.dateTime,
-        requiredDuringInsert: false,
-        defaultValue: currentDateAndTime,
-      );
-  static const VerificationMeta _favoriteDateTimeMeta = const VerificationMeta(
-    'favoriteDateTime',
-  );
+      GeneratedColumn<DateTime>('create_date_time', aliasedName, false,
+          type: DriftSqlType.dateTime,
+          requiredDuringInsert: false,
+          defaultValue: currentDateAndTime);
+  static const VerificationMeta _favoriteDateTimeMeta =
+      const VerificationMeta('favoriteDateTime');
   @override
   late final GeneratedColumn<DateTime> favoriteDateTime =
-      GeneratedColumn<DateTime>(
-        'favorite_date_time',
-        aliasedName,
-        true,
-        type: DriftSqlType.dateTime,
-        requiredDuringInsert: false,
-      );
-  static const VerificationMeta _remarksMeta = const VerificationMeta(
-    'remarks',
-  );
+      GeneratedColumn<DateTime>('favorite_date_time', aliasedName, true,
+          type: DriftSqlType.dateTime, requiredDuringInsert: false);
+  static const VerificationMeta _remarksMeta =
+      const VerificationMeta('remarks');
   @override
   late final GeneratedColumn<String> remarks = GeneratedColumn<String>(
-    'remarks',
-    aliasedName,
-    true,
-    type: DriftSqlType.string,
-    requiredDuringInsert: false,
-  );
+      'remarks', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
   static const VerificationMeta _bk1Meta = const VerificationMeta('bk1');
   @override
   late final GeneratedColumn<String> bk1 = GeneratedColumn<String>(
-    'bk1',
-    aliasedName,
-    true,
-    type: DriftSqlType.string,
-    requiredDuringInsert: false,
-  );
+      'bk1', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
   static const VerificationMeta _bk2Meta = const VerificationMeta('bk2');
   @override
   late final GeneratedColumn<String> bk2 = GeneratedColumn<String>(
-    'bk2',
-    aliasedName,
-    true,
-    type: DriftSqlType.string,
-    requiredDuringInsert: false,
-  );
+      'bk2', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
   static const VerificationMeta _nameMeta = const VerificationMeta('name');
   @override
   late final GeneratedColumn<String> name = GeneratedColumn<String>(
-    'name',
-    aliasedName,
-    false,
-    type: DriftSqlType.string,
-    requiredDuringInsert: true,
-  );
+      'name', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
   static const VerificationMeta _typeMeta = const VerificationMeta('type');
   @override
   late final GeneratedColumn<String> type = GeneratedColumn<String>(
-    'type',
-    aliasedName,
-    false,
-    type: DriftSqlType.string,
-    requiredDuringInsert: true,
-  );
+      'type', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
   static const VerificationMeta _imageMeta = const VerificationMeta('image');
   @override
   late final GeneratedColumn<String> image = GeneratedColumn<String>(
-    'image',
-    aliasedName,
-    false,
-    type: DriftSqlType.string,
-    requiredDuringInsert: true,
-  );
-  static const VerificationMeta _fileUrlMeta = const VerificationMeta(
-    'fileUrl',
-  );
+      'image', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _fileUrlMeta =
+      const VerificationMeta('fileUrl');
   @override
   late final GeneratedColumn<String> fileUrl = GeneratedColumn<String>(
-    'file_url',
-    aliasedName,
-    false,
-    type: DriftSqlType.string,
-    requiredDuringInsert: true,
-  );
-  static const VerificationMeta _fileTypeMeta = const VerificationMeta(
-    'fileType',
-  );
+      'file_url', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _fileTypeMeta =
+      const VerificationMeta('fileType');
   @override
   late final GeneratedColumn<String> fileType = GeneratedColumn<String>(
-    'file_type',
-    aliasedName,
-    false,
-    type: DriftSqlType.string,
-    requiredDuringInsert: true,
-  );
+      'file_type', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
   static const VerificationMeta _muyuMeta = const VerificationMeta('muyu');
   @override
   late final GeneratedColumn<bool> muyu = GeneratedColumn<bool>(
-    'muyu',
-    aliasedName,
-    false,
-    type: DriftSqlType.bool,
-    requiredDuringInsert: false,
-    defaultConstraints: GeneratedColumn.constraintIsAlways(
-      'CHECK ("muyu" IN (0, 1))',
-    ),
-    defaultValue: const Constant(false),
-  );
-  static const VerificationMeta _bkMusicMeta = const VerificationMeta(
-    'bkMusic',
-  );
+      'muyu', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('CHECK ("muyu" IN (0, 1))'),
+      defaultValue: const Constant(false));
+  static const VerificationMeta _bkMusicMeta =
+      const VerificationMeta('bkMusic');
   @override
   late final GeneratedColumn<bool> bkMusic = GeneratedColumn<bool>(
-    'bk_music',
-    aliasedName,
-    false,
-    type: DriftSqlType.bool,
-    requiredDuringInsert: false,
-    defaultConstraints: GeneratedColumn.constraintIsAlways(
-      'CHECK ("bk_music" IN (0, 1))',
-    ),
-    defaultValue: const Constant(false),
-  );
-  static const VerificationMeta _bkMusicnameMeta = const VerificationMeta(
-    'bkMusicname',
-  );
+      'bk_music', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('CHECK ("bk_music" IN (0, 1))'),
+      defaultValue: const Constant(false));
+  static const VerificationMeta _bkMusicnameMeta =
+      const VerificationMeta('bkMusicname');
   @override
   late final GeneratedColumn<String> bkMusicname = GeneratedColumn<String>(
-    'bk_musicname',
-    aliasedName,
-    true,
-    type: DriftSqlType.string,
-    requiredDuringInsert: false,
-  );
-  static const VerificationMeta _muyuNameMeta = const VerificationMeta(
-    'muyuName',
-  );
+      'bk_musicname', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
+  static const VerificationMeta _muyuNameMeta =
+      const VerificationMeta('muyuName');
   @override
   late final GeneratedColumn<String> muyuName = GeneratedColumn<String>(
-    'muyu_name',
-    aliasedName,
-    true,
-    type: DriftSqlType.string,
-    requiredDuringInsert: false,
-  );
-  static const VerificationMeta _muyuImageMeta = const VerificationMeta(
-    'muyuImage',
-  );
+      'muyu_name', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
+  static const VerificationMeta _muyuImageMeta =
+      const VerificationMeta('muyuImage');
   @override
   late final GeneratedColumn<String> muyuImage = GeneratedColumn<String>(
-    'muyu_image',
-    aliasedName,
-    true,
-    type: DriftSqlType.string,
-    requiredDuringInsert: false,
-  );
-  static const VerificationMeta _muyuTypeMeta = const VerificationMeta(
-    'muyuType',
-  );
+      'muyu_image', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
+  static const VerificationMeta _muyuTypeMeta =
+      const VerificationMeta('muyuType');
   @override
   late final GeneratedColumn<String> muyuType = GeneratedColumn<String>(
-    'muyu_type',
-    aliasedName,
-    true,
-    type: DriftSqlType.string,
-    requiredDuringInsert: false,
-  );
-  static const VerificationMeta _muyuCountMeta = const VerificationMeta(
-    'muyuCount',
-  );
+      'muyu_type', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
+  static const VerificationMeta _muyuCountMeta =
+      const VerificationMeta('muyuCount');
   @override
   late final GeneratedColumn<int> muyuCount = GeneratedColumn<int>(
-    'muyu_count',
-    aliasedName,
-    true,
-    type: DriftSqlType.int,
-    requiredDuringInsert: false,
-  );
-  static const VerificationMeta _muyuIntervalMeta = const VerificationMeta(
-    'muyuInterval',
-  );
+      'muyu_count', aliasedName, true,
+      type: DriftSqlType.int, requiredDuringInsert: false);
+  static const VerificationMeta _muyuIntervalMeta =
+      const VerificationMeta('muyuInterval');
   @override
   late final GeneratedColumn<double> muyuInterval = GeneratedColumn<double>(
-    'muyu_interval',
-    aliasedName,
-    true,
-    type: DriftSqlType.double,
-    requiredDuringInsert: false,
-  );
-  static const VerificationMeta _muyuDurationMeta = const VerificationMeta(
-    'muyuDuration',
-  );
+      'muyu_interval', aliasedName, true,
+      type: DriftSqlType.double, requiredDuringInsert: false);
+  static const VerificationMeta _muyuDurationMeta =
+      const VerificationMeta('muyuDuration');
   @override
   late final GeneratedColumn<double> muyuDuration = GeneratedColumn<double>(
-    'muyu_duration',
-    aliasedName,
-    true,
-    type: DriftSqlType.double,
-    requiredDuringInsert: false,
-  );
-  static const VerificationMeta _curPageNumMeta = const VerificationMeta(
-    'curPageNum',
-  );
+      'muyu_duration', aliasedName, true,
+      type: DriftSqlType.double, requiredDuringInsert: false);
+  static const VerificationMeta _curPageNumMeta =
+      const VerificationMeta('curPageNum');
   @override
   late final GeneratedColumn<int> curPageNum = GeneratedColumn<int>(
-    'cur_page_num',
-    aliasedName,
-    true,
-    type: DriftSqlType.int,
-    requiredDuringInsert: false,
-  );
+      'cur_page_num', aliasedName, true,
+      type: DriftSqlType.int, requiredDuringInsert: false);
   @override
   List<GeneratedColumn> get $columns => [
-    id,
-    createDateTime,
-    favoriteDateTime,
-    remarks,
-    bk1,
-    bk2,
-    name,
-    type,
-    image,
-    fileUrl,
-    fileType,
-    muyu,
-    bkMusic,
-    bkMusicname,
-    muyuName,
-    muyuImage,
-    muyuType,
-    muyuCount,
-    muyuInterval,
-    muyuDuration,
-    curPageNum,
-  ];
+        id,
+        createDateTime,
+        favoriteDateTime,
+        remarks,
+        bk1,
+        bk2,
+        name,
+        type,
+        image,
+        fileUrl,
+        fileType,
+        muyu,
+        bkMusic,
+        bkMusicname,
+        muyuName,
+        muyuImage,
+        muyuType,
+        muyuCount,
+        muyuInterval,
+        muyuDuration,
+        curPageNum
+      ];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
   String get actualTableName => $name;
   static const String $name = 'jing_shu';
   @override
-  VerificationContext validateIntegrity(
-    Insertable<JingShuData> instance, {
-    bool isInserting = false,
-  }) {
+  VerificationContext validateIntegrity(Insertable<JingShuData> instance,
+      {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
@@ -2246,151 +1835,105 @@ class $JingShuTable extends JingShu with TableInfo<$JingShuTable, JingShuData> {
     }
     if (data.containsKey('create_date_time')) {
       context.handle(
-        _createDateTimeMeta,
-        createDateTime.isAcceptableOrUnknown(
-          data['create_date_time']!,
           _createDateTimeMeta,
-        ),
-      );
+          createDateTime.isAcceptableOrUnknown(
+              data['create_date_time']!, _createDateTimeMeta));
     }
     if (data.containsKey('favorite_date_time')) {
       context.handle(
-        _favoriteDateTimeMeta,
-        favoriteDateTime.isAcceptableOrUnknown(
-          data['favorite_date_time']!,
           _favoriteDateTimeMeta,
-        ),
-      );
+          favoriteDateTime.isAcceptableOrUnknown(
+              data['favorite_date_time']!, _favoriteDateTimeMeta));
     }
     if (data.containsKey('remarks')) {
-      context.handle(
-        _remarksMeta,
-        remarks.isAcceptableOrUnknown(data['remarks']!, _remarksMeta),
-      );
+      context.handle(_remarksMeta,
+          remarks.isAcceptableOrUnknown(data['remarks']!, _remarksMeta));
     }
     if (data.containsKey('bk1')) {
       context.handle(
-        _bk1Meta,
-        bk1.isAcceptableOrUnknown(data['bk1']!, _bk1Meta),
-      );
+          _bk1Meta, bk1.isAcceptableOrUnknown(data['bk1']!, _bk1Meta));
     }
     if (data.containsKey('bk2')) {
       context.handle(
-        _bk2Meta,
-        bk2.isAcceptableOrUnknown(data['bk2']!, _bk2Meta),
-      );
+          _bk2Meta, bk2.isAcceptableOrUnknown(data['bk2']!, _bk2Meta));
     }
     if (data.containsKey('name')) {
       context.handle(
-        _nameMeta,
-        name.isAcceptableOrUnknown(data['name']!, _nameMeta),
-      );
+          _nameMeta, name.isAcceptableOrUnknown(data['name']!, _nameMeta));
     } else if (isInserting) {
       context.missing(_nameMeta);
     }
     if (data.containsKey('type')) {
       context.handle(
-        _typeMeta,
-        type.isAcceptableOrUnknown(data['type']!, _typeMeta),
-      );
+          _typeMeta, type.isAcceptableOrUnknown(data['type']!, _typeMeta));
     } else if (isInserting) {
       context.missing(_typeMeta);
     }
     if (data.containsKey('image')) {
       context.handle(
-        _imageMeta,
-        image.isAcceptableOrUnknown(data['image']!, _imageMeta),
-      );
+          _imageMeta, image.isAcceptableOrUnknown(data['image']!, _imageMeta));
     } else if (isInserting) {
       context.missing(_imageMeta);
     }
     if (data.containsKey('file_url')) {
-      context.handle(
-        _fileUrlMeta,
-        fileUrl.isAcceptableOrUnknown(data['file_url']!, _fileUrlMeta),
-      );
+      context.handle(_fileUrlMeta,
+          fileUrl.isAcceptableOrUnknown(data['file_url']!, _fileUrlMeta));
     } else if (isInserting) {
       context.missing(_fileUrlMeta);
     }
     if (data.containsKey('file_type')) {
-      context.handle(
-        _fileTypeMeta,
-        fileType.isAcceptableOrUnknown(data['file_type']!, _fileTypeMeta),
-      );
+      context.handle(_fileTypeMeta,
+          fileType.isAcceptableOrUnknown(data['file_type']!, _fileTypeMeta));
     } else if (isInserting) {
       context.missing(_fileTypeMeta);
     }
     if (data.containsKey('muyu')) {
       context.handle(
-        _muyuMeta,
-        muyu.isAcceptableOrUnknown(data['muyu']!, _muyuMeta),
-      );
+          _muyuMeta, muyu.isAcceptableOrUnknown(data['muyu']!, _muyuMeta));
     }
     if (data.containsKey('bk_music')) {
-      context.handle(
-        _bkMusicMeta,
-        bkMusic.isAcceptableOrUnknown(data['bk_music']!, _bkMusicMeta),
-      );
+      context.handle(_bkMusicMeta,
+          bkMusic.isAcceptableOrUnknown(data['bk_music']!, _bkMusicMeta));
     }
     if (data.containsKey('bk_musicname')) {
       context.handle(
-        _bkMusicnameMeta,
-        bkMusicname.isAcceptableOrUnknown(
-          data['bk_musicname']!,
           _bkMusicnameMeta,
-        ),
-      );
+          bkMusicname.isAcceptableOrUnknown(
+              data['bk_musicname']!, _bkMusicnameMeta));
     }
     if (data.containsKey('muyu_name')) {
-      context.handle(
-        _muyuNameMeta,
-        muyuName.isAcceptableOrUnknown(data['muyu_name']!, _muyuNameMeta),
-      );
+      context.handle(_muyuNameMeta,
+          muyuName.isAcceptableOrUnknown(data['muyu_name']!, _muyuNameMeta));
     }
     if (data.containsKey('muyu_image')) {
-      context.handle(
-        _muyuImageMeta,
-        muyuImage.isAcceptableOrUnknown(data['muyu_image']!, _muyuImageMeta),
-      );
+      context.handle(_muyuImageMeta,
+          muyuImage.isAcceptableOrUnknown(data['muyu_image']!, _muyuImageMeta));
     }
     if (data.containsKey('muyu_type')) {
-      context.handle(
-        _muyuTypeMeta,
-        muyuType.isAcceptableOrUnknown(data['muyu_type']!, _muyuTypeMeta),
-      );
+      context.handle(_muyuTypeMeta,
+          muyuType.isAcceptableOrUnknown(data['muyu_type']!, _muyuTypeMeta));
     }
     if (data.containsKey('muyu_count')) {
-      context.handle(
-        _muyuCountMeta,
-        muyuCount.isAcceptableOrUnknown(data['muyu_count']!, _muyuCountMeta),
-      );
+      context.handle(_muyuCountMeta,
+          muyuCount.isAcceptableOrUnknown(data['muyu_count']!, _muyuCountMeta));
     }
     if (data.containsKey('muyu_interval')) {
       context.handle(
-        _muyuIntervalMeta,
-        muyuInterval.isAcceptableOrUnknown(
-          data['muyu_interval']!,
           _muyuIntervalMeta,
-        ),
-      );
+          muyuInterval.isAcceptableOrUnknown(
+              data['muyu_interval']!, _muyuIntervalMeta));
     }
     if (data.containsKey('muyu_duration')) {
       context.handle(
-        _muyuDurationMeta,
-        muyuDuration.isAcceptableOrUnknown(
-          data['muyu_duration']!,
           _muyuDurationMeta,
-        ),
-      );
+          muyuDuration.isAcceptableOrUnknown(
+              data['muyu_duration']!, _muyuDurationMeta));
     }
     if (data.containsKey('cur_page_num')) {
       context.handle(
-        _curPageNumMeta,
-        curPageNum.isAcceptableOrUnknown(
-          data['cur_page_num']!,
           _curPageNumMeta,
-        ),
-      );
+          curPageNum.isAcceptableOrUnknown(
+              data['cur_page_num']!, _curPageNumMeta));
     }
     return context;
   }
@@ -2401,90 +1944,48 @@ class $JingShuTable extends JingShu with TableInfo<$JingShuTable, JingShuData> {
   JingShuData map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return JingShuData(
-      id: attachedDatabase.typeMapping.read(
-        DriftSqlType.int,
-        data['${effectivePrefix}id'],
-      )!,
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
       createDateTime: attachedDatabase.typeMapping.read(
-        DriftSqlType.dateTime,
-        data['${effectivePrefix}create_date_time'],
-      )!,
+          DriftSqlType.dateTime, data['${effectivePrefix}create_date_time'])!,
       favoriteDateTime: attachedDatabase.typeMapping.read(
-        DriftSqlType.dateTime,
-        data['${effectivePrefix}favorite_date_time'],
-      ),
-      remarks: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}remarks'],
-      ),
-      bk1: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}bk1'],
-      ),
-      bk2: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}bk2'],
-      ),
-      name: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}name'],
-      )!,
-      type: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}type'],
-      )!,
-      image: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}image'],
-      )!,
-      fileUrl: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}file_url'],
-      )!,
-      fileType: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}file_type'],
-      )!,
-      muyu: attachedDatabase.typeMapping.read(
-        DriftSqlType.bool,
-        data['${effectivePrefix}muyu'],
-      )!,
-      bkMusic: attachedDatabase.typeMapping.read(
-        DriftSqlType.bool,
-        data['${effectivePrefix}bk_music'],
-      )!,
-      bkMusicname: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}bk_musicname'],
-      ),
-      muyuName: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}muyu_name'],
-      ),
-      muyuImage: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}muyu_image'],
-      ),
-      muyuType: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}muyu_type'],
-      ),
-      muyuCount: attachedDatabase.typeMapping.read(
-        DriftSqlType.int,
-        data['${effectivePrefix}muyu_count'],
-      ),
-      muyuInterval: attachedDatabase.typeMapping.read(
-        DriftSqlType.double,
-        data['${effectivePrefix}muyu_interval'],
-      ),
-      muyuDuration: attachedDatabase.typeMapping.read(
-        DriftSqlType.double,
-        data['${effectivePrefix}muyu_duration'],
-      ),
-      curPageNum: attachedDatabase.typeMapping.read(
-        DriftSqlType.int,
-        data['${effectivePrefix}cur_page_num'],
-      ),
+          DriftSqlType.dateTime, data['${effectivePrefix}favorite_date_time']),
+      remarks: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}remarks']),
+      bk1: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}bk1']),
+      bk2: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}bk2']),
+      name: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}name'])!,
+      type: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}type'])!,
+      image: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}image'])!,
+      fileUrl: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}file_url'])!,
+      fileType: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}file_type'])!,
+      muyu: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}muyu'])!,
+      bkMusic: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}bk_music'])!,
+      bkMusicname: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}bk_musicname']),
+      muyuName: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}muyu_name']),
+      muyuImage: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}muyu_image']),
+      muyuType: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}muyu_type']),
+      muyuCount: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}muyu_count']),
+      muyuInterval: attachedDatabase.typeMapping
+          .read(DriftSqlType.double, data['${effectivePrefix}muyu_interval']),
+      muyuDuration: attachedDatabase.typeMapping
+          .read(DriftSqlType.double, data['${effectivePrefix}muyu_duration']),
+      curPageNum: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}cur_page_num']),
     );
   }
 
@@ -2516,29 +2017,28 @@ class JingShuData extends DataClass implements Insertable<JingShuData> {
   final double? muyuInterval;
   final double? muyuDuration;
   final int? curPageNum;
-  const JingShuData({
-    required this.id,
-    required this.createDateTime,
-    this.favoriteDateTime,
-    this.remarks,
-    this.bk1,
-    this.bk2,
-    required this.name,
-    required this.type,
-    required this.image,
-    required this.fileUrl,
-    required this.fileType,
-    required this.muyu,
-    required this.bkMusic,
-    this.bkMusicname,
-    this.muyuName,
-    this.muyuImage,
-    this.muyuType,
-    this.muyuCount,
-    this.muyuInterval,
-    this.muyuDuration,
-    this.curPageNum,
-  });
+  const JingShuData(
+      {required this.id,
+      required this.createDateTime,
+      this.favoriteDateTime,
+      this.remarks,
+      this.bk1,
+      this.bk2,
+      required this.name,
+      required this.type,
+      required this.image,
+      required this.fileUrl,
+      required this.fileType,
+      required this.muyu,
+      required this.bkMusic,
+      this.bkMusicname,
+      this.muyuName,
+      this.muyuImage,
+      this.muyuType,
+      this.muyuCount,
+      this.muyuInterval,
+      this.muyuDuration,
+      this.curPageNum});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -2636,17 +2136,14 @@ class JingShuData extends DataClass implements Insertable<JingShuData> {
     );
   }
 
-  factory JingShuData.fromJson(
-    Map<String, dynamic> json, {
-    ValueSerializer? serializer,
-  }) {
+  factory JingShuData.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return JingShuData(
       id: serializer.fromJson<int>(json['id']),
       createDateTime: serializer.fromJson<DateTime>(json['createDateTime']),
-      favoriteDateTime: serializer.fromJson<DateTime?>(
-        json['favoriteDateTime'],
-      ),
+      favoriteDateTime:
+          serializer.fromJson<DateTime?>(json['favoriteDateTime']),
       remarks: serializer.fromJson<String?>(json['remarks']),
       bk1: serializer.fromJson<String?>(json['bk1']),
       bk2: serializer.fromJson<String?>(json['bk2']),
@@ -2695,53 +2192,55 @@ class JingShuData extends DataClass implements Insertable<JingShuData> {
     };
   }
 
-  JingShuData copyWith({
-    int? id,
-    DateTime? createDateTime,
-    Value<DateTime?> favoriteDateTime = const Value.absent(),
-    Value<String?> remarks = const Value.absent(),
-    Value<String?> bk1 = const Value.absent(),
-    Value<String?> bk2 = const Value.absent(),
-    String? name,
-    String? type,
-    String? image,
-    String? fileUrl,
-    String? fileType,
-    bool? muyu,
-    bool? bkMusic,
-    Value<String?> bkMusicname = const Value.absent(),
-    Value<String?> muyuName = const Value.absent(),
-    Value<String?> muyuImage = const Value.absent(),
-    Value<String?> muyuType = const Value.absent(),
-    Value<int?> muyuCount = const Value.absent(),
-    Value<double?> muyuInterval = const Value.absent(),
-    Value<double?> muyuDuration = const Value.absent(),
-    Value<int?> curPageNum = const Value.absent(),
-  }) => JingShuData(
-    id: id ?? this.id,
-    createDateTime: createDateTime ?? this.createDateTime,
-    favoriteDateTime: favoriteDateTime.present
-        ? favoriteDateTime.value
-        : this.favoriteDateTime,
-    remarks: remarks.present ? remarks.value : this.remarks,
-    bk1: bk1.present ? bk1.value : this.bk1,
-    bk2: bk2.present ? bk2.value : this.bk2,
-    name: name ?? this.name,
-    type: type ?? this.type,
-    image: image ?? this.image,
-    fileUrl: fileUrl ?? this.fileUrl,
-    fileType: fileType ?? this.fileType,
-    muyu: muyu ?? this.muyu,
-    bkMusic: bkMusic ?? this.bkMusic,
-    bkMusicname: bkMusicname.present ? bkMusicname.value : this.bkMusicname,
-    muyuName: muyuName.present ? muyuName.value : this.muyuName,
-    muyuImage: muyuImage.present ? muyuImage.value : this.muyuImage,
-    muyuType: muyuType.present ? muyuType.value : this.muyuType,
-    muyuCount: muyuCount.present ? muyuCount.value : this.muyuCount,
-    muyuInterval: muyuInterval.present ? muyuInterval.value : this.muyuInterval,
-    muyuDuration: muyuDuration.present ? muyuDuration.value : this.muyuDuration,
-    curPageNum: curPageNum.present ? curPageNum.value : this.curPageNum,
-  );
+  JingShuData copyWith(
+          {int? id,
+          DateTime? createDateTime,
+          Value<DateTime?> favoriteDateTime = const Value.absent(),
+          Value<String?> remarks = const Value.absent(),
+          Value<String?> bk1 = const Value.absent(),
+          Value<String?> bk2 = const Value.absent(),
+          String? name,
+          String? type,
+          String? image,
+          String? fileUrl,
+          String? fileType,
+          bool? muyu,
+          bool? bkMusic,
+          Value<String?> bkMusicname = const Value.absent(),
+          Value<String?> muyuName = const Value.absent(),
+          Value<String?> muyuImage = const Value.absent(),
+          Value<String?> muyuType = const Value.absent(),
+          Value<int?> muyuCount = const Value.absent(),
+          Value<double?> muyuInterval = const Value.absent(),
+          Value<double?> muyuDuration = const Value.absent(),
+          Value<int?> curPageNum = const Value.absent()}) =>
+      JingShuData(
+        id: id ?? this.id,
+        createDateTime: createDateTime ?? this.createDateTime,
+        favoriteDateTime: favoriteDateTime.present
+            ? favoriteDateTime.value
+            : this.favoriteDateTime,
+        remarks: remarks.present ? remarks.value : this.remarks,
+        bk1: bk1.present ? bk1.value : this.bk1,
+        bk2: bk2.present ? bk2.value : this.bk2,
+        name: name ?? this.name,
+        type: type ?? this.type,
+        image: image ?? this.image,
+        fileUrl: fileUrl ?? this.fileUrl,
+        fileType: fileType ?? this.fileType,
+        muyu: muyu ?? this.muyu,
+        bkMusic: bkMusic ?? this.bkMusic,
+        bkMusicname: bkMusicname.present ? bkMusicname.value : this.bkMusicname,
+        muyuName: muyuName.present ? muyuName.value : this.muyuName,
+        muyuImage: muyuImage.present ? muyuImage.value : this.muyuImage,
+        muyuType: muyuType.present ? muyuType.value : this.muyuType,
+        muyuCount: muyuCount.present ? muyuCount.value : this.muyuCount,
+        muyuInterval:
+            muyuInterval.present ? muyuInterval.value : this.muyuInterval,
+        muyuDuration:
+            muyuDuration.present ? muyuDuration.value : this.muyuDuration,
+        curPageNum: curPageNum.present ? curPageNum.value : this.curPageNum,
+      );
   JingShuData copyWithCompanion(JingShuCompanion data) {
     return JingShuData(
       id: data.id.present ? data.id.value : this.id,
@@ -2761,9 +2260,8 @@ class JingShuData extends DataClass implements Insertable<JingShuData> {
       fileType: data.fileType.present ? data.fileType.value : this.fileType,
       muyu: data.muyu.present ? data.muyu.value : this.muyu,
       bkMusic: data.bkMusic.present ? data.bkMusic.value : this.bkMusic,
-      bkMusicname: data.bkMusicname.present
-          ? data.bkMusicname.value
-          : this.bkMusicname,
+      bkMusicname:
+          data.bkMusicname.present ? data.bkMusicname.value : this.bkMusicname,
       muyuName: data.muyuName.present ? data.muyuName.value : this.muyuName,
       muyuImage: data.muyuImage.present ? data.muyuImage.value : this.muyuImage,
       muyuType: data.muyuType.present ? data.muyuType.value : this.muyuType,
@@ -2774,9 +2272,8 @@ class JingShuData extends DataClass implements Insertable<JingShuData> {
       muyuDuration: data.muyuDuration.present
           ? data.muyuDuration.value
           : this.muyuDuration,
-      curPageNum: data.curPageNum.present
-          ? data.curPageNum.value
-          : this.curPageNum,
+      curPageNum:
+          data.curPageNum.present ? data.curPageNum.value : this.curPageNum,
     );
   }
 
@@ -2810,28 +2307,28 @@ class JingShuData extends DataClass implements Insertable<JingShuData> {
 
   @override
   int get hashCode => Object.hashAll([
-    id,
-    createDateTime,
-    favoriteDateTime,
-    remarks,
-    bk1,
-    bk2,
-    name,
-    type,
-    image,
-    fileUrl,
-    fileType,
-    muyu,
-    bkMusic,
-    bkMusicname,
-    muyuName,
-    muyuImage,
-    muyuType,
-    muyuCount,
-    muyuInterval,
-    muyuDuration,
-    curPageNum,
-  ]);
+        id,
+        createDateTime,
+        favoriteDateTime,
+        remarks,
+        bk1,
+        bk2,
+        name,
+        type,
+        image,
+        fileUrl,
+        fileType,
+        muyu,
+        bkMusic,
+        bkMusicname,
+        muyuName,
+        muyuImage,
+        muyuType,
+        muyuCount,
+        muyuInterval,
+        muyuDuration,
+        curPageNum
+      ]);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -2926,11 +2423,11 @@ class JingShuCompanion extends UpdateCompanion<JingShuData> {
     this.muyuInterval = const Value.absent(),
     this.muyuDuration = const Value.absent(),
     this.curPageNum = const Value.absent(),
-  }) : name = Value(name),
-       type = Value(type),
-       image = Value(image),
-       fileUrl = Value(fileUrl),
-       fileType = Value(fileType);
+  })  : name = Value(name),
+        type = Value(type),
+        image = Value(image),
+        fileUrl = Value(fileUrl),
+        fileType = Value(fileType);
   static Insertable<JingShuData> custom({
     Expression<int>? id,
     Expression<DateTime>? createDateTime,
@@ -2979,29 +2476,28 @@ class JingShuCompanion extends UpdateCompanion<JingShuData> {
     });
   }
 
-  JingShuCompanion copyWith({
-    Value<int>? id,
-    Value<DateTime>? createDateTime,
-    Value<DateTime?>? favoriteDateTime,
-    Value<String?>? remarks,
-    Value<String?>? bk1,
-    Value<String?>? bk2,
-    Value<String>? name,
-    Value<String>? type,
-    Value<String>? image,
-    Value<String>? fileUrl,
-    Value<String>? fileType,
-    Value<bool>? muyu,
-    Value<bool>? bkMusic,
-    Value<String?>? bkMusicname,
-    Value<String?>? muyuName,
-    Value<String?>? muyuImage,
-    Value<String?>? muyuType,
-    Value<int?>? muyuCount,
-    Value<double?>? muyuInterval,
-    Value<double?>? muyuDuration,
-    Value<int?>? curPageNum,
-  }) {
+  JingShuCompanion copyWith(
+      {Value<int>? id,
+      Value<DateTime>? createDateTime,
+      Value<DateTime?>? favoriteDateTime,
+      Value<String?>? remarks,
+      Value<String?>? bk1,
+      Value<String?>? bk2,
+      Value<String>? name,
+      Value<String>? type,
+      Value<String>? image,
+      Value<String>? fileUrl,
+      Value<String>? fileType,
+      Value<bool>? muyu,
+      Value<bool>? bkMusic,
+      Value<String?>? bkMusicname,
+      Value<String?>? muyuName,
+      Value<String?>? muyuImage,
+      Value<String?>? muyuType,
+      Value<int?>? muyuCount,
+      Value<double?>? muyuInterval,
+      Value<double?>? muyuDuration,
+      Value<int?>? curPageNum}) {
     return JingShuCompanion(
       id: id ?? this.id,
       createDateTime: createDateTime ?? this.createDateTime,
@@ -3133,109 +2629,110 @@ class $TipBookTable extends TipBook with TableInfo<$TipBookTable, TipBookData> {
   static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
-    'id',
-    aliasedName,
-    false,
-    hasAutoIncrement: true,
-    type: DriftSqlType.int,
-    requiredDuringInsert: false,
-    defaultConstraints: GeneratedColumn.constraintIsAlways(
-      'PRIMARY KEY AUTOINCREMENT',
-    ),
-  );
-  static const VerificationMeta _createDateTimeMeta = const VerificationMeta(
-    'createDateTime',
-  );
+      'id', aliasedName, false,
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _createDateTimeMeta =
+      const VerificationMeta('createDateTime');
   @override
   late final GeneratedColumn<DateTime> createDateTime =
-      GeneratedColumn<DateTime>(
-        'create_date_time',
-        aliasedName,
-        false,
-        type: DriftSqlType.dateTime,
-        requiredDuringInsert: false,
-        defaultValue: currentDateAndTime,
-      );
-  static const VerificationMeta _favoriteDateTimeMeta = const VerificationMeta(
-    'favoriteDateTime',
-  );
+      GeneratedColumn<DateTime>('create_date_time', aliasedName, false,
+          type: DriftSqlType.dateTime,
+          requiredDuringInsert: false,
+          defaultValue: currentDateAndTime);
+  static const VerificationMeta _favoriteDateTimeMeta =
+      const VerificationMeta('favoriteDateTime');
   @override
   late final GeneratedColumn<DateTime> favoriteDateTime =
-      GeneratedColumn<DateTime>(
-        'favorite_date_time',
-        aliasedName,
-        true,
-        type: DriftSqlType.dateTime,
-        requiredDuringInsert: false,
-      );
-  static const VerificationMeta _remarksMeta = const VerificationMeta(
-    'remarks',
-  );
+      GeneratedColumn<DateTime>('favorite_date_time', aliasedName, true,
+          type: DriftSqlType.dateTime, requiredDuringInsert: false);
+  static const VerificationMeta _remarksMeta =
+      const VerificationMeta('remarks');
   @override
   late final GeneratedColumn<String> remarks = GeneratedColumn<String>(
-    'remarks',
-    aliasedName,
-    true,
-    type: DriftSqlType.string,
-    requiredDuringInsert: false,
-  );
+      'remarks', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
   static const VerificationMeta _bk1Meta = const VerificationMeta('bk1');
   @override
   late final GeneratedColumn<String> bk1 = GeneratedColumn<String>(
-    'bk1',
-    aliasedName,
-    true,
-    type: DriftSqlType.string,
-    requiredDuringInsert: false,
-  );
+      'bk1', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
   static const VerificationMeta _bk2Meta = const VerificationMeta('bk2');
   @override
   late final GeneratedColumn<String> bk2 = GeneratedColumn<String>(
-    'bk2',
-    aliasedName,
-    true,
-    type: DriftSqlType.string,
-    requiredDuringInsert: false,
-  );
+      'bk2', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
   static const VerificationMeta _nameMeta = const VerificationMeta('name');
   @override
   late final GeneratedColumn<String> name = GeneratedColumn<String>(
-    'name',
-    aliasedName,
-    false,
-    type: DriftSqlType.string,
-    requiredDuringInsert: true,
-  );
+      'name', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
   static const VerificationMeta _imageMeta = const VerificationMeta('image');
   @override
   late final GeneratedColumn<String> image = GeneratedColumn<String>(
-    'image',
-    aliasedName,
-    false,
-    type: DriftSqlType.string,
-    requiredDuringInsert: true,
-  );
+      'image', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _sourceIdMeta =
+      const VerificationMeta('sourceId');
+  @override
+  late final GeneratedColumn<String> sourceId = GeneratedColumn<String>(
+      'source_id', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
+  static const VerificationMeta _versionMeta =
+      const VerificationMeta('version');
+  @override
+  late final GeneratedColumn<String> version = GeneratedColumn<String>(
+      'version', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
+  static const VerificationMeta _sourceTypeMeta =
+      const VerificationMeta('sourceType');
+  @override
+  late final GeneratedColumn<String> sourceType = GeneratedColumn<String>(
+      'source_type', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: false,
+      defaultValue: const Constant('userCreated'));
+  static const VerificationMeta _productIdMeta =
+      const VerificationMeta('productId');
+  @override
+  late final GeneratedColumn<String> productId = GeneratedColumn<String>(
+      'product_id', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
+  static const VerificationMeta _updatedDateTimeMeta =
+      const VerificationMeta('updatedDateTime');
+  @override
+  late final GeneratedColumn<DateTime> updatedDateTime =
+      GeneratedColumn<DateTime>('updated_date_time', aliasedName, false,
+          type: DriftSqlType.dateTime,
+          requiredDuringInsert: false,
+          defaultValue: currentDateAndTime);
   @override
   List<GeneratedColumn> get $columns => [
-    id,
-    createDateTime,
-    favoriteDateTime,
-    remarks,
-    bk1,
-    bk2,
-    name,
-    image,
-  ];
+        id,
+        createDateTime,
+        favoriteDateTime,
+        remarks,
+        bk1,
+        bk2,
+        name,
+        image,
+        sourceId,
+        version,
+        sourceType,
+        productId,
+        updatedDateTime
+      ];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
   String get actualTableName => $name;
   static const String $name = 'tip_book';
   @override
-  VerificationContext validateIntegrity(
-    Insertable<TipBookData> instance, {
-    bool isInserting = false,
-  }) {
+  VerificationContext validateIntegrity(Insertable<TipBookData> instance,
+      {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
@@ -3243,55 +2740,63 @@ class $TipBookTable extends TipBook with TableInfo<$TipBookTable, TipBookData> {
     }
     if (data.containsKey('create_date_time')) {
       context.handle(
-        _createDateTimeMeta,
-        createDateTime.isAcceptableOrUnknown(
-          data['create_date_time']!,
           _createDateTimeMeta,
-        ),
-      );
+          createDateTime.isAcceptableOrUnknown(
+              data['create_date_time']!, _createDateTimeMeta));
     }
     if (data.containsKey('favorite_date_time')) {
       context.handle(
-        _favoriteDateTimeMeta,
-        favoriteDateTime.isAcceptableOrUnknown(
-          data['favorite_date_time']!,
           _favoriteDateTimeMeta,
-        ),
-      );
+          favoriteDateTime.isAcceptableOrUnknown(
+              data['favorite_date_time']!, _favoriteDateTimeMeta));
     }
     if (data.containsKey('remarks')) {
-      context.handle(
-        _remarksMeta,
-        remarks.isAcceptableOrUnknown(data['remarks']!, _remarksMeta),
-      );
+      context.handle(_remarksMeta,
+          remarks.isAcceptableOrUnknown(data['remarks']!, _remarksMeta));
     }
     if (data.containsKey('bk1')) {
       context.handle(
-        _bk1Meta,
-        bk1.isAcceptableOrUnknown(data['bk1']!, _bk1Meta),
-      );
+          _bk1Meta, bk1.isAcceptableOrUnknown(data['bk1']!, _bk1Meta));
     }
     if (data.containsKey('bk2')) {
       context.handle(
-        _bk2Meta,
-        bk2.isAcceptableOrUnknown(data['bk2']!, _bk2Meta),
-      );
+          _bk2Meta, bk2.isAcceptableOrUnknown(data['bk2']!, _bk2Meta));
     }
     if (data.containsKey('name')) {
       context.handle(
-        _nameMeta,
-        name.isAcceptableOrUnknown(data['name']!, _nameMeta),
-      );
+          _nameMeta, name.isAcceptableOrUnknown(data['name']!, _nameMeta));
     } else if (isInserting) {
       context.missing(_nameMeta);
     }
     if (data.containsKey('image')) {
       context.handle(
-        _imageMeta,
-        image.isAcceptableOrUnknown(data['image']!, _imageMeta),
-      );
+          _imageMeta, image.isAcceptableOrUnknown(data['image']!, _imageMeta));
     } else if (isInserting) {
       context.missing(_imageMeta);
+    }
+    if (data.containsKey('source_id')) {
+      context.handle(_sourceIdMeta,
+          sourceId.isAcceptableOrUnknown(data['source_id']!, _sourceIdMeta));
+    }
+    if (data.containsKey('version')) {
+      context.handle(_versionMeta,
+          version.isAcceptableOrUnknown(data['version']!, _versionMeta));
+    }
+    if (data.containsKey('source_type')) {
+      context.handle(
+          _sourceTypeMeta,
+          sourceType.isAcceptableOrUnknown(
+              data['source_type']!, _sourceTypeMeta));
+    }
+    if (data.containsKey('product_id')) {
+      context.handle(_productIdMeta,
+          productId.isAcceptableOrUnknown(data['product_id']!, _productIdMeta));
+    }
+    if (data.containsKey('updated_date_time')) {
+      context.handle(
+          _updatedDateTimeMeta,
+          updatedDateTime.isAcceptableOrUnknown(
+              data['updated_date_time']!, _updatedDateTimeMeta));
     }
     return context;
   }
@@ -3302,38 +2807,32 @@ class $TipBookTable extends TipBook with TableInfo<$TipBookTable, TipBookData> {
   TipBookData map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return TipBookData(
-      id: attachedDatabase.typeMapping.read(
-        DriftSqlType.int,
-        data['${effectivePrefix}id'],
-      )!,
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
       createDateTime: attachedDatabase.typeMapping.read(
-        DriftSqlType.dateTime,
-        data['${effectivePrefix}create_date_time'],
-      )!,
+          DriftSqlType.dateTime, data['${effectivePrefix}create_date_time'])!,
       favoriteDateTime: attachedDatabase.typeMapping.read(
-        DriftSqlType.dateTime,
-        data['${effectivePrefix}favorite_date_time'],
-      ),
-      remarks: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}remarks'],
-      ),
-      bk1: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}bk1'],
-      ),
-      bk2: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}bk2'],
-      ),
-      name: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}name'],
-      )!,
-      image: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}image'],
-      )!,
+          DriftSqlType.dateTime, data['${effectivePrefix}favorite_date_time']),
+      remarks: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}remarks']),
+      bk1: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}bk1']),
+      bk2: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}bk2']),
+      name: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}name'])!,
+      image: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}image'])!,
+      sourceId: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}source_id']),
+      version: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}version']),
+      sourceType: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}source_type'])!,
+      productId: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}product_id']),
+      updatedDateTime: attachedDatabase.typeMapping.read(
+          DriftSqlType.dateTime, data['${effectivePrefix}updated_date_time'])!,
     );
   }
 
@@ -3352,16 +2851,25 @@ class TipBookData extends DataClass implements Insertable<TipBookData> {
   final String? bk2;
   final String name;
   final String image;
-  const TipBookData({
-    required this.id,
-    required this.createDateTime,
-    this.favoriteDateTime,
-    this.remarks,
-    this.bk1,
-    this.bk2,
-    required this.name,
-    required this.image,
-  });
+  final String? sourceId;
+  final String? version;
+  final String sourceType;
+  final String? productId;
+  final DateTime updatedDateTime;
+  const TipBookData(
+      {required this.id,
+      required this.createDateTime,
+      this.favoriteDateTime,
+      this.remarks,
+      this.bk1,
+      this.bk2,
+      required this.name,
+      required this.image,
+      this.sourceId,
+      this.version,
+      required this.sourceType,
+      this.productId,
+      required this.updatedDateTime});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -3381,6 +2889,17 @@ class TipBookData extends DataClass implements Insertable<TipBookData> {
     }
     map['name'] = Variable<String>(name);
     map['image'] = Variable<String>(image);
+    if (!nullToAbsent || sourceId != null) {
+      map['source_id'] = Variable<String>(sourceId);
+    }
+    if (!nullToAbsent || version != null) {
+      map['version'] = Variable<String>(version);
+    }
+    map['source_type'] = Variable<String>(sourceType);
+    if (!nullToAbsent || productId != null) {
+      map['product_id'] = Variable<String>(productId);
+    }
+    map['updated_date_time'] = Variable<DateTime>(updatedDateTime);
     return map;
   }
 
@@ -3398,25 +2917,38 @@ class TipBookData extends DataClass implements Insertable<TipBookData> {
       bk2: bk2 == null && nullToAbsent ? const Value.absent() : Value(bk2),
       name: Value(name),
       image: Value(image),
+      sourceId: sourceId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(sourceId),
+      version: version == null && nullToAbsent
+          ? const Value.absent()
+          : Value(version),
+      sourceType: Value(sourceType),
+      productId: productId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(productId),
+      updatedDateTime: Value(updatedDateTime),
     );
   }
 
-  factory TipBookData.fromJson(
-    Map<String, dynamic> json, {
-    ValueSerializer? serializer,
-  }) {
+  factory TipBookData.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return TipBookData(
       id: serializer.fromJson<int>(json['id']),
       createDateTime: serializer.fromJson<DateTime>(json['createDateTime']),
-      favoriteDateTime: serializer.fromJson<DateTime?>(
-        json['favoriteDateTime'],
-      ),
+      favoriteDateTime:
+          serializer.fromJson<DateTime?>(json['favoriteDateTime']),
       remarks: serializer.fromJson<String?>(json['remarks']),
       bk1: serializer.fromJson<String?>(json['bk1']),
       bk2: serializer.fromJson<String?>(json['bk2']),
       name: serializer.fromJson<String>(json['name']),
       image: serializer.fromJson<String>(json['image']),
+      sourceId: serializer.fromJson<String?>(json['sourceId']),
+      version: serializer.fromJson<String?>(json['version']),
+      sourceType: serializer.fromJson<String>(json['sourceType']),
+      productId: serializer.fromJson<String?>(json['productId']),
+      updatedDateTime: serializer.fromJson<DateTime>(json['updatedDateTime']),
     );
   }
   @override
@@ -3431,30 +2963,45 @@ class TipBookData extends DataClass implements Insertable<TipBookData> {
       'bk2': serializer.toJson<String?>(bk2),
       'name': serializer.toJson<String>(name),
       'image': serializer.toJson<String>(image),
+      'sourceId': serializer.toJson<String?>(sourceId),
+      'version': serializer.toJson<String?>(version),
+      'sourceType': serializer.toJson<String>(sourceType),
+      'productId': serializer.toJson<String?>(productId),
+      'updatedDateTime': serializer.toJson<DateTime>(updatedDateTime),
     };
   }
 
-  TipBookData copyWith({
-    int? id,
-    DateTime? createDateTime,
-    Value<DateTime?> favoriteDateTime = const Value.absent(),
-    Value<String?> remarks = const Value.absent(),
-    Value<String?> bk1 = const Value.absent(),
-    Value<String?> bk2 = const Value.absent(),
-    String? name,
-    String? image,
-  }) => TipBookData(
-    id: id ?? this.id,
-    createDateTime: createDateTime ?? this.createDateTime,
-    favoriteDateTime: favoriteDateTime.present
-        ? favoriteDateTime.value
-        : this.favoriteDateTime,
-    remarks: remarks.present ? remarks.value : this.remarks,
-    bk1: bk1.present ? bk1.value : this.bk1,
-    bk2: bk2.present ? bk2.value : this.bk2,
-    name: name ?? this.name,
-    image: image ?? this.image,
-  );
+  TipBookData copyWith(
+          {int? id,
+          DateTime? createDateTime,
+          Value<DateTime?> favoriteDateTime = const Value.absent(),
+          Value<String?> remarks = const Value.absent(),
+          Value<String?> bk1 = const Value.absent(),
+          Value<String?> bk2 = const Value.absent(),
+          String? name,
+          String? image,
+          Value<String?> sourceId = const Value.absent(),
+          Value<String?> version = const Value.absent(),
+          String? sourceType,
+          Value<String?> productId = const Value.absent(),
+          DateTime? updatedDateTime}) =>
+      TipBookData(
+        id: id ?? this.id,
+        createDateTime: createDateTime ?? this.createDateTime,
+        favoriteDateTime: favoriteDateTime.present
+            ? favoriteDateTime.value
+            : this.favoriteDateTime,
+        remarks: remarks.present ? remarks.value : this.remarks,
+        bk1: bk1.present ? bk1.value : this.bk1,
+        bk2: bk2.present ? bk2.value : this.bk2,
+        name: name ?? this.name,
+        image: image ?? this.image,
+        sourceId: sourceId.present ? sourceId.value : this.sourceId,
+        version: version.present ? version.value : this.version,
+        sourceType: sourceType ?? this.sourceType,
+        productId: productId.present ? productId.value : this.productId,
+        updatedDateTime: updatedDateTime ?? this.updatedDateTime,
+      );
   TipBookData copyWithCompanion(TipBookCompanion data) {
     return TipBookData(
       id: data.id.present ? data.id.value : this.id,
@@ -3469,6 +3016,14 @@ class TipBookData extends DataClass implements Insertable<TipBookData> {
       bk2: data.bk2.present ? data.bk2.value : this.bk2,
       name: data.name.present ? data.name.value : this.name,
       image: data.image.present ? data.image.value : this.image,
+      sourceId: data.sourceId.present ? data.sourceId.value : this.sourceId,
+      version: data.version.present ? data.version.value : this.version,
+      sourceType:
+          data.sourceType.present ? data.sourceType.value : this.sourceType,
+      productId: data.productId.present ? data.productId.value : this.productId,
+      updatedDateTime: data.updatedDateTime.present
+          ? data.updatedDateTime.value
+          : this.updatedDateTime,
     );
   }
 
@@ -3482,22 +3037,31 @@ class TipBookData extends DataClass implements Insertable<TipBookData> {
           ..write('bk1: $bk1, ')
           ..write('bk2: $bk2, ')
           ..write('name: $name, ')
-          ..write('image: $image')
+          ..write('image: $image, ')
+          ..write('sourceId: $sourceId, ')
+          ..write('version: $version, ')
+          ..write('sourceType: $sourceType, ')
+          ..write('productId: $productId, ')
+          ..write('updatedDateTime: $updatedDateTime')
           ..write(')'))
         .toString();
   }
 
   @override
   int get hashCode => Object.hash(
-    id,
-    createDateTime,
-    favoriteDateTime,
-    remarks,
-    bk1,
-    bk2,
-    name,
-    image,
-  );
+      id,
+      createDateTime,
+      favoriteDateTime,
+      remarks,
+      bk1,
+      bk2,
+      name,
+      image,
+      sourceId,
+      version,
+      sourceType,
+      productId,
+      updatedDateTime);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -3509,7 +3073,12 @@ class TipBookData extends DataClass implements Insertable<TipBookData> {
           other.bk1 == this.bk1 &&
           other.bk2 == this.bk2 &&
           other.name == this.name &&
-          other.image == this.image);
+          other.image == this.image &&
+          other.sourceId == this.sourceId &&
+          other.version == this.version &&
+          other.sourceType == this.sourceType &&
+          other.productId == this.productId &&
+          other.updatedDateTime == this.updatedDateTime);
 }
 
 class TipBookCompanion extends UpdateCompanion<TipBookData> {
@@ -3521,6 +3090,11 @@ class TipBookCompanion extends UpdateCompanion<TipBookData> {
   final Value<String?> bk2;
   final Value<String> name;
   final Value<String> image;
+  final Value<String?> sourceId;
+  final Value<String?> version;
+  final Value<String> sourceType;
+  final Value<String?> productId;
+  final Value<DateTime> updatedDateTime;
   const TipBookCompanion({
     this.id = const Value.absent(),
     this.createDateTime = const Value.absent(),
@@ -3530,6 +3104,11 @@ class TipBookCompanion extends UpdateCompanion<TipBookData> {
     this.bk2 = const Value.absent(),
     this.name = const Value.absent(),
     this.image = const Value.absent(),
+    this.sourceId = const Value.absent(),
+    this.version = const Value.absent(),
+    this.sourceType = const Value.absent(),
+    this.productId = const Value.absent(),
+    this.updatedDateTime = const Value.absent(),
   });
   TipBookCompanion.insert({
     this.id = const Value.absent(),
@@ -3540,8 +3119,13 @@ class TipBookCompanion extends UpdateCompanion<TipBookData> {
     this.bk2 = const Value.absent(),
     required String name,
     required String image,
-  }) : name = Value(name),
-       image = Value(image);
+    this.sourceId = const Value.absent(),
+    this.version = const Value.absent(),
+    this.sourceType = const Value.absent(),
+    this.productId = const Value.absent(),
+    this.updatedDateTime = const Value.absent(),
+  })  : name = Value(name),
+        image = Value(image);
   static Insertable<TipBookData> custom({
     Expression<int>? id,
     Expression<DateTime>? createDateTime,
@@ -3551,6 +3135,11 @@ class TipBookCompanion extends UpdateCompanion<TipBookData> {
     Expression<String>? bk2,
     Expression<String>? name,
     Expression<String>? image,
+    Expression<String>? sourceId,
+    Expression<String>? version,
+    Expression<String>? sourceType,
+    Expression<String>? productId,
+    Expression<DateTime>? updatedDateTime,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
@@ -3561,19 +3150,28 @@ class TipBookCompanion extends UpdateCompanion<TipBookData> {
       if (bk2 != null) 'bk2': bk2,
       if (name != null) 'name': name,
       if (image != null) 'image': image,
+      if (sourceId != null) 'source_id': sourceId,
+      if (version != null) 'version': version,
+      if (sourceType != null) 'source_type': sourceType,
+      if (productId != null) 'product_id': productId,
+      if (updatedDateTime != null) 'updated_date_time': updatedDateTime,
     });
   }
 
-  TipBookCompanion copyWith({
-    Value<int>? id,
-    Value<DateTime>? createDateTime,
-    Value<DateTime?>? favoriteDateTime,
-    Value<String?>? remarks,
-    Value<String?>? bk1,
-    Value<String?>? bk2,
-    Value<String>? name,
-    Value<String>? image,
-  }) {
+  TipBookCompanion copyWith(
+      {Value<int>? id,
+      Value<DateTime>? createDateTime,
+      Value<DateTime?>? favoriteDateTime,
+      Value<String?>? remarks,
+      Value<String?>? bk1,
+      Value<String?>? bk2,
+      Value<String>? name,
+      Value<String>? image,
+      Value<String?>? sourceId,
+      Value<String?>? version,
+      Value<String>? sourceType,
+      Value<String?>? productId,
+      Value<DateTime>? updatedDateTime}) {
     return TipBookCompanion(
       id: id ?? this.id,
       createDateTime: createDateTime ?? this.createDateTime,
@@ -3583,6 +3181,11 @@ class TipBookCompanion extends UpdateCompanion<TipBookData> {
       bk2: bk2 ?? this.bk2,
       name: name ?? this.name,
       image: image ?? this.image,
+      sourceId: sourceId ?? this.sourceId,
+      version: version ?? this.version,
+      sourceType: sourceType ?? this.sourceType,
+      productId: productId ?? this.productId,
+      updatedDateTime: updatedDateTime ?? this.updatedDateTime,
     );
   }
 
@@ -3613,6 +3216,21 @@ class TipBookCompanion extends UpdateCompanion<TipBookData> {
     if (image.present) {
       map['image'] = Variable<String>(image.value);
     }
+    if (sourceId.present) {
+      map['source_id'] = Variable<String>(sourceId.value);
+    }
+    if (version.present) {
+      map['version'] = Variable<String>(version.value);
+    }
+    if (sourceType.present) {
+      map['source_type'] = Variable<String>(sourceType.value);
+    }
+    if (productId.present) {
+      map['product_id'] = Variable<String>(productId.value);
+    }
+    if (updatedDateTime.present) {
+      map['updated_date_time'] = Variable<DateTime>(updatedDateTime.value);
+    }
     return map;
   }
 
@@ -3626,7 +3244,12 @@ class TipBookCompanion extends UpdateCompanion<TipBookData> {
           ..write('bk1: $bk1, ')
           ..write('bk2: $bk2, ')
           ..write('name: $name, ')
-          ..write('image: $image')
+          ..write('image: $image, ')
+          ..write('sourceId: $sourceId, ')
+          ..write('version: $version, ')
+          ..write('sourceType: $sourceType, ')
+          ..write('productId: $productId, ')
+          ..write('updatedDateTime: $updatedDateTime')
           ..write(')'))
         .toString();
   }
@@ -3641,98 +3264,109 @@ class $TipRecordTable extends TipRecord
   static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
-    'id',
-    aliasedName,
-    false,
-    hasAutoIncrement: true,
-    type: DriftSqlType.int,
-    requiredDuringInsert: false,
-    defaultConstraints: GeneratedColumn.constraintIsAlways(
-      'PRIMARY KEY AUTOINCREMENT',
-    ),
-  );
-  static const VerificationMeta _createDateTimeMeta = const VerificationMeta(
-    'createDateTime',
-  );
+      'id', aliasedName, false,
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _createDateTimeMeta =
+      const VerificationMeta('createDateTime');
   @override
   late final GeneratedColumn<DateTime> createDateTime =
-      GeneratedColumn<DateTime>(
-        'create_date_time',
-        aliasedName,
-        false,
-        type: DriftSqlType.dateTime,
-        requiredDuringInsert: false,
-        defaultValue: currentDateAndTime,
-      );
-  static const VerificationMeta _remarksMeta = const VerificationMeta(
-    'remarks',
-  );
+      GeneratedColumn<DateTime>('create_date_time', aliasedName, false,
+          type: DriftSqlType.dateTime,
+          requiredDuringInsert: false,
+          defaultValue: currentDateAndTime);
+  static const VerificationMeta _remarksMeta =
+      const VerificationMeta('remarks');
   @override
   late final GeneratedColumn<String> remarks = GeneratedColumn<String>(
-    'remarks',
-    aliasedName,
-    true,
-    type: DriftSqlType.string,
-    requiredDuringInsert: false,
-  );
+      'remarks', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
   static const VerificationMeta _bk1Meta = const VerificationMeta('bk1');
   @override
   late final GeneratedColumn<String> bk1 = GeneratedColumn<String>(
-    'bk1',
-    aliasedName,
-    true,
-    type: DriftSqlType.string,
-    requiredDuringInsert: false,
-  );
+      'bk1', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
   static const VerificationMeta _bk2Meta = const VerificationMeta('bk2');
   @override
   late final GeneratedColumn<String> bk2 = GeneratedColumn<String>(
-    'bk2',
-    aliasedName,
-    true,
-    type: DriftSqlType.string,
-    requiredDuringInsert: false,
-  );
-  static const VerificationMeta _contentMeta = const VerificationMeta(
-    'content',
-  );
+      'bk2', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
+  static const VerificationMeta _contentMeta =
+      const VerificationMeta('content');
   @override
   late final GeneratedColumn<String> content = GeneratedColumn<String>(
-    'content',
-    aliasedName,
-    false,
-    type: DriftSqlType.string,
-    requiredDuringInsert: true,
-  );
+      'content', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
   static const VerificationMeta _bookIdMeta = const VerificationMeta('bookId');
   @override
   late final GeneratedColumn<int> bookId = GeneratedColumn<int>(
-    'book_id',
-    aliasedName,
-    false,
-    type: DriftSqlType.int,
-    requiredDuringInsert: true,
-  );
+      'book_id', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _jsonIdMeta = const VerificationMeta('jsonId');
+  @override
+  late final GeneratedColumn<String> jsonId = GeneratedColumn<String>(
+      'json_id', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
+  static const VerificationMeta _favoriteDateTimeMeta =
+      const VerificationMeta('favoriteDateTime');
+  @override
+  late final GeneratedColumn<DateTime> favoriteDateTime =
+      GeneratedColumn<DateTime>('favorite_date_time', aliasedName, true,
+          type: DriftSqlType.dateTime, requiredDuringInsert: false);
+  static const VerificationMeta _completedDateTimeMeta =
+      const VerificationMeta('completedDateTime');
+  @override
+  late final GeneratedColumn<DateTime> completedDateTime =
+      GeneratedColumn<DateTime>('completed_date_time', aliasedName, true,
+          type: DriftSqlType.dateTime, requiredDuringInsert: false);
+  static const VerificationMeta _commentsMeta =
+      const VerificationMeta('comments');
+  @override
+  late final GeneratedColumn<String> comments = GeneratedColumn<String>(
+      'comments', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: false,
+      defaultValue: const Constant(''));
+  static const VerificationMeta _tagMeta = const VerificationMeta('tag');
+  @override
+  late final GeneratedColumn<String> tag = GeneratedColumn<String>(
+      'tag', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
+  static const VerificationMeta _sortOrderMeta =
+      const VerificationMeta('sortOrder');
+  @override
+  late final GeneratedColumn<int> sortOrder = GeneratedColumn<int>(
+      'sort_order', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultValue: const Constant(0));
   @override
   List<GeneratedColumn> get $columns => [
-    id,
-    createDateTime,
-    remarks,
-    bk1,
-    bk2,
-    content,
-    bookId,
-  ];
+        id,
+        createDateTime,
+        remarks,
+        bk1,
+        bk2,
+        content,
+        bookId,
+        jsonId,
+        favoriteDateTime,
+        completedDateTime,
+        comments,
+        tag,
+        sortOrder
+      ];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
   String get actualTableName => $name;
   static const String $name = 'tip_record';
   @override
-  VerificationContext validateIntegrity(
-    Insertable<TipRecordData> instance, {
-    bool isInserting = false,
-  }) {
+  VerificationContext validateIntegrity(Insertable<TipRecordData> instance,
+      {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
@@ -3740,46 +3374,61 @@ class $TipRecordTable extends TipRecord
     }
     if (data.containsKey('create_date_time')) {
       context.handle(
-        _createDateTimeMeta,
-        createDateTime.isAcceptableOrUnknown(
-          data['create_date_time']!,
           _createDateTimeMeta,
-        ),
-      );
+          createDateTime.isAcceptableOrUnknown(
+              data['create_date_time']!, _createDateTimeMeta));
     }
     if (data.containsKey('remarks')) {
-      context.handle(
-        _remarksMeta,
-        remarks.isAcceptableOrUnknown(data['remarks']!, _remarksMeta),
-      );
+      context.handle(_remarksMeta,
+          remarks.isAcceptableOrUnknown(data['remarks']!, _remarksMeta));
     }
     if (data.containsKey('bk1')) {
       context.handle(
-        _bk1Meta,
-        bk1.isAcceptableOrUnknown(data['bk1']!, _bk1Meta),
-      );
+          _bk1Meta, bk1.isAcceptableOrUnknown(data['bk1']!, _bk1Meta));
     }
     if (data.containsKey('bk2')) {
       context.handle(
-        _bk2Meta,
-        bk2.isAcceptableOrUnknown(data['bk2']!, _bk2Meta),
-      );
+          _bk2Meta, bk2.isAcceptableOrUnknown(data['bk2']!, _bk2Meta));
     }
     if (data.containsKey('content')) {
-      context.handle(
-        _contentMeta,
-        content.isAcceptableOrUnknown(data['content']!, _contentMeta),
-      );
+      context.handle(_contentMeta,
+          content.isAcceptableOrUnknown(data['content']!, _contentMeta));
     } else if (isInserting) {
       context.missing(_contentMeta);
     }
     if (data.containsKey('book_id')) {
-      context.handle(
-        _bookIdMeta,
-        bookId.isAcceptableOrUnknown(data['book_id']!, _bookIdMeta),
-      );
+      context.handle(_bookIdMeta,
+          bookId.isAcceptableOrUnknown(data['book_id']!, _bookIdMeta));
     } else if (isInserting) {
       context.missing(_bookIdMeta);
+    }
+    if (data.containsKey('json_id')) {
+      context.handle(_jsonIdMeta,
+          jsonId.isAcceptableOrUnknown(data['json_id']!, _jsonIdMeta));
+    }
+    if (data.containsKey('favorite_date_time')) {
+      context.handle(
+          _favoriteDateTimeMeta,
+          favoriteDateTime.isAcceptableOrUnknown(
+              data['favorite_date_time']!, _favoriteDateTimeMeta));
+    }
+    if (data.containsKey('completed_date_time')) {
+      context.handle(
+          _completedDateTimeMeta,
+          completedDateTime.isAcceptableOrUnknown(
+              data['completed_date_time']!, _completedDateTimeMeta));
+    }
+    if (data.containsKey('comments')) {
+      context.handle(_commentsMeta,
+          comments.isAcceptableOrUnknown(data['comments']!, _commentsMeta));
+    }
+    if (data.containsKey('tag')) {
+      context.handle(
+          _tagMeta, tag.isAcceptableOrUnknown(data['tag']!, _tagMeta));
+    }
+    if (data.containsKey('sort_order')) {
+      context.handle(_sortOrderMeta,
+          sortOrder.isAcceptableOrUnknown(data['sort_order']!, _sortOrderMeta));
     }
     return context;
   }
@@ -3787,37 +3436,39 @@ class $TipRecordTable extends TipRecord
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
+  List<Set<GeneratedColumn>> get uniqueKeys => [
+        {bookId, jsonId},
+      ];
+  @override
   TipRecordData map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return TipRecordData(
-      id: attachedDatabase.typeMapping.read(
-        DriftSqlType.int,
-        data['${effectivePrefix}id'],
-      )!,
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
       createDateTime: attachedDatabase.typeMapping.read(
-        DriftSqlType.dateTime,
-        data['${effectivePrefix}create_date_time'],
-      )!,
-      remarks: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}remarks'],
-      ),
-      bk1: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}bk1'],
-      ),
-      bk2: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}bk2'],
-      ),
-      content: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}content'],
-      )!,
-      bookId: attachedDatabase.typeMapping.read(
-        DriftSqlType.int,
-        data['${effectivePrefix}book_id'],
-      )!,
+          DriftSqlType.dateTime, data['${effectivePrefix}create_date_time'])!,
+      remarks: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}remarks']),
+      bk1: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}bk1']),
+      bk2: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}bk2']),
+      content: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}content'])!,
+      bookId: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}book_id'])!,
+      jsonId: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}json_id']),
+      favoriteDateTime: attachedDatabase.typeMapping.read(
+          DriftSqlType.dateTime, data['${effectivePrefix}favorite_date_time']),
+      completedDateTime: attachedDatabase.typeMapping.read(
+          DriftSqlType.dateTime, data['${effectivePrefix}completed_date_time']),
+      comments: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}comments'])!,
+      tag: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}tag']),
+      sortOrder: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}sort_order'])!,
     );
   }
 
@@ -3835,15 +3486,26 @@ class TipRecordData extends DataClass implements Insertable<TipRecordData> {
   final String? bk2;
   final String content;
   final int bookId;
-  const TipRecordData({
-    required this.id,
-    required this.createDateTime,
-    this.remarks,
-    this.bk1,
-    this.bk2,
-    required this.content,
-    required this.bookId,
-  });
+  final String? jsonId;
+  final DateTime? favoriteDateTime;
+  final DateTime? completedDateTime;
+  final String comments;
+  final String? tag;
+  final int sortOrder;
+  const TipRecordData(
+      {required this.id,
+      required this.createDateTime,
+      this.remarks,
+      this.bk1,
+      this.bk2,
+      required this.content,
+      required this.bookId,
+      this.jsonId,
+      this.favoriteDateTime,
+      this.completedDateTime,
+      required this.comments,
+      this.tag,
+      required this.sortOrder});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -3860,6 +3522,20 @@ class TipRecordData extends DataClass implements Insertable<TipRecordData> {
     }
     map['content'] = Variable<String>(content);
     map['book_id'] = Variable<int>(bookId);
+    if (!nullToAbsent || jsonId != null) {
+      map['json_id'] = Variable<String>(jsonId);
+    }
+    if (!nullToAbsent || favoriteDateTime != null) {
+      map['favorite_date_time'] = Variable<DateTime>(favoriteDateTime);
+    }
+    if (!nullToAbsent || completedDateTime != null) {
+      map['completed_date_time'] = Variable<DateTime>(completedDateTime);
+    }
+    map['comments'] = Variable<String>(comments);
+    if (!nullToAbsent || tag != null) {
+      map['tag'] = Variable<String>(tag);
+    }
+    map['sort_order'] = Variable<int>(sortOrder);
     return map;
   }
 
@@ -3874,13 +3550,22 @@ class TipRecordData extends DataClass implements Insertable<TipRecordData> {
       bk2: bk2 == null && nullToAbsent ? const Value.absent() : Value(bk2),
       content: Value(content),
       bookId: Value(bookId),
+      jsonId:
+          jsonId == null && nullToAbsent ? const Value.absent() : Value(jsonId),
+      favoriteDateTime: favoriteDateTime == null && nullToAbsent
+          ? const Value.absent()
+          : Value(favoriteDateTime),
+      completedDateTime: completedDateTime == null && nullToAbsent
+          ? const Value.absent()
+          : Value(completedDateTime),
+      comments: Value(comments),
+      tag: tag == null && nullToAbsent ? const Value.absent() : Value(tag),
+      sortOrder: Value(sortOrder),
     );
   }
 
-  factory TipRecordData.fromJson(
-    Map<String, dynamic> json, {
-    ValueSerializer? serializer,
-  }) {
+  factory TipRecordData.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return TipRecordData(
       id: serializer.fromJson<int>(json['id']),
@@ -3890,6 +3575,14 @@ class TipRecordData extends DataClass implements Insertable<TipRecordData> {
       bk2: serializer.fromJson<String?>(json['bk2']),
       content: serializer.fromJson<String>(json['content']),
       bookId: serializer.fromJson<int>(json['bookId']),
+      jsonId: serializer.fromJson<String?>(json['jsonId']),
+      favoriteDateTime:
+          serializer.fromJson<DateTime?>(json['favoriteDateTime']),
+      completedDateTime:
+          serializer.fromJson<DateTime?>(json['completedDateTime']),
+      comments: serializer.fromJson<String>(json['comments']),
+      tag: serializer.fromJson<String?>(json['tag']),
+      sortOrder: serializer.fromJson<int>(json['sortOrder']),
     );
   }
   @override
@@ -3903,26 +3596,48 @@ class TipRecordData extends DataClass implements Insertable<TipRecordData> {
       'bk2': serializer.toJson<String?>(bk2),
       'content': serializer.toJson<String>(content),
       'bookId': serializer.toJson<int>(bookId),
+      'jsonId': serializer.toJson<String?>(jsonId),
+      'favoriteDateTime': serializer.toJson<DateTime?>(favoriteDateTime),
+      'completedDateTime': serializer.toJson<DateTime?>(completedDateTime),
+      'comments': serializer.toJson<String>(comments),
+      'tag': serializer.toJson<String?>(tag),
+      'sortOrder': serializer.toJson<int>(sortOrder),
     };
   }
 
-  TipRecordData copyWith({
-    int? id,
-    DateTime? createDateTime,
-    Value<String?> remarks = const Value.absent(),
-    Value<String?> bk1 = const Value.absent(),
-    Value<String?> bk2 = const Value.absent(),
-    String? content,
-    int? bookId,
-  }) => TipRecordData(
-    id: id ?? this.id,
-    createDateTime: createDateTime ?? this.createDateTime,
-    remarks: remarks.present ? remarks.value : this.remarks,
-    bk1: bk1.present ? bk1.value : this.bk1,
-    bk2: bk2.present ? bk2.value : this.bk2,
-    content: content ?? this.content,
-    bookId: bookId ?? this.bookId,
-  );
+  TipRecordData copyWith(
+          {int? id,
+          DateTime? createDateTime,
+          Value<String?> remarks = const Value.absent(),
+          Value<String?> bk1 = const Value.absent(),
+          Value<String?> bk2 = const Value.absent(),
+          String? content,
+          int? bookId,
+          Value<String?> jsonId = const Value.absent(),
+          Value<DateTime?> favoriteDateTime = const Value.absent(),
+          Value<DateTime?> completedDateTime = const Value.absent(),
+          String? comments,
+          Value<String?> tag = const Value.absent(),
+          int? sortOrder}) =>
+      TipRecordData(
+        id: id ?? this.id,
+        createDateTime: createDateTime ?? this.createDateTime,
+        remarks: remarks.present ? remarks.value : this.remarks,
+        bk1: bk1.present ? bk1.value : this.bk1,
+        bk2: bk2.present ? bk2.value : this.bk2,
+        content: content ?? this.content,
+        bookId: bookId ?? this.bookId,
+        jsonId: jsonId.present ? jsonId.value : this.jsonId,
+        favoriteDateTime: favoriteDateTime.present
+            ? favoriteDateTime.value
+            : this.favoriteDateTime,
+        completedDateTime: completedDateTime.present
+            ? completedDateTime.value
+            : this.completedDateTime,
+        comments: comments ?? this.comments,
+        tag: tag.present ? tag.value : this.tag,
+        sortOrder: sortOrder ?? this.sortOrder,
+      );
   TipRecordData copyWithCompanion(TipRecordCompanion data) {
     return TipRecordData(
       id: data.id.present ? data.id.value : this.id,
@@ -3934,6 +3649,16 @@ class TipRecordData extends DataClass implements Insertable<TipRecordData> {
       bk2: data.bk2.present ? data.bk2.value : this.bk2,
       content: data.content.present ? data.content.value : this.content,
       bookId: data.bookId.present ? data.bookId.value : this.bookId,
+      jsonId: data.jsonId.present ? data.jsonId.value : this.jsonId,
+      favoriteDateTime: data.favoriteDateTime.present
+          ? data.favoriteDateTime.value
+          : this.favoriteDateTime,
+      completedDateTime: data.completedDateTime.present
+          ? data.completedDateTime.value
+          : this.completedDateTime,
+      comments: data.comments.present ? data.comments.value : this.comments,
+      tag: data.tag.present ? data.tag.value : this.tag,
+      sortOrder: data.sortOrder.present ? data.sortOrder.value : this.sortOrder,
     );
   }
 
@@ -3946,14 +3671,32 @@ class TipRecordData extends DataClass implements Insertable<TipRecordData> {
           ..write('bk1: $bk1, ')
           ..write('bk2: $bk2, ')
           ..write('content: $content, ')
-          ..write('bookId: $bookId')
+          ..write('bookId: $bookId, ')
+          ..write('jsonId: $jsonId, ')
+          ..write('favoriteDateTime: $favoriteDateTime, ')
+          ..write('completedDateTime: $completedDateTime, ')
+          ..write('comments: $comments, ')
+          ..write('tag: $tag, ')
+          ..write('sortOrder: $sortOrder')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode =>
-      Object.hash(id, createDateTime, remarks, bk1, bk2, content, bookId);
+  int get hashCode => Object.hash(
+      id,
+      createDateTime,
+      remarks,
+      bk1,
+      bk2,
+      content,
+      bookId,
+      jsonId,
+      favoriteDateTime,
+      completedDateTime,
+      comments,
+      tag,
+      sortOrder);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -3964,7 +3707,13 @@ class TipRecordData extends DataClass implements Insertable<TipRecordData> {
           other.bk1 == this.bk1 &&
           other.bk2 == this.bk2 &&
           other.content == this.content &&
-          other.bookId == this.bookId);
+          other.bookId == this.bookId &&
+          other.jsonId == this.jsonId &&
+          other.favoriteDateTime == this.favoriteDateTime &&
+          other.completedDateTime == this.completedDateTime &&
+          other.comments == this.comments &&
+          other.tag == this.tag &&
+          other.sortOrder == this.sortOrder);
 }
 
 class TipRecordCompanion extends UpdateCompanion<TipRecordData> {
@@ -3975,6 +3724,12 @@ class TipRecordCompanion extends UpdateCompanion<TipRecordData> {
   final Value<String?> bk2;
   final Value<String> content;
   final Value<int> bookId;
+  final Value<String?> jsonId;
+  final Value<DateTime?> favoriteDateTime;
+  final Value<DateTime?> completedDateTime;
+  final Value<String> comments;
+  final Value<String?> tag;
+  final Value<int> sortOrder;
   const TipRecordCompanion({
     this.id = const Value.absent(),
     this.createDateTime = const Value.absent(),
@@ -3983,6 +3738,12 @@ class TipRecordCompanion extends UpdateCompanion<TipRecordData> {
     this.bk2 = const Value.absent(),
     this.content = const Value.absent(),
     this.bookId = const Value.absent(),
+    this.jsonId = const Value.absent(),
+    this.favoriteDateTime = const Value.absent(),
+    this.completedDateTime = const Value.absent(),
+    this.comments = const Value.absent(),
+    this.tag = const Value.absent(),
+    this.sortOrder = const Value.absent(),
   });
   TipRecordCompanion.insert({
     this.id = const Value.absent(),
@@ -3992,8 +3753,14 @@ class TipRecordCompanion extends UpdateCompanion<TipRecordData> {
     this.bk2 = const Value.absent(),
     required String content,
     required int bookId,
-  }) : content = Value(content),
-       bookId = Value(bookId);
+    this.jsonId = const Value.absent(),
+    this.favoriteDateTime = const Value.absent(),
+    this.completedDateTime = const Value.absent(),
+    this.comments = const Value.absent(),
+    this.tag = const Value.absent(),
+    this.sortOrder = const Value.absent(),
+  })  : content = Value(content),
+        bookId = Value(bookId);
   static Insertable<TipRecordData> custom({
     Expression<int>? id,
     Expression<DateTime>? createDateTime,
@@ -4002,6 +3769,12 @@ class TipRecordCompanion extends UpdateCompanion<TipRecordData> {
     Expression<String>? bk2,
     Expression<String>? content,
     Expression<int>? bookId,
+    Expression<String>? jsonId,
+    Expression<DateTime>? favoriteDateTime,
+    Expression<DateTime>? completedDateTime,
+    Expression<String>? comments,
+    Expression<String>? tag,
+    Expression<int>? sortOrder,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
@@ -4011,18 +3784,29 @@ class TipRecordCompanion extends UpdateCompanion<TipRecordData> {
       if (bk2 != null) 'bk2': bk2,
       if (content != null) 'content': content,
       if (bookId != null) 'book_id': bookId,
+      if (jsonId != null) 'json_id': jsonId,
+      if (favoriteDateTime != null) 'favorite_date_time': favoriteDateTime,
+      if (completedDateTime != null) 'completed_date_time': completedDateTime,
+      if (comments != null) 'comments': comments,
+      if (tag != null) 'tag': tag,
+      if (sortOrder != null) 'sort_order': sortOrder,
     });
   }
 
-  TipRecordCompanion copyWith({
-    Value<int>? id,
-    Value<DateTime>? createDateTime,
-    Value<String?>? remarks,
-    Value<String?>? bk1,
-    Value<String?>? bk2,
-    Value<String>? content,
-    Value<int>? bookId,
-  }) {
+  TipRecordCompanion copyWith(
+      {Value<int>? id,
+      Value<DateTime>? createDateTime,
+      Value<String?>? remarks,
+      Value<String?>? bk1,
+      Value<String?>? bk2,
+      Value<String>? content,
+      Value<int>? bookId,
+      Value<String?>? jsonId,
+      Value<DateTime?>? favoriteDateTime,
+      Value<DateTime?>? completedDateTime,
+      Value<String>? comments,
+      Value<String?>? tag,
+      Value<int>? sortOrder}) {
     return TipRecordCompanion(
       id: id ?? this.id,
       createDateTime: createDateTime ?? this.createDateTime,
@@ -4031,6 +3815,12 @@ class TipRecordCompanion extends UpdateCompanion<TipRecordData> {
       bk2: bk2 ?? this.bk2,
       content: content ?? this.content,
       bookId: bookId ?? this.bookId,
+      jsonId: jsonId ?? this.jsonId,
+      favoriteDateTime: favoriteDateTime ?? this.favoriteDateTime,
+      completedDateTime: completedDateTime ?? this.completedDateTime,
+      comments: comments ?? this.comments,
+      tag: tag ?? this.tag,
+      sortOrder: sortOrder ?? this.sortOrder,
     );
   }
 
@@ -4058,6 +3848,24 @@ class TipRecordCompanion extends UpdateCompanion<TipRecordData> {
     if (bookId.present) {
       map['book_id'] = Variable<int>(bookId.value);
     }
+    if (jsonId.present) {
+      map['json_id'] = Variable<String>(jsonId.value);
+    }
+    if (favoriteDateTime.present) {
+      map['favorite_date_time'] = Variable<DateTime>(favoriteDateTime.value);
+    }
+    if (completedDateTime.present) {
+      map['completed_date_time'] = Variable<DateTime>(completedDateTime.value);
+    }
+    if (comments.present) {
+      map['comments'] = Variable<String>(comments.value);
+    }
+    if (tag.present) {
+      map['tag'] = Variable<String>(tag.value);
+    }
+    if (sortOrder.present) {
+      map['sort_order'] = Variable<int>(sortOrder.value);
+    }
     return map;
   }
 
@@ -4070,7 +3878,13 @@ class TipRecordCompanion extends UpdateCompanion<TipRecordData> {
           ..write('bk1: $bk1, ')
           ..write('bk2: $bk2, ')
           ..write('content: $content, ')
-          ..write('bookId: $bookId')
+          ..write('bookId: $bookId, ')
+          ..write('jsonId: $jsonId, ')
+          ..write('favoriteDateTime: $favoriteDateTime, ')
+          ..write('completedDateTime: $completedDateTime, ')
+          ..write('comments: $comments, ')
+          ..write('tag: $tag, ')
+          ..write('sortOrder: $sortOrder')
           ..write(')'))
         .toString();
   }
@@ -4084,214 +3898,140 @@ class $BaiChanTable extends BaiChan with TableInfo<$BaiChanTable, BaiChanData> {
   static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
-    'id',
-    aliasedName,
-    false,
-    hasAutoIncrement: true,
-    type: DriftSqlType.int,
-    requiredDuringInsert: false,
-    defaultConstraints: GeneratedColumn.constraintIsAlways(
-      'PRIMARY KEY AUTOINCREMENT',
-    ),
-  );
-  static const VerificationMeta _createDateTimeMeta = const VerificationMeta(
-    'createDateTime',
-  );
+      'id', aliasedName, false,
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _createDateTimeMeta =
+      const VerificationMeta('createDateTime');
   @override
   late final GeneratedColumn<DateTime> createDateTime =
-      GeneratedColumn<DateTime>(
-        'create_date_time',
-        aliasedName,
-        false,
-        type: DriftSqlType.dateTime,
-        requiredDuringInsert: false,
-        defaultValue: currentDateAndTime,
-      );
-  static const VerificationMeta _favoriteDateTimeMeta = const VerificationMeta(
-    'favoriteDateTime',
-  );
+      GeneratedColumn<DateTime>('create_date_time', aliasedName, false,
+          type: DriftSqlType.dateTime,
+          requiredDuringInsert: false,
+          defaultValue: currentDateAndTime);
+  static const VerificationMeta _favoriteDateTimeMeta =
+      const VerificationMeta('favoriteDateTime');
   @override
   late final GeneratedColumn<DateTime> favoriteDateTime =
-      GeneratedColumn<DateTime>(
-        'favorite_date_time',
-        aliasedName,
-        true,
-        type: DriftSqlType.dateTime,
-        requiredDuringInsert: false,
-      );
-  static const VerificationMeta _remarksMeta = const VerificationMeta(
-    'remarks',
-  );
+      GeneratedColumn<DateTime>('favorite_date_time', aliasedName, true,
+          type: DriftSqlType.dateTime, requiredDuringInsert: false);
+  static const VerificationMeta _remarksMeta =
+      const VerificationMeta('remarks');
   @override
   late final GeneratedColumn<String> remarks = GeneratedColumn<String>(
-    'remarks',
-    aliasedName,
-    true,
-    type: DriftSqlType.string,
-    requiredDuringInsert: false,
-  );
+      'remarks', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
   static const VerificationMeta _bk1Meta = const VerificationMeta('bk1');
   @override
   late final GeneratedColumn<String> bk1 = GeneratedColumn<String>(
-    'bk1',
-    aliasedName,
-    true,
-    type: DriftSqlType.string,
-    requiredDuringInsert: false,
-  );
+      'bk1', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
   static const VerificationMeta _bk2Meta = const VerificationMeta('bk2');
   @override
   late final GeneratedColumn<String> bk2 = GeneratedColumn<String>(
-    'bk2',
-    aliasedName,
-    true,
-    type: DriftSqlType.string,
-    requiredDuringInsert: false,
-  );
+      'bk2', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
   static const VerificationMeta _nameMeta = const VerificationMeta('name');
   @override
   late final GeneratedColumn<String> name = GeneratedColumn<String>(
-    'name',
-    aliasedName,
-    false,
-    type: DriftSqlType.string,
-    requiredDuringInsert: true,
-  );
+      'name', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
   static const VerificationMeta _imageMeta = const VerificationMeta('image');
   @override
   late final GeneratedColumn<String> image = GeneratedColumn<String>(
-    'image',
-    aliasedName,
-    false,
-    type: DriftSqlType.string,
-    requiredDuringInsert: true,
-  );
-  static const VerificationMeta _chanhuiWenStartMeta = const VerificationMeta(
-    'chanhuiWenStart',
-  );
+      'image', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _chanhuiWenStartMeta =
+      const VerificationMeta('chanhuiWenStart');
   @override
   late final GeneratedColumn<String> chanhuiWenStart = GeneratedColumn<String>(
-    'chanhui_wen_start',
-    aliasedName,
-    false,
-    type: DriftSqlType.string,
-    requiredDuringInsert: true,
-  );
-  static const VerificationMeta _chanhuiWenEndMeta = const VerificationMeta(
-    'chanhuiWenEnd',
-  );
+      'chanhui_wen_start', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _chanhuiWenEndMeta =
+      const VerificationMeta('chanhuiWenEnd');
   @override
   late final GeneratedColumn<String> chanhuiWenEnd = GeneratedColumn<String>(
-    'chanhui_wen_end',
-    aliasedName,
-    false,
-    type: DriftSqlType.string,
-    requiredDuringInsert: true,
-  );
-  static const VerificationMeta _baichanTimesMeta = const VerificationMeta(
-    'baichanTimes',
-  );
+      'chanhui_wen_end', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _baichanTimesMeta =
+      const VerificationMeta('baichanTimes');
   @override
   late final GeneratedColumn<int> baichanTimes = GeneratedColumn<int>(
-    'baichan_times',
-    aliasedName,
-    false,
-    type: DriftSqlType.int,
-    requiredDuringInsert: false,
-    defaultValue: const Constant(88),
-  );
-  static const VerificationMeta _baichanInterval1Meta = const VerificationMeta(
-    'baichanInterval1',
-  );
+      'baichan_times', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultValue: const Constant(88));
+  static const VerificationMeta _baichanInterval1Meta =
+      const VerificationMeta('baichanInterval1');
   @override
   late final GeneratedColumn<int> baichanInterval1 = GeneratedColumn<int>(
-    'baichan_interval1',
-    aliasedName,
-    false,
-    type: DriftSqlType.int,
-    requiredDuringInsert: false,
-    defaultValue: const Constant(7),
-  );
-  static const VerificationMeta _baichanInterval2Meta = const VerificationMeta(
-    'baichanInterval2',
-  );
+      'baichan_interval1', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultValue: const Constant(7));
+  static const VerificationMeta _baichanInterval2Meta =
+      const VerificationMeta('baichanInterval2');
   @override
   late final GeneratedColumn<int> baichanInterval2 = GeneratedColumn<int>(
-    'baichan_interval2',
-    aliasedName,
-    false,
-    type: DriftSqlType.int,
-    requiredDuringInsert: false,
-    defaultValue: const Constant(5),
-  );
-  static const VerificationMeta _flagOrderNumberMeta = const VerificationMeta(
-    'flagOrderNumber',
-  );
+      'baichan_interval2', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultValue: const Constant(5));
+  static const VerificationMeta _flagOrderNumberMeta =
+      const VerificationMeta('flagOrderNumber');
   @override
   late final GeneratedColumn<bool> flagOrderNumber = GeneratedColumn<bool>(
-    'flag_order_number',
-    aliasedName,
-    false,
-    type: DriftSqlType.bool,
-    requiredDuringInsert: false,
-    defaultConstraints: GeneratedColumn.constraintIsAlways(
-      'CHECK ("flag_order_number" IN (0, 1))',
-    ),
-    defaultValue: const Constant(true),
-  );
-  static const VerificationMeta _flagQiShenMeta = const VerificationMeta(
-    'flagQiShen',
-  );
+      'flag_order_number', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: false,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("flag_order_number" IN (0, 1))'),
+      defaultValue: const Constant(true));
+  static const VerificationMeta _flagQiShenMeta =
+      const VerificationMeta('flagQiShen');
   @override
   late final GeneratedColumn<bool> flagQiShen = GeneratedColumn<bool>(
-    'flag_qi_shen',
-    aliasedName,
-    false,
-    type: DriftSqlType.bool,
-    requiredDuringInsert: false,
-    defaultConstraints: GeneratedColumn.constraintIsAlways(
-      'CHECK ("flag_qi_shen" IN (0, 1))',
-    ),
-    defaultValue: const Constant(true),
-  );
+      'flag_qi_shen', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: false,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("flag_qi_shen" IN (0, 1))'),
+      defaultValue: const Constant(true));
   static const VerificationMeta _detailMeta = const VerificationMeta('detail');
   @override
   late final GeneratedColumn<String> detail = GeneratedColumn<String>(
-    'detail',
-    aliasedName,
-    true,
-    type: DriftSqlType.string,
-    requiredDuringInsert: false,
-  );
+      'detail', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
   @override
   List<GeneratedColumn> get $columns => [
-    id,
-    createDateTime,
-    favoriteDateTime,
-    remarks,
-    bk1,
-    bk2,
-    name,
-    image,
-    chanhuiWenStart,
-    chanhuiWenEnd,
-    baichanTimes,
-    baichanInterval1,
-    baichanInterval2,
-    flagOrderNumber,
-    flagQiShen,
-    detail,
-  ];
+        id,
+        createDateTime,
+        favoriteDateTime,
+        remarks,
+        bk1,
+        bk2,
+        name,
+        image,
+        chanhuiWenStart,
+        chanhuiWenEnd,
+        baichanTimes,
+        baichanInterval1,
+        baichanInterval2,
+        flagOrderNumber,
+        flagQiShen,
+        detail
+      ];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
   String get actualTableName => $name;
   static const String $name = 'bai_chan';
   @override
-  VerificationContext validateIntegrity(
-    Insertable<BaiChanData> instance, {
-    bool isInserting = false,
-  }) {
+  VerificationContext validateIntegrity(Insertable<BaiChanData> instance,
+      {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
@@ -4299,128 +4039,89 @@ class $BaiChanTable extends BaiChan with TableInfo<$BaiChanTable, BaiChanData> {
     }
     if (data.containsKey('create_date_time')) {
       context.handle(
-        _createDateTimeMeta,
-        createDateTime.isAcceptableOrUnknown(
-          data['create_date_time']!,
           _createDateTimeMeta,
-        ),
-      );
+          createDateTime.isAcceptableOrUnknown(
+              data['create_date_time']!, _createDateTimeMeta));
     }
     if (data.containsKey('favorite_date_time')) {
       context.handle(
-        _favoriteDateTimeMeta,
-        favoriteDateTime.isAcceptableOrUnknown(
-          data['favorite_date_time']!,
           _favoriteDateTimeMeta,
-        ),
-      );
+          favoriteDateTime.isAcceptableOrUnknown(
+              data['favorite_date_time']!, _favoriteDateTimeMeta));
     }
     if (data.containsKey('remarks')) {
-      context.handle(
-        _remarksMeta,
-        remarks.isAcceptableOrUnknown(data['remarks']!, _remarksMeta),
-      );
+      context.handle(_remarksMeta,
+          remarks.isAcceptableOrUnknown(data['remarks']!, _remarksMeta));
     }
     if (data.containsKey('bk1')) {
       context.handle(
-        _bk1Meta,
-        bk1.isAcceptableOrUnknown(data['bk1']!, _bk1Meta),
-      );
+          _bk1Meta, bk1.isAcceptableOrUnknown(data['bk1']!, _bk1Meta));
     }
     if (data.containsKey('bk2')) {
       context.handle(
-        _bk2Meta,
-        bk2.isAcceptableOrUnknown(data['bk2']!, _bk2Meta),
-      );
+          _bk2Meta, bk2.isAcceptableOrUnknown(data['bk2']!, _bk2Meta));
     }
     if (data.containsKey('name')) {
       context.handle(
-        _nameMeta,
-        name.isAcceptableOrUnknown(data['name']!, _nameMeta),
-      );
+          _nameMeta, name.isAcceptableOrUnknown(data['name']!, _nameMeta));
     } else if (isInserting) {
       context.missing(_nameMeta);
     }
     if (data.containsKey('image')) {
       context.handle(
-        _imageMeta,
-        image.isAcceptableOrUnknown(data['image']!, _imageMeta),
-      );
+          _imageMeta, image.isAcceptableOrUnknown(data['image']!, _imageMeta));
     } else if (isInserting) {
       context.missing(_imageMeta);
     }
     if (data.containsKey('chanhui_wen_start')) {
       context.handle(
-        _chanhuiWenStartMeta,
-        chanhuiWenStart.isAcceptableOrUnknown(
-          data['chanhui_wen_start']!,
           _chanhuiWenStartMeta,
-        ),
-      );
+          chanhuiWenStart.isAcceptableOrUnknown(
+              data['chanhui_wen_start']!, _chanhuiWenStartMeta));
     } else if (isInserting) {
       context.missing(_chanhuiWenStartMeta);
     }
     if (data.containsKey('chanhui_wen_end')) {
       context.handle(
-        _chanhuiWenEndMeta,
-        chanhuiWenEnd.isAcceptableOrUnknown(
-          data['chanhui_wen_end']!,
           _chanhuiWenEndMeta,
-        ),
-      );
+          chanhuiWenEnd.isAcceptableOrUnknown(
+              data['chanhui_wen_end']!, _chanhuiWenEndMeta));
     } else if (isInserting) {
       context.missing(_chanhuiWenEndMeta);
     }
     if (data.containsKey('baichan_times')) {
       context.handle(
-        _baichanTimesMeta,
-        baichanTimes.isAcceptableOrUnknown(
-          data['baichan_times']!,
           _baichanTimesMeta,
-        ),
-      );
+          baichanTimes.isAcceptableOrUnknown(
+              data['baichan_times']!, _baichanTimesMeta));
     }
     if (data.containsKey('baichan_interval1')) {
       context.handle(
-        _baichanInterval1Meta,
-        baichanInterval1.isAcceptableOrUnknown(
-          data['baichan_interval1']!,
           _baichanInterval1Meta,
-        ),
-      );
+          baichanInterval1.isAcceptableOrUnknown(
+              data['baichan_interval1']!, _baichanInterval1Meta));
     }
     if (data.containsKey('baichan_interval2')) {
       context.handle(
-        _baichanInterval2Meta,
-        baichanInterval2.isAcceptableOrUnknown(
-          data['baichan_interval2']!,
           _baichanInterval2Meta,
-        ),
-      );
+          baichanInterval2.isAcceptableOrUnknown(
+              data['baichan_interval2']!, _baichanInterval2Meta));
     }
     if (data.containsKey('flag_order_number')) {
       context.handle(
-        _flagOrderNumberMeta,
-        flagOrderNumber.isAcceptableOrUnknown(
-          data['flag_order_number']!,
           _flagOrderNumberMeta,
-        ),
-      );
+          flagOrderNumber.isAcceptableOrUnknown(
+              data['flag_order_number']!, _flagOrderNumberMeta));
     }
     if (data.containsKey('flag_qi_shen')) {
       context.handle(
-        _flagQiShenMeta,
-        flagQiShen.isAcceptableOrUnknown(
-          data['flag_qi_shen']!,
           _flagQiShenMeta,
-        ),
-      );
+          flagQiShen.isAcceptableOrUnknown(
+              data['flag_qi_shen']!, _flagQiShenMeta));
     }
     if (data.containsKey('detail')) {
-      context.handle(
-        _detailMeta,
-        detail.isAcceptableOrUnknown(data['detail']!, _detailMeta),
-      );
+      context.handle(_detailMeta,
+          detail.isAcceptableOrUnknown(data['detail']!, _detailMeta));
     }
     return context;
   }
@@ -4431,70 +4132,38 @@ class $BaiChanTable extends BaiChan with TableInfo<$BaiChanTable, BaiChanData> {
   BaiChanData map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return BaiChanData(
-      id: attachedDatabase.typeMapping.read(
-        DriftSqlType.int,
-        data['${effectivePrefix}id'],
-      )!,
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
       createDateTime: attachedDatabase.typeMapping.read(
-        DriftSqlType.dateTime,
-        data['${effectivePrefix}create_date_time'],
-      )!,
+          DriftSqlType.dateTime, data['${effectivePrefix}create_date_time'])!,
       favoriteDateTime: attachedDatabase.typeMapping.read(
-        DriftSqlType.dateTime,
-        data['${effectivePrefix}favorite_date_time'],
-      ),
-      remarks: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}remarks'],
-      ),
-      bk1: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}bk1'],
-      ),
-      bk2: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}bk2'],
-      ),
-      name: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}name'],
-      )!,
-      image: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}image'],
-      )!,
+          DriftSqlType.dateTime, data['${effectivePrefix}favorite_date_time']),
+      remarks: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}remarks']),
+      bk1: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}bk1']),
+      bk2: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}bk2']),
+      name: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}name'])!,
+      image: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}image'])!,
       chanhuiWenStart: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}chanhui_wen_start'],
-      )!,
+          DriftSqlType.string, data['${effectivePrefix}chanhui_wen_start'])!,
       chanhuiWenEnd: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}chanhui_wen_end'],
-      )!,
-      baichanTimes: attachedDatabase.typeMapping.read(
-        DriftSqlType.int,
-        data['${effectivePrefix}baichan_times'],
-      )!,
-      baichanInterval1: attachedDatabase.typeMapping.read(
-        DriftSqlType.int,
-        data['${effectivePrefix}baichan_interval1'],
-      )!,
-      baichanInterval2: attachedDatabase.typeMapping.read(
-        DriftSqlType.int,
-        data['${effectivePrefix}baichan_interval2'],
-      )!,
+          DriftSqlType.string, data['${effectivePrefix}chanhui_wen_end'])!,
+      baichanTimes: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}baichan_times'])!,
+      baichanInterval1: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}baichan_interval1'])!,
+      baichanInterval2: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}baichan_interval2'])!,
       flagOrderNumber: attachedDatabase.typeMapping.read(
-        DriftSqlType.bool,
-        data['${effectivePrefix}flag_order_number'],
-      )!,
-      flagQiShen: attachedDatabase.typeMapping.read(
-        DriftSqlType.bool,
-        data['${effectivePrefix}flag_qi_shen'],
-      )!,
-      detail: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}detail'],
-      ),
+          DriftSqlType.bool, data['${effectivePrefix}flag_order_number'])!,
+      flagQiShen: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}flag_qi_shen'])!,
+      detail: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}detail']),
     );
   }
 
@@ -4521,24 +4190,23 @@ class BaiChanData extends DataClass implements Insertable<BaiChanData> {
   final bool flagOrderNumber;
   final bool flagQiShen;
   final String? detail;
-  const BaiChanData({
-    required this.id,
-    required this.createDateTime,
-    this.favoriteDateTime,
-    this.remarks,
-    this.bk1,
-    this.bk2,
-    required this.name,
-    required this.image,
-    required this.chanhuiWenStart,
-    required this.chanhuiWenEnd,
-    required this.baichanTimes,
-    required this.baichanInterval1,
-    required this.baichanInterval2,
-    required this.flagOrderNumber,
-    required this.flagQiShen,
-    this.detail,
-  });
+  const BaiChanData(
+      {required this.id,
+      required this.createDateTime,
+      this.favoriteDateTime,
+      this.remarks,
+      this.bk1,
+      this.bk2,
+      required this.name,
+      required this.image,
+      required this.chanhuiWenStart,
+      required this.chanhuiWenEnd,
+      required this.baichanTimes,
+      required this.baichanInterval1,
+      required this.baichanInterval2,
+      required this.flagOrderNumber,
+      required this.flagQiShen,
+      this.detail});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -4592,23 +4260,19 @@ class BaiChanData extends DataClass implements Insertable<BaiChanData> {
       baichanInterval2: Value(baichanInterval2),
       flagOrderNumber: Value(flagOrderNumber),
       flagQiShen: Value(flagQiShen),
-      detail: detail == null && nullToAbsent
-          ? const Value.absent()
-          : Value(detail),
+      detail:
+          detail == null && nullToAbsent ? const Value.absent() : Value(detail),
     );
   }
 
-  factory BaiChanData.fromJson(
-    Map<String, dynamic> json, {
-    ValueSerializer? serializer,
-  }) {
+  factory BaiChanData.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return BaiChanData(
       id: serializer.fromJson<int>(json['id']),
       createDateTime: serializer.fromJson<DateTime>(json['createDateTime']),
-      favoriteDateTime: serializer.fromJson<DateTime?>(
-        json['favoriteDateTime'],
-      ),
+      favoriteDateTime:
+          serializer.fromJson<DateTime?>(json['favoriteDateTime']),
       remarks: serializer.fromJson<String?>(json['remarks']),
       bk1: serializer.fromJson<String?>(json['bk1']),
       bk2: serializer.fromJson<String?>(json['bk2']),
@@ -4647,43 +4311,43 @@ class BaiChanData extends DataClass implements Insertable<BaiChanData> {
     };
   }
 
-  BaiChanData copyWith({
-    int? id,
-    DateTime? createDateTime,
-    Value<DateTime?> favoriteDateTime = const Value.absent(),
-    Value<String?> remarks = const Value.absent(),
-    Value<String?> bk1 = const Value.absent(),
-    Value<String?> bk2 = const Value.absent(),
-    String? name,
-    String? image,
-    String? chanhuiWenStart,
-    String? chanhuiWenEnd,
-    int? baichanTimes,
-    int? baichanInterval1,
-    int? baichanInterval2,
-    bool? flagOrderNumber,
-    bool? flagQiShen,
-    Value<String?> detail = const Value.absent(),
-  }) => BaiChanData(
-    id: id ?? this.id,
-    createDateTime: createDateTime ?? this.createDateTime,
-    favoriteDateTime: favoriteDateTime.present
-        ? favoriteDateTime.value
-        : this.favoriteDateTime,
-    remarks: remarks.present ? remarks.value : this.remarks,
-    bk1: bk1.present ? bk1.value : this.bk1,
-    bk2: bk2.present ? bk2.value : this.bk2,
-    name: name ?? this.name,
-    image: image ?? this.image,
-    chanhuiWenStart: chanhuiWenStart ?? this.chanhuiWenStart,
-    chanhuiWenEnd: chanhuiWenEnd ?? this.chanhuiWenEnd,
-    baichanTimes: baichanTimes ?? this.baichanTimes,
-    baichanInterval1: baichanInterval1 ?? this.baichanInterval1,
-    baichanInterval2: baichanInterval2 ?? this.baichanInterval2,
-    flagOrderNumber: flagOrderNumber ?? this.flagOrderNumber,
-    flagQiShen: flagQiShen ?? this.flagQiShen,
-    detail: detail.present ? detail.value : this.detail,
-  );
+  BaiChanData copyWith(
+          {int? id,
+          DateTime? createDateTime,
+          Value<DateTime?> favoriteDateTime = const Value.absent(),
+          Value<String?> remarks = const Value.absent(),
+          Value<String?> bk1 = const Value.absent(),
+          Value<String?> bk2 = const Value.absent(),
+          String? name,
+          String? image,
+          String? chanhuiWenStart,
+          String? chanhuiWenEnd,
+          int? baichanTimes,
+          int? baichanInterval1,
+          int? baichanInterval2,
+          bool? flagOrderNumber,
+          bool? flagQiShen,
+          Value<String?> detail = const Value.absent()}) =>
+      BaiChanData(
+        id: id ?? this.id,
+        createDateTime: createDateTime ?? this.createDateTime,
+        favoriteDateTime: favoriteDateTime.present
+            ? favoriteDateTime.value
+            : this.favoriteDateTime,
+        remarks: remarks.present ? remarks.value : this.remarks,
+        bk1: bk1.present ? bk1.value : this.bk1,
+        bk2: bk2.present ? bk2.value : this.bk2,
+        name: name ?? this.name,
+        image: image ?? this.image,
+        chanhuiWenStart: chanhuiWenStart ?? this.chanhuiWenStart,
+        chanhuiWenEnd: chanhuiWenEnd ?? this.chanhuiWenEnd,
+        baichanTimes: baichanTimes ?? this.baichanTimes,
+        baichanInterval1: baichanInterval1 ?? this.baichanInterval1,
+        baichanInterval2: baichanInterval2 ?? this.baichanInterval2,
+        flagOrderNumber: flagOrderNumber ?? this.flagOrderNumber,
+        flagQiShen: flagQiShen ?? this.flagQiShen,
+        detail: detail.present ? detail.value : this.detail,
+      );
   BaiChanData copyWithCompanion(BaiChanCompanion data) {
     return BaiChanData(
       id: data.id.present ? data.id.value : this.id,
@@ -4716,9 +4380,8 @@ class BaiChanData extends DataClass implements Insertable<BaiChanData> {
       flagOrderNumber: data.flagOrderNumber.present
           ? data.flagOrderNumber.value
           : this.flagOrderNumber,
-      flagQiShen: data.flagQiShen.present
-          ? data.flagQiShen.value
-          : this.flagQiShen,
+      flagQiShen:
+          data.flagQiShen.present ? data.flagQiShen.value : this.flagQiShen,
       detail: data.detail.present ? data.detail.value : this.detail,
     );
   }
@@ -4748,23 +4411,22 @@ class BaiChanData extends DataClass implements Insertable<BaiChanData> {
 
   @override
   int get hashCode => Object.hash(
-    id,
-    createDateTime,
-    favoriteDateTime,
-    remarks,
-    bk1,
-    bk2,
-    name,
-    image,
-    chanhuiWenStart,
-    chanhuiWenEnd,
-    baichanTimes,
-    baichanInterval1,
-    baichanInterval2,
-    flagOrderNumber,
-    flagQiShen,
-    detail,
-  );
+      id,
+      createDateTime,
+      favoriteDateTime,
+      remarks,
+      bk1,
+      bk2,
+      name,
+      image,
+      chanhuiWenStart,
+      chanhuiWenEnd,
+      baichanTimes,
+      baichanInterval1,
+      baichanInterval2,
+      flagOrderNumber,
+      flagQiShen,
+      detail);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -4839,10 +4501,10 @@ class BaiChanCompanion extends UpdateCompanion<BaiChanData> {
     this.flagOrderNumber = const Value.absent(),
     this.flagQiShen = const Value.absent(),
     this.detail = const Value.absent(),
-  }) : name = Value(name),
-       image = Value(image),
-       chanhuiWenStart = Value(chanhuiWenStart),
-       chanhuiWenEnd = Value(chanhuiWenEnd);
+  })  : name = Value(name),
+        image = Value(image),
+        chanhuiWenStart = Value(chanhuiWenStart),
+        chanhuiWenEnd = Value(chanhuiWenEnd);
   static Insertable<BaiChanData> custom({
     Expression<int>? id,
     Expression<DateTime>? createDateTime,
@@ -4881,24 +4543,23 @@ class BaiChanCompanion extends UpdateCompanion<BaiChanData> {
     });
   }
 
-  BaiChanCompanion copyWith({
-    Value<int>? id,
-    Value<DateTime>? createDateTime,
-    Value<DateTime?>? favoriteDateTime,
-    Value<String?>? remarks,
-    Value<String?>? bk1,
-    Value<String?>? bk2,
-    Value<String>? name,
-    Value<String>? image,
-    Value<String>? chanhuiWenStart,
-    Value<String>? chanhuiWenEnd,
-    Value<int>? baichanTimes,
-    Value<int>? baichanInterval1,
-    Value<int>? baichanInterval2,
-    Value<bool>? flagOrderNumber,
-    Value<bool>? flagQiShen,
-    Value<String?>? detail,
-  }) {
+  BaiChanCompanion copyWith(
+      {Value<int>? id,
+      Value<DateTime>? createDateTime,
+      Value<DateTime?>? favoriteDateTime,
+      Value<String?>? remarks,
+      Value<String?>? bk1,
+      Value<String?>? bk2,
+      Value<String>? name,
+      Value<String>? image,
+      Value<String>? chanhuiWenStart,
+      Value<String>? chanhuiWenEnd,
+      Value<int>? baichanTimes,
+      Value<int>? baichanInterval1,
+      Value<int>? baichanInterval2,
+      Value<bool>? flagOrderNumber,
+      Value<bool>? flagQiShen,
+      Value<String?>? detail}) {
     return BaiChanCompanion(
       id: id ?? this.id,
       createDateTime: createDateTime ?? this.createDateTime,
@@ -5013,52 +4674,50 @@ abstract class _$AppDatabase extends GeneratedDatabase {
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
   @override
   List<DatabaseSchemaEntity> get allSchemaEntities => [
-    faYuan,
-    gongKeItemsOneDay,
-    gongKeItem,
-    jingShu,
-    tipBook,
-    tipRecord,
-    baiChan,
-  ];
+        faYuan,
+        gongKeItemsOneDay,
+        gongKeItem,
+        jingShu,
+        tipBook,
+        tipRecord,
+        baiChan
+      ];
 }
 
-typedef $$FaYuanTableCreateCompanionBuilder =
-    FaYuanCompanion Function({
-      Value<int> id,
-      Value<DateTime> createDateTime,
-      Value<DateTime> modifyDateTime,
-      Value<String?> remarks,
-      Value<String?> bk1,
-      Value<String?> bk2,
-      required String name,
-      required String fodiziname,
-      required DateTime startDate,
-      required DateTime endDate,
-      required String yuanwang,
-      Value<bool> isComplete,
-      required String fayuanwen,
-      Value<String> sts,
-      Value<double> percentValue,
-    });
-typedef $$FaYuanTableUpdateCompanionBuilder =
-    FaYuanCompanion Function({
-      Value<int> id,
-      Value<DateTime> createDateTime,
-      Value<DateTime> modifyDateTime,
-      Value<String?> remarks,
-      Value<String?> bk1,
-      Value<String?> bk2,
-      Value<String> name,
-      Value<String> fodiziname,
-      Value<DateTime> startDate,
-      Value<DateTime> endDate,
-      Value<String> yuanwang,
-      Value<bool> isComplete,
-      Value<String> fayuanwen,
-      Value<String> sts,
-      Value<double> percentValue,
-    });
+typedef $$FaYuanTableCreateCompanionBuilder = FaYuanCompanion Function({
+  Value<int> id,
+  Value<DateTime> createDateTime,
+  Value<DateTime> modifyDateTime,
+  Value<String?> remarks,
+  Value<String?> bk1,
+  Value<String?> bk2,
+  required String name,
+  required String fodiziname,
+  required DateTime startDate,
+  required DateTime endDate,
+  required String yuanwang,
+  Value<bool> isComplete,
+  required String fayuanwen,
+  Value<String> sts,
+  Value<double> percentValue,
+});
+typedef $$FaYuanTableUpdateCompanionBuilder = FaYuanCompanion Function({
+  Value<int> id,
+  Value<DateTime> createDateTime,
+  Value<DateTime> modifyDateTime,
+  Value<String?> remarks,
+  Value<String?> bk1,
+  Value<String?> bk2,
+  Value<String> name,
+  Value<String> fodiziname,
+  Value<DateTime> startDate,
+  Value<DateTime> endDate,
+  Value<String> yuanwang,
+  Value<bool> isComplete,
+  Value<String> fayuanwen,
+  Value<String> sts,
+  Value<double> percentValue,
+});
 
 class $$FaYuanTableFilterComposer
     extends Composer<_$AppDatabase, $FaYuanTable> {
@@ -5070,79 +4729,51 @@ class $$FaYuanTableFilterComposer
     super.$removeJoinBuilderFromRootComposer,
   });
   ColumnFilters<int> get id => $composableBuilder(
-    column: $table.id,
-    builder: (column) => ColumnFilters(column),
-  );
+      column: $table.id, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<DateTime> get createDateTime => $composableBuilder(
-    column: $table.createDateTime,
-    builder: (column) => ColumnFilters(column),
-  );
+      column: $table.createDateTime,
+      builder: (column) => ColumnFilters(column));
 
   ColumnFilters<DateTime> get modifyDateTime => $composableBuilder(
-    column: $table.modifyDateTime,
-    builder: (column) => ColumnFilters(column),
-  );
+      column: $table.modifyDateTime,
+      builder: (column) => ColumnFilters(column));
 
   ColumnFilters<String> get remarks => $composableBuilder(
-    column: $table.remarks,
-    builder: (column) => ColumnFilters(column),
-  );
+      column: $table.remarks, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<String> get bk1 => $composableBuilder(
-    column: $table.bk1,
-    builder: (column) => ColumnFilters(column),
-  );
+      column: $table.bk1, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<String> get bk2 => $composableBuilder(
-    column: $table.bk2,
-    builder: (column) => ColumnFilters(column),
-  );
+      column: $table.bk2, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<String> get name => $composableBuilder(
-    column: $table.name,
-    builder: (column) => ColumnFilters(column),
-  );
+      column: $table.name, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<String> get fodiziname => $composableBuilder(
-    column: $table.fodiziname,
-    builder: (column) => ColumnFilters(column),
-  );
+      column: $table.fodiziname, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<DateTime> get startDate => $composableBuilder(
-    column: $table.startDate,
-    builder: (column) => ColumnFilters(column),
-  );
+      column: $table.startDate, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<DateTime> get endDate => $composableBuilder(
-    column: $table.endDate,
-    builder: (column) => ColumnFilters(column),
-  );
+      column: $table.endDate, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<String> get yuanwang => $composableBuilder(
-    column: $table.yuanwang,
-    builder: (column) => ColumnFilters(column),
-  );
+      column: $table.yuanwang, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<bool> get isComplete => $composableBuilder(
-    column: $table.isComplete,
-    builder: (column) => ColumnFilters(column),
-  );
+      column: $table.isComplete, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<String> get fayuanwen => $composableBuilder(
-    column: $table.fayuanwen,
-    builder: (column) => ColumnFilters(column),
-  );
+      column: $table.fayuanwen, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<String> get sts => $composableBuilder(
-    column: $table.sts,
-    builder: (column) => ColumnFilters(column),
-  );
+      column: $table.sts, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<double> get percentValue => $composableBuilder(
-    column: $table.percentValue,
-    builder: (column) => ColumnFilters(column),
-  );
+      column: $table.percentValue, builder: (column) => ColumnFilters(column));
 }
 
 class $$FaYuanTableOrderingComposer
@@ -5155,79 +4786,52 @@ class $$FaYuanTableOrderingComposer
     super.$removeJoinBuilderFromRootComposer,
   });
   ColumnOrderings<int> get id => $composableBuilder(
-    column: $table.id,
-    builder: (column) => ColumnOrderings(column),
-  );
+      column: $table.id, builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<DateTime> get createDateTime => $composableBuilder(
-    column: $table.createDateTime,
-    builder: (column) => ColumnOrderings(column),
-  );
+      column: $table.createDateTime,
+      builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<DateTime> get modifyDateTime => $composableBuilder(
-    column: $table.modifyDateTime,
-    builder: (column) => ColumnOrderings(column),
-  );
+      column: $table.modifyDateTime,
+      builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<String> get remarks => $composableBuilder(
-    column: $table.remarks,
-    builder: (column) => ColumnOrderings(column),
-  );
+      column: $table.remarks, builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<String> get bk1 => $composableBuilder(
-    column: $table.bk1,
-    builder: (column) => ColumnOrderings(column),
-  );
+      column: $table.bk1, builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<String> get bk2 => $composableBuilder(
-    column: $table.bk2,
-    builder: (column) => ColumnOrderings(column),
-  );
+      column: $table.bk2, builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<String> get name => $composableBuilder(
-    column: $table.name,
-    builder: (column) => ColumnOrderings(column),
-  );
+      column: $table.name, builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<String> get fodiziname => $composableBuilder(
-    column: $table.fodiziname,
-    builder: (column) => ColumnOrderings(column),
-  );
+      column: $table.fodiziname, builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<DateTime> get startDate => $composableBuilder(
-    column: $table.startDate,
-    builder: (column) => ColumnOrderings(column),
-  );
+      column: $table.startDate, builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<DateTime> get endDate => $composableBuilder(
-    column: $table.endDate,
-    builder: (column) => ColumnOrderings(column),
-  );
+      column: $table.endDate, builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<String> get yuanwang => $composableBuilder(
-    column: $table.yuanwang,
-    builder: (column) => ColumnOrderings(column),
-  );
+      column: $table.yuanwang, builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<bool> get isComplete => $composableBuilder(
-    column: $table.isComplete,
-    builder: (column) => ColumnOrderings(column),
-  );
+      column: $table.isComplete, builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<String> get fayuanwen => $composableBuilder(
-    column: $table.fayuanwen,
-    builder: (column) => ColumnOrderings(column),
-  );
+      column: $table.fayuanwen, builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<String> get sts => $composableBuilder(
-    column: $table.sts,
-    builder: (column) => ColumnOrderings(column),
-  );
+      column: $table.sts, builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<double> get percentValue => $composableBuilder(
-    column: $table.percentValue,
-    builder: (column) => ColumnOrderings(column),
-  );
+      column: $table.percentValue,
+      builder: (column) => ColumnOrderings(column));
 }
 
 class $$FaYuanTableAnnotationComposer
@@ -5243,14 +4847,10 @@ class $$FaYuanTableAnnotationComposer
       $composableBuilder(column: $table.id, builder: (column) => column);
 
   GeneratedColumn<DateTime> get createDateTime => $composableBuilder(
-    column: $table.createDateTime,
-    builder: (column) => column,
-  );
+      column: $table.createDateTime, builder: (column) => column);
 
   GeneratedColumn<DateTime> get modifyDateTime => $composableBuilder(
-    column: $table.modifyDateTime,
-    builder: (column) => column,
-  );
+      column: $table.modifyDateTime, builder: (column) => column);
 
   GeneratedColumn<String> get remarks =>
       $composableBuilder(column: $table.remarks, builder: (column) => column);
@@ -5265,9 +4865,7 @@ class $$FaYuanTableAnnotationComposer
       $composableBuilder(column: $table.name, builder: (column) => column);
 
   GeneratedColumn<String> get fodiziname => $composableBuilder(
-    column: $table.fodiziname,
-    builder: (column) => column,
-  );
+      column: $table.fodiziname, builder: (column) => column);
 
   GeneratedColumn<DateTime> get startDate =>
       $composableBuilder(column: $table.startDate, builder: (column) => column);
@@ -5279,9 +4877,7 @@ class $$FaYuanTableAnnotationComposer
       $composableBuilder(column: $table.yuanwang, builder: (column) => column);
 
   GeneratedColumn<bool> get isComplete => $composableBuilder(
-    column: $table.isComplete,
-    builder: (column) => column,
-  );
+      column: $table.isComplete, builder: (column) => column);
 
   GeneratedColumn<String> get fayuanwen =>
       $composableBuilder(column: $table.fayuanwen, builder: (column) => column);
@@ -5290,29 +4886,23 @@ class $$FaYuanTableAnnotationComposer
       $composableBuilder(column: $table.sts, builder: (column) => column);
 
   GeneratedColumn<double> get percentValue => $composableBuilder(
-    column: $table.percentValue,
-    builder: (column) => column,
-  );
+      column: $table.percentValue, builder: (column) => column);
 }
 
-class $$FaYuanTableTableManager
-    extends
-        RootTableManager<
-          _$AppDatabase,
-          $FaYuanTable,
-          FaYuanData,
-          $$FaYuanTableFilterComposer,
-          $$FaYuanTableOrderingComposer,
-          $$FaYuanTableAnnotationComposer,
-          $$FaYuanTableCreateCompanionBuilder,
-          $$FaYuanTableUpdateCompanionBuilder,
-          (FaYuanData, BaseReferences<_$AppDatabase, $FaYuanTable, FaYuanData>),
-          FaYuanData,
-          PrefetchHooks Function()
-        > {
+class $$FaYuanTableTableManager extends RootTableManager<
+    _$AppDatabase,
+    $FaYuanTable,
+    FaYuanData,
+    $$FaYuanTableFilterComposer,
+    $$FaYuanTableOrderingComposer,
+    $$FaYuanTableAnnotationComposer,
+    $$FaYuanTableCreateCompanionBuilder,
+    $$FaYuanTableUpdateCompanionBuilder,
+    (FaYuanData, BaseReferences<_$AppDatabase, $FaYuanTable, FaYuanData>),
+    FaYuanData,
+    PrefetchHooks Function()> {
   $$FaYuanTableTableManager(_$AppDatabase db, $FaYuanTable table)
-    : super(
-        TableManagerState(
+      : super(TableManagerState(
           db: db,
           table: table,
           createFilteringComposer: () =>
@@ -5321,114 +4911,111 @@ class $$FaYuanTableTableManager
               $$FaYuanTableOrderingComposer($db: db, $table: table),
           createComputedFieldComposer: () =>
               $$FaYuanTableAnnotationComposer($db: db, $table: table),
-          updateCompanionCallback:
-              ({
-                Value<int> id = const Value.absent(),
-                Value<DateTime> createDateTime = const Value.absent(),
-                Value<DateTime> modifyDateTime = const Value.absent(),
-                Value<String?> remarks = const Value.absent(),
-                Value<String?> bk1 = const Value.absent(),
-                Value<String?> bk2 = const Value.absent(),
-                Value<String> name = const Value.absent(),
-                Value<String> fodiziname = const Value.absent(),
-                Value<DateTime> startDate = const Value.absent(),
-                Value<DateTime> endDate = const Value.absent(),
-                Value<String> yuanwang = const Value.absent(),
-                Value<bool> isComplete = const Value.absent(),
-                Value<String> fayuanwen = const Value.absent(),
-                Value<String> sts = const Value.absent(),
-                Value<double> percentValue = const Value.absent(),
-              }) => FaYuanCompanion(
-                id: id,
-                createDateTime: createDateTime,
-                modifyDateTime: modifyDateTime,
-                remarks: remarks,
-                bk1: bk1,
-                bk2: bk2,
-                name: name,
-                fodiziname: fodiziname,
-                startDate: startDate,
-                endDate: endDate,
-                yuanwang: yuanwang,
-                isComplete: isComplete,
-                fayuanwen: fayuanwen,
-                sts: sts,
-                percentValue: percentValue,
-              ),
-          createCompanionCallback:
-              ({
-                Value<int> id = const Value.absent(),
-                Value<DateTime> createDateTime = const Value.absent(),
-                Value<DateTime> modifyDateTime = const Value.absent(),
-                Value<String?> remarks = const Value.absent(),
-                Value<String?> bk1 = const Value.absent(),
-                Value<String?> bk2 = const Value.absent(),
-                required String name,
-                required String fodiziname,
-                required DateTime startDate,
-                required DateTime endDate,
-                required String yuanwang,
-                Value<bool> isComplete = const Value.absent(),
-                required String fayuanwen,
-                Value<String> sts = const Value.absent(),
-                Value<double> percentValue = const Value.absent(),
-              }) => FaYuanCompanion.insert(
-                id: id,
-                createDateTime: createDateTime,
-                modifyDateTime: modifyDateTime,
-                remarks: remarks,
-                bk1: bk1,
-                bk2: bk2,
-                name: name,
-                fodiziname: fodiziname,
-                startDate: startDate,
-                endDate: endDate,
-                yuanwang: yuanwang,
-                isComplete: isComplete,
-                fayuanwen: fayuanwen,
-                sts: sts,
-                percentValue: percentValue,
-              ),
+          updateCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            Value<DateTime> createDateTime = const Value.absent(),
+            Value<DateTime> modifyDateTime = const Value.absent(),
+            Value<String?> remarks = const Value.absent(),
+            Value<String?> bk1 = const Value.absent(),
+            Value<String?> bk2 = const Value.absent(),
+            Value<String> name = const Value.absent(),
+            Value<String> fodiziname = const Value.absent(),
+            Value<DateTime> startDate = const Value.absent(),
+            Value<DateTime> endDate = const Value.absent(),
+            Value<String> yuanwang = const Value.absent(),
+            Value<bool> isComplete = const Value.absent(),
+            Value<String> fayuanwen = const Value.absent(),
+            Value<String> sts = const Value.absent(),
+            Value<double> percentValue = const Value.absent(),
+          }) =>
+              FaYuanCompanion(
+            id: id,
+            createDateTime: createDateTime,
+            modifyDateTime: modifyDateTime,
+            remarks: remarks,
+            bk1: bk1,
+            bk2: bk2,
+            name: name,
+            fodiziname: fodiziname,
+            startDate: startDate,
+            endDate: endDate,
+            yuanwang: yuanwang,
+            isComplete: isComplete,
+            fayuanwen: fayuanwen,
+            sts: sts,
+            percentValue: percentValue,
+          ),
+          createCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            Value<DateTime> createDateTime = const Value.absent(),
+            Value<DateTime> modifyDateTime = const Value.absent(),
+            Value<String?> remarks = const Value.absent(),
+            Value<String?> bk1 = const Value.absent(),
+            Value<String?> bk2 = const Value.absent(),
+            required String name,
+            required String fodiziname,
+            required DateTime startDate,
+            required DateTime endDate,
+            required String yuanwang,
+            Value<bool> isComplete = const Value.absent(),
+            required String fayuanwen,
+            Value<String> sts = const Value.absent(),
+            Value<double> percentValue = const Value.absent(),
+          }) =>
+              FaYuanCompanion.insert(
+            id: id,
+            createDateTime: createDateTime,
+            modifyDateTime: modifyDateTime,
+            remarks: remarks,
+            bk1: bk1,
+            bk2: bk2,
+            name: name,
+            fodiziname: fodiziname,
+            startDate: startDate,
+            endDate: endDate,
+            yuanwang: yuanwang,
+            isComplete: isComplete,
+            fayuanwen: fayuanwen,
+            sts: sts,
+            percentValue: percentValue,
+          ),
           withReferenceMapper: (p0) => p0
               .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
               .toList(),
           prefetchHooksCallback: null,
-        ),
-      );
+        ));
 }
 
-typedef $$FaYuanTableProcessedTableManager =
-    ProcessedTableManager<
-      _$AppDatabase,
-      $FaYuanTable,
-      FaYuanData,
-      $$FaYuanTableFilterComposer,
-      $$FaYuanTableOrderingComposer,
-      $$FaYuanTableAnnotationComposer,
-      $$FaYuanTableCreateCompanionBuilder,
-      $$FaYuanTableUpdateCompanionBuilder,
-      (FaYuanData, BaseReferences<_$AppDatabase, $FaYuanTable, FaYuanData>),
-      FaYuanData,
-      PrefetchHooks Function()
-    >;
-typedef $$GongKeItemsOneDayTableCreateCompanionBuilder =
-    GongKeItemsOneDayCompanion Function({
-      Value<int> id,
-      required int fayuanId,
-      Value<String> gongketype,
-      required String name,
-      Value<int> cnt,
-      Value<int> idx,
-    });
-typedef $$GongKeItemsOneDayTableUpdateCompanionBuilder =
-    GongKeItemsOneDayCompanion Function({
-      Value<int> id,
-      Value<int> fayuanId,
-      Value<String> gongketype,
-      Value<String> name,
-      Value<int> cnt,
-      Value<int> idx,
-    });
+typedef $$FaYuanTableProcessedTableManager = ProcessedTableManager<
+    _$AppDatabase,
+    $FaYuanTable,
+    FaYuanData,
+    $$FaYuanTableFilterComposer,
+    $$FaYuanTableOrderingComposer,
+    $$FaYuanTableAnnotationComposer,
+    $$FaYuanTableCreateCompanionBuilder,
+    $$FaYuanTableUpdateCompanionBuilder,
+    (FaYuanData, BaseReferences<_$AppDatabase, $FaYuanTable, FaYuanData>),
+    FaYuanData,
+    PrefetchHooks Function()>;
+typedef $$GongKeItemsOneDayTableCreateCompanionBuilder
+    = GongKeItemsOneDayCompanion Function({
+  Value<int> id,
+  required int fayuanId,
+  Value<String> gongketype,
+  required String name,
+  Value<int> cnt,
+  Value<int> idx,
+});
+typedef $$GongKeItemsOneDayTableUpdateCompanionBuilder
+    = GongKeItemsOneDayCompanion Function({
+  Value<int> id,
+  Value<int> fayuanId,
+  Value<String> gongketype,
+  Value<String> name,
+  Value<int> cnt,
+  Value<int> idx,
+});
 
 class $$GongKeItemsOneDayTableFilterComposer
     extends Composer<_$AppDatabase, $GongKeItemsOneDayTable> {
@@ -5440,34 +5027,22 @@ class $$GongKeItemsOneDayTableFilterComposer
     super.$removeJoinBuilderFromRootComposer,
   });
   ColumnFilters<int> get id => $composableBuilder(
-    column: $table.id,
-    builder: (column) => ColumnFilters(column),
-  );
+      column: $table.id, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<int> get fayuanId => $composableBuilder(
-    column: $table.fayuanId,
-    builder: (column) => ColumnFilters(column),
-  );
+      column: $table.fayuanId, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<String> get gongketype => $composableBuilder(
-    column: $table.gongketype,
-    builder: (column) => ColumnFilters(column),
-  );
+      column: $table.gongketype, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<String> get name => $composableBuilder(
-    column: $table.name,
-    builder: (column) => ColumnFilters(column),
-  );
+      column: $table.name, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<int> get cnt => $composableBuilder(
-    column: $table.cnt,
-    builder: (column) => ColumnFilters(column),
-  );
+      column: $table.cnt, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<int> get idx => $composableBuilder(
-    column: $table.idx,
-    builder: (column) => ColumnFilters(column),
-  );
+      column: $table.idx, builder: (column) => ColumnFilters(column));
 }
 
 class $$GongKeItemsOneDayTableOrderingComposer
@@ -5480,34 +5055,22 @@ class $$GongKeItemsOneDayTableOrderingComposer
     super.$removeJoinBuilderFromRootComposer,
   });
   ColumnOrderings<int> get id => $composableBuilder(
-    column: $table.id,
-    builder: (column) => ColumnOrderings(column),
-  );
+      column: $table.id, builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<int> get fayuanId => $composableBuilder(
-    column: $table.fayuanId,
-    builder: (column) => ColumnOrderings(column),
-  );
+      column: $table.fayuanId, builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<String> get gongketype => $composableBuilder(
-    column: $table.gongketype,
-    builder: (column) => ColumnOrderings(column),
-  );
+      column: $table.gongketype, builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<String> get name => $composableBuilder(
-    column: $table.name,
-    builder: (column) => ColumnOrderings(column),
-  );
+      column: $table.name, builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<int> get cnt => $composableBuilder(
-    column: $table.cnt,
-    builder: (column) => ColumnOrderings(column),
-  );
+      column: $table.cnt, builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<int> get idx => $composableBuilder(
-    column: $table.idx,
-    builder: (column) => ColumnOrderings(column),
-  );
+      column: $table.idx, builder: (column) => ColumnOrderings(column));
 }
 
 class $$GongKeItemsOneDayTableAnnotationComposer
@@ -5526,9 +5089,7 @@ class $$GongKeItemsOneDayTableAnnotationComposer
       $composableBuilder(column: $table.fayuanId, builder: (column) => column);
 
   GeneratedColumn<String> get gongketype => $composableBuilder(
-    column: $table.gongketype,
-    builder: (column) => column,
-  );
+      column: $table.gongketype, builder: (column) => column);
 
   GeneratedColumn<String> get name =>
       $composableBuilder(column: $table.name, builder: (column) => column);
@@ -5540,33 +5101,25 @@ class $$GongKeItemsOneDayTableAnnotationComposer
       $composableBuilder(column: $table.idx, builder: (column) => column);
 }
 
-class $$GongKeItemsOneDayTableTableManager
-    extends
-        RootTableManager<
-          _$AppDatabase,
-          $GongKeItemsOneDayTable,
-          GongKeItemsOneDayData,
-          $$GongKeItemsOneDayTableFilterComposer,
-          $$GongKeItemsOneDayTableOrderingComposer,
-          $$GongKeItemsOneDayTableAnnotationComposer,
-          $$GongKeItemsOneDayTableCreateCompanionBuilder,
-          $$GongKeItemsOneDayTableUpdateCompanionBuilder,
-          (
-            GongKeItemsOneDayData,
-            BaseReferences<
-              _$AppDatabase,
-              $GongKeItemsOneDayTable,
-              GongKeItemsOneDayData
-            >,
-          ),
-          GongKeItemsOneDayData,
-          PrefetchHooks Function()
-        > {
+class $$GongKeItemsOneDayTableTableManager extends RootTableManager<
+    _$AppDatabase,
+    $GongKeItemsOneDayTable,
+    GongKeItemsOneDayData,
+    $$GongKeItemsOneDayTableFilterComposer,
+    $$GongKeItemsOneDayTableOrderingComposer,
+    $$GongKeItemsOneDayTableAnnotationComposer,
+    $$GongKeItemsOneDayTableCreateCompanionBuilder,
+    $$GongKeItemsOneDayTableUpdateCompanionBuilder,
+    (
+      GongKeItemsOneDayData,
+      BaseReferences<_$AppDatabase, $GongKeItemsOneDayTable,
+          GongKeItemsOneDayData>
+    ),
+    GongKeItemsOneDayData,
+    PrefetchHooks Function()> {
   $$GongKeItemsOneDayTableTableManager(
-    _$AppDatabase db,
-    $GongKeItemsOneDayTable table,
-  ) : super(
-        TableManagerState(
+      _$AppDatabase db, $GongKeItemsOneDayTable table)
+      : super(TableManagerState(
           db: db,
           table: table,
           createFilteringComposer: () =>
@@ -5575,102 +5128,92 @@ class $$GongKeItemsOneDayTableTableManager
               $$GongKeItemsOneDayTableOrderingComposer($db: db, $table: table),
           createComputedFieldComposer: () =>
               $$GongKeItemsOneDayTableAnnotationComposer(
-                $db: db,
-                $table: table,
-              ),
-          updateCompanionCallback:
-              ({
-                Value<int> id = const Value.absent(),
-                Value<int> fayuanId = const Value.absent(),
-                Value<String> gongketype = const Value.absent(),
-                Value<String> name = const Value.absent(),
-                Value<int> cnt = const Value.absent(),
-                Value<int> idx = const Value.absent(),
-              }) => GongKeItemsOneDayCompanion(
-                id: id,
-                fayuanId: fayuanId,
-                gongketype: gongketype,
-                name: name,
-                cnt: cnt,
-                idx: idx,
-              ),
-          createCompanionCallback:
-              ({
-                Value<int> id = const Value.absent(),
-                required int fayuanId,
-                Value<String> gongketype = const Value.absent(),
-                required String name,
-                Value<int> cnt = const Value.absent(),
-                Value<int> idx = const Value.absent(),
-              }) => GongKeItemsOneDayCompanion.insert(
-                id: id,
-                fayuanId: fayuanId,
-                gongketype: gongketype,
-                name: name,
-                cnt: cnt,
-                idx: idx,
-              ),
+                  $db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            Value<int> fayuanId = const Value.absent(),
+            Value<String> gongketype = const Value.absent(),
+            Value<String> name = const Value.absent(),
+            Value<int> cnt = const Value.absent(),
+            Value<int> idx = const Value.absent(),
+          }) =>
+              GongKeItemsOneDayCompanion(
+            id: id,
+            fayuanId: fayuanId,
+            gongketype: gongketype,
+            name: name,
+            cnt: cnt,
+            idx: idx,
+          ),
+          createCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            required int fayuanId,
+            Value<String> gongketype = const Value.absent(),
+            required String name,
+            Value<int> cnt = const Value.absent(),
+            Value<int> idx = const Value.absent(),
+          }) =>
+              GongKeItemsOneDayCompanion.insert(
+            id: id,
+            fayuanId: fayuanId,
+            gongketype: gongketype,
+            name: name,
+            cnt: cnt,
+            idx: idx,
+          ),
           withReferenceMapper: (p0) => p0
               .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
               .toList(),
           prefetchHooksCallback: null,
-        ),
-      );
+        ));
 }
 
-typedef $$GongKeItemsOneDayTableProcessedTableManager =
-    ProcessedTableManager<
-      _$AppDatabase,
-      $GongKeItemsOneDayTable,
+typedef $$GongKeItemsOneDayTableProcessedTableManager = ProcessedTableManager<
+    _$AppDatabase,
+    $GongKeItemsOneDayTable,
+    GongKeItemsOneDayData,
+    $$GongKeItemsOneDayTableFilterComposer,
+    $$GongKeItemsOneDayTableOrderingComposer,
+    $$GongKeItemsOneDayTableAnnotationComposer,
+    $$GongKeItemsOneDayTableCreateCompanionBuilder,
+    $$GongKeItemsOneDayTableUpdateCompanionBuilder,
+    (
       GongKeItemsOneDayData,
-      $$GongKeItemsOneDayTableFilterComposer,
-      $$GongKeItemsOneDayTableOrderingComposer,
-      $$GongKeItemsOneDayTableAnnotationComposer,
-      $$GongKeItemsOneDayTableCreateCompanionBuilder,
-      $$GongKeItemsOneDayTableUpdateCompanionBuilder,
-      (
-        GongKeItemsOneDayData,
-        BaseReferences<
-          _$AppDatabase,
-          $GongKeItemsOneDayTable,
-          GongKeItemsOneDayData
-        >,
-      ),
-      GongKeItemsOneDayData,
-      PrefetchHooks Function()
-    >;
-typedef $$GongKeItemTableCreateCompanionBuilder =
-    GongKeItemCompanion Function({
-      Value<int> id,
-      Value<DateTime> createDateTime,
-      Value<String?> remarks,
-      Value<String?> bk1,
-      Value<String?> bk2,
-      required String name,
-      required int fayuanId,
-      required String gongketype,
-      Value<int> cnt,
-      required String gongKeDay,
-      Value<bool> isComplete,
-      Value<int> idx,
-      Value<int> curCnt,
-    });
-typedef $$GongKeItemTableUpdateCompanionBuilder =
-    GongKeItemCompanion Function({
-      Value<int> id,
-      Value<DateTime> createDateTime,
-      Value<String?> remarks,
-      Value<String?> bk1,
-      Value<String?> bk2,
-      Value<String> name,
-      Value<int> fayuanId,
-      Value<String> gongketype,
-      Value<int> cnt,
-      Value<String> gongKeDay,
-      Value<bool> isComplete,
-      Value<int> idx,
-      Value<int> curCnt,
-    });
+      BaseReferences<_$AppDatabase, $GongKeItemsOneDayTable,
+          GongKeItemsOneDayData>
+    ),
+    GongKeItemsOneDayData,
+    PrefetchHooks Function()>;
+typedef $$GongKeItemTableCreateCompanionBuilder = GongKeItemCompanion Function({
+  Value<int> id,
+  Value<DateTime> createDateTime,
+  Value<String?> remarks,
+  Value<String?> bk1,
+  Value<String?> bk2,
+  required String name,
+  required int fayuanId,
+  required String gongketype,
+  Value<int> cnt,
+  required String gongKeDay,
+  Value<bool> isComplete,
+  Value<int> idx,
+  Value<int> curCnt,
+});
+typedef $$GongKeItemTableUpdateCompanionBuilder = GongKeItemCompanion Function({
+  Value<int> id,
+  Value<DateTime> createDateTime,
+  Value<String?> remarks,
+  Value<String?> bk1,
+  Value<String?> bk2,
+  Value<String> name,
+  Value<int> fayuanId,
+  Value<String> gongketype,
+  Value<int> cnt,
+  Value<String> gongKeDay,
+  Value<bool> isComplete,
+  Value<int> idx,
+  Value<int> curCnt,
+});
 
 class $$GongKeItemTableFilterComposer
     extends Composer<_$AppDatabase, $GongKeItemTable> {
@@ -5682,69 +5225,44 @@ class $$GongKeItemTableFilterComposer
     super.$removeJoinBuilderFromRootComposer,
   });
   ColumnFilters<int> get id => $composableBuilder(
-    column: $table.id,
-    builder: (column) => ColumnFilters(column),
-  );
+      column: $table.id, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<DateTime> get createDateTime => $composableBuilder(
-    column: $table.createDateTime,
-    builder: (column) => ColumnFilters(column),
-  );
+      column: $table.createDateTime,
+      builder: (column) => ColumnFilters(column));
 
   ColumnFilters<String> get remarks => $composableBuilder(
-    column: $table.remarks,
-    builder: (column) => ColumnFilters(column),
-  );
+      column: $table.remarks, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<String> get bk1 => $composableBuilder(
-    column: $table.bk1,
-    builder: (column) => ColumnFilters(column),
-  );
+      column: $table.bk1, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<String> get bk2 => $composableBuilder(
-    column: $table.bk2,
-    builder: (column) => ColumnFilters(column),
-  );
+      column: $table.bk2, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<String> get name => $composableBuilder(
-    column: $table.name,
-    builder: (column) => ColumnFilters(column),
-  );
+      column: $table.name, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<int> get fayuanId => $composableBuilder(
-    column: $table.fayuanId,
-    builder: (column) => ColumnFilters(column),
-  );
+      column: $table.fayuanId, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<String> get gongketype => $composableBuilder(
-    column: $table.gongketype,
-    builder: (column) => ColumnFilters(column),
-  );
+      column: $table.gongketype, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<int> get cnt => $composableBuilder(
-    column: $table.cnt,
-    builder: (column) => ColumnFilters(column),
-  );
+      column: $table.cnt, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<String> get gongKeDay => $composableBuilder(
-    column: $table.gongKeDay,
-    builder: (column) => ColumnFilters(column),
-  );
+      column: $table.gongKeDay, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<bool> get isComplete => $composableBuilder(
-    column: $table.isComplete,
-    builder: (column) => ColumnFilters(column),
-  );
+      column: $table.isComplete, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<int> get idx => $composableBuilder(
-    column: $table.idx,
-    builder: (column) => ColumnFilters(column),
-  );
+      column: $table.idx, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<int> get curCnt => $composableBuilder(
-    column: $table.curCnt,
-    builder: (column) => ColumnFilters(column),
-  );
+      column: $table.curCnt, builder: (column) => ColumnFilters(column));
 }
 
 class $$GongKeItemTableOrderingComposer
@@ -5757,69 +5275,44 @@ class $$GongKeItemTableOrderingComposer
     super.$removeJoinBuilderFromRootComposer,
   });
   ColumnOrderings<int> get id => $composableBuilder(
-    column: $table.id,
-    builder: (column) => ColumnOrderings(column),
-  );
+      column: $table.id, builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<DateTime> get createDateTime => $composableBuilder(
-    column: $table.createDateTime,
-    builder: (column) => ColumnOrderings(column),
-  );
+      column: $table.createDateTime,
+      builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<String> get remarks => $composableBuilder(
-    column: $table.remarks,
-    builder: (column) => ColumnOrderings(column),
-  );
+      column: $table.remarks, builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<String> get bk1 => $composableBuilder(
-    column: $table.bk1,
-    builder: (column) => ColumnOrderings(column),
-  );
+      column: $table.bk1, builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<String> get bk2 => $composableBuilder(
-    column: $table.bk2,
-    builder: (column) => ColumnOrderings(column),
-  );
+      column: $table.bk2, builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<String> get name => $composableBuilder(
-    column: $table.name,
-    builder: (column) => ColumnOrderings(column),
-  );
+      column: $table.name, builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<int> get fayuanId => $composableBuilder(
-    column: $table.fayuanId,
-    builder: (column) => ColumnOrderings(column),
-  );
+      column: $table.fayuanId, builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<String> get gongketype => $composableBuilder(
-    column: $table.gongketype,
-    builder: (column) => ColumnOrderings(column),
-  );
+      column: $table.gongketype, builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<int> get cnt => $composableBuilder(
-    column: $table.cnt,
-    builder: (column) => ColumnOrderings(column),
-  );
+      column: $table.cnt, builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<String> get gongKeDay => $composableBuilder(
-    column: $table.gongKeDay,
-    builder: (column) => ColumnOrderings(column),
-  );
+      column: $table.gongKeDay, builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<bool> get isComplete => $composableBuilder(
-    column: $table.isComplete,
-    builder: (column) => ColumnOrderings(column),
-  );
+      column: $table.isComplete, builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<int> get idx => $composableBuilder(
-    column: $table.idx,
-    builder: (column) => ColumnOrderings(column),
-  );
+      column: $table.idx, builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<int> get curCnt => $composableBuilder(
-    column: $table.curCnt,
-    builder: (column) => ColumnOrderings(column),
-  );
+      column: $table.curCnt, builder: (column) => ColumnOrderings(column));
 }
 
 class $$GongKeItemTableAnnotationComposer
@@ -5835,9 +5328,7 @@ class $$GongKeItemTableAnnotationComposer
       $composableBuilder(column: $table.id, builder: (column) => column);
 
   GeneratedColumn<DateTime> get createDateTime => $composableBuilder(
-    column: $table.createDateTime,
-    builder: (column) => column,
-  );
+      column: $table.createDateTime, builder: (column) => column);
 
   GeneratedColumn<String> get remarks =>
       $composableBuilder(column: $table.remarks, builder: (column) => column);
@@ -5855,9 +5346,7 @@ class $$GongKeItemTableAnnotationComposer
       $composableBuilder(column: $table.fayuanId, builder: (column) => column);
 
   GeneratedColumn<String> get gongketype => $composableBuilder(
-    column: $table.gongketype,
-    builder: (column) => column,
-  );
+      column: $table.gongketype, builder: (column) => column);
 
   GeneratedColumn<int> get cnt =>
       $composableBuilder(column: $table.cnt, builder: (column) => column);
@@ -5866,9 +5355,7 @@ class $$GongKeItemTableAnnotationComposer
       $composableBuilder(column: $table.gongKeDay, builder: (column) => column);
 
   GeneratedColumn<bool> get isComplete => $composableBuilder(
-    column: $table.isComplete,
-    builder: (column) => column,
-  );
+      column: $table.isComplete, builder: (column) => column);
 
   GeneratedColumn<int> get idx =>
       $composableBuilder(column: $table.idx, builder: (column) => column);
@@ -5877,27 +5364,23 @@ class $$GongKeItemTableAnnotationComposer
       $composableBuilder(column: $table.curCnt, builder: (column) => column);
 }
 
-class $$GongKeItemTableTableManager
-    extends
-        RootTableManager<
-          _$AppDatabase,
-          $GongKeItemTable,
-          GongKeItemData,
-          $$GongKeItemTableFilterComposer,
-          $$GongKeItemTableOrderingComposer,
-          $$GongKeItemTableAnnotationComposer,
-          $$GongKeItemTableCreateCompanionBuilder,
-          $$GongKeItemTableUpdateCompanionBuilder,
-          (
-            GongKeItemData,
-            BaseReferences<_$AppDatabase, $GongKeItemTable, GongKeItemData>,
-          ),
-          GongKeItemData,
-          PrefetchHooks Function()
-        > {
+class $$GongKeItemTableTableManager extends RootTableManager<
+    _$AppDatabase,
+    $GongKeItemTable,
+    GongKeItemData,
+    $$GongKeItemTableFilterComposer,
+    $$GongKeItemTableOrderingComposer,
+    $$GongKeItemTableAnnotationComposer,
+    $$GongKeItemTableCreateCompanionBuilder,
+    $$GongKeItemTableUpdateCompanionBuilder,
+    (
+      GongKeItemData,
+      BaseReferences<_$AppDatabase, $GongKeItemTable, GongKeItemData>
+    ),
+    GongKeItemData,
+    PrefetchHooks Function()> {
   $$GongKeItemTableTableManager(_$AppDatabase db, $GongKeItemTable table)
-    : super(
-        TableManagerState(
+      : super(TableManagerState(
           db: db,
           table: table,
           createFilteringComposer: () =>
@@ -5906,139 +5389,134 @@ class $$GongKeItemTableTableManager
               $$GongKeItemTableOrderingComposer($db: db, $table: table),
           createComputedFieldComposer: () =>
               $$GongKeItemTableAnnotationComposer($db: db, $table: table),
-          updateCompanionCallback:
-              ({
-                Value<int> id = const Value.absent(),
-                Value<DateTime> createDateTime = const Value.absent(),
-                Value<String?> remarks = const Value.absent(),
-                Value<String?> bk1 = const Value.absent(),
-                Value<String?> bk2 = const Value.absent(),
-                Value<String> name = const Value.absent(),
-                Value<int> fayuanId = const Value.absent(),
-                Value<String> gongketype = const Value.absent(),
-                Value<int> cnt = const Value.absent(),
-                Value<String> gongKeDay = const Value.absent(),
-                Value<bool> isComplete = const Value.absent(),
-                Value<int> idx = const Value.absent(),
-                Value<int> curCnt = const Value.absent(),
-              }) => GongKeItemCompanion(
-                id: id,
-                createDateTime: createDateTime,
-                remarks: remarks,
-                bk1: bk1,
-                bk2: bk2,
-                name: name,
-                fayuanId: fayuanId,
-                gongketype: gongketype,
-                cnt: cnt,
-                gongKeDay: gongKeDay,
-                isComplete: isComplete,
-                idx: idx,
-                curCnt: curCnt,
-              ),
-          createCompanionCallback:
-              ({
-                Value<int> id = const Value.absent(),
-                Value<DateTime> createDateTime = const Value.absent(),
-                Value<String?> remarks = const Value.absent(),
-                Value<String?> bk1 = const Value.absent(),
-                Value<String?> bk2 = const Value.absent(),
-                required String name,
-                required int fayuanId,
-                required String gongketype,
-                Value<int> cnt = const Value.absent(),
-                required String gongKeDay,
-                Value<bool> isComplete = const Value.absent(),
-                Value<int> idx = const Value.absent(),
-                Value<int> curCnt = const Value.absent(),
-              }) => GongKeItemCompanion.insert(
-                id: id,
-                createDateTime: createDateTime,
-                remarks: remarks,
-                bk1: bk1,
-                bk2: bk2,
-                name: name,
-                fayuanId: fayuanId,
-                gongketype: gongketype,
-                cnt: cnt,
-                gongKeDay: gongKeDay,
-                isComplete: isComplete,
-                idx: idx,
-                curCnt: curCnt,
-              ),
+          updateCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            Value<DateTime> createDateTime = const Value.absent(),
+            Value<String?> remarks = const Value.absent(),
+            Value<String?> bk1 = const Value.absent(),
+            Value<String?> bk2 = const Value.absent(),
+            Value<String> name = const Value.absent(),
+            Value<int> fayuanId = const Value.absent(),
+            Value<String> gongketype = const Value.absent(),
+            Value<int> cnt = const Value.absent(),
+            Value<String> gongKeDay = const Value.absent(),
+            Value<bool> isComplete = const Value.absent(),
+            Value<int> idx = const Value.absent(),
+            Value<int> curCnt = const Value.absent(),
+          }) =>
+              GongKeItemCompanion(
+            id: id,
+            createDateTime: createDateTime,
+            remarks: remarks,
+            bk1: bk1,
+            bk2: bk2,
+            name: name,
+            fayuanId: fayuanId,
+            gongketype: gongketype,
+            cnt: cnt,
+            gongKeDay: gongKeDay,
+            isComplete: isComplete,
+            idx: idx,
+            curCnt: curCnt,
+          ),
+          createCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            Value<DateTime> createDateTime = const Value.absent(),
+            Value<String?> remarks = const Value.absent(),
+            Value<String?> bk1 = const Value.absent(),
+            Value<String?> bk2 = const Value.absent(),
+            required String name,
+            required int fayuanId,
+            required String gongketype,
+            Value<int> cnt = const Value.absent(),
+            required String gongKeDay,
+            Value<bool> isComplete = const Value.absent(),
+            Value<int> idx = const Value.absent(),
+            Value<int> curCnt = const Value.absent(),
+          }) =>
+              GongKeItemCompanion.insert(
+            id: id,
+            createDateTime: createDateTime,
+            remarks: remarks,
+            bk1: bk1,
+            bk2: bk2,
+            name: name,
+            fayuanId: fayuanId,
+            gongketype: gongketype,
+            cnt: cnt,
+            gongKeDay: gongKeDay,
+            isComplete: isComplete,
+            idx: idx,
+            curCnt: curCnt,
+          ),
           withReferenceMapper: (p0) => p0
               .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
               .toList(),
           prefetchHooksCallback: null,
-        ),
-      );
+        ));
 }
 
-typedef $$GongKeItemTableProcessedTableManager =
-    ProcessedTableManager<
-      _$AppDatabase,
-      $GongKeItemTable,
+typedef $$GongKeItemTableProcessedTableManager = ProcessedTableManager<
+    _$AppDatabase,
+    $GongKeItemTable,
+    GongKeItemData,
+    $$GongKeItemTableFilterComposer,
+    $$GongKeItemTableOrderingComposer,
+    $$GongKeItemTableAnnotationComposer,
+    $$GongKeItemTableCreateCompanionBuilder,
+    $$GongKeItemTableUpdateCompanionBuilder,
+    (
       GongKeItemData,
-      $$GongKeItemTableFilterComposer,
-      $$GongKeItemTableOrderingComposer,
-      $$GongKeItemTableAnnotationComposer,
-      $$GongKeItemTableCreateCompanionBuilder,
-      $$GongKeItemTableUpdateCompanionBuilder,
-      (
-        GongKeItemData,
-        BaseReferences<_$AppDatabase, $GongKeItemTable, GongKeItemData>,
-      ),
-      GongKeItemData,
-      PrefetchHooks Function()
-    >;
-typedef $$JingShuTableCreateCompanionBuilder =
-    JingShuCompanion Function({
-      Value<int> id,
-      Value<DateTime> createDateTime,
-      Value<DateTime?> favoriteDateTime,
-      Value<String?> remarks,
-      Value<String?> bk1,
-      Value<String?> bk2,
-      required String name,
-      required String type,
-      required String image,
-      required String fileUrl,
-      required String fileType,
-      Value<bool> muyu,
-      Value<bool> bkMusic,
-      Value<String?> bkMusicname,
-      Value<String?> muyuName,
-      Value<String?> muyuImage,
-      Value<String?> muyuType,
-      Value<int?> muyuCount,
-      Value<double?> muyuInterval,
-      Value<double?> muyuDuration,
-      Value<int?> curPageNum,
-    });
-typedef $$JingShuTableUpdateCompanionBuilder =
-    JingShuCompanion Function({
-      Value<int> id,
-      Value<DateTime> createDateTime,
-      Value<DateTime?> favoriteDateTime,
-      Value<String?> remarks,
-      Value<String?> bk1,
-      Value<String?> bk2,
-      Value<String> name,
-      Value<String> type,
-      Value<String> image,
-      Value<String> fileUrl,
-      Value<String> fileType,
-      Value<bool> muyu,
-      Value<bool> bkMusic,
-      Value<String?> bkMusicname,
-      Value<String?> muyuName,
-      Value<String?> muyuImage,
-      Value<String?> muyuType,
-      Value<int?> muyuCount,
-      Value<double?> muyuInterval,
-      Value<double?> muyuDuration,
-      Value<int?> curPageNum,
-    });
+      BaseReferences<_$AppDatabase, $GongKeItemTable, GongKeItemData>
+    ),
+    GongKeItemData,
+    PrefetchHooks Function()>;
+typedef $$JingShuTableCreateCompanionBuilder = JingShuCompanion Function({
+  Value<int> id,
+  Value<DateTime> createDateTime,
+  Value<DateTime?> favoriteDateTime,
+  Value<String?> remarks,
+  Value<String?> bk1,
+  Value<String?> bk2,
+  required String name,
+  required String type,
+  required String image,
+  required String fileUrl,
+  required String fileType,
+  Value<bool> muyu,
+  Value<bool> bkMusic,
+  Value<String?> bkMusicname,
+  Value<String?> muyuName,
+  Value<String?> muyuImage,
+  Value<String?> muyuType,
+  Value<int?> muyuCount,
+  Value<double?> muyuInterval,
+  Value<double?> muyuDuration,
+  Value<int?> curPageNum,
+});
+typedef $$JingShuTableUpdateCompanionBuilder = JingShuCompanion Function({
+  Value<int> id,
+  Value<DateTime> createDateTime,
+  Value<DateTime?> favoriteDateTime,
+  Value<String?> remarks,
+  Value<String?> bk1,
+  Value<String?> bk2,
+  Value<String> name,
+  Value<String> type,
+  Value<String> image,
+  Value<String> fileUrl,
+  Value<String> fileType,
+  Value<bool> muyu,
+  Value<bool> bkMusic,
+  Value<String?> bkMusicname,
+  Value<String?> muyuName,
+  Value<String?> muyuImage,
+  Value<String?> muyuType,
+  Value<int?> muyuCount,
+  Value<double?> muyuInterval,
+  Value<double?> muyuDuration,
+  Value<int?> curPageNum,
+});
 
 class $$JingShuTableFilterComposer
     extends Composer<_$AppDatabase, $JingShuTable> {
@@ -6050,109 +5528,69 @@ class $$JingShuTableFilterComposer
     super.$removeJoinBuilderFromRootComposer,
   });
   ColumnFilters<int> get id => $composableBuilder(
-    column: $table.id,
-    builder: (column) => ColumnFilters(column),
-  );
+      column: $table.id, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<DateTime> get createDateTime => $composableBuilder(
-    column: $table.createDateTime,
-    builder: (column) => ColumnFilters(column),
-  );
+      column: $table.createDateTime,
+      builder: (column) => ColumnFilters(column));
 
   ColumnFilters<DateTime> get favoriteDateTime => $composableBuilder(
-    column: $table.favoriteDateTime,
-    builder: (column) => ColumnFilters(column),
-  );
+      column: $table.favoriteDateTime,
+      builder: (column) => ColumnFilters(column));
 
   ColumnFilters<String> get remarks => $composableBuilder(
-    column: $table.remarks,
-    builder: (column) => ColumnFilters(column),
-  );
+      column: $table.remarks, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<String> get bk1 => $composableBuilder(
-    column: $table.bk1,
-    builder: (column) => ColumnFilters(column),
-  );
+      column: $table.bk1, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<String> get bk2 => $composableBuilder(
-    column: $table.bk2,
-    builder: (column) => ColumnFilters(column),
-  );
+      column: $table.bk2, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<String> get name => $composableBuilder(
-    column: $table.name,
-    builder: (column) => ColumnFilters(column),
-  );
+      column: $table.name, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<String> get type => $composableBuilder(
-    column: $table.type,
-    builder: (column) => ColumnFilters(column),
-  );
+      column: $table.type, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<String> get image => $composableBuilder(
-    column: $table.image,
-    builder: (column) => ColumnFilters(column),
-  );
+      column: $table.image, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<String> get fileUrl => $composableBuilder(
-    column: $table.fileUrl,
-    builder: (column) => ColumnFilters(column),
-  );
+      column: $table.fileUrl, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<String> get fileType => $composableBuilder(
-    column: $table.fileType,
-    builder: (column) => ColumnFilters(column),
-  );
+      column: $table.fileType, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<bool> get muyu => $composableBuilder(
-    column: $table.muyu,
-    builder: (column) => ColumnFilters(column),
-  );
+      column: $table.muyu, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<bool> get bkMusic => $composableBuilder(
-    column: $table.bkMusic,
-    builder: (column) => ColumnFilters(column),
-  );
+      column: $table.bkMusic, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<String> get bkMusicname => $composableBuilder(
-    column: $table.bkMusicname,
-    builder: (column) => ColumnFilters(column),
-  );
+      column: $table.bkMusicname, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<String> get muyuName => $composableBuilder(
-    column: $table.muyuName,
-    builder: (column) => ColumnFilters(column),
-  );
+      column: $table.muyuName, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<String> get muyuImage => $composableBuilder(
-    column: $table.muyuImage,
-    builder: (column) => ColumnFilters(column),
-  );
+      column: $table.muyuImage, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<String> get muyuType => $composableBuilder(
-    column: $table.muyuType,
-    builder: (column) => ColumnFilters(column),
-  );
+      column: $table.muyuType, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<int> get muyuCount => $composableBuilder(
-    column: $table.muyuCount,
-    builder: (column) => ColumnFilters(column),
-  );
+      column: $table.muyuCount, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<double> get muyuInterval => $composableBuilder(
-    column: $table.muyuInterval,
-    builder: (column) => ColumnFilters(column),
-  );
+      column: $table.muyuInterval, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<double> get muyuDuration => $composableBuilder(
-    column: $table.muyuDuration,
-    builder: (column) => ColumnFilters(column),
-  );
+      column: $table.muyuDuration, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<int> get curPageNum => $composableBuilder(
-    column: $table.curPageNum,
-    builder: (column) => ColumnFilters(column),
-  );
+      column: $table.curPageNum, builder: (column) => ColumnFilters(column));
 }
 
 class $$JingShuTableOrderingComposer
@@ -6165,109 +5603,71 @@ class $$JingShuTableOrderingComposer
     super.$removeJoinBuilderFromRootComposer,
   });
   ColumnOrderings<int> get id => $composableBuilder(
-    column: $table.id,
-    builder: (column) => ColumnOrderings(column),
-  );
+      column: $table.id, builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<DateTime> get createDateTime => $composableBuilder(
-    column: $table.createDateTime,
-    builder: (column) => ColumnOrderings(column),
-  );
+      column: $table.createDateTime,
+      builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<DateTime> get favoriteDateTime => $composableBuilder(
-    column: $table.favoriteDateTime,
-    builder: (column) => ColumnOrderings(column),
-  );
+      column: $table.favoriteDateTime,
+      builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<String> get remarks => $composableBuilder(
-    column: $table.remarks,
-    builder: (column) => ColumnOrderings(column),
-  );
+      column: $table.remarks, builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<String> get bk1 => $composableBuilder(
-    column: $table.bk1,
-    builder: (column) => ColumnOrderings(column),
-  );
+      column: $table.bk1, builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<String> get bk2 => $composableBuilder(
-    column: $table.bk2,
-    builder: (column) => ColumnOrderings(column),
-  );
+      column: $table.bk2, builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<String> get name => $composableBuilder(
-    column: $table.name,
-    builder: (column) => ColumnOrderings(column),
-  );
+      column: $table.name, builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<String> get type => $composableBuilder(
-    column: $table.type,
-    builder: (column) => ColumnOrderings(column),
-  );
+      column: $table.type, builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<String> get image => $composableBuilder(
-    column: $table.image,
-    builder: (column) => ColumnOrderings(column),
-  );
+      column: $table.image, builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<String> get fileUrl => $composableBuilder(
-    column: $table.fileUrl,
-    builder: (column) => ColumnOrderings(column),
-  );
+      column: $table.fileUrl, builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<String> get fileType => $composableBuilder(
-    column: $table.fileType,
-    builder: (column) => ColumnOrderings(column),
-  );
+      column: $table.fileType, builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<bool> get muyu => $composableBuilder(
-    column: $table.muyu,
-    builder: (column) => ColumnOrderings(column),
-  );
+      column: $table.muyu, builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<bool> get bkMusic => $composableBuilder(
-    column: $table.bkMusic,
-    builder: (column) => ColumnOrderings(column),
-  );
+      column: $table.bkMusic, builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<String> get bkMusicname => $composableBuilder(
-    column: $table.bkMusicname,
-    builder: (column) => ColumnOrderings(column),
-  );
+      column: $table.bkMusicname, builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<String> get muyuName => $composableBuilder(
-    column: $table.muyuName,
-    builder: (column) => ColumnOrderings(column),
-  );
+      column: $table.muyuName, builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<String> get muyuImage => $composableBuilder(
-    column: $table.muyuImage,
-    builder: (column) => ColumnOrderings(column),
-  );
+      column: $table.muyuImage, builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<String> get muyuType => $composableBuilder(
-    column: $table.muyuType,
-    builder: (column) => ColumnOrderings(column),
-  );
+      column: $table.muyuType, builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<int> get muyuCount => $composableBuilder(
-    column: $table.muyuCount,
-    builder: (column) => ColumnOrderings(column),
-  );
+      column: $table.muyuCount, builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<double> get muyuInterval => $composableBuilder(
-    column: $table.muyuInterval,
-    builder: (column) => ColumnOrderings(column),
-  );
+      column: $table.muyuInterval,
+      builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<double> get muyuDuration => $composableBuilder(
-    column: $table.muyuDuration,
-    builder: (column) => ColumnOrderings(column),
-  );
+      column: $table.muyuDuration,
+      builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<int> get curPageNum => $composableBuilder(
-    column: $table.curPageNum,
-    builder: (column) => ColumnOrderings(column),
-  );
+      column: $table.curPageNum, builder: (column) => ColumnOrderings(column));
 }
 
 class $$JingShuTableAnnotationComposer
@@ -6283,14 +5683,10 @@ class $$JingShuTableAnnotationComposer
       $composableBuilder(column: $table.id, builder: (column) => column);
 
   GeneratedColumn<DateTime> get createDateTime => $composableBuilder(
-    column: $table.createDateTime,
-    builder: (column) => column,
-  );
+      column: $table.createDateTime, builder: (column) => column);
 
   GeneratedColumn<DateTime> get favoriteDateTime => $composableBuilder(
-    column: $table.favoriteDateTime,
-    builder: (column) => column,
-  );
+      column: $table.favoriteDateTime, builder: (column) => column);
 
   GeneratedColumn<String> get remarks =>
       $composableBuilder(column: $table.remarks, builder: (column) => column);
@@ -6323,9 +5719,7 @@ class $$JingShuTableAnnotationComposer
       $composableBuilder(column: $table.bkMusic, builder: (column) => column);
 
   GeneratedColumn<String> get bkMusicname => $composableBuilder(
-    column: $table.bkMusicname,
-    builder: (column) => column,
-  );
+      column: $table.bkMusicname, builder: (column) => column);
 
   GeneratedColumn<String> get muyuName =>
       $composableBuilder(column: $table.muyuName, builder: (column) => column);
@@ -6340,42 +5734,29 @@ class $$JingShuTableAnnotationComposer
       $composableBuilder(column: $table.muyuCount, builder: (column) => column);
 
   GeneratedColumn<double> get muyuInterval => $composableBuilder(
-    column: $table.muyuInterval,
-    builder: (column) => column,
-  );
+      column: $table.muyuInterval, builder: (column) => column);
 
   GeneratedColumn<double> get muyuDuration => $composableBuilder(
-    column: $table.muyuDuration,
-    builder: (column) => column,
-  );
+      column: $table.muyuDuration, builder: (column) => column);
 
   GeneratedColumn<int> get curPageNum => $composableBuilder(
-    column: $table.curPageNum,
-    builder: (column) => column,
-  );
+      column: $table.curPageNum, builder: (column) => column);
 }
 
-class $$JingShuTableTableManager
-    extends
-        RootTableManager<
-          _$AppDatabase,
-          $JingShuTable,
-          JingShuData,
-          $$JingShuTableFilterComposer,
-          $$JingShuTableOrderingComposer,
-          $$JingShuTableAnnotationComposer,
-          $$JingShuTableCreateCompanionBuilder,
-          $$JingShuTableUpdateCompanionBuilder,
-          (
-            JingShuData,
-            BaseReferences<_$AppDatabase, $JingShuTable, JingShuData>,
-          ),
-          JingShuData,
-          PrefetchHooks Function()
-        > {
+class $$JingShuTableTableManager extends RootTableManager<
+    _$AppDatabase,
+    $JingShuTable,
+    JingShuData,
+    $$JingShuTableFilterComposer,
+    $$JingShuTableOrderingComposer,
+    $$JingShuTableAnnotationComposer,
+    $$JingShuTableCreateCompanionBuilder,
+    $$JingShuTableUpdateCompanionBuilder,
+    (JingShuData, BaseReferences<_$AppDatabase, $JingShuTable, JingShuData>),
+    JingShuData,
+    PrefetchHooks Function()> {
   $$JingShuTableTableManager(_$AppDatabase db, $JingShuTable table)
-    : super(
-        TableManagerState(
+      : super(TableManagerState(
           db: db,
           table: table,
           createFilteringComposer: () =>
@@ -6384,142 +5765,147 @@ class $$JingShuTableTableManager
               $$JingShuTableOrderingComposer($db: db, $table: table),
           createComputedFieldComposer: () =>
               $$JingShuTableAnnotationComposer($db: db, $table: table),
-          updateCompanionCallback:
-              ({
-                Value<int> id = const Value.absent(),
-                Value<DateTime> createDateTime = const Value.absent(),
-                Value<DateTime?> favoriteDateTime = const Value.absent(),
-                Value<String?> remarks = const Value.absent(),
-                Value<String?> bk1 = const Value.absent(),
-                Value<String?> bk2 = const Value.absent(),
-                Value<String> name = const Value.absent(),
-                Value<String> type = const Value.absent(),
-                Value<String> image = const Value.absent(),
-                Value<String> fileUrl = const Value.absent(),
-                Value<String> fileType = const Value.absent(),
-                Value<bool> muyu = const Value.absent(),
-                Value<bool> bkMusic = const Value.absent(),
-                Value<String?> bkMusicname = const Value.absent(),
-                Value<String?> muyuName = const Value.absent(),
-                Value<String?> muyuImage = const Value.absent(),
-                Value<String?> muyuType = const Value.absent(),
-                Value<int?> muyuCount = const Value.absent(),
-                Value<double?> muyuInterval = const Value.absent(),
-                Value<double?> muyuDuration = const Value.absent(),
-                Value<int?> curPageNum = const Value.absent(),
-              }) => JingShuCompanion(
-                id: id,
-                createDateTime: createDateTime,
-                favoriteDateTime: favoriteDateTime,
-                remarks: remarks,
-                bk1: bk1,
-                bk2: bk2,
-                name: name,
-                type: type,
-                image: image,
-                fileUrl: fileUrl,
-                fileType: fileType,
-                muyu: muyu,
-                bkMusic: bkMusic,
-                bkMusicname: bkMusicname,
-                muyuName: muyuName,
-                muyuImage: muyuImage,
-                muyuType: muyuType,
-                muyuCount: muyuCount,
-                muyuInterval: muyuInterval,
-                muyuDuration: muyuDuration,
-                curPageNum: curPageNum,
-              ),
-          createCompanionCallback:
-              ({
-                Value<int> id = const Value.absent(),
-                Value<DateTime> createDateTime = const Value.absent(),
-                Value<DateTime?> favoriteDateTime = const Value.absent(),
-                Value<String?> remarks = const Value.absent(),
-                Value<String?> bk1 = const Value.absent(),
-                Value<String?> bk2 = const Value.absent(),
-                required String name,
-                required String type,
-                required String image,
-                required String fileUrl,
-                required String fileType,
-                Value<bool> muyu = const Value.absent(),
-                Value<bool> bkMusic = const Value.absent(),
-                Value<String?> bkMusicname = const Value.absent(),
-                Value<String?> muyuName = const Value.absent(),
-                Value<String?> muyuImage = const Value.absent(),
-                Value<String?> muyuType = const Value.absent(),
-                Value<int?> muyuCount = const Value.absent(),
-                Value<double?> muyuInterval = const Value.absent(),
-                Value<double?> muyuDuration = const Value.absent(),
-                Value<int?> curPageNum = const Value.absent(),
-              }) => JingShuCompanion.insert(
-                id: id,
-                createDateTime: createDateTime,
-                favoriteDateTime: favoriteDateTime,
-                remarks: remarks,
-                bk1: bk1,
-                bk2: bk2,
-                name: name,
-                type: type,
-                image: image,
-                fileUrl: fileUrl,
-                fileType: fileType,
-                muyu: muyu,
-                bkMusic: bkMusic,
-                bkMusicname: bkMusicname,
-                muyuName: muyuName,
-                muyuImage: muyuImage,
-                muyuType: muyuType,
-                muyuCount: muyuCount,
-                muyuInterval: muyuInterval,
-                muyuDuration: muyuDuration,
-                curPageNum: curPageNum,
-              ),
+          updateCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            Value<DateTime> createDateTime = const Value.absent(),
+            Value<DateTime?> favoriteDateTime = const Value.absent(),
+            Value<String?> remarks = const Value.absent(),
+            Value<String?> bk1 = const Value.absent(),
+            Value<String?> bk2 = const Value.absent(),
+            Value<String> name = const Value.absent(),
+            Value<String> type = const Value.absent(),
+            Value<String> image = const Value.absent(),
+            Value<String> fileUrl = const Value.absent(),
+            Value<String> fileType = const Value.absent(),
+            Value<bool> muyu = const Value.absent(),
+            Value<bool> bkMusic = const Value.absent(),
+            Value<String?> bkMusicname = const Value.absent(),
+            Value<String?> muyuName = const Value.absent(),
+            Value<String?> muyuImage = const Value.absent(),
+            Value<String?> muyuType = const Value.absent(),
+            Value<int?> muyuCount = const Value.absent(),
+            Value<double?> muyuInterval = const Value.absent(),
+            Value<double?> muyuDuration = const Value.absent(),
+            Value<int?> curPageNum = const Value.absent(),
+          }) =>
+              JingShuCompanion(
+            id: id,
+            createDateTime: createDateTime,
+            favoriteDateTime: favoriteDateTime,
+            remarks: remarks,
+            bk1: bk1,
+            bk2: bk2,
+            name: name,
+            type: type,
+            image: image,
+            fileUrl: fileUrl,
+            fileType: fileType,
+            muyu: muyu,
+            bkMusic: bkMusic,
+            bkMusicname: bkMusicname,
+            muyuName: muyuName,
+            muyuImage: muyuImage,
+            muyuType: muyuType,
+            muyuCount: muyuCount,
+            muyuInterval: muyuInterval,
+            muyuDuration: muyuDuration,
+            curPageNum: curPageNum,
+          ),
+          createCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            Value<DateTime> createDateTime = const Value.absent(),
+            Value<DateTime?> favoriteDateTime = const Value.absent(),
+            Value<String?> remarks = const Value.absent(),
+            Value<String?> bk1 = const Value.absent(),
+            Value<String?> bk2 = const Value.absent(),
+            required String name,
+            required String type,
+            required String image,
+            required String fileUrl,
+            required String fileType,
+            Value<bool> muyu = const Value.absent(),
+            Value<bool> bkMusic = const Value.absent(),
+            Value<String?> bkMusicname = const Value.absent(),
+            Value<String?> muyuName = const Value.absent(),
+            Value<String?> muyuImage = const Value.absent(),
+            Value<String?> muyuType = const Value.absent(),
+            Value<int?> muyuCount = const Value.absent(),
+            Value<double?> muyuInterval = const Value.absent(),
+            Value<double?> muyuDuration = const Value.absent(),
+            Value<int?> curPageNum = const Value.absent(),
+          }) =>
+              JingShuCompanion.insert(
+            id: id,
+            createDateTime: createDateTime,
+            favoriteDateTime: favoriteDateTime,
+            remarks: remarks,
+            bk1: bk1,
+            bk2: bk2,
+            name: name,
+            type: type,
+            image: image,
+            fileUrl: fileUrl,
+            fileType: fileType,
+            muyu: muyu,
+            bkMusic: bkMusic,
+            bkMusicname: bkMusicname,
+            muyuName: muyuName,
+            muyuImage: muyuImage,
+            muyuType: muyuType,
+            muyuCount: muyuCount,
+            muyuInterval: muyuInterval,
+            muyuDuration: muyuDuration,
+            curPageNum: curPageNum,
+          ),
           withReferenceMapper: (p0) => p0
               .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
               .toList(),
           prefetchHooksCallback: null,
-        ),
-      );
+        ));
 }
 
-typedef $$JingShuTableProcessedTableManager =
-    ProcessedTableManager<
-      _$AppDatabase,
-      $JingShuTable,
-      JingShuData,
-      $$JingShuTableFilterComposer,
-      $$JingShuTableOrderingComposer,
-      $$JingShuTableAnnotationComposer,
-      $$JingShuTableCreateCompanionBuilder,
-      $$JingShuTableUpdateCompanionBuilder,
-      (JingShuData, BaseReferences<_$AppDatabase, $JingShuTable, JingShuData>),
-      JingShuData,
-      PrefetchHooks Function()
-    >;
-typedef $$TipBookTableCreateCompanionBuilder =
-    TipBookCompanion Function({
-      Value<int> id,
-      Value<DateTime> createDateTime,
-      Value<DateTime?> favoriteDateTime,
-      Value<String?> remarks,
-      Value<String?> bk1,
-      Value<String?> bk2,
-      required String name,
-      required String image,
-    });
-typedef $$TipBookTableUpdateCompanionBuilder =
-    TipBookCompanion Function({
-      Value<int> id,
-      Value<DateTime> createDateTime,
-      Value<DateTime?> favoriteDateTime,
-      Value<String?> remarks,
-      Value<String?> bk1,
-      Value<String?> bk2,
-      Value<String> name,
-      Value<String> image,
-    });
+typedef $$JingShuTableProcessedTableManager = ProcessedTableManager<
+    _$AppDatabase,
+    $JingShuTable,
+    JingShuData,
+    $$JingShuTableFilterComposer,
+    $$JingShuTableOrderingComposer,
+    $$JingShuTableAnnotationComposer,
+    $$JingShuTableCreateCompanionBuilder,
+    $$JingShuTableUpdateCompanionBuilder,
+    (JingShuData, BaseReferences<_$AppDatabase, $JingShuTable, JingShuData>),
+    JingShuData,
+    PrefetchHooks Function()>;
+typedef $$TipBookTableCreateCompanionBuilder = TipBookCompanion Function({
+  Value<int> id,
+  Value<DateTime> createDateTime,
+  Value<DateTime?> favoriteDateTime,
+  Value<String?> remarks,
+  Value<String?> bk1,
+  Value<String?> bk2,
+  required String name,
+  required String image,
+  Value<String?> sourceId,
+  Value<String?> version,
+  Value<String> sourceType,
+  Value<String?> productId,
+  Value<DateTime> updatedDateTime,
+});
+typedef $$TipBookTableUpdateCompanionBuilder = TipBookCompanion Function({
+  Value<int> id,
+  Value<DateTime> createDateTime,
+  Value<DateTime?> favoriteDateTime,
+  Value<String?> remarks,
+  Value<String?> bk1,
+  Value<String?> bk2,
+  Value<String> name,
+  Value<String> image,
+  Value<String?> sourceId,
+  Value<String?> version,
+  Value<String> sourceType,
+  Value<String?> productId,
+  Value<DateTime> updatedDateTime,
+});
 
 class $$TipBookTableFilterComposer
     extends Composer<_$AppDatabase, $TipBookTable> {
@@ -6531,44 +5917,46 @@ class $$TipBookTableFilterComposer
     super.$removeJoinBuilderFromRootComposer,
   });
   ColumnFilters<int> get id => $composableBuilder(
-    column: $table.id,
-    builder: (column) => ColumnFilters(column),
-  );
+      column: $table.id, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<DateTime> get createDateTime => $composableBuilder(
-    column: $table.createDateTime,
-    builder: (column) => ColumnFilters(column),
-  );
+      column: $table.createDateTime,
+      builder: (column) => ColumnFilters(column));
 
   ColumnFilters<DateTime> get favoriteDateTime => $composableBuilder(
-    column: $table.favoriteDateTime,
-    builder: (column) => ColumnFilters(column),
-  );
+      column: $table.favoriteDateTime,
+      builder: (column) => ColumnFilters(column));
 
   ColumnFilters<String> get remarks => $composableBuilder(
-    column: $table.remarks,
-    builder: (column) => ColumnFilters(column),
-  );
+      column: $table.remarks, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<String> get bk1 => $composableBuilder(
-    column: $table.bk1,
-    builder: (column) => ColumnFilters(column),
-  );
+      column: $table.bk1, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<String> get bk2 => $composableBuilder(
-    column: $table.bk2,
-    builder: (column) => ColumnFilters(column),
-  );
+      column: $table.bk2, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<String> get name => $composableBuilder(
-    column: $table.name,
-    builder: (column) => ColumnFilters(column),
-  );
+      column: $table.name, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<String> get image => $composableBuilder(
-    column: $table.image,
-    builder: (column) => ColumnFilters(column),
-  );
+      column: $table.image, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get sourceId => $composableBuilder(
+      column: $table.sourceId, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get version => $composableBuilder(
+      column: $table.version, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get sourceType => $composableBuilder(
+      column: $table.sourceType, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get productId => $composableBuilder(
+      column: $table.productId, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get updatedDateTime => $composableBuilder(
+      column: $table.updatedDateTime,
+      builder: (column) => ColumnFilters(column));
 }
 
 class $$TipBookTableOrderingComposer
@@ -6581,44 +5969,46 @@ class $$TipBookTableOrderingComposer
     super.$removeJoinBuilderFromRootComposer,
   });
   ColumnOrderings<int> get id => $composableBuilder(
-    column: $table.id,
-    builder: (column) => ColumnOrderings(column),
-  );
+      column: $table.id, builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<DateTime> get createDateTime => $composableBuilder(
-    column: $table.createDateTime,
-    builder: (column) => ColumnOrderings(column),
-  );
+      column: $table.createDateTime,
+      builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<DateTime> get favoriteDateTime => $composableBuilder(
-    column: $table.favoriteDateTime,
-    builder: (column) => ColumnOrderings(column),
-  );
+      column: $table.favoriteDateTime,
+      builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<String> get remarks => $composableBuilder(
-    column: $table.remarks,
-    builder: (column) => ColumnOrderings(column),
-  );
+      column: $table.remarks, builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<String> get bk1 => $composableBuilder(
-    column: $table.bk1,
-    builder: (column) => ColumnOrderings(column),
-  );
+      column: $table.bk1, builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<String> get bk2 => $composableBuilder(
-    column: $table.bk2,
-    builder: (column) => ColumnOrderings(column),
-  );
+      column: $table.bk2, builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<String> get name => $composableBuilder(
-    column: $table.name,
-    builder: (column) => ColumnOrderings(column),
-  );
+      column: $table.name, builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<String> get image => $composableBuilder(
-    column: $table.image,
-    builder: (column) => ColumnOrderings(column),
-  );
+      column: $table.image, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get sourceId => $composableBuilder(
+      column: $table.sourceId, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get version => $composableBuilder(
+      column: $table.version, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get sourceType => $composableBuilder(
+      column: $table.sourceType, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get productId => $composableBuilder(
+      column: $table.productId, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get updatedDateTime => $composableBuilder(
+      column: $table.updatedDateTime,
+      builder: (column) => ColumnOrderings(column));
 }
 
 class $$TipBookTableAnnotationComposer
@@ -6634,14 +6024,10 @@ class $$TipBookTableAnnotationComposer
       $composableBuilder(column: $table.id, builder: (column) => column);
 
   GeneratedColumn<DateTime> get createDateTime => $composableBuilder(
-    column: $table.createDateTime,
-    builder: (column) => column,
-  );
+      column: $table.createDateTime, builder: (column) => column);
 
   GeneratedColumn<DateTime> get favoriteDateTime => $composableBuilder(
-    column: $table.favoriteDateTime,
-    builder: (column) => column,
-  );
+      column: $table.favoriteDateTime, builder: (column) => column);
 
   GeneratedColumn<String> get remarks =>
       $composableBuilder(column: $table.remarks, builder: (column) => column);
@@ -6657,29 +6043,37 @@ class $$TipBookTableAnnotationComposer
 
   GeneratedColumn<String> get image =>
       $composableBuilder(column: $table.image, builder: (column) => column);
+
+  GeneratedColumn<String> get sourceId =>
+      $composableBuilder(column: $table.sourceId, builder: (column) => column);
+
+  GeneratedColumn<String> get version =>
+      $composableBuilder(column: $table.version, builder: (column) => column);
+
+  GeneratedColumn<String> get sourceType => $composableBuilder(
+      column: $table.sourceType, builder: (column) => column);
+
+  GeneratedColumn<String> get productId =>
+      $composableBuilder(column: $table.productId, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get updatedDateTime => $composableBuilder(
+      column: $table.updatedDateTime, builder: (column) => column);
 }
 
-class $$TipBookTableTableManager
-    extends
-        RootTableManager<
-          _$AppDatabase,
-          $TipBookTable,
-          TipBookData,
-          $$TipBookTableFilterComposer,
-          $$TipBookTableOrderingComposer,
-          $$TipBookTableAnnotationComposer,
-          $$TipBookTableCreateCompanionBuilder,
-          $$TipBookTableUpdateCompanionBuilder,
-          (
-            TipBookData,
-            BaseReferences<_$AppDatabase, $TipBookTable, TipBookData>,
-          ),
-          TipBookData,
-          PrefetchHooks Function()
-        > {
+class $$TipBookTableTableManager extends RootTableManager<
+    _$AppDatabase,
+    $TipBookTable,
+    TipBookData,
+    $$TipBookTableFilterComposer,
+    $$TipBookTableOrderingComposer,
+    $$TipBookTableAnnotationComposer,
+    $$TipBookTableCreateCompanionBuilder,
+    $$TipBookTableUpdateCompanionBuilder,
+    (TipBookData, BaseReferences<_$AppDatabase, $TipBookTable, TipBookData>),
+    TipBookData,
+    PrefetchHooks Function()> {
   $$TipBookTableTableManager(_$AppDatabase db, $TipBookTable table)
-    : super(
-        TableManagerState(
+      : super(TableManagerState(
           db: db,
           table: table,
           createFilteringComposer: () =>
@@ -6688,88 +6082,115 @@ class $$TipBookTableTableManager
               $$TipBookTableOrderingComposer($db: db, $table: table),
           createComputedFieldComposer: () =>
               $$TipBookTableAnnotationComposer($db: db, $table: table),
-          updateCompanionCallback:
-              ({
-                Value<int> id = const Value.absent(),
-                Value<DateTime> createDateTime = const Value.absent(),
-                Value<DateTime?> favoriteDateTime = const Value.absent(),
-                Value<String?> remarks = const Value.absent(),
-                Value<String?> bk1 = const Value.absent(),
-                Value<String?> bk2 = const Value.absent(),
-                Value<String> name = const Value.absent(),
-                Value<String> image = const Value.absent(),
-              }) => TipBookCompanion(
-                id: id,
-                createDateTime: createDateTime,
-                favoriteDateTime: favoriteDateTime,
-                remarks: remarks,
-                bk1: bk1,
-                bk2: bk2,
-                name: name,
-                image: image,
-              ),
-          createCompanionCallback:
-              ({
-                Value<int> id = const Value.absent(),
-                Value<DateTime> createDateTime = const Value.absent(),
-                Value<DateTime?> favoriteDateTime = const Value.absent(),
-                Value<String?> remarks = const Value.absent(),
-                Value<String?> bk1 = const Value.absent(),
-                Value<String?> bk2 = const Value.absent(),
-                required String name,
-                required String image,
-              }) => TipBookCompanion.insert(
-                id: id,
-                createDateTime: createDateTime,
-                favoriteDateTime: favoriteDateTime,
-                remarks: remarks,
-                bk1: bk1,
-                bk2: bk2,
-                name: name,
-                image: image,
-              ),
+          updateCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            Value<DateTime> createDateTime = const Value.absent(),
+            Value<DateTime?> favoriteDateTime = const Value.absent(),
+            Value<String?> remarks = const Value.absent(),
+            Value<String?> bk1 = const Value.absent(),
+            Value<String?> bk2 = const Value.absent(),
+            Value<String> name = const Value.absent(),
+            Value<String> image = const Value.absent(),
+            Value<String?> sourceId = const Value.absent(),
+            Value<String?> version = const Value.absent(),
+            Value<String> sourceType = const Value.absent(),
+            Value<String?> productId = const Value.absent(),
+            Value<DateTime> updatedDateTime = const Value.absent(),
+          }) =>
+              TipBookCompanion(
+            id: id,
+            createDateTime: createDateTime,
+            favoriteDateTime: favoriteDateTime,
+            remarks: remarks,
+            bk1: bk1,
+            bk2: bk2,
+            name: name,
+            image: image,
+            sourceId: sourceId,
+            version: version,
+            sourceType: sourceType,
+            productId: productId,
+            updatedDateTime: updatedDateTime,
+          ),
+          createCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            Value<DateTime> createDateTime = const Value.absent(),
+            Value<DateTime?> favoriteDateTime = const Value.absent(),
+            Value<String?> remarks = const Value.absent(),
+            Value<String?> bk1 = const Value.absent(),
+            Value<String?> bk2 = const Value.absent(),
+            required String name,
+            required String image,
+            Value<String?> sourceId = const Value.absent(),
+            Value<String?> version = const Value.absent(),
+            Value<String> sourceType = const Value.absent(),
+            Value<String?> productId = const Value.absent(),
+            Value<DateTime> updatedDateTime = const Value.absent(),
+          }) =>
+              TipBookCompanion.insert(
+            id: id,
+            createDateTime: createDateTime,
+            favoriteDateTime: favoriteDateTime,
+            remarks: remarks,
+            bk1: bk1,
+            bk2: bk2,
+            name: name,
+            image: image,
+            sourceId: sourceId,
+            version: version,
+            sourceType: sourceType,
+            productId: productId,
+            updatedDateTime: updatedDateTime,
+          ),
           withReferenceMapper: (p0) => p0
               .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
               .toList(),
           prefetchHooksCallback: null,
-        ),
-      );
+        ));
 }
 
-typedef $$TipBookTableProcessedTableManager =
-    ProcessedTableManager<
-      _$AppDatabase,
-      $TipBookTable,
-      TipBookData,
-      $$TipBookTableFilterComposer,
-      $$TipBookTableOrderingComposer,
-      $$TipBookTableAnnotationComposer,
-      $$TipBookTableCreateCompanionBuilder,
-      $$TipBookTableUpdateCompanionBuilder,
-      (TipBookData, BaseReferences<_$AppDatabase, $TipBookTable, TipBookData>),
-      TipBookData,
-      PrefetchHooks Function()
-    >;
-typedef $$TipRecordTableCreateCompanionBuilder =
-    TipRecordCompanion Function({
-      Value<int> id,
-      Value<DateTime> createDateTime,
-      Value<String?> remarks,
-      Value<String?> bk1,
-      Value<String?> bk2,
-      required String content,
-      required int bookId,
-    });
-typedef $$TipRecordTableUpdateCompanionBuilder =
-    TipRecordCompanion Function({
-      Value<int> id,
-      Value<DateTime> createDateTime,
-      Value<String?> remarks,
-      Value<String?> bk1,
-      Value<String?> bk2,
-      Value<String> content,
-      Value<int> bookId,
-    });
+typedef $$TipBookTableProcessedTableManager = ProcessedTableManager<
+    _$AppDatabase,
+    $TipBookTable,
+    TipBookData,
+    $$TipBookTableFilterComposer,
+    $$TipBookTableOrderingComposer,
+    $$TipBookTableAnnotationComposer,
+    $$TipBookTableCreateCompanionBuilder,
+    $$TipBookTableUpdateCompanionBuilder,
+    (TipBookData, BaseReferences<_$AppDatabase, $TipBookTable, TipBookData>),
+    TipBookData,
+    PrefetchHooks Function()>;
+typedef $$TipRecordTableCreateCompanionBuilder = TipRecordCompanion Function({
+  Value<int> id,
+  Value<DateTime> createDateTime,
+  Value<String?> remarks,
+  Value<String?> bk1,
+  Value<String?> bk2,
+  required String content,
+  required int bookId,
+  Value<String?> jsonId,
+  Value<DateTime?> favoriteDateTime,
+  Value<DateTime?> completedDateTime,
+  Value<String> comments,
+  Value<String?> tag,
+  Value<int> sortOrder,
+});
+typedef $$TipRecordTableUpdateCompanionBuilder = TipRecordCompanion Function({
+  Value<int> id,
+  Value<DateTime> createDateTime,
+  Value<String?> remarks,
+  Value<String?> bk1,
+  Value<String?> bk2,
+  Value<String> content,
+  Value<int> bookId,
+  Value<String?> jsonId,
+  Value<DateTime?> favoriteDateTime,
+  Value<DateTime?> completedDateTime,
+  Value<String> comments,
+  Value<String?> tag,
+  Value<int> sortOrder,
+});
 
 class $$TipRecordTableFilterComposer
     extends Composer<_$AppDatabase, $TipRecordTable> {
@@ -6781,39 +6202,46 @@ class $$TipRecordTableFilterComposer
     super.$removeJoinBuilderFromRootComposer,
   });
   ColumnFilters<int> get id => $composableBuilder(
-    column: $table.id,
-    builder: (column) => ColumnFilters(column),
-  );
+      column: $table.id, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<DateTime> get createDateTime => $composableBuilder(
-    column: $table.createDateTime,
-    builder: (column) => ColumnFilters(column),
-  );
+      column: $table.createDateTime,
+      builder: (column) => ColumnFilters(column));
 
   ColumnFilters<String> get remarks => $composableBuilder(
-    column: $table.remarks,
-    builder: (column) => ColumnFilters(column),
-  );
+      column: $table.remarks, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<String> get bk1 => $composableBuilder(
-    column: $table.bk1,
-    builder: (column) => ColumnFilters(column),
-  );
+      column: $table.bk1, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<String> get bk2 => $composableBuilder(
-    column: $table.bk2,
-    builder: (column) => ColumnFilters(column),
-  );
+      column: $table.bk2, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<String> get content => $composableBuilder(
-    column: $table.content,
-    builder: (column) => ColumnFilters(column),
-  );
+      column: $table.content, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<int> get bookId => $composableBuilder(
-    column: $table.bookId,
-    builder: (column) => ColumnFilters(column),
-  );
+      column: $table.bookId, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get jsonId => $composableBuilder(
+      column: $table.jsonId, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get favoriteDateTime => $composableBuilder(
+      column: $table.favoriteDateTime,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get completedDateTime => $composableBuilder(
+      column: $table.completedDateTime,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get comments => $composableBuilder(
+      column: $table.comments, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get tag => $composableBuilder(
+      column: $table.tag, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get sortOrder => $composableBuilder(
+      column: $table.sortOrder, builder: (column) => ColumnFilters(column));
 }
 
 class $$TipRecordTableOrderingComposer
@@ -6826,39 +6254,46 @@ class $$TipRecordTableOrderingComposer
     super.$removeJoinBuilderFromRootComposer,
   });
   ColumnOrderings<int> get id => $composableBuilder(
-    column: $table.id,
-    builder: (column) => ColumnOrderings(column),
-  );
+      column: $table.id, builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<DateTime> get createDateTime => $composableBuilder(
-    column: $table.createDateTime,
-    builder: (column) => ColumnOrderings(column),
-  );
+      column: $table.createDateTime,
+      builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<String> get remarks => $composableBuilder(
-    column: $table.remarks,
-    builder: (column) => ColumnOrderings(column),
-  );
+      column: $table.remarks, builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<String> get bk1 => $composableBuilder(
-    column: $table.bk1,
-    builder: (column) => ColumnOrderings(column),
-  );
+      column: $table.bk1, builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<String> get bk2 => $composableBuilder(
-    column: $table.bk2,
-    builder: (column) => ColumnOrderings(column),
-  );
+      column: $table.bk2, builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<String> get content => $composableBuilder(
-    column: $table.content,
-    builder: (column) => ColumnOrderings(column),
-  );
+      column: $table.content, builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<int> get bookId => $composableBuilder(
-    column: $table.bookId,
-    builder: (column) => ColumnOrderings(column),
-  );
+      column: $table.bookId, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get jsonId => $composableBuilder(
+      column: $table.jsonId, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get favoriteDateTime => $composableBuilder(
+      column: $table.favoriteDateTime,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get completedDateTime => $composableBuilder(
+      column: $table.completedDateTime,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get comments => $composableBuilder(
+      column: $table.comments, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get tag => $composableBuilder(
+      column: $table.tag, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get sortOrder => $composableBuilder(
+      column: $table.sortOrder, builder: (column) => ColumnOrderings(column));
 }
 
 class $$TipRecordTableAnnotationComposer
@@ -6874,9 +6309,7 @@ class $$TipRecordTableAnnotationComposer
       $composableBuilder(column: $table.id, builder: (column) => column);
 
   GeneratedColumn<DateTime> get createDateTime => $composableBuilder(
-    column: $table.createDateTime,
-    builder: (column) => column,
-  );
+      column: $table.createDateTime, builder: (column) => column);
 
   GeneratedColumn<String> get remarks =>
       $composableBuilder(column: $table.remarks, builder: (column) => column);
@@ -6892,29 +6325,43 @@ class $$TipRecordTableAnnotationComposer
 
   GeneratedColumn<int> get bookId =>
       $composableBuilder(column: $table.bookId, builder: (column) => column);
+
+  GeneratedColumn<String> get jsonId =>
+      $composableBuilder(column: $table.jsonId, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get favoriteDateTime => $composableBuilder(
+      column: $table.favoriteDateTime, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get completedDateTime => $composableBuilder(
+      column: $table.completedDateTime, builder: (column) => column);
+
+  GeneratedColumn<String> get comments =>
+      $composableBuilder(column: $table.comments, builder: (column) => column);
+
+  GeneratedColumn<String> get tag =>
+      $composableBuilder(column: $table.tag, builder: (column) => column);
+
+  GeneratedColumn<int> get sortOrder =>
+      $composableBuilder(column: $table.sortOrder, builder: (column) => column);
 }
 
-class $$TipRecordTableTableManager
-    extends
-        RootTableManager<
-          _$AppDatabase,
-          $TipRecordTable,
-          TipRecordData,
-          $$TipRecordTableFilterComposer,
-          $$TipRecordTableOrderingComposer,
-          $$TipRecordTableAnnotationComposer,
-          $$TipRecordTableCreateCompanionBuilder,
-          $$TipRecordTableUpdateCompanionBuilder,
-          (
-            TipRecordData,
-            BaseReferences<_$AppDatabase, $TipRecordTable, TipRecordData>,
-          ),
-          TipRecordData,
-          PrefetchHooks Function()
-        > {
+class $$TipRecordTableTableManager extends RootTableManager<
+    _$AppDatabase,
+    $TipRecordTable,
+    TipRecordData,
+    $$TipRecordTableFilterComposer,
+    $$TipRecordTableOrderingComposer,
+    $$TipRecordTableAnnotationComposer,
+    $$TipRecordTableCreateCompanionBuilder,
+    $$TipRecordTableUpdateCompanionBuilder,
+    (
+      TipRecordData,
+      BaseReferences<_$AppDatabase, $TipRecordTable, TipRecordData>
+    ),
+    TipRecordData,
+    PrefetchHooks Function()> {
   $$TipRecordTableTableManager(_$AppDatabase db, $TipRecordTable table)
-    : super(
-        TableManagerState(
+      : super(TableManagerState(
           db: db,
           table: table,
           createFilteringComposer: () =>
@@ -6923,105 +6370,124 @@ class $$TipRecordTableTableManager
               $$TipRecordTableOrderingComposer($db: db, $table: table),
           createComputedFieldComposer: () =>
               $$TipRecordTableAnnotationComposer($db: db, $table: table),
-          updateCompanionCallback:
-              ({
-                Value<int> id = const Value.absent(),
-                Value<DateTime> createDateTime = const Value.absent(),
-                Value<String?> remarks = const Value.absent(),
-                Value<String?> bk1 = const Value.absent(),
-                Value<String?> bk2 = const Value.absent(),
-                Value<String> content = const Value.absent(),
-                Value<int> bookId = const Value.absent(),
-              }) => TipRecordCompanion(
-                id: id,
-                createDateTime: createDateTime,
-                remarks: remarks,
-                bk1: bk1,
-                bk2: bk2,
-                content: content,
-                bookId: bookId,
-              ),
-          createCompanionCallback:
-              ({
-                Value<int> id = const Value.absent(),
-                Value<DateTime> createDateTime = const Value.absent(),
-                Value<String?> remarks = const Value.absent(),
-                Value<String?> bk1 = const Value.absent(),
-                Value<String?> bk2 = const Value.absent(),
-                required String content,
-                required int bookId,
-              }) => TipRecordCompanion.insert(
-                id: id,
-                createDateTime: createDateTime,
-                remarks: remarks,
-                bk1: bk1,
-                bk2: bk2,
-                content: content,
-                bookId: bookId,
-              ),
+          updateCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            Value<DateTime> createDateTime = const Value.absent(),
+            Value<String?> remarks = const Value.absent(),
+            Value<String?> bk1 = const Value.absent(),
+            Value<String?> bk2 = const Value.absent(),
+            Value<String> content = const Value.absent(),
+            Value<int> bookId = const Value.absent(),
+            Value<String?> jsonId = const Value.absent(),
+            Value<DateTime?> favoriteDateTime = const Value.absent(),
+            Value<DateTime?> completedDateTime = const Value.absent(),
+            Value<String> comments = const Value.absent(),
+            Value<String?> tag = const Value.absent(),
+            Value<int> sortOrder = const Value.absent(),
+          }) =>
+              TipRecordCompanion(
+            id: id,
+            createDateTime: createDateTime,
+            remarks: remarks,
+            bk1: bk1,
+            bk2: bk2,
+            content: content,
+            bookId: bookId,
+            jsonId: jsonId,
+            favoriteDateTime: favoriteDateTime,
+            completedDateTime: completedDateTime,
+            comments: comments,
+            tag: tag,
+            sortOrder: sortOrder,
+          ),
+          createCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            Value<DateTime> createDateTime = const Value.absent(),
+            Value<String?> remarks = const Value.absent(),
+            Value<String?> bk1 = const Value.absent(),
+            Value<String?> bk2 = const Value.absent(),
+            required String content,
+            required int bookId,
+            Value<String?> jsonId = const Value.absent(),
+            Value<DateTime?> favoriteDateTime = const Value.absent(),
+            Value<DateTime?> completedDateTime = const Value.absent(),
+            Value<String> comments = const Value.absent(),
+            Value<String?> tag = const Value.absent(),
+            Value<int> sortOrder = const Value.absent(),
+          }) =>
+              TipRecordCompanion.insert(
+            id: id,
+            createDateTime: createDateTime,
+            remarks: remarks,
+            bk1: bk1,
+            bk2: bk2,
+            content: content,
+            bookId: bookId,
+            jsonId: jsonId,
+            favoriteDateTime: favoriteDateTime,
+            completedDateTime: completedDateTime,
+            comments: comments,
+            tag: tag,
+            sortOrder: sortOrder,
+          ),
           withReferenceMapper: (p0) => p0
               .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
               .toList(),
           prefetchHooksCallback: null,
-        ),
-      );
+        ));
 }
 
-typedef $$TipRecordTableProcessedTableManager =
-    ProcessedTableManager<
-      _$AppDatabase,
-      $TipRecordTable,
+typedef $$TipRecordTableProcessedTableManager = ProcessedTableManager<
+    _$AppDatabase,
+    $TipRecordTable,
+    TipRecordData,
+    $$TipRecordTableFilterComposer,
+    $$TipRecordTableOrderingComposer,
+    $$TipRecordTableAnnotationComposer,
+    $$TipRecordTableCreateCompanionBuilder,
+    $$TipRecordTableUpdateCompanionBuilder,
+    (
       TipRecordData,
-      $$TipRecordTableFilterComposer,
-      $$TipRecordTableOrderingComposer,
-      $$TipRecordTableAnnotationComposer,
-      $$TipRecordTableCreateCompanionBuilder,
-      $$TipRecordTableUpdateCompanionBuilder,
-      (
-        TipRecordData,
-        BaseReferences<_$AppDatabase, $TipRecordTable, TipRecordData>,
-      ),
-      TipRecordData,
-      PrefetchHooks Function()
-    >;
-typedef $$BaiChanTableCreateCompanionBuilder =
-    BaiChanCompanion Function({
-      Value<int> id,
-      Value<DateTime> createDateTime,
-      Value<DateTime?> favoriteDateTime,
-      Value<String?> remarks,
-      Value<String?> bk1,
-      Value<String?> bk2,
-      required String name,
-      required String image,
-      required String chanhuiWenStart,
-      required String chanhuiWenEnd,
-      Value<int> baichanTimes,
-      Value<int> baichanInterval1,
-      Value<int> baichanInterval2,
-      Value<bool> flagOrderNumber,
-      Value<bool> flagQiShen,
-      Value<String?> detail,
-    });
-typedef $$BaiChanTableUpdateCompanionBuilder =
-    BaiChanCompanion Function({
-      Value<int> id,
-      Value<DateTime> createDateTime,
-      Value<DateTime?> favoriteDateTime,
-      Value<String?> remarks,
-      Value<String?> bk1,
-      Value<String?> bk2,
-      Value<String> name,
-      Value<String> image,
-      Value<String> chanhuiWenStart,
-      Value<String> chanhuiWenEnd,
-      Value<int> baichanTimes,
-      Value<int> baichanInterval1,
-      Value<int> baichanInterval2,
-      Value<bool> flagOrderNumber,
-      Value<bool> flagQiShen,
-      Value<String?> detail,
-    });
+      BaseReferences<_$AppDatabase, $TipRecordTable, TipRecordData>
+    ),
+    TipRecordData,
+    PrefetchHooks Function()>;
+typedef $$BaiChanTableCreateCompanionBuilder = BaiChanCompanion Function({
+  Value<int> id,
+  Value<DateTime> createDateTime,
+  Value<DateTime?> favoriteDateTime,
+  Value<String?> remarks,
+  Value<String?> bk1,
+  Value<String?> bk2,
+  required String name,
+  required String image,
+  required String chanhuiWenStart,
+  required String chanhuiWenEnd,
+  Value<int> baichanTimes,
+  Value<int> baichanInterval1,
+  Value<int> baichanInterval2,
+  Value<bool> flagOrderNumber,
+  Value<bool> flagQiShen,
+  Value<String?> detail,
+});
+typedef $$BaiChanTableUpdateCompanionBuilder = BaiChanCompanion Function({
+  Value<int> id,
+  Value<DateTime> createDateTime,
+  Value<DateTime?> favoriteDateTime,
+  Value<String?> remarks,
+  Value<String?> bk1,
+  Value<String?> bk2,
+  Value<String> name,
+  Value<String> image,
+  Value<String> chanhuiWenStart,
+  Value<String> chanhuiWenEnd,
+  Value<int> baichanTimes,
+  Value<int> baichanInterval1,
+  Value<int> baichanInterval2,
+  Value<bool> flagOrderNumber,
+  Value<bool> flagQiShen,
+  Value<String?> detail,
+});
 
 class $$BaiChanTableFilterComposer
     extends Composer<_$AppDatabase, $BaiChanTable> {
@@ -7033,84 +6499,58 @@ class $$BaiChanTableFilterComposer
     super.$removeJoinBuilderFromRootComposer,
   });
   ColumnFilters<int> get id => $composableBuilder(
-    column: $table.id,
-    builder: (column) => ColumnFilters(column),
-  );
+      column: $table.id, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<DateTime> get createDateTime => $composableBuilder(
-    column: $table.createDateTime,
-    builder: (column) => ColumnFilters(column),
-  );
+      column: $table.createDateTime,
+      builder: (column) => ColumnFilters(column));
 
   ColumnFilters<DateTime> get favoriteDateTime => $composableBuilder(
-    column: $table.favoriteDateTime,
-    builder: (column) => ColumnFilters(column),
-  );
+      column: $table.favoriteDateTime,
+      builder: (column) => ColumnFilters(column));
 
   ColumnFilters<String> get remarks => $composableBuilder(
-    column: $table.remarks,
-    builder: (column) => ColumnFilters(column),
-  );
+      column: $table.remarks, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<String> get bk1 => $composableBuilder(
-    column: $table.bk1,
-    builder: (column) => ColumnFilters(column),
-  );
+      column: $table.bk1, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<String> get bk2 => $composableBuilder(
-    column: $table.bk2,
-    builder: (column) => ColumnFilters(column),
-  );
+      column: $table.bk2, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<String> get name => $composableBuilder(
-    column: $table.name,
-    builder: (column) => ColumnFilters(column),
-  );
+      column: $table.name, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<String> get image => $composableBuilder(
-    column: $table.image,
-    builder: (column) => ColumnFilters(column),
-  );
+      column: $table.image, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<String> get chanhuiWenStart => $composableBuilder(
-    column: $table.chanhuiWenStart,
-    builder: (column) => ColumnFilters(column),
-  );
+      column: $table.chanhuiWenStart,
+      builder: (column) => ColumnFilters(column));
 
   ColumnFilters<String> get chanhuiWenEnd => $composableBuilder(
-    column: $table.chanhuiWenEnd,
-    builder: (column) => ColumnFilters(column),
-  );
+      column: $table.chanhuiWenEnd, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<int> get baichanTimes => $composableBuilder(
-    column: $table.baichanTimes,
-    builder: (column) => ColumnFilters(column),
-  );
+      column: $table.baichanTimes, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<int> get baichanInterval1 => $composableBuilder(
-    column: $table.baichanInterval1,
-    builder: (column) => ColumnFilters(column),
-  );
+      column: $table.baichanInterval1,
+      builder: (column) => ColumnFilters(column));
 
   ColumnFilters<int> get baichanInterval2 => $composableBuilder(
-    column: $table.baichanInterval2,
-    builder: (column) => ColumnFilters(column),
-  );
+      column: $table.baichanInterval2,
+      builder: (column) => ColumnFilters(column));
 
   ColumnFilters<bool> get flagOrderNumber => $composableBuilder(
-    column: $table.flagOrderNumber,
-    builder: (column) => ColumnFilters(column),
-  );
+      column: $table.flagOrderNumber,
+      builder: (column) => ColumnFilters(column));
 
   ColumnFilters<bool> get flagQiShen => $composableBuilder(
-    column: $table.flagQiShen,
-    builder: (column) => ColumnFilters(column),
-  );
+      column: $table.flagQiShen, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<String> get detail => $composableBuilder(
-    column: $table.detail,
-    builder: (column) => ColumnFilters(column),
-  );
+      column: $table.detail, builder: (column) => ColumnFilters(column));
 }
 
 class $$BaiChanTableOrderingComposer
@@ -7123,84 +6563,60 @@ class $$BaiChanTableOrderingComposer
     super.$removeJoinBuilderFromRootComposer,
   });
   ColumnOrderings<int> get id => $composableBuilder(
-    column: $table.id,
-    builder: (column) => ColumnOrderings(column),
-  );
+      column: $table.id, builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<DateTime> get createDateTime => $composableBuilder(
-    column: $table.createDateTime,
-    builder: (column) => ColumnOrderings(column),
-  );
+      column: $table.createDateTime,
+      builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<DateTime> get favoriteDateTime => $composableBuilder(
-    column: $table.favoriteDateTime,
-    builder: (column) => ColumnOrderings(column),
-  );
+      column: $table.favoriteDateTime,
+      builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<String> get remarks => $composableBuilder(
-    column: $table.remarks,
-    builder: (column) => ColumnOrderings(column),
-  );
+      column: $table.remarks, builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<String> get bk1 => $composableBuilder(
-    column: $table.bk1,
-    builder: (column) => ColumnOrderings(column),
-  );
+      column: $table.bk1, builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<String> get bk2 => $composableBuilder(
-    column: $table.bk2,
-    builder: (column) => ColumnOrderings(column),
-  );
+      column: $table.bk2, builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<String> get name => $composableBuilder(
-    column: $table.name,
-    builder: (column) => ColumnOrderings(column),
-  );
+      column: $table.name, builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<String> get image => $composableBuilder(
-    column: $table.image,
-    builder: (column) => ColumnOrderings(column),
-  );
+      column: $table.image, builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<String> get chanhuiWenStart => $composableBuilder(
-    column: $table.chanhuiWenStart,
-    builder: (column) => ColumnOrderings(column),
-  );
+      column: $table.chanhuiWenStart,
+      builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<String> get chanhuiWenEnd => $composableBuilder(
-    column: $table.chanhuiWenEnd,
-    builder: (column) => ColumnOrderings(column),
-  );
+      column: $table.chanhuiWenEnd,
+      builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<int> get baichanTimes => $composableBuilder(
-    column: $table.baichanTimes,
-    builder: (column) => ColumnOrderings(column),
-  );
+      column: $table.baichanTimes,
+      builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<int> get baichanInterval1 => $composableBuilder(
-    column: $table.baichanInterval1,
-    builder: (column) => ColumnOrderings(column),
-  );
+      column: $table.baichanInterval1,
+      builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<int> get baichanInterval2 => $composableBuilder(
-    column: $table.baichanInterval2,
-    builder: (column) => ColumnOrderings(column),
-  );
+      column: $table.baichanInterval2,
+      builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<bool> get flagOrderNumber => $composableBuilder(
-    column: $table.flagOrderNumber,
-    builder: (column) => ColumnOrderings(column),
-  );
+      column: $table.flagOrderNumber,
+      builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<bool> get flagQiShen => $composableBuilder(
-    column: $table.flagQiShen,
-    builder: (column) => ColumnOrderings(column),
-  );
+      column: $table.flagQiShen, builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<String> get detail => $composableBuilder(
-    column: $table.detail,
-    builder: (column) => ColumnOrderings(column),
-  );
+      column: $table.detail, builder: (column) => ColumnOrderings(column));
 }
 
 class $$BaiChanTableAnnotationComposer
@@ -7216,14 +6632,10 @@ class $$BaiChanTableAnnotationComposer
       $composableBuilder(column: $table.id, builder: (column) => column);
 
   GeneratedColumn<DateTime> get createDateTime => $composableBuilder(
-    column: $table.createDateTime,
-    builder: (column) => column,
-  );
+      column: $table.createDateTime, builder: (column) => column);
 
   GeneratedColumn<DateTime> get favoriteDateTime => $composableBuilder(
-    column: $table.favoriteDateTime,
-    builder: (column) => column,
-  );
+      column: $table.favoriteDateTime, builder: (column) => column);
 
   GeneratedColumn<String> get remarks =>
       $composableBuilder(column: $table.remarks, builder: (column) => column);
@@ -7241,65 +6653,44 @@ class $$BaiChanTableAnnotationComposer
       $composableBuilder(column: $table.image, builder: (column) => column);
 
   GeneratedColumn<String> get chanhuiWenStart => $composableBuilder(
-    column: $table.chanhuiWenStart,
-    builder: (column) => column,
-  );
+      column: $table.chanhuiWenStart, builder: (column) => column);
 
   GeneratedColumn<String> get chanhuiWenEnd => $composableBuilder(
-    column: $table.chanhuiWenEnd,
-    builder: (column) => column,
-  );
+      column: $table.chanhuiWenEnd, builder: (column) => column);
 
   GeneratedColumn<int> get baichanTimes => $composableBuilder(
-    column: $table.baichanTimes,
-    builder: (column) => column,
-  );
+      column: $table.baichanTimes, builder: (column) => column);
 
   GeneratedColumn<int> get baichanInterval1 => $composableBuilder(
-    column: $table.baichanInterval1,
-    builder: (column) => column,
-  );
+      column: $table.baichanInterval1, builder: (column) => column);
 
   GeneratedColumn<int> get baichanInterval2 => $composableBuilder(
-    column: $table.baichanInterval2,
-    builder: (column) => column,
-  );
+      column: $table.baichanInterval2, builder: (column) => column);
 
   GeneratedColumn<bool> get flagOrderNumber => $composableBuilder(
-    column: $table.flagOrderNumber,
-    builder: (column) => column,
-  );
+      column: $table.flagOrderNumber, builder: (column) => column);
 
   GeneratedColumn<bool> get flagQiShen => $composableBuilder(
-    column: $table.flagQiShen,
-    builder: (column) => column,
-  );
+      column: $table.flagQiShen, builder: (column) => column);
 
   GeneratedColumn<String> get detail =>
       $composableBuilder(column: $table.detail, builder: (column) => column);
 }
 
-class $$BaiChanTableTableManager
-    extends
-        RootTableManager<
-          _$AppDatabase,
-          $BaiChanTable,
-          BaiChanData,
-          $$BaiChanTableFilterComposer,
-          $$BaiChanTableOrderingComposer,
-          $$BaiChanTableAnnotationComposer,
-          $$BaiChanTableCreateCompanionBuilder,
-          $$BaiChanTableUpdateCompanionBuilder,
-          (
-            BaiChanData,
-            BaseReferences<_$AppDatabase, $BaiChanTable, BaiChanData>,
-          ),
-          BaiChanData,
-          PrefetchHooks Function()
-        > {
+class $$BaiChanTableTableManager extends RootTableManager<
+    _$AppDatabase,
+    $BaiChanTable,
+    BaiChanData,
+    $$BaiChanTableFilterComposer,
+    $$BaiChanTableOrderingComposer,
+    $$BaiChanTableAnnotationComposer,
+    $$BaiChanTableCreateCompanionBuilder,
+    $$BaiChanTableUpdateCompanionBuilder,
+    (BaiChanData, BaseReferences<_$AppDatabase, $BaiChanTable, BaiChanData>),
+    BaiChanData,
+    PrefetchHooks Function()> {
   $$BaiChanTableTableManager(_$AppDatabase db, $BaiChanTable table)
-    : super(
-        TableManagerState(
+      : super(TableManagerState(
           db: db,
           table: table,
           createFilteringComposer: () =>
@@ -7308,100 +6699,97 @@ class $$BaiChanTableTableManager
               $$BaiChanTableOrderingComposer($db: db, $table: table),
           createComputedFieldComposer: () =>
               $$BaiChanTableAnnotationComposer($db: db, $table: table),
-          updateCompanionCallback:
-              ({
-                Value<int> id = const Value.absent(),
-                Value<DateTime> createDateTime = const Value.absent(),
-                Value<DateTime?> favoriteDateTime = const Value.absent(),
-                Value<String?> remarks = const Value.absent(),
-                Value<String?> bk1 = const Value.absent(),
-                Value<String?> bk2 = const Value.absent(),
-                Value<String> name = const Value.absent(),
-                Value<String> image = const Value.absent(),
-                Value<String> chanhuiWenStart = const Value.absent(),
-                Value<String> chanhuiWenEnd = const Value.absent(),
-                Value<int> baichanTimes = const Value.absent(),
-                Value<int> baichanInterval1 = const Value.absent(),
-                Value<int> baichanInterval2 = const Value.absent(),
-                Value<bool> flagOrderNumber = const Value.absent(),
-                Value<bool> flagQiShen = const Value.absent(),
-                Value<String?> detail = const Value.absent(),
-              }) => BaiChanCompanion(
-                id: id,
-                createDateTime: createDateTime,
-                favoriteDateTime: favoriteDateTime,
-                remarks: remarks,
-                bk1: bk1,
-                bk2: bk2,
-                name: name,
-                image: image,
-                chanhuiWenStart: chanhuiWenStart,
-                chanhuiWenEnd: chanhuiWenEnd,
-                baichanTimes: baichanTimes,
-                baichanInterval1: baichanInterval1,
-                baichanInterval2: baichanInterval2,
-                flagOrderNumber: flagOrderNumber,
-                flagQiShen: flagQiShen,
-                detail: detail,
-              ),
-          createCompanionCallback:
-              ({
-                Value<int> id = const Value.absent(),
-                Value<DateTime> createDateTime = const Value.absent(),
-                Value<DateTime?> favoriteDateTime = const Value.absent(),
-                Value<String?> remarks = const Value.absent(),
-                Value<String?> bk1 = const Value.absent(),
-                Value<String?> bk2 = const Value.absent(),
-                required String name,
-                required String image,
-                required String chanhuiWenStart,
-                required String chanhuiWenEnd,
-                Value<int> baichanTimes = const Value.absent(),
-                Value<int> baichanInterval1 = const Value.absent(),
-                Value<int> baichanInterval2 = const Value.absent(),
-                Value<bool> flagOrderNumber = const Value.absent(),
-                Value<bool> flagQiShen = const Value.absent(),
-                Value<String?> detail = const Value.absent(),
-              }) => BaiChanCompanion.insert(
-                id: id,
-                createDateTime: createDateTime,
-                favoriteDateTime: favoriteDateTime,
-                remarks: remarks,
-                bk1: bk1,
-                bk2: bk2,
-                name: name,
-                image: image,
-                chanhuiWenStart: chanhuiWenStart,
-                chanhuiWenEnd: chanhuiWenEnd,
-                baichanTimes: baichanTimes,
-                baichanInterval1: baichanInterval1,
-                baichanInterval2: baichanInterval2,
-                flagOrderNumber: flagOrderNumber,
-                flagQiShen: flagQiShen,
-                detail: detail,
-              ),
+          updateCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            Value<DateTime> createDateTime = const Value.absent(),
+            Value<DateTime?> favoriteDateTime = const Value.absent(),
+            Value<String?> remarks = const Value.absent(),
+            Value<String?> bk1 = const Value.absent(),
+            Value<String?> bk2 = const Value.absent(),
+            Value<String> name = const Value.absent(),
+            Value<String> image = const Value.absent(),
+            Value<String> chanhuiWenStart = const Value.absent(),
+            Value<String> chanhuiWenEnd = const Value.absent(),
+            Value<int> baichanTimes = const Value.absent(),
+            Value<int> baichanInterval1 = const Value.absent(),
+            Value<int> baichanInterval2 = const Value.absent(),
+            Value<bool> flagOrderNumber = const Value.absent(),
+            Value<bool> flagQiShen = const Value.absent(),
+            Value<String?> detail = const Value.absent(),
+          }) =>
+              BaiChanCompanion(
+            id: id,
+            createDateTime: createDateTime,
+            favoriteDateTime: favoriteDateTime,
+            remarks: remarks,
+            bk1: bk1,
+            bk2: bk2,
+            name: name,
+            image: image,
+            chanhuiWenStart: chanhuiWenStart,
+            chanhuiWenEnd: chanhuiWenEnd,
+            baichanTimes: baichanTimes,
+            baichanInterval1: baichanInterval1,
+            baichanInterval2: baichanInterval2,
+            flagOrderNumber: flagOrderNumber,
+            flagQiShen: flagQiShen,
+            detail: detail,
+          ),
+          createCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            Value<DateTime> createDateTime = const Value.absent(),
+            Value<DateTime?> favoriteDateTime = const Value.absent(),
+            Value<String?> remarks = const Value.absent(),
+            Value<String?> bk1 = const Value.absent(),
+            Value<String?> bk2 = const Value.absent(),
+            required String name,
+            required String image,
+            required String chanhuiWenStart,
+            required String chanhuiWenEnd,
+            Value<int> baichanTimes = const Value.absent(),
+            Value<int> baichanInterval1 = const Value.absent(),
+            Value<int> baichanInterval2 = const Value.absent(),
+            Value<bool> flagOrderNumber = const Value.absent(),
+            Value<bool> flagQiShen = const Value.absent(),
+            Value<String?> detail = const Value.absent(),
+          }) =>
+              BaiChanCompanion.insert(
+            id: id,
+            createDateTime: createDateTime,
+            favoriteDateTime: favoriteDateTime,
+            remarks: remarks,
+            bk1: bk1,
+            bk2: bk2,
+            name: name,
+            image: image,
+            chanhuiWenStart: chanhuiWenStart,
+            chanhuiWenEnd: chanhuiWenEnd,
+            baichanTimes: baichanTimes,
+            baichanInterval1: baichanInterval1,
+            baichanInterval2: baichanInterval2,
+            flagOrderNumber: flagOrderNumber,
+            flagQiShen: flagQiShen,
+            detail: detail,
+          ),
           withReferenceMapper: (p0) => p0
               .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
               .toList(),
           prefetchHooksCallback: null,
-        ),
-      );
+        ));
 }
 
-typedef $$BaiChanTableProcessedTableManager =
-    ProcessedTableManager<
-      _$AppDatabase,
-      $BaiChanTable,
-      BaiChanData,
-      $$BaiChanTableFilterComposer,
-      $$BaiChanTableOrderingComposer,
-      $$BaiChanTableAnnotationComposer,
-      $$BaiChanTableCreateCompanionBuilder,
-      $$BaiChanTableUpdateCompanionBuilder,
-      (BaiChanData, BaseReferences<_$AppDatabase, $BaiChanTable, BaiChanData>),
-      BaiChanData,
-      PrefetchHooks Function()
-    >;
+typedef $$BaiChanTableProcessedTableManager = ProcessedTableManager<
+    _$AppDatabase,
+    $BaiChanTable,
+    BaiChanData,
+    $$BaiChanTableFilterComposer,
+    $$BaiChanTableOrderingComposer,
+    $$BaiChanTableAnnotationComposer,
+    $$BaiChanTableCreateCompanionBuilder,
+    $$BaiChanTableUpdateCompanionBuilder,
+    (BaiChanData, BaseReferences<_$AppDatabase, $BaiChanTable, BaiChanData>),
+    BaiChanData,
+    PrefetchHooks Function()>;
 
 class $AppDatabaseManager {
   final _$AppDatabase _db;

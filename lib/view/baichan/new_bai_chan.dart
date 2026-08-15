@@ -114,9 +114,8 @@ class _NewBaiChanPageState extends State<NewBaiChanPage> {
         chanhuiWenEnd: chanhuiWenEnd != null
             ? Value(chanhuiWenEnd)
             : baichan.chanhuiWenEnd,
-        baichanTimes: baichanTimes != null
-            ? Value(baichanTimes)
-            : baichan.baichanTimes,
+        baichanTimes:
+            baichanTimes != null ? Value(baichanTimes) : baichan.baichanTimes,
         baichanInterval1: baichanInterval1 != null
             ? Value(baichanInterval1)
             : baichan.baichanInterval1,

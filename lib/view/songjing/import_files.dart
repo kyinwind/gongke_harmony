@@ -24,6 +24,8 @@ class _ImportFilesPageState extends State<ImportFilesPage> {
   String _content = '';
   bool _isImporting = false;
   String? _importStatus;
+  List<TipImportPreview> _tipPreviews = const [];
+  TipImportConflictStrategy _conflictStrategy = TipImportConflictStrategy.skip;
 
   @override
   void didChangeDependencies() {
@@ -64,7 +66,7 @@ class _ImportFilesPageState extends State<ImportFilesPage> {
       }
       if (selected.length > _maxImportFileCount) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('一次最多导入 $_maxImportFileCount 个文件，请分批导入')),
+          const SnackBar(content: Text('一次最多导入 15 个文件，请分批导入')),
         );
         setState(() {
           _selectedFiles = [];
@@ -74,6 +76,10 @@ class _ImportFilesPageState extends State<ImportFilesPage> {
       setState(() {
         _selectedFiles = selected;
       });
+      if (_jingshuType == 'kaishi') {
+        final previews = await _importService.previewTipFiles(selected);
+        if (mounted) setState(() => _tipPreviews = previews);
+      }
     } catch (e) {
       debugPrint('select files error: $e');
       if (!mounted) {
@@ -98,6 +104,57 @@ class _ImportFilesPageState extends State<ImportFilesPage> {
     await Future<void>.delayed(const Duration(milliseconds: 16));
     try {
       final filesToImport = List<ImportFileRef>.from(_selectedFiles);
+      if (_jingshuType == 'kaishi') {
+        final result = await _importService.importTipFilesDetailed(
+          filesToImport,
+          conflictStrategy: _conflictStrategy,
+        );
+        if (!mounted) return;
+        await showDialog<void>(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: const Text('导入结果'),
+            content: SizedBox(
+              width: 520,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                      '成功 ${result.imported}  跳过 ${result.skipped}  失败 ${result.failed}'),
+                  const Divider(),
+                  Flexible(
+                    child: ListView(
+                      shrinkWrap: true,
+                      children: result.items
+                          .map((item) => ListTile(
+                                dense: true,
+                                leading: Icon(
+                                  item.status == ImportItemStatus.imported
+                                      ? Icons.check_circle_outline
+                                      : item.status == ImportItemStatus.skipped
+                                          ? Icons.skip_next_outlined
+                                          : Icons.error_outline,
+                                ),
+                                title: Text(item.fileName),
+                                subtitle: Text(item.message),
+                              ))
+                          .toList(),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            actions: [
+              TextButton(
+                  onPressed: () => Navigator.pop(context),
+                  child: const Text('完成'))
+            ],
+          ),
+        );
+        if (mounted) Navigator.pop(context, result.imported > 0);
+        return;
+      }
       var count = 0;
       for (var i = 0; i < filesToImport.length; i++) {
         if (!mounted) {
@@ -201,6 +258,46 @@ class _ImportFilesPageState extends State<ImportFilesPage> {
                     },
                   ),
                 ),
+              if (_jingshuType == 'kaishi' && _tipPreviews.isNotEmpty) ...[
+                const SizedBox(height: 12),
+                DropdownButtonFormField<TipImportConflictStrategy>(
+                  value: _conflictStrategy,
+                  decoration:
+                      const InputDecoration(labelText: '发现同名/同 ID 开示录时'),
+                  items: const [
+                    DropdownMenuItem(
+                        value: TipImportConflictStrategy.skip,
+                        child: Text('跳过已有开示录')),
+                    DropdownMenuItem(
+                        value: TipImportConflictStrategy.overwrite,
+                        child: Text('覆盖已有开示录')),
+                    DropdownMenuItem(
+                        value: TipImportConflictStrategy.saveAsNew,
+                        child: Text('另存为副本')),
+                  ],
+                  onChanged: _isImporting
+                      ? null
+                      : (value) {
+                          if (value != null) {
+                            setState(() => _conflictStrategy = value);
+                          }
+                        },
+                ),
+                const SizedBox(height: 8),
+                ..._tipPreviews.map((preview) => ListTile(
+                      dense: true,
+                      leading: Icon(
+                        preview.error != null
+                            ? Icons.error_outline
+                            : preview.conflict
+                                ? Icons.warning_amber_outlined
+                                : Icons.check_circle_outline,
+                      ),
+                      title: Text(preview.bookName ?? preview.fileName),
+                      subtitle: Text(preview.error ??
+                          (preview.conflict ? '存在冲突，将按上述策略处理' : '可导入')),
+                    )),
+              ],
               const SizedBox(height: 20),
               if (_importStatus != null) ...[
                 Text(

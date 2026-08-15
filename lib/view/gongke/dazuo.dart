@@ -6,6 +6,7 @@ import 'package:drift/drift.dart' hide Column;
 import '../../comm/pub_tools.dart';
 import '../../comm/audio_tools.dart';
 import '../../comm/wakelock_tools.dart';
+import '../../comm/widget_sync_hooks.dart';
 
 class DaZuoPage extends StatefulWidget {
   const DaZuoPage({super.key});
@@ -73,10 +74,11 @@ class _DaZuoPageState extends State<DaZuoPage> {
     });
   }
 
-  void makeComplete(GongKeItemData gki) {
-    globalDB.managers.gongKeItem
+  Future<void> makeComplete(GongKeItemData gki) async {
+    await globalDB.managers.gongKeItem
         .filter((item) => item.id.equals(gki.id))
         .update((o) => o(isComplete: const Value(true)));
+    await syncTaskAndCalendarCards();
   }
 
   void stopTimer() {

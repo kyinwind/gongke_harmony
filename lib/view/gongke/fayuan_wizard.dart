@@ -718,39 +718,39 @@ class _FaYuanWizardPageState extends State<FaYuanWizardPage> {
         await (globalDB.update(globalDB.faYuan)
               ..where((tbl) => tbl.id.equals(currentFaYuanId!)))
             .write(
-              FaYuanCompanion(
-                name: Value(_data.name!),
-                fodiziname: Value(_data.fodiziName!),
-                startDate: Value(_data.startDate!),
-                endDate: Value(_data.endDate!),
-                yuanwang: Value(_data.yuanwang ?? ''),
-                fayuanwen: Value(_data.fayuanwen ?? ''),
-              ),
-            );
-      } else {
-        currentFaYuanId = await globalDB.into(globalDB.faYuan).insert(
-          FaYuanCompanion.insert(
-            name: _data.name!,
-            fodiziname: _data.fodiziName!,
-            startDate: _data.startDate!,
-            endDate: _data.endDate!,
-            yuanwang: _data.yuanwang ?? '',
-            fayuanwen: _data.fayuanwen ?? '',
-            remarks: const Value(''),
+          FaYuanCompanion(
+            name: Value(_data.name!),
+            fodiziname: Value(_data.fodiziName!),
+            startDate: Value(_data.startDate!),
+            endDate: Value(_data.endDate!),
+            yuanwang: Value(_data.yuanwang ?? ''),
+            fayuanwen: Value(_data.fayuanwen ?? ''),
           ),
         );
+      } else {
+        currentFaYuanId = await globalDB.into(globalDB.faYuan).insert(
+              FaYuanCompanion.insert(
+                name: _data.name!,
+                fodiziname: _data.fodiziName!,
+                startDate: _data.startDate!,
+                endDate: _data.endDate!,
+                yuanwang: _data.yuanwang ?? '',
+                fayuanwen: _data.fayuanwen ?? '',
+                remarks: const Value(''),
+              ),
+            );
       }
 
       for (var item in _data.gkiODList) {
         await globalDB.into(globalDB.gongKeItemsOneDay).insert(
-          GongKeItemsOneDayCompanion.insert(
-            fayuanId: currentFaYuanId,
-            gongketype: Value(item.gongketype.name),
-            name: item.name,
-            cnt: Value(item.cnt),
-            idx: Value(_data.gkiODList.indexOf(item) + 1),
-          ),
-        );
+              GongKeItemsOneDayCompanion.insert(
+                fayuanId: currentFaYuanId,
+                gongketype: Value(item.gongketype.name),
+                name: item.name,
+                cnt: Value(item.cnt),
+                idx: Value(_data.gkiODList.indexOf(item) + 1),
+              ),
+            );
       }
 
       String gongkedaystr = '';
@@ -771,16 +771,16 @@ class _FaYuanWizardPageState extends State<FaYuanWizardPage> {
           }
 
           await globalDB.into(globalDB.gongKeItem).insert(
-            GongKeItemCompanion.insert(
-              fayuanId: currentFaYuanId,
-              gongKeDay: gongkedaystr,
-              gongketype: item.gongketype.name,
-              name: item.name,
-              cnt: Value(item.cnt),
-              isComplete: Value(iscomplete),
-              idx: Value(item.idx),
-            ),
-          );
+                GongKeItemCompanion.insert(
+                  fayuanId: currentFaYuanId,
+                  gongKeDay: gongkedaystr,
+                  gongketype: item.gongketype.name,
+                  name: item.name,
+                  cnt: Value(item.cnt),
+                  isComplete: Value(iscomplete),
+                  idx: Value(item.idx),
+                ),
+              );
         }
       }
 
@@ -884,7 +884,8 @@ class _FaYuanWizardPageState extends State<FaYuanWizardPage> {
               ElevatedButton(
                 style: AppButtonStyle.primaryButton,
                 onPressed: _isSaving ? null : controls.onStepContinue,
-                child: Text(_currentStep < 4 ? '下一步' : (_isSaving ? '保存中...' : '保存')),
+                child: Text(
+                    _currentStep < 4 ? '下一步' : (_isSaving ? '保存中...' : '保存')),
               ),
               const Spacer(),
             ],

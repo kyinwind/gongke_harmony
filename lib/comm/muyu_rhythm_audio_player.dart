@@ -29,9 +29,18 @@ class MuyuRhythmAudioPlayer {
   static List<MuyuSoundVariant> _degradeChain(MuyuSoundVariant v) {
     switch (v) {
       case MuyuSoundVariant.c:
-        return const [MuyuSoundVariant.c, MuyuSoundVariant.b, MuyuSoundVariant.a, MuyuSoundVariant.regular];
+        return const [
+          MuyuSoundVariant.c,
+          MuyuSoundVariant.b,
+          MuyuSoundVariant.a,
+          MuyuSoundVariant.regular
+        ];
       case MuyuSoundVariant.b:
-        return const [MuyuSoundVariant.b, MuyuSoundVariant.a, MuyuSoundVariant.regular];
+        return const [
+          MuyuSoundVariant.b,
+          MuyuSoundVariant.a,
+          MuyuSoundVariant.regular
+        ];
       case MuyuSoundVariant.a:
         return const [MuyuSoundVariant.a, MuyuSoundVariant.regular];
       case MuyuSoundVariant.regular:
