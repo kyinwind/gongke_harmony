@@ -105,27 +105,37 @@ class _ImportFilesPageState extends State<ImportFilesPage> {
     try {
       final filesToImport = List<ImportFileRef>.from(_selectedFiles);
       if (_jingshuType == 'kaishi') {
+        if (mounted) {
+          setState(() => _importStatus = '正在写入开示数据...');
+        }
         final result = await _importService.importTipFilesDetailed(
           filesToImport,
           conflictStrategy: _conflictStrategy,
         );
         if (!mounted) return;
+        setState(() {
+          _isImporting = false;
+          _importStatus = null;
+        });
+        final resultDialogHeight =
+            (150.0 + result.items.length * 64.0)
+                .clamp(214.0, 430.0)
+                .toDouble();
         await showDialog<void>(
           context: context,
           builder: (context) => AlertDialog(
             title: const Text('导入结果'),
             content: SizedBox(
               width: 520,
+              height: resultDialogHeight,
               child: Column(
-                mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                       '成功 ${result.imported}  跳过 ${result.skipped}  失败 ${result.failed}'),
                   const Divider(),
-                  Flexible(
+                  Expanded(
                     child: ListView(
-                      shrinkWrap: true,
                       children: result.items
                           .map((item) => ListTile(
                                 dense: true,

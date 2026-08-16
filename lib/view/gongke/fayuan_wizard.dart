@@ -8,6 +8,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import '../../comm/date_tools.dart';
 import '../../comm/shared_preferences.dart';
 import '../../comm/pub_tools.dart';
+import '../../comm/widget_sync_hooks.dart';
 
 class VMFaYuanData {
   String? name; // 发愿名称
@@ -784,6 +785,7 @@ class _FaYuanWizardPageState extends State<FaYuanWizardPage> {
         }
       }
 
+      await syncTaskAndCalendarCards();
       if (!mounted) return;
       Navigator.pop(context);
     } catch (e) {

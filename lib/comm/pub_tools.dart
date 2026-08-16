@@ -919,7 +919,7 @@ final List<Map<String, String>> help_slides_android = [
     'description': '经书和善书可从文件选择器导入；开示录支持 JSON 导入、保存到文件及通过系统面板分享。',
   },
   {
-    'image': 'assets/help/01.jpg',
+    'image': 'assets/help/11.jpg',
     'title': '桌面卡片',
     'description': '在桌面长按空白处添加“诵经助手”卡片，可选今日功课、开示语录或功课日历；卡片按日稳定刷新，打开应用后会立即同步。',
   },

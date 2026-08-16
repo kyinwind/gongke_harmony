@@ -63,7 +63,7 @@ export default class HarmonyDeepLinkPlugin
 
   private extract(want: Want): Record<string, Object> | null {
     const route = want.parameters?.['route'] as string ?? '';
-    if (route !== 'tasks' && route !== 'calendar' && route !== 'tips') return null;
+    if (route !== 'tasks' && route !== 'calendar' && route !== 'homeTasks' && route !== 'homeTips' && route !== 'tips') return null;
     const link: Record<string, Object> = { 'route': route };
     const bookId = want.parameters?.['bookId'] as number ?? 0;
     const recordId = want.parameters?.['recordId'] as number ?? 0;

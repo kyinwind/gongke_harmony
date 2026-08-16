@@ -31,6 +31,8 @@ class WidgetSnapshotService {
     }
     if (cardNames.contains('TodayTipCard')) {
       snapshots['TodayTipCard'] = jsonEncode(await _buildTodayTip(current));
+      snapshots['TodayTipCatalog'] =
+          jsonEncode(await _buildTodayTipCatalog(current));
     }
     if (cardNames.contains('GongKeCalendarCard')) {
       snapshots['GongKeCalendarCard'] =
@@ -44,6 +46,7 @@ class WidgetSnapshotService {
     return {
       'TodayTasksCard': jsonEncode(await _buildTodayTasks(now)),
       'TodayTipCard': jsonEncode(await _buildTodayTip(now)),
+      'TodayTipCatalog': jsonEncode(await _buildTodayTipCatalog(now)),
       'GongKeCalendarCard': jsonEncode(await _buildCalendar(now)),
     };
   }
@@ -51,7 +54,10 @@ class WidgetSnapshotService {
   Future<Map<String, Object?>> _buildTodayTasks(DateTime now) async {
     final dateKey = DateFormat('yyyy-MM-dd').format(now);
     final items = await (db.select(db.gongKeItem)
-          ..where((table) => table.gongKeDay.equals(dateKey))
+          // Keep this consistent with the main calendar query. HarmonyOS
+          // relationalStore can return different results for text equality /
+          // range predicates than for LIKE on this legacy date column.
+          ..where((table) => table.gongKeDay.like('$dateKey%'))
           ..orderBy([(table) => OrderingTerm.asc(table.idx)]))
         .get();
     return {
@@ -61,7 +67,15 @@ class WidgetSnapshotService {
       'updatedText': '更新：${DateFormat('M月d日 HH:mm').format(now)}',
       'todayDay': now.day,
       'monthLabel': DateFormat('M月').format(now),
-      'weekdayLabel': const ['周一', '周二', '周三', '周四', '周五', '周六', '周日'][now.weekday - 1],
+      'weekdayLabel': const [
+        '周一',
+        '周二',
+        '周三',
+        '周四',
+        '周五',
+        '周六',
+        '周日'
+      ][now.weekday - 1],
       'completed': items.isNotEmpty && items.every((item) => item.isComplete),
       'hasMore': items.length > 5,
       'items': items
@@ -70,7 +84,12 @@ class WidgetSnapshotService {
                 'id': item.id,
                 'name': item.name,
                 'count': item.cnt,
-                'currentCount': item.curCnt,
+                // A user can mark an item complete manually without running
+                // its counter. Keep the checkmark and numeric progress
+                // semantically consistent on the card.
+                'currentCount': item.isComplete && item.curCnt < item.cnt
+                    ? item.cnt
+                    : item.curCnt,
                 'isComplete': item.isComplete,
               })
           .toList(),
@@ -94,8 +113,29 @@ class WidgetSnapshotService {
         'updatedText': '更新：${DateFormat('M月d日 HH:mm').format(now)}',
         'todayDay': now.day,
         'monthLabel': DateFormat('M月').format(now),
-        'weekdayLabel': const ['周一', '周二', '周三', '周四', '周五', '周六', '周日'][now.weekday - 1],
+        'weekdayLabel': const [
+          '周一',
+          '周二',
+          '周三',
+          '周四',
+          '周五',
+          '周六',
+          '周日'
+        ][now.weekday - 1],
         'empty': true,
+        // FormBindingData updates are incremental. Every display field must
+        // be present here, otherwise deleting the final record leaves the old
+        // value in the card's LocalStorage.
+        'bookId': 0,
+        'recordId': 0,
+        'bookName': '',
+        'content': '',
+        'imagePath': '',
+        'imageUri': '',
+        'comments': '',
+        'mode': mode.name,
+        'bookSourceId': '',
+        'recordJsonId': '',
       };
     }
     final imagePath =
@@ -107,7 +147,15 @@ class WidgetSnapshotService {
       'updatedText': '更新：${DateFormat('M月d日 HH:mm').format(now)}',
       'todayDay': now.day,
       'monthLabel': DateFormat('M月').format(now),
-      'weekdayLabel': const ['周一', '周二', '周三', '周四', '周五', '周六', '周日'][now.weekday - 1],
+      'weekdayLabel': const [
+        '周一',
+        '周二',
+        '周三',
+        '周四',
+        '周五',
+        '周六',
+        '周日'
+      ][now.weekday - 1],
       'empty': false,
       'bookId': selected.book.id,
       'recordId': selected.record.id,
@@ -121,24 +169,63 @@ class WidgetSnapshotService {
     };
   }
 
+  Future<Map<String, Object?>> _buildTodayTipCatalog(DateTime now) async {
+    final mode = await TodayTipSettings.loadMode();
+    final startDate = await TodayTipSettings.loadStartDate(fallback: now);
+    final candidates = await TodayTipService(db).loadCandidates();
+    final books = <int, Map<String, Object?>>{};
+    for (final candidate in candidates) {
+      var book = books[candidate.book.id];
+      if (book == null) {
+        book = {
+          'bookId': candidate.book.id,
+          'bookName': candidate.book.name,
+          'bookSourceId': candidate.book.sourceId,
+          'imagePath': await const WidgetImageService()
+              .cacheThumbnail(candidate.book.image),
+          'records': <Map<String, Object?>>[],
+        };
+        books[candidate.book.id] = book;
+      }
+      (book['records'] as List<Map<String, Object?>>).add({
+        'recordId': candidate.record.id,
+        'recordJsonId': candidate.record.jsonId,
+        'content': candidate.record.content,
+        'comments': candidate.record.comments,
+      });
+    }
+    return {
+      'schemaVersion': 1,
+      'generatedAt': now.toIso8601String(),
+      'date': DateFormat('yyyy-MM-dd').format(now),
+      'startDate': DateFormat('yyyy-MM-dd').format(startDate),
+      'mode': mode.name,
+      'books': books.values.toList(),
+    };
+  }
+
   Future<Map<String, Object?>> _buildCalendar(DateTime now) async {
     final currentMonth = DateTime(now.year, now.month);
     final rangeStart = DateTime(currentMonth.year, currentMonth.month - 1);
     final rangeEndExclusive =
         DateTime(currentMonth.year, currentMonth.month + 2);
     final formatter = DateFormat('yyyy-MM-dd');
-    final items = await (db.select(db.gongKeItem)
-          ..where((table) => table.gongKeDay.isBiggerOrEqualValue(
-                formatter.format(rangeStart),
-              ))
-          ..where((table) => table.gongKeDay.isSmallerThanValue(
-                formatter.format(rangeEndExclusive),
-              )))
-        .get();
+    final items = <GongKeItemData>[];
+    for (var monthOffset = -1; monthOffset <= 1; monthOffset++) {
+      final month =
+          DateTime(currentMonth.year, currentMonth.month + monthOffset);
+      final monthPrefix = DateFormat('yyyy-MM-').format(month);
+      items.addAll(await (db.select(db.gongKeItem)
+            ..where((table) => table.gongKeDay.like('$monthPrefix%')))
+          .get());
+    }
     final counts = <String, Map<String, int>>{};
     for (final item in items) {
+      final normalizedDay = item.gongKeDay.length >= 10
+          ? item.gongKeDay.substring(0, 10)
+          : item.gongKeDay;
       final day = counts.putIfAbsent(
-        item.gongKeDay,
+        normalizedDay,
         () => {'plannedCount': 0, 'completedCount': 0},
       );
       day['plannedCount'] = day['plannedCount']! + 1;
@@ -190,7 +277,15 @@ class WidgetSnapshotService {
       'monthTitle': DateFormat('yyyy年M月').format(currentMonth),
       'todayDay': now.day,
       'monthLabel': DateFormat('M月').format(now),
-      'weekdayLabel': const ['周一', '周二', '周三', '周四', '周五', '周六', '周日'][now.weekday - 1],
+      'weekdayLabel': const [
+        '周一',
+        '周二',
+        '周三',
+        '周四',
+        '周五',
+        '周六',
+        '周日'
+      ][now.weekday - 1],
       'updatedText': '更新：${DateFormat('M月d日 HH:mm').format(now)}',
       'cells': cells,
     };

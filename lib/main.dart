@@ -38,6 +38,9 @@ late AppDatabase globalDB; // 在main函数中创建单一实例;
 // 声明全局变量 app第一次运行的日期，用于后续显示开示
 late String? firstDate;
 
+// 卡片深链在冷启动和热启动时都可以请求首页切换 Tab。
+final ValueNotifier<int> homeTabSelection = ValueNotifier<int>(0);
+
 void main() {
   FlutterError.onError = (details) {
     FlutterError.presentError(details);
@@ -214,6 +217,14 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
         break;
       case 'calendar':
         navigator.pushNamed('/GongKeStat');
+        break;
+      case 'homeTasks':
+        homeTabSelection.value = 0;
+        navigator.popUntil((route) => route.isFirst);
+        break;
+      case 'homeTips':
+        homeTabSelection.value = 3;
+        navigator.popUntil((route) => route.isFirst);
         break;
       case 'tips':
         final bookId = link['bookId'];
@@ -397,7 +408,7 @@ class TabbedHomePage extends StatefulWidget {
 }
 
 class _TabbedHomePageState extends State<TabbedHomePage> {
-  int _selectedIndex = 0;
+  int _selectedIndex = homeTabSelection.value;
   static List<Widget> _widgetOptions() => const <Widget>[
         GongKePage(),
         SongJingPage(),
@@ -406,6 +417,23 @@ class _TabbedHomePageState extends State<TabbedHomePage> {
         BaiChanPage(),
         SettingPage(),
       ];
+
+  @override
+  void initState() {
+    super.initState();
+    homeTabSelection.addListener(_handleExternalTabSelection);
+  }
+
+  void _handleExternalTabSelection() {
+    if (!mounted || _selectedIndex == homeTabSelection.value) return;
+    setState(() => _selectedIndex = homeTabSelection.value);
+  }
+
+  @override
+  void dispose() {
+    homeTabSelection.removeListener(_handleExternalTabSelection);
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -431,6 +459,7 @@ class _TabbedHomePageState extends State<TabbedHomePage> {
           setState(() {
             _selectedIndex = index;
           });
+          homeTabSelection.value = index;
         },
       ),
     );

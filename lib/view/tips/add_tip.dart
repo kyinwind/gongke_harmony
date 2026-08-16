@@ -1,13 +1,13 @@
-import 'dart:io';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:gongke/main.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:styled_widget/styled_widget.dart';
 import '../../database.dart';
 import 'package:drift/drift.dart' hide Column;
 import 'package:flutter/services.dart';
+import '../../comm/file_import_adapter.dart';
 import '../../comm/pub_tools.dart';
+import '../../comm/widget_snapshot_service.dart';
 
 class AddTipPage extends StatefulWidget {
   const AddTipPage({super.key});
@@ -17,6 +17,7 @@ class AddTipPage extends StatefulWidget {
 }
 
 class _AddTipPageState extends State<AddTipPage> {
+  static const _fileAdapter = FileImportAdapter();
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
   final _remarksController = TextEditingController();
@@ -24,6 +25,8 @@ class _AddTipPageState extends State<AddTipPage> {
   String? _base64Image;
   late String acttype;
   late int recordId;
+  bool _isPickingImage = false;
+  bool _isSaving = false;
   @override
   void initState() {
     super.initState();
@@ -72,22 +75,27 @@ class _AddTipPageState extends State<AddTipPage> {
   }
 
   Future<void> _pickImage() async {
-    final picker = ImagePicker();
-    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
-    //File? selectedImage;
-    if (pickedFile != null) {
-      File imageFile = File(pickedFile.path);
-      // 处理图片大小
-      final processedImage = await _processImage(imageFile);
-      setState(() {
-        //selectedImage = processedImage;
-        _base64Image = base64Encode(processedImage.readAsBytesSync());
-      });
+    if (_isPickingImage) return;
+    setState(() => _isPickingImage = true);
+    try {
+      final files = await _fileAdapter.pickImportFiles(
+        allowedExtensions: const ['jpg', 'jpeg', 'png', 'webp', 'gif'],
+        allowMultiple: false,
+      );
+      if (files.isEmpty) return;
+      final bytes = await files.single.readBytes();
+      if (bytes.isEmpty) throw const FormatException('所选图片内容为空');
+      if (mounted) setState(() => _base64Image = base64Encode(bytes));
+    } catch (error) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('选择图片失败：$error')),
+        );
+      }
+    } finally {
+      if (mounted) setState(() => _isPickingImage = false);
     }
   }
-
-  // 当前图片选择器返回原文件；卡片缩略图会在快照生成时单独压缩。
-  Future<File> _processImage(File imageFile) => Future.value(imageFile);
 
   @override
   void dispose() {
@@ -97,50 +105,45 @@ class _AddTipPageState extends State<AddTipPage> {
   }
 
   Future<void> _submitForm() async {
-    if (_formKey.currentState!.validate()) {
-      final beforeCountRow = await globalDB
-          .customSelect('SELECT COUNT(*) AS cnt FROM tip_book')
-          .getSingle();
-      debugPrint('保存开示录前 tip_book count=${beforeCountRow.data['cnt']}');
+    if (_isSaving || !_formKey.currentState!.validate()) return;
+    setState(() => _isSaving = true);
+    try {
+      final now = DateTime.now();
+      final name = _nameController.text.trim();
       if (acttype == 'new') {
-        final insertedId = await globalDB.into(globalDB.tipBook).insert(
+        await globalDB.into(globalDB.tipBook).insert(
               TipBookCompanion.insert(
-                name: _nameController.text,
-                remarks: Value(_remarksController.text),
+                name: name,
+                remarks: Value(_remarksController.text.trim()),
                 image: _base64Image ?? '',
+                createDateTime: Value(now),
+                updatedDateTime: Value(now),
               ),
             );
-        final rawCountRow = await globalDB
-            .customSelect('SELECT COUNT(*) AS cnt FROM tip_book')
-            .getSingle();
-        final rawRows = await globalDB
-            .customSelect(
-              'SELECT id, name FROM tip_book ORDER BY id ASC',
-            )
-            .get();
-        final allBooks = await (globalDB.select(globalDB.tipBook)
-              ..orderBy([(tbl) => OrderingTerm.asc(tbl.id)]))
-            .get();
-        debugPrint(
-          '新增开示录完成: insertedId=$insertedId, rawCount=${rawCountRow.data['cnt']}, rawRows=${rawRows.map((e) => '${e.data['id']}:${e.data['name']}').join(' | ')}, total=${allBooks.length}, books=${allBooks.map((e) => '${e.id}:${e.name}').join(' | ')}',
-        );
       } else {
         await globalDB.managers.tipBook.filter((f) => f.id(recordId)).update(
               (o) => o(
-                name: Value(_nameController.text),
-                remarks: Value(_remarksController.text),
+                name: Value(name),
+                remarks: Value(_remarksController.text.trim()),
                 image: Value(_base64Image ?? ''),
+                updatedDateTime: Value(now),
               ),
             );
-        final allBooks = await (globalDB.select(globalDB.tipBook)
-              ..orderBy([(tbl) => OrderingTerm.asc(tbl.id)]))
-            .get();
-        debugPrint(
-          '修改开示录完成: recordId=$recordId, total=${allBooks.length}, books=${allBooks.map((e) => '${e.id}:${e.name}').join(' | ')}',
+      }
+      try {
+        await WidgetSnapshotService(globalDB).syncAll();
+      } catch (error) {
+        debugPrint('开示录已保存，但同步卡片失败：$error');
+      }
+      if (mounted) Navigator.of(context).pop(true);
+    } catch (error) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('保存失败：$error')),
         );
       }
-      // 返回上一级路由
-      if (mounted) Navigator.of(context).pop(true);
+    } finally {
+      if (mounted) setState(() => _isSaving = false);
     }
   }
 
@@ -150,7 +153,15 @@ class _AddTipPageState extends State<AddTipPage> {
       appBar: AppBar(
         title: Text(acttype == 'new' ? '新增开示录' : '修改开示录'),
         actions: [
-          IconButton(icon: const Icon(Icons.check), onPressed: _submitForm),
+          IconButton(
+            icon: _isSaving
+                ? const SizedBox.square(
+                    dimension: 20,
+                    child: CircularProgressIndicator(strokeWidth: 2),
+                  )
+                : const Icon(Icons.check),
+            onPressed: _isSaving ? null : _submitForm,
+          ),
         ],
       ),
       body: Padding(
@@ -183,8 +194,8 @@ class _AddTipPageState extends State<AddTipPage> {
                 ).padding(bottom: 16),
                 ElevatedButton(
                   style: AppButtonStyle.primaryButton,
-                  onPressed: _pickImage,
-                  child: const Text('选择图片'),
+                  onPressed: _isPickingImage ? null : _pickImage,
+                  child: Text(_isPickingImage ? '选择中…' : '选择图片'),
                 ),
                 if (_base64Image != null)
                   Padding(

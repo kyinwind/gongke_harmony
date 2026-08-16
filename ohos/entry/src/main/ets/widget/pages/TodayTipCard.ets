@@ -11,6 +11,7 @@ struct TodayTipCard {
   @LocalStorageProp('weekdayLabel') weekdayLabel: string = '';
   @LocalStorageProp('recordId') recordId: number = 0;
   @LocalStorageProp('bookId') bookId: number = 0;
+  @LocalStorageProp('mode') mode: string = 'sequential';
   @LocalStorageProp('message') message: string = '';
 
   build() {
@@ -28,28 +29,45 @@ struct TodayTipCard {
           Text(this.monthLabel).fontSize(16).fontWeight(FontWeight.Medium).fontColor($r('app.color.widget_text_primary'))
           Text(this.weekdayLabel).fontSize(13).fontColor($r('app.color.widget_text_secondary'))
         }.alignItems(HorizontalAlign.Start).margin({ left: 5 })
-      }.width('100%').height(48)
-      Text(this.content.length > 0 ? this.content :
-        (this.message.length > 0 ? this.message : '暂无开示'))
-        .fontSize(22).lineHeight(34).maxLines(7)
-        .fontColor($r('app.color.widget_text_primary'))
-        .textOverflow({ overflow: TextOverflow.Ellipsis }).layoutWeight(1)
+      }.width('100%').height(48).onClick(() => {
+        postCardAction(this, {
+          action: 'router', abilityName: 'EntryAbility', params: { route: 'homeTips' }
+        })
+      })
+      Column() {
+        Text(this.content.length > 0 ? this.content :
+          (this.message.length > 0 ? this.message : '暂无开示'))
+          .fontSize(20).lineHeight(30).maxLines(14)
+          .fontColor($r('app.color.widget_text_primary'))
+          .textOverflow({ overflow: TextOverflow.Ellipsis })
+      }
+      // Consume all space between header and the fixed footer. The wrapper
+      // keeps natural-height text top-aligned on 6*4 and clips before the
+      // footer on the shorter 4*4 card.
+      .width('100%').layoutWeight(1).alignItems(HorizontalAlign.Start)
+      .justifyContent(FlexAlign.Start).clip(true).onClick(() => {
+        postCardAction(this, {
+          action: 'router', abilityName: 'EntryAbility', params: { route: 'homeTips' }
+        })
+      })
       Row() {
-        Button('↻').fontSize(18).width(34).height(34).type(ButtonType.Circle).backgroundColor('#F2EBDD')
-          .fontColor('#6B5A3A').onClick(() => {
-            postCardAction(this, { action: 'message', params: { action: 'refreshTip' } })
-          })
+        if (this.mode === 'random') {
+          Button('↻').fontSize(18).width(34).height(34).type(ButtonType.Circle).backgroundColor('#F2EBDD')
+            .fontColor('#6B5A3A').onClick(() => {
+              postCardAction(this, { action: 'message', params: { message: 'refreshTip' } })
+            })
+        }
         Blank()
         Text(this.bookName.length > 0 ? `《${this.bookName}》` : '《诵经助手》')
-          .fontSize(16).fontColor($r('app.color.widget_text_secondary'))
-      }.width('100%')
+          .fontSize(14).fontColor($r('app.color.widget_text_secondary'))
+          .maxLines(1).textOverflow({ overflow: TextOverflow.Ellipsis })
+          .onClick(() => {
+            postCardAction(this, {
+              action: 'router', abilityName: 'EntryAbility', params: { route: 'homeTips' }
+            })
+          })
+      }.width('100%').height(34)
     }
     .padding(12).width('100%').height('100%').backgroundColor($r('app.color.widget_tip_background')).borderRadius(24)
-    .onClick(() => {
-      postCardAction(this, {
-        action: 'router', abilityName: 'EntryAbility',
-        params: { route: 'tips', bookId: this.bookId, recordId: this.recordId }
-      })
-    })
   }
 }

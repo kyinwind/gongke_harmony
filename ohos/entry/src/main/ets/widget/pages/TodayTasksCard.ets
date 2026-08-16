@@ -56,7 +56,7 @@ struct TodayTasksCard {
     }
     .padding(12).width('100%').height('100%').backgroundColor($r('app.color.widget_background')).borderRadius(24)
     .onClick(() => {
-      postCardAction(this, { action: 'router', abilityName: 'EntryAbility', params: { route: 'tasks' } })
+      postCardAction(this, { action: 'router', abilityName: 'EntryAbility', params: { route: 'homeTasks' } })
     })
   }
 }

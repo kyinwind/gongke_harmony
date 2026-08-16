@@ -17,7 +17,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 # In Windows, build-name is used as the major, minor, and patch parts
 # of the product and file versions while build-number is used as the build suffix.
-version: 1.1.0+110
+version: 1.1.1+111
 
 environment:
   sdk: '>=3.4.0 <4.0.0'
@@ -95,11 +95,12 @@ dependency_overrides:
       url: https://gitee.com/openharmony-sig/flutter_packages.git
       path: packages/path_provider/path_provider
   sqflite:
-    git:
-      url: https://gitee.com/openharmony-sig/flutter_sqflite.git
-      path: sqflite
+    path: packages/sqflite
   flutter_pdfview_ohos:
     path: packages/flutter_pdfview_ohos
+  # 1.0.1 原版在部分鸿蒙设备上会生成 0 字节的文件选择缓存。
+  file_picker_ohos:
+    path: packages/file_picker_ohos
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 

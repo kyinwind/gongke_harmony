@@ -73,13 +73,13 @@ struct GongKeCalendarCard {
             .justifyContent(FlexAlign.Center).width('14.28%').height(38)
             .backgroundColor(this.statusColor(cell)).borderRadius(6)
             .border(cell.isToday ? { width: 2, color: '#087CF0' } : { width: 0 })
-          }, (cell: CalendarCell) => cell.date)
+          }, (cell: CalendarCell) => `${cell.date}-${cell.status}-${cell.completionLabel}`)
         }.width('100%').layoutWeight(1)
       }
     }
     .padding(12).width('100%').height('100%').backgroundColor($r('app.color.widget_background')).borderRadius(24)
     .onClick(() => {
-      postCardAction(this, { action: 'router', abilityName: 'EntryAbility', params: { route: 'calendar' } })
+      postCardAction(this, { action: 'router', abilityName: 'EntryAbility', params: { route: 'homeTasks' } })
     })
   }
 }

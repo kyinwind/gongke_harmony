@@ -1,8 +1,13 @@
 import { preferences } from '@kit.ArkData';
 import common from '@ohos.app.ability.common';
+import { fileIo } from '@kit.CoreFileKit';
 
 export const WIDGET_PREFERENCES_NAME = 'gongke_widget_snapshots';
 export const WIDGET_INSTANCES_KEY = 'form_instances';
+const TIP_CATALOG_FILE = 'today_tip_catalog.json';
+const TIP_CATALOG_KEY = 'TodayTipCatalog';
+const TIP_OVERRIDE_PREFIX = 'today_tip_override_';
+const TIP_REFRESH_SEQUENCES_KEY = 'today_tip_refresh_sequences';
 
 class WidgetFallbackData {
   schemaVersion: number = 1;
@@ -23,10 +28,46 @@ interface SnapshotEnvelope {
   generatedAt: string;
 }
 
+interface TipRecordCatalogItem {
+  recordId: number;
+  recordJsonId: string;
+  content: string;
+  comments: string;
+}
+
+interface TipBookCatalogItem {
+  bookId: number;
+  bookName: string;
+  bookSourceId: string;
+  imageUri: string;
+  records: TipRecordCatalogItem[];
+}
+
+interface TipCatalog {
+  schemaVersion: number;
+  generatedAt: string;
+  date: string;
+  mode: string;
+  books: TipBookCatalogItem[];
+}
+
+interface TipCandidate {
+  bookId: number;
+  bookName: string;
+  bookSourceId: string;
+  imageUri: string;
+  recordId: number;
+  recordJsonId: string;
+  content: string;
+  comments: string;
+}
+
 export class WidgetSnapshotRepository {
   private store: preferences.Preferences;
+  private context: common.Context;
 
   constructor(context: common.Context) {
+    this.context = context;
     this.store = preferences.getPreferencesSync(context, { name: WIDGET_PREFERENCES_NAME });
   }
 
@@ -49,6 +90,62 @@ export class WidgetSnapshotRepository {
     }
   }
 
+  readForForm(formId: string, formName: string): object {
+    const base = this.read(formName) as Record<string, Object>;
+    if (formName !== 'TodayTipCard' || base['mode'] !== 'random') return base;
+    try {
+      const override = JSON.parse(
+        this.store.getSync(`${TIP_OVERRIDE_PREFIX}${formId}`, '{}') as string,
+      ) as Record<string, Object>;
+      if (override['date'] !== base['date']) return base;
+      const catalog = this.readTipCatalog();
+      if (catalog === null || catalog.date !== base['date'] || catalog.mode !== 'random') return base;
+      const recordId = override['recordId'] as number ?? 0;
+      const bookId = override['bookId'] as number ?? 0;
+      const selected = this.candidates(catalog).find((item: TipCandidate) =>
+        item.bookId === bookId && item.recordId === recordId);
+      if (selected === undefined) return base;
+      // Keep the selected record stable, while rehydrating edited text, book
+      // metadata and image from the newest catalog copied by the main app.
+      this.applyCandidate(override, selected);
+      return override;
+    } catch (_) {
+      return base;
+    }
+  }
+
+  refreshTip(formId: string): object {
+    const base = this.readForForm(formId, 'TodayTipCard') as Record<string, Object>;
+    if (base['mode'] !== 'random') return base;
+    const catalog = this.readTipCatalog();
+    if (catalog === null || catalog.mode !== 'random' || catalog.date !== base['date']) return base;
+    const candidates = this.candidates(catalog);
+    if (candidates.length < 2) return base;
+
+    const sequences = this.refreshSequences();
+    const sequence = (sequences[formId] ?? 0) + 1;
+    sequences[formId] = sequence;
+    let index = this.positiveModulo(
+      this.stableHash(`${catalog.date}|${formId}|${sequence}`),
+      candidates.length,
+    );
+    const currentRecordId = base['recordId'] as number ?? 0;
+    const currentBookId = base['bookId'] as number ?? 0;
+    if (candidates[index].recordId === currentRecordId && candidates[index].bookId === currentBookId) {
+      index = (index + 1) % candidates.length;
+    }
+    const selected = candidates[index];
+    const refreshed = JSON.parse(JSON.stringify(base)) as Record<string, Object>;
+    const now = new Date();
+    refreshed['generatedAt'] = now.toISOString();
+    refreshed['updatedText'] = `更新：${now.getMonth() + 1}月${now.getDate()}日 ${this.twoDigits(now.getHours())}:${this.twoDigits(now.getMinutes())}`;
+    this.applyCandidate(refreshed, selected);
+    this.store.putSync(`${TIP_OVERRIDE_PREFIX}${formId}`, JSON.stringify(refreshed));
+    this.store.putSync(TIP_REFRESH_SEQUENCES_KEY, JSON.stringify(sequences));
+    this.store.flush();
+    return refreshed;
+  }
+
   addInstance(formId: string, formName: string): void {
     const instances = this.instances();
     instances[formId] = formName;
@@ -63,6 +160,13 @@ export class WidgetSnapshotRepository {
       if (key !== formId) retained[key] = instances[key];
     });
     this.store.putSync(WIDGET_INSTANCES_KEY, JSON.stringify(retained));
+    this.store.deleteSync(`${TIP_OVERRIDE_PREFIX}${formId}`);
+    const sequences = this.refreshSequences();
+    const retainedSequences: Record<string, number> = {};
+    Object.keys(sequences).forEach((key: string) => {
+      if (key !== formId) retainedSequences[key] = sequences[key];
+    });
+    this.store.putSync(TIP_REFRESH_SEQUENCES_KEY, JSON.stringify(retainedSequences));
     this.store.flush();
   }
 
@@ -78,6 +182,77 @@ export class WidgetSnapshotRepository {
     } catch (_) {
       return {};
     }
+  }
+
+  private readTipCatalog(): TipCatalog | null {
+    try {
+      const sharedText = this.store.getSync(TIP_CATALOG_KEY, '') as string;
+      const text = sharedText.length > 0
+        ? sharedText
+        : fileIo.readTextSync(`${this.context.filesDir}/${TIP_CATALOG_FILE}`);
+      const catalog = JSON.parse(text) as TipCatalog;
+      if (catalog.schemaVersion !== 1 || catalog.date.length === 0) return null;
+      return catalog;
+    } catch (_) {
+      return null;
+    }
+  }
+
+  private candidates(catalog: TipCatalog): TipCandidate[] {
+    const result: TipCandidate[] = [];
+    catalog.books.forEach((book: TipBookCatalogItem) => {
+      book.records.forEach((record: TipRecordCatalogItem) => {
+        result.push({
+          bookId: book.bookId,
+          bookName: book.bookName,
+          bookSourceId: book.bookSourceId,
+          imageUri: book.imageUri ?? '',
+          recordId: record.recordId,
+          recordJsonId: record.recordJsonId ?? '',
+          content: record.content,
+          comments: record.comments ?? '',
+        });
+      });
+    });
+    return result;
+  }
+
+  private refreshSequences(): Record<string, number> {
+    try {
+      return JSON.parse(
+        this.store.getSync(TIP_REFRESH_SEQUENCES_KEY, '{}') as string,
+      ) as Record<string, number>;
+    } catch (_) {
+      return {};
+    }
+  }
+
+  private applyCandidate(target: Record<string, Object>, selected: TipCandidate): void {
+    target['bookId'] = selected.bookId;
+    target['recordId'] = selected.recordId;
+    target['bookName'] = selected.bookName;
+    target['content'] = selected.content;
+    target['imageUri'] = selected.imageUri;
+    target['comments'] = selected.comments;
+    target['bookSourceId'] = selected.bookSourceId;
+    target['recordJsonId'] = selected.recordJsonId;
+  }
+
+  private stableHash(value: string): number {
+    let hash = 0x811c9dc5;
+    for (let index = 0; index < value.length; index++) {
+      hash ^= value.charCodeAt(index);
+      hash = Math.imul(hash, 0x01000193) & 0x7fffffff;
+    }
+    return hash;
+  }
+
+  private positiveModulo(value: number, divisor: number): number {
+    return (value % divisor + divisor) % divisor;
+  }
+
+  private twoDigits(value: number): string {
+    return value < 10 ? `0${value}` : `${value}`;
   }
 
   private fallback(formName: string, message: string): object {

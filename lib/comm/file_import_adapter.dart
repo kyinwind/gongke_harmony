@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-import 'dart:typed_data';
 import 'package:file_picker_ohos/file_picker_ohos.dart';
 import 'package:flutter/services.dart';
 
@@ -43,7 +42,9 @@ class FileSelectorSelectionGateway implements FileSelectionGateway {
         allowMultiple: allowMultiple,
         type: FileType.custom,
         allowedExtensions: allowedExtensions,
-        withData: false,
+        // HarmonyOS 部分真机的 file_picker 缓存路径可能持续保留
+        // 同名 0 字节文件。同时请求原生字节，导入时优先使用它。
+        withData: true,
         withReadStream: false,
       );
     } on PlatformException catch (e) {
@@ -65,7 +66,14 @@ class FileSelectorSelectionGateway implements FileSelectionGateway {
               if (file.bytes != null) {
                 return file.bytes!;
               }
-              return File(file.path!).readAsBytes();
+              final source = File(file.path!);
+              final bytes = await source.readAsBytes();
+              if (bytes.isEmpty) {
+                throw const FileSystemException(
+                  '文件选择器未能读取到文件内容，请重新选择文件',
+                );
+              }
+              return bytes;
             },
             writeTo: (targetFile) async {
               final sink = targetFile.openWrite();

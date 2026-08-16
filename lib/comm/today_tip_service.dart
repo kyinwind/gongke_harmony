@@ -44,12 +44,7 @@ class TodayTipService {
 
   final AppDatabase db;
 
-  Future<TodayTipSelection?> select({
-    required DateTime now,
-    required DateTime startDate,
-    required TodayTipMode mode,
-    String seedScope = 'app',
-  }) async {
+  Future<List<TodayTipSelection>> loadCandidates() async {
     final books = await (db.select(db.tipBook)
           ..orderBy([
             (table) => OrderingTerm.desc(table.favoriteDateTime),
@@ -70,6 +65,16 @@ class TodayTipService {
         records.map((record) => TodayTipSelection(book: book, record: record)),
       );
     }
+    return candidates;
+  }
+
+  Future<TodayTipSelection?> select({
+    required DateTime now,
+    required DateTime startDate,
+    required TodayTipMode mode,
+    String seedScope = 'app',
+  }) async {
+    final candidates = await loadCandidates();
     if (candidates.isEmpty) return null;
 
     final localDay = DateTime(now.year, now.month, now.day);

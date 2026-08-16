@@ -42,12 +42,26 @@ scripts/
 packages/*
 !packages/flutter_pdfview_ohos/
 !packages/flutter_pdfview_ohos/**
+!packages/file_picker_ohos/
+!packages/file_picker_ohos/**
+!packages/sqflite/
+!packages/sqflite/**
 
 # Ignore generated artifacts inside the local plugin.
 packages/flutter_pdfview_ohos/.dart_tool/
 packages/flutter_pdfview_ohos/build/
 packages/flutter_pdfview_ohos/ohos/build/
 packages/flutter_pdfview_ohos/ohos/oh_modules/
+packages/file_picker_ohos/.dart_tool/
+packages/file_picker_ohos/build/
+packages/file_picker_ohos/ohos/build/
+packages/file_picker_ohos/ohos/oh_modules/
+packages/file_picker_ohos/example/
+packages/sqflite/.dart_tool/
+packages/sqflite/build/
+packages/sqflite/ohos/build/
+packages/sqflite/ohos/oh_modules/
+packages/sqflite/example/
 packages/flutter_pdfview_ohos/example/.dart_tool/
 packages/flutter_pdfview_ohos/example/build/
 packages/flutter_pdfview_ohos/example/ohos/build/

@@ -12,11 +12,14 @@ import { formBindingData, formProvider } from '@kit.FormKit';
 import { preferences } from '@kit.ArkData';
 import common from '@ohos.app.ability.common';
 import UIAbility from '@ohos.app.ability.UIAbility';
-import { fileUri } from '@kit.CoreFileKit';
+import { fileIo, fileUri } from '@kit.CoreFileKit';
+import { WidgetSnapshotRepository } from '../widget/WidgetSnapshotRepository';
 
 const CHANNEL_NAME = 'gongke/widgets';
 const PREFERENCES_NAME = 'gongke_widget_snapshots';
 const INSTANCES_KEY = 'form_instances';
+const TIP_CATALOG_FILE = 'today_tip_catalog.json';
+const TIP_CATALOG_KEY = 'TodayTipCatalog';
 
 export default class HarmonyWidgetPlugin
   implements FlutterPlugin, MethodCallHandler, AbilityAware {
@@ -64,6 +67,28 @@ export default class HarmonyWidgetPlugin
       };
       const namesText = call.argument('cardNames') as string ?? '[]';
       const changedNames = JSON.parse(namesText) as string[];
+      if (changedNames.includes('TodayTipCard')) {
+        const catalogText = call.argument('TodayTipCatalog') as string ?? '{}';
+        const catalog = JSON.parse(catalogText) as Record<string, Object>;
+        const books = catalog['books'] as Record<string, Object>[] ?? [];
+        books.forEach((book: Record<string, Object>) => {
+          const imagePath = book['imagePath'] as string ?? '';
+          if (imagePath.length > 0) book['imageUri'] = fileUri.getUriFromPath(imagePath);
+        });
+        const file = fileIo.openSync(
+          `${this.appContext.filesDir}/${TIP_CATALOG_FILE}`,
+          fileIo.OpenMode.CREATE | fileIo.OpenMode.WRITE_ONLY | fileIo.OpenMode.TRUNC,
+        );
+        try {
+          fileIo.writeSync(file.fd, JSON.stringify(catalog));
+        } finally {
+          fileIo.closeSync(file);
+        }
+        // Preferences is already proven to be shared by UIAbility and the
+        // Form extension. Keep the complete catalog there as the primary
+        // source, with the file as a mac-style durable fallback.
+        store.putSync(TIP_CATALOG_KEY, JSON.stringify(catalog));
+      }
       changedNames.forEach((name: string) => {
         let snapshot = snapshots[name];
         if (name === 'TodayTipCard') {
@@ -95,7 +120,9 @@ export default class HarmonyWidgetPlugin
         const formName = instances[formId];
         try {
           if (changedNames.includes(formName)) {
-            const snapshot = snapshots[formName] ?? store.getSync(formName, '{}') as string;
+            const snapshot = formName === 'TodayTipCard'
+              ? JSON.stringify(new WidgetSnapshotRepository(this.appContext).readForForm(formId, formName))
+              : snapshots[formName] ?? store.getSync(formName, '{}') as string;
             await formProvider.updateForm(
               formId,
               formBindingData.createFormBindingData(JSON.parse(snapshot) as object),
