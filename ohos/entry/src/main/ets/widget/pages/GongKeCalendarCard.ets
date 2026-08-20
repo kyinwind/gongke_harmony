@@ -73,7 +73,10 @@ struct GongKeCalendarCard {
             .justifyContent(FlexAlign.Center).width('14.28%').height(38)
             .backgroundColor(this.statusColor(cell)).borderRadius(6)
             .border(cell.isToday ? { width: 2, color: '#087CF0' } : { width: 0 })
-          }, (cell: CalendarCell) => `${cell.date}-${cell.status}-${cell.completionLabel}`)
+          // isToday must participate in the key. When the card refreshes across
+          // midnight ArkUI may otherwise reuse yesterday's node and retain its
+          // old border while also drawing today's border.
+          }, (cell: CalendarCell) => `${cell.date}-${cell.status}-${cell.completionLabel}-${cell.isToday}`)
         }.width('100%').layoutWeight(1)
       }
     }

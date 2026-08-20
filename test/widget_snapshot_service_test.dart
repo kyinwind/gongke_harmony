@@ -54,6 +54,12 @@ void main() {
     expect(calendar['monthLabel'], '8月');
     expect(calendar['weekdayLabel'], '周六');
     expect(calendar['updatedText'], '更新：8月15日 12:00');
+    final todayCells = (calendar['cells'] as List<dynamic>)
+        .cast<Map<String, dynamic>>()
+        .where((cell) => cell['isToday'] == true)
+        .toList();
+    expect(todayCells, hasLength(1));
+    expect(todayCells.single['date'], '2026-08-15');
   });
 
   test('snapshot contains stable tip ids and task completion', () async {

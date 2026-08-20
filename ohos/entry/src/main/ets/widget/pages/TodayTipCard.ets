@@ -34,22 +34,19 @@ struct TodayTipCard {
           action: 'router', abilityName: 'EntryAbility', params: { route: 'homeTips' }
         })
       })
-      Column() {
-        Text(this.content.length > 0 ? this.content :
-          (this.message.length > 0 ? this.message : '暂无开示'))
-          .fontSize(20).lineHeight(30).maxLines(14)
-          .fontColor($r('app.color.widget_text_primary'))
-          .textOverflow({ overflow: TextOverflow.Ellipsis })
+      List() {
+        ListItem() {
+          Text(this.content.length > 0 ? this.content :
+            (this.message.length > 0 ? this.message : '暂无开示'))
+            .fontSize(20).lineHeight(30)
+            .fontColor($r('app.color.widget_text_primary'))
+            .width('100%')
+        }.width('100%')
       }
-      // Consume all space between header and the fixed footer. The wrapper
-      // keeps natural-height text top-aligned on 6*4 and clips before the
-      // footer on the shorter 4*4 card.
-      .width('100%').layoutWeight(1).alignItems(HorizontalAlign.Start)
-      .justifyContent(FlexAlign.Start).clip(true).onClick(() => {
-        postCardAction(this, {
-          action: 'router', abilityName: 'EntryAbility', params: { route: 'homeTips' }
-        })
-      })
+      // Both supported dimensions share this dynamic card. Keep the header
+      // and footer fixed while allowing long teachings to scroll vertically.
+      .width('100%').layoutWeight(1).scrollBar(BarState.Auto)
+      .edgeEffect(EdgeEffect.None).clip(true)
       Row() {
         if (this.mode === 'random') {
           Button('↻').fontSize(18).width(34).height(34).type(ButtonType.Circle).backgroundColor('#F2EBDD')
