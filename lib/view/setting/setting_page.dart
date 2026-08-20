@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:gongke/comm/external_launcher_tools.dart';
 import 'package:gongke/comm/pub_tools.dart';
+import 'package:gongke/view/help/help_center_page.dart';
 
 class SettingPage extends StatefulWidget {
   const SettingPage({super.key});
+  @override
   State<SettingPage> createState() => _SettingPageState();
 }
 
@@ -71,6 +73,11 @@ class _SettingPageState extends State<SettingPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              _buildSection(
+                '帮助中心',
+                const HelpCenterEntryTile(),
+              ),
+              const SizedBox(height: 24),
               _buildSection(
                 '意见反馈',
                 Column(
@@ -141,9 +148,9 @@ class _SettingPageState extends State<SettingPage> {
               const SizedBox(height: 24),
               _buildSection(
                 '版本历史',
-                Column(
+                const Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
+                  children: [
                     SizedBox(height: 8),
                     Text('v1.1.2 (2026-08-21)', textAlign: TextAlign.left),
                     Text('• 今日开示卡片，可以滑动查看内容', textAlign: TextAlign.left),

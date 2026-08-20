@@ -27,6 +27,7 @@ import 'view/baichan/bai_chan.dart';
 import 'view/baichan/new_bai_chan.dart';
 import 'view/baichan/bai_chan_play.dart';
 import 'view/setting/setting_page.dart';
+import 'view/help/help_center_page.dart' show initHelpCenter;
 import 'view/shanshu/shanshu.dart';
 import 'view/songjing/import_files.dart';
 import 'welcome.dart';
@@ -89,6 +90,9 @@ class _BootstrapAppState extends State<BootstrapApp> {
 
     // 十念法模式仓库：启动即加载一次，之后全 App 直接引用单例。
     await muyuRhythmStore.load();
+
+    // 帮助中心只加载本地公告、版本、FAQ 和已读状态，不刷新远程内容。
+    await initHelpCenter();
 
     return BootstrapResult(
       db: globalDB,
