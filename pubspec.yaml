@@ -65,7 +65,7 @@ dependencies:
   file_picker: ^5.3.1
   file_picker_ohos: ^1.0.1
   url_launcher: ^6.1.10
-  app_help_center: ^0.2.6
+  app_help_center: ^0.2.7
   logger: ^1.4.0
 
 dev_dependencies:

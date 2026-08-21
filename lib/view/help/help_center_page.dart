@@ -109,21 +109,22 @@ final AppHelpCenterConfig harmonyHelpConfig = AppHelpCenterConfig(
     const HelpFaqItem(
       id: 'why_no_builtin_sutras',
       question: '为什么没有内置经书，需要自己导入？',
-      answer: '诵经助手定位为本地运行的工具类 App，不提供在线宗教内容。您可以把自己合法持有的 PDF 经书通过文件选择器导入后使用。',
+      answer: '诵经助手定位为本地运行的工具类 App，不提供在线宗教内容。您可以自己导入PDF文件使用。',
     ),
     const HelpFaqItem(
       id: 'how_to_import',
       question: '如何导入经书、善书和开示？',
-      answer: '在对应页面打开导入功能：经书和善书选择 PDF 文件，开示录选择 JSON 文件。导入完成后，内容保存在本机应用数据中。',
+      answer:
+          '在对应页面打开导入功能：经书和善书选择 PDF 文件，开示录选择 JSON 文件。导入完成后，内容保存在本机应用数据中。\n具体操作请见技术支持页面。',
     ),
     const HelpFaqItem(
       id: 'how_to_feedback',
       question: '如何提交问题或建议？',
-      answer: '点击帮助中心的“反馈”，填写内容后选择提交，系统会打开本机邮件 App，并自动填写收件人、主题和正文。',
+      answer: '点击帮助中心的“反馈”，填写内容后选择提交，系统会打开默认邮件应用并自动填写收件人、主题和正文。',
     ),
   ],
   feedback: const HelpFeedbackConfig(
-    submitHandler: _openFeedbackEmail,
+    submitHandler: _submitFeedbackWithHarmony,
     subject: '诵经助手意见反馈',
     includeSystemInfo: true,
     allowChannelSelection: false,
@@ -143,16 +144,13 @@ final AppHelpCenterController helpCenterController = AppHelpCenterController(
   config: harmonyHelpConfig,
 );
 
-Future<void> _openFeedbackEmail(HelpFeedbackPayload payload) async {
-  final uri = Uri(
-    scheme: 'mailto',
-    path: _feedbackEmail,
-    queryParameters: {
-      'subject': harmonyHelpConfig.feedback?.subject ?? '诵经助手意见反馈',
-      'body': payload.combinedContent,
-    },
+Future<void> _submitFeedbackWithHarmony(HelpFeedbackPayload payload) async {
+  final subject = harmonyHelpConfig.feedback?.subject ?? '诵经助手意见反馈';
+  await ExternalLauncherTools.launchEmail(
+    recipient: _feedbackEmail,
+    subject: subject,
+    body: payload.combinedContent,
   );
-  await ExternalLauncherTools.launch(uri.toString());
 }
 
 Future<void> _openTechnicalSupport() async {
