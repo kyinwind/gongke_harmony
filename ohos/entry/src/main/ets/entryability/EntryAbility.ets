@@ -11,6 +11,7 @@ import OhosWakelockPlugin from '../plugins/OhosWakelockPlugin';
 import HarmonyWidgetPlugin from '../plugins/HarmonyWidgetPlugin';
 import HarmonySharePlugin from '../plugins/HarmonySharePlugin';
 import HarmonyDeepLinkPlugin from '../plugins/HarmonyDeepLinkPlugin';
+import HarmonyAppInfoPlugin from '../plugins/HarmonyAppInfoPlugin';
 
 export default class EntryAbility extends FlutterAbility {
   onWindowStageCreate(windowStage: window.WindowStage) {
@@ -34,5 +35,6 @@ export default class EntryAbility extends FlutterAbility {
     flutterEngine.getPlugins()?.add(new HarmonyWidgetPlugin())
     flutterEngine.getPlugins()?.add(new HarmonySharePlugin())
     flutterEngine.getPlugins()?.add(new HarmonyDeepLinkPlugin())
+    flutterEngine.getPlugins()?.add(new HarmonyAppInfoPlugin())
   }
 }

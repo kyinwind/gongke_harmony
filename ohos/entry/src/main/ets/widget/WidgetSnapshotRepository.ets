@@ -14,18 +14,25 @@ class WidgetFallbackData {
   generatedAt: string = new Date().toISOString();
   empty: boolean = true;
   stale: boolean = true;
+  staleLevel: string = 'expired';
+  staleDays: number = 0;
+  staleMessage: string;
+  dataDateLabel: string = '';
+  todayDay: number = 0;
+  monthLabel: string = '';
+  weekdayLabel: string = '';
   message: string;
   title: string;
 
   constructor(formName: string, message: string) {
     this.message = message;
+    this.staleMessage = message;
     this.title = formName;
+    const now = new Date();
+    this.todayDay = now.getDate();
+    this.monthLabel = `${now.getMonth() + 1}月`;
+    this.weekdayLabel = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'][now.getDay()];
   }
-}
-
-interface SnapshotEnvelope {
-  schemaVersion: number;
-  generatedAt: string;
 }
 
 interface TipRecordCatalogItem {
@@ -74,17 +81,15 @@ export class WidgetSnapshotRepository {
   read(formName: string): object {
     try {
       const raw = this.store.getSync(formName, '{}') as string;
-      const value = JSON.parse(raw) as SnapshotEnvelope;
-      const schemaVersion = value.schemaVersion ?? 0;
-      const generatedAt = value.generatedAt ?? '';
+      const value = JSON.parse(raw) as Record<string, Object>;
+      const schemaVersion = value['schemaVersion'] as number ?? 0;
+      const generatedAt = value['generatedAt'] as string ?? '';
       if (schemaVersion !== 1 || generatedAt.length === 0) {
         return this.fallback(formName, '请打开诵经助手更新卡片');
       }
       const timestamp = new Date(generatedAt).getTime();
-      if (!Number.isFinite(timestamp) || Date.now() - timestamp > 3 * 24 * 60 * 60 * 1000) {
-        return this.fallback(formName, '数据已过期，请打开应用更新');
-      }
-      return value;
+      if (!Number.isFinite(timestamp)) return this.fallback(formName, '卡片更新时间异常，请打开应用更新');
+      return this.decorateRuntime(value, formName);
     } catch (_) {
       return this.fallback(formName, '卡片数据异常，请打开应用更新');
     }
@@ -108,7 +113,7 @@ export class WidgetSnapshotRepository {
       // Keep the selected record stable, while rehydrating edited text, book
       // metadata and image from the newest catalog copied by the main app.
       this.applyCandidate(override, selected);
-      return override;
+      return this.decorateRuntime(override, formName);
     } catch (_) {
       return base;
     }
@@ -136,14 +141,11 @@ export class WidgetSnapshotRepository {
     }
     const selected = candidates[index];
     const refreshed = JSON.parse(JSON.stringify(base)) as Record<string, Object>;
-    const now = new Date();
-    refreshed['generatedAt'] = now.toISOString();
-    refreshed['updatedText'] = `更新：${now.getMonth() + 1}月${now.getDate()}日 ${this.twoDigits(now.getHours())}:${this.twoDigits(now.getMinutes())}`;
     this.applyCandidate(refreshed, selected);
     this.store.putSync(`${TIP_OVERRIDE_PREFIX}${formId}`, JSON.stringify(refreshed));
     this.store.putSync(TIP_REFRESH_SEQUENCES_KEY, JSON.stringify(sequences));
     this.store.flush();
-    return refreshed;
+    return this.decorateRuntime(refreshed, 'TodayTipCard');
   }
 
   addInstance(formId: string, formName: string): void {
@@ -251,8 +253,36 @@ export class WidgetSnapshotRepository {
     return (value % divisor + divisor) % divisor;
   }
 
-  private twoDigits(value: number): string {
-    return value < 10 ? `0${value}` : `${value}`;
+  private decorateRuntime(value: Record<string, Object>, formName: string): Record<string, Object> {
+    const now = new Date();
+    value['todayDay'] = now.getDate();
+    value['monthLabel'] = `${now.getMonth() + 1}月`;
+    value['weekdayLabel'] = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'][now.getDay()];
+
+    const generatedAt = value['generatedAt'] as string ?? '';
+    const generatedDate = new Date(generatedAt);
+    const ageMs = Math.max(0, now.getTime() - generatedDate.getTime());
+    const dayMs = 24 * 60 * 60 * 1000;
+    const staleDays = Math.max(1, Math.floor(ageMs / dayMs));
+    const staleLevel = ageMs > 3 * dayMs ? 'expired' : ageMs > dayMs ? 'warning' : 'normal';
+    value['stale'] = staleLevel !== 'normal';
+    value['staleLevel'] = staleLevel;
+    value['staleDays'] = staleLevel === 'normal' ? 0 : staleDays;
+    value['dataDateLabel'] = `${generatedDate.getMonth() + 1}月${generatedDate.getDate()}日`;
+    value['staleMessage'] = staleLevel === 'normal' ? '' :
+      `数据已${staleLevel === 'expired' ? '过期' : '超过'}${staleDays}天未更新 · 点击打开应用`;
+
+    if (formName === 'GongKeCalendarCard') {
+      const month = now.getMonth() + 1;
+      const day = now.getDate();
+      const runtimeDate = `${now.getFullYear()}-${month < 10 ? `0${month}` : month}-${day < 10 ? `0${day}` : day}`;
+      const cells = value['cells'] as Array<Record<string, Object>> ?? [];
+      cells.forEach((cell: Record<string, Object>) => {
+        cell['isToday'] = cell['date'] === runtimeDate;
+      });
+      value['cells'] = cells;
+    }
+    return value;
   }
 
   private fallback(formName: string, message: string): object {

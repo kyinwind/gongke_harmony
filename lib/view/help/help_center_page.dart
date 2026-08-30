@@ -30,6 +30,11 @@ final AppHelpCenterConfig harmonyHelpConfig = AppHelpCenterConfig(
   ],
   versionHistory: [
     VersionHistoryItem(
+      versionName: 'v1.1.3',
+      publishedAt: DateTime(2026, 8, 21),
+      changes: '1.fixed卡片显示时间和更新时间应该分别处理的问题。\n2.优化功课日历显示逻辑',
+    ),
+    VersionHistoryItem(
       versionName: 'v1.1.2',
       publishedAt: DateTime(2026, 8, 21),
       changes: '今日开示卡片支持滑动查看内容。\n增加本地帮助中心。',

@@ -13,6 +13,16 @@ struct TodayTipCard {
   @LocalStorageProp('bookId') bookId: number = 0;
   @LocalStorageProp('mode') mode: string = 'sequential';
   @LocalStorageProp('message') message: string = '';
+  @LocalStorageProp('staleLevel') staleLevel: string = 'normal';
+  @LocalStorageProp('staleMessage') staleMessage: string = '';
+
+  private staleColor(): string {
+    return this.staleLevel === 'expired' ? '#C62828' : '#9A6700';
+  }
+
+  private staleBackground(): string {
+    return this.staleLevel === 'expired' ? '#FDECEC' : '#FFF1C2';
+  }
 
   build() {
     Column({ space: 8 }) {
@@ -21,7 +31,8 @@ struct TodayTipCard {
           .width(38).height(38).borderRadius(9).objectFit(ImageFit.Cover)
         Column({ space: 1 }) {
           Text('今日开示').fontSize(21).fontWeight(FontWeight.Bold).fontColor($r('app.color.widget_text_primary'))
-          Text(this.updatedText).fontSize(11).fontColor($r('app.color.widget_text_secondary'))
+          Text(this.updatedText).fontSize(11)
+            .fontColor(this.staleLevel === 'normal' ? $r('app.color.widget_text_secondary') : this.staleColor())
         }.alignItems(HorizontalAlign.Start).margin({ left: 8 })
         Blank()
         Text(this.todayDay.toString()).fontSize(36).fontWeight(FontWeight.Bold).fontColor('#087CF0')
@@ -34,6 +45,13 @@ struct TodayTipCard {
           action: 'router', abilityName: 'EntryAbility', params: { route: 'homeTips' }
         })
       })
+      if (this.staleLevel !== 'normal') {
+        Row() {
+          Text(`⚠ ${this.staleMessage}`).fontSize(10).fontWeight(FontWeight.Medium)
+            .fontColor(this.staleColor()).maxLines(1).textOverflow({ overflow: TextOverflow.Ellipsis })
+        }.padding({ left: 7, right: 7 }).width('100%').height(22)
+          .backgroundColor(this.staleBackground()).borderRadius(6)
+      }
       List() {
         ListItem() {
           Text(this.content.length > 0 ? this.content :
@@ -46,7 +64,7 @@ struct TodayTipCard {
       // Both supported dimensions share this dynamic card. Keep the header
       // and footer fixed while allowing long teachings to scroll vertically.
       .width('100%').layoutWeight(1).scrollBar(BarState.Auto)
-      .edgeEffect(EdgeEffect.None).clip(true)
+      .edgeEffect(EdgeEffect.None).clip(true).opacity(this.staleLevel === 'expired' ? 0.65 : 1)
       Row() {
         if (this.mode === 'random') {
           Button('↻').fontSize(18).width(34).height(34).type(ButtonType.Circle).backgroundColor('#F2EBDD')

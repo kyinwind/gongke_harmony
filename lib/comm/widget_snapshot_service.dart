@@ -239,9 +239,14 @@ class WidgetSnapshotService {
     final cells = List.generate(42, (index) {
       final date = gridStart.add(Duration(days: index));
       final key = formatter.format(date);
+      final inMonth =
+          date.year == currentMonth.year && date.month == currentMonth.month;
       final count = counts[key];
-      final planned = count?['plannedCount'] ?? 0;
-      final completed = count?['completedCount'] ?? 0;
+      // The card keeps a stable 6-week/42-cell grid, but cells outside the
+      // focused month are presentation-only placeholders. Mask their task
+      // state as well as their labels so they match the in-app calendar.
+      final planned = inMonth ? (count?['plannedCount'] ?? 0) : 0;
+      final completed = inMonth ? (count?['completedCount'] ?? 0) : 0;
       final completionPercent = planned == 0
           ? null
           : ((completed * 100) / planned).round().clamp(0, 100);
@@ -251,8 +256,8 @@ class WidgetSnapshotService {
         'date': key,
         'day': date.day,
         'lunar': Lunar.fromDate(date).getDayInChinese(),
-        'inMonth': date.month == currentMonth.month,
-        'isToday': key == formatter.format(now),
+        'inMonth': inMonth,
+        'isToday': inMonth && key == formatter.format(now),
         'isWeekend': date.weekday >= DateTime.saturday,
         'plannedCount': planned,
         'completedCount': completed,

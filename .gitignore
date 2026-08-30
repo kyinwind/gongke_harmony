@@ -83,3 +83,6 @@ ohos/entry/oh-package-lock.json5
 ohos/entry/libs/
 ohos/entry/src/main/resources/rawfile/
 packages/flutter_pdfview_ohos/.DS_Store
+
+release/
+**/.DS_Store

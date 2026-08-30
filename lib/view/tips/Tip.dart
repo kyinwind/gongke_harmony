@@ -257,35 +257,7 @@ class _TipPageState extends State<TipPage> {
 
   Future<void> _editPreviewComments() async {
     if (!_hasCurrentRecord) return;
-    final controller = TextEditingController(text: curRec.comments);
-    final comments = await showDialog<String>(
-      context: context,
-      builder: (dialogContext) => AlertDialog(
-        title: const Text('开示评论'),
-        content: TextField(
-          controller: controller,
-          autofocus: true,
-          minLines: 3,
-          maxLines: 8,
-          decoration: const InputDecoration(
-            hintText: '记录心得或备注',
-            border: OutlineInputBorder(),
-          ),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(dialogContext),
-            child: const Text('取消'),
-          ),
-          FilledButton(
-            onPressed: () =>
-                Navigator.pop(dialogContext, controller.text.trim()),
-            child: const Text('保存'),
-          ),
-        ],
-      ),
-    );
-    controller.dispose();
+    final comments = await _CommentEditDialog.show(context, curRec.comments);
     if (comments == null) return;
     await globalDB.managers.tipRecord.filter((f) => f.id(curRec.id)).update(
           (o) => o(comments: Value(comments)),
@@ -863,6 +835,70 @@ class _PreviewAction extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+// 开示评论编辑弹窗：独立 StatefulWidget，把 controller 生命周期绑到 widget 树本身，
+// 避免 showDialog 完成后立即 dispose controller 触发 `_dependents.isEmpty` 断言
+// （framework.dart:5935，真机 IME 场景下尤其容易触发）。
+class _CommentEditDialog extends StatefulWidget {
+  const _CommentEditDialog({required this.initialText});
+
+  final String initialText;
+
+  static Future<String?> show(BuildContext context, String initialText) {
+    return showDialog<String>(
+      context: context,
+      builder: (_) => _CommentEditDialog(initialText: initialText),
+    );
+  }
+
+  @override
+  State<_CommentEditDialog> createState() => _CommentEditDialogState();
+}
+
+class _CommentEditDialogState extends State<_CommentEditDialog> {
+  late final TextEditingController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = TextEditingController(text: widget.initialText);
+  }
+
+  @override
+  void dispose() {
+    // 在 widget 树完全卸载后才释放 controller，时机由 Flutter 框架保证，
+    // 跟 IME 的 attach/detach 时序无关。
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: const Text('开示评论'),
+      content: TextField(
+        controller: _controller,
+        autofocus: true,
+        minLines: 3,
+        maxLines: 8,
+        decoration: const InputDecoration(
+          hintText: '记录心得或备注',
+          border: OutlineInputBorder(),
+        ),
+      ),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.pop(context),
+          child: const Text('取消'),
+        ),
+        FilledButton(
+          onPressed: () => Navigator.pop(context, _controller.text.trim()),
+          child: const Text('保存'),
+        ),
+      ],
     );
   }
 }

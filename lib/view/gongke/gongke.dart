@@ -630,6 +630,7 @@ class _GongKePageState extends State<GongKePage> {
                   focusedDay: _focusedDay,
                   selectedDayPredicate: (day) => isSameDay(_selectedDay, day),
                   calendarFormat: CalendarFormat.month,
+                  startingDayOfWeek: StartingDayOfWeek.monday,
                   availableCalendarFormats: const {CalendarFormat.month: '月'},
                   onDaySelected: (selectedDay, focusedDay) {
                     setState(() {

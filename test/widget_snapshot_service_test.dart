@@ -113,6 +113,61 @@ void main() {
     expect(todayCell['completionLabel'], '100%');
   });
 
+  test('calendar masks outside-month cells and exposes current-month states',
+      () async {
+    Future<void> addTask(String day, String name, bool complete) async {
+      await db.into(db.gongKeItem).insert(
+            GongKeItemCompanion.insert(
+              name: name,
+              fayuanId: 1,
+              gongketype: '念佛',
+              gongKeDay: day,
+              cnt: const Value(1),
+              isComplete: Value(complete),
+            ),
+          );
+    }
+
+    // This outside-month task must not leak a status or label into August.
+    await addTask('2026-07-27', '上月功课', false);
+    await addTask('2026-08-15', '今日未完成', false);
+    await addTask('2026-08-16', '未来待办', false);
+    await addTask('2026-08-17', '部分完成一', true);
+    await addTask('2026-08-17', '部分完成二', false);
+    await addTask('2026-08-18', '全部完成', true);
+
+    final snapshots = await WidgetSnapshotService(db).buildAll(
+      now: DateTime(2026, 8, 15, 12),
+    );
+    final calendar =
+        jsonDecode(snapshots['GongKeCalendarCard']!) as Map<String, dynamic>;
+    final cells =
+        (calendar['cells'] as List<dynamic>).cast<Map<String, dynamic>>();
+
+    expect(cells, hasLength(42));
+    final outsideCells = cells.where((cell) => cell['inMonth'] == false);
+    expect(outsideCells, isNotEmpty);
+    for (final cell in outsideCells) {
+      expect(cell['plannedCount'], 0);
+      expect(cell['completedCount'], 0);
+      expect(cell['completionPercent'], null);
+      expect(cell['completionLabel'], '');
+      expect(cell['status'], 'none');
+      expect(cell['isToday'], isFalse);
+    }
+
+    Map<String, dynamic> cellFor(String date) =>
+        cells.singleWhere((cell) => cell['date'] == date);
+    expect(cellFor('2026-08-15')['completionLabel'], '0%');
+    expect(cellFor('2026-08-15')['status'], 'pending');
+    expect(cellFor('2026-08-16')['completionLabel'], 'todo');
+    expect(cellFor('2026-08-16')['status'], 'pending');
+    expect(cellFor('2026-08-17')['completionLabel'], '50%');
+    expect(cellFor('2026-08-17')['status'], 'pending');
+    expect(cellFor('2026-08-18')['completionLabel'], '100%');
+    expect(cellFor('2026-08-18')['status'], 'completed');
+  });
+
   test('deleting the final tip emits explicit values that clear card state',
       () async {
     final bookId = await db.into(db.tipBook).insert(
