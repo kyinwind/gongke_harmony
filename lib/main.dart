@@ -32,6 +32,7 @@ import 'view/shanshu/shanshu.dart';
 import 'view/songjing/import_files.dart';
 import 'welcome.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:my_flutter_app_tools/my_flutter_app_tools.dart';
 
 // 声明全局数据库变量
 late AppDatabase globalDB; // 在main函数中创建单一实例;
@@ -50,7 +51,18 @@ void main() {
   };
 
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(const ProviderScope(child: BootstrapApp()));
+  RcmTheme.instance.configure((tokens) {
+    tokens.colors.primary = const Color(0xFF2196F3);
+    tokens.colors.accent = const Color(0xFF2196F3);
+    tokens.colors.success = const Color(0xFF34A853);
+    tokens.colors.warning = const Color(0xFFF9AB00);
+    tokens.colors.danger = const Color(0xFFE94235);
+  });
+  runApp(
+    RcmThemeScope(
+      child: const ProviderScope(child: BootstrapApp()),
+    ),
+  );
 }
 
 class BootstrapResult {
@@ -350,7 +362,9 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
       // title: '诵经助手',
       navigatorKey: _navigatorKey,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: const Color(0xFF2196F3),
+        ),
         textTheme: TextTheme(
           bodyMedium: TextStyle(fontFamily: fontFamily),
         ).apply(fontFamily: fontFamily),

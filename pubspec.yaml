@@ -66,6 +66,8 @@ dependencies:
   file_picker_ohos: ^1.0.1
   url_launcher: ^6.1.10
   app_help_center: ^0.2.7
+  my_flutter_app_tools:
+    path: /Users/yangxuehui/Documents/dev_open_source/my_flutter_app_tools
   logger: ^1.4.0
 
 dev_dependencies:

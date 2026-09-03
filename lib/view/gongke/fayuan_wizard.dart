@@ -9,6 +9,7 @@ import '../../comm/date_tools.dart';
 import '../../comm/shared_preferences.dart';
 import '../../comm/pub_tools.dart';
 import '../../comm/widget_sync_hooks.dart';
+import '../../comm/gongke_type_presentation.dart';
 
 class VMFaYuanData {
   String? name; // 发愿名称
@@ -540,6 +541,11 @@ class _FaYuanWizardPageState extends State<FaYuanWizardPage> {
                     // 清除之前的选择或输入
                     selectedJingShu = null;
                     nameController.clear();
+                    if (value != null) {
+                      cntController.text = GongKeTypePresentation.of(value.name)
+                          .minimumCount
+                          .toString();
+                    }
                   });
                 },
               ),
@@ -636,6 +642,28 @@ class _FaYuanWizardPageState extends State<FaYuanWizardPage> {
                   ).showSnackBar(const SnackBar(content: Text('请输入有效的整数')));
                   return;
                 }
+                final countRule = GongKeTypePresentation.of(selectedType!.name);
+                if (cnt < countRule.minimumCount) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(
+                        '${selectedType!.label}不能少于${countRule.minimumCount}${countRule.unit}',
+                      ),
+                    ),
+                  );
+                  return;
+                }
+                if (countRule.maximumCount != null &&
+                    cnt > countRule.maximumCount!) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(
+                        '${selectedType!.label}不能超过${countRule.maximumCount}${countRule.unit}',
+                      ),
+                    ),
+                  );
+                  return;
+                }
 
                 // 添加功课
                 setState(() {
@@ -643,7 +671,7 @@ class _FaYuanWizardPageState extends State<FaYuanWizardPage> {
                     VMGongKeItemOneDayData(
                       gongketype: selectedType!,
                       name: name,
-                      cnt: int.parse(cntController.text),
+                      cnt: cnt,
                       idx: _data.gkiODList.length + 1,
                     ),
                   );

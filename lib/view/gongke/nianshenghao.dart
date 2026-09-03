@@ -1,9 +1,13 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:gongke/database.dart';
+import 'package:drift/drift.dart' hide Column;
+import 'package:my_flutter_app_tools/my_flutter_app_tools.dart';
+import '../../main.dart';
 import '../../comm/audio_tools.dart';
-import '../../comm/pub_tools.dart';
 import '../../comm/wakelock_tools.dart';
+import '../../comm/widget_sync_hooks.dart';
+import '../../comm/gongke_type_presentation.dart';
 import 'package:gongke/comm/shared_preferences.dart';
 import 'package:gongke/comm/muyu_rhythm_store.dart';
 import 'package:gongke/comm/nianfo_muyu_session_controller.dart';
@@ -34,8 +38,18 @@ class _NianShengHaoPageState extends State<NianShengHaoPage> {
     super.initState();
     _session = NianFoMuyuSessionController(onCompleted: () {
       WakelockTools.disable();
+      _markComplete();
       if (mounted) setState(() {});
     });
+  }
+
+  Future<void> _markComplete() async {
+    final item = gongkeitem;
+    if (item == null) return;
+    await globalDB.managers.gongKeItem
+        .filter((record) => record.id.equals(item.id))
+        .update((record) => record(isComplete: const Value(true)));
+    await syncTaskAndCalendarCards();
   }
 
   /// 读取该功课上次保存的时间间隔，没有则保持默认 1.0 秒
@@ -184,138 +198,280 @@ class _NianShengHaoPageState extends State<NianShengHaoPage> {
     final total = gongkeitem!.cnt;
     final current = _session.playedCount;
     final patterns = muyuRhythmStore.selectablePatterns;
+    final design = RcmTheme.of(context);
 
     return Scaffold(
-      appBar: AppBar(title: const Text("电子木鱼"), leading: const BackButton()),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
+      backgroundColor: Theme.of(context).colorScheme.surface,
+      appBar: AppBar(
+        title: const Text('电子木鱼'),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+      ),
+      body: SafeArea(
         child: ListView(
+          padding: EdgeInsets.fromLTRB(
+            design.spacing.md,
+            design.spacing.xs,
+            design.spacing.md,
+            design.spacing.xl,
+          ),
           children: [
-            const Text("功课内容", style: TextStyle(fontWeight: FontWeight.bold)),
-            Container(
-              padding: const EdgeInsets.all(12),
-              margin: const EdgeInsets.symmetric(vertical: 8),
-              decoration: BoxDecoration(
-                color: Colors.grey[100],
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Text("${gongkeitem!.name} ${gongkeitem!.cnt}遍"),
-            ),
-            const SizedBox(height: 12),
-            const Text("播放模式", style: TextStyle(fontWeight: FontWeight.bold)),
-            const SizedBox(height: 8),
-            DropdownButton<String>(
-              isExpanded: true,
-              value: _selectedPatternId,
-              disabledHint: Text(_currentPattern.displayName),
-              items: patterns
-                  .map((p) => DropdownMenuItem(
-                        value: p.id,
-                        child: Text(p.displayName),
-                      ))
-                  .toList(),
-              onChanged: _isRunning ? null : _onModeChanged,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 4),
-              child: Text(
-                _currentPattern.groupedDescription,
-                style: const TextStyle(color: Colors.grey, fontSize: 13),
-              ),
-            ),
-            ListTile(
-              contentPadding: EdgeInsets.zero,
-              leading: const Icon(Icons.tune, color: Colors.blue),
-              title: const Text('管理十念法'),
-              trailing: const Icon(Icons.chevron_right),
-              onTap: _openManagement,
-            ),
-            const Divider(),
-            const SizedBox(height: 8),
-            const Row(
-              children: [
-                Text(
-                  "请设置电子木鱼时间间隔：",
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-                SizedBox(width: 4),
-              ],
-            ),
-            Row(
-              children: [
-                Text(
-                  interval.toStringAsFixed(1),
-                  style: const TextStyle(fontSize: 24, color: Colors.blue),
-                ),
-                const SizedBox(width: 8),
-                const Text("单位:秒"),
-              ],
-            ),
-            Row(
-              children: [
-                const Text('0.5秒'),
-                const SizedBox(width: 8),
-                Expanded(
-                  child: Slider(
-                    min: 0.5,
-                    max: 3.0,
-                    value: interval,
-                    divisions: 45,
-                    onChanged: _isRunning
-                        ? null
-                        : (value) {
-                            setState(() {
-                              interval = value;
-                            });
-                          },
-                    onChangeEnd: _isRunning
-                        ? null
-                        : (value) {
-                            _saveInterval();
-                          },
-                  ),
-                ),
-                const SizedBox(width: 8),
-                const Text('3秒'),
-              ],
-            ),
-            const SizedBox(height: 16),
-            const Text(
-              "点击按钮开始敲打木鱼：",
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 12),
-            Container(
-              padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: Colors.grey[100],
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Column(
-                children: [
-                  Align(
-                    alignment: Alignment.center,
-                    child: SizedBox(
-                      width: 200,
-                      child: ElevatedButton(
-                        onPressed: _onPrimary,
-                        style: AppButtonStyle.primaryButton,
-                        child: Text(_primaryLabel),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 12),
-                  Text("总共 $total 声，当前第 $current 声"),
-                  LinearProgressIndicator(
-                    value: total > 0 ? current / total : 0,
-                    backgroundColor: Colors.grey[300],
-                    color: Colors.blue,
-                  ),
-                ],
-              ),
-            ),
+            _buildTaskSummary(),
+            SizedBox(height: design.spacing.md),
+            _buildPatternCard(patterns),
+            SizedBox(height: design.spacing.md),
+            _buildIntervalCard(),
+            SizedBox(height: design.spacing.md),
+            _buildMuyuCard(total: total, current: current),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildTaskSummary() {
+    final design = RcmTheme.of(context);
+    final presentation = GongKeTypePresentation.of(gongkeitem!.gongketype);
+    return Container(
+      padding: EdgeInsets.all(design.spacing.md),
+      decoration: BoxDecoration(
+        color: design.cardBackgroundOf(context),
+        borderRadius: BorderRadius.circular(design.radius.lg),
+        border: Border.all(color: design.borderOf(context)),
+        boxShadow: [RcmShadowTokens.subtle.boxShadow],
+      ),
+      child: Row(
+        children: [
+          Container(
+            width: 48,
+            height: 48,
+            decoration: BoxDecoration(
+              color: design.colors.accentSoft,
+              borderRadius: BorderRadius.circular(design.radius.md),
+            ),
+            child:
+                Icon(presentation.icon, color: design.colors.primary, size: 25),
+          ),
+          SizedBox(width: design.spacing.sm),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(gongkeitem!.name,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: design.typography.body15Strong.copyWith(
+                      color: design.textPrimaryOf(context),
+                    )),
+                const SizedBox(height: 4),
+                Text('目标 ${gongkeitem!.cnt} ${presentation.unit}',
+                    style: design.typography.caption.copyWith(
+                      color: design.textSecondaryOf(context),
+                    )),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildMuyuCard({required int total, required int current}) {
+    final design = RcmTheme.of(context);
+    final progress = total > 0 ? (current / total).clamp(0.0, 1.0) : 0.0;
+    final completed = total > 0 && current >= total;
+    final statusColor =
+        completed ? design.colors.success : design.colors.primary;
+    final stateLabel = completed
+        ? '今日目标已完成'
+        : _isRunning
+            ? '木鱼敲击中'
+            : _canResume
+                ? '已暂停'
+                : '准备开始';
+
+    return Container(
+      padding: EdgeInsets.all(design.spacing.lg),
+      decoration: BoxDecoration(
+        color: design.cardBackgroundOf(context),
+        borderRadius: BorderRadius.circular(design.radius.xl),
+        border: Border.all(color: statusColor.withOpacity(0.18)),
+        boxShadow: [design.shadow.boxShadow],
+      ),
+      child: Column(
+        children: [
+          SizedBox(
+            width: 210,
+            height: 210,
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                SizedBox.expand(
+                  child: CircularProgressIndicator(
+                    value: progress,
+                    strokeWidth: 10,
+                    backgroundColor: statusColor.withOpacity(0.1),
+                    valueColor: AlwaysStoppedAnimation<Color>(statusColor),
+                  ),
+                ),
+                Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      '$current',
+                      style: TextStyle(
+                        fontSize: 54,
+                        height: 1,
+                        fontWeight: FontWeight.w700,
+                        color: statusColor,
+                        fontFeatures: const [FontFeature.tabularFigures()],
+                      ),
+                    ),
+                    const SizedBox(height: 9),
+                    Text(
+                      stateLabel,
+                      style: design.typography.bodyStrong.copyWith(
+                        color: design.textSecondaryOf(context),
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      '共 $total 声',
+                      style: design.typography.caption.copyWith(
+                        color: design.textTertiaryOf(context),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          SizedBox(height: design.spacing.lg),
+          SizedBox(
+            width: double.infinity,
+            child: RcmButton(
+              icon: _isRunning
+                  ? Icons.pause_rounded
+                  : _canResume
+                      ? Icons.play_arrow_rounded
+                      : Icons.notifications_active_outlined,
+              text: _primaryLabel,
+              onPressed: _onPrimary,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildPatternCard(List<MuyuRhythmPattern> patterns) {
+    final design = RcmTheme.of(context);
+    return Container(
+      decoration: BoxDecoration(
+        color: design.cardBackgroundOf(context),
+        borderRadius: BorderRadius.circular(design.radius.lg),
+        border: Border.all(color: design.borderOf(context)),
+      ),
+      clipBehavior: Clip.antiAlias,
+      child: Column(
+        children: [
+          Padding(
+            padding: EdgeInsets.all(design.spacing.md),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Icon(Icons.graphic_eq_rounded,
+                        color: design.colors.primary, size: 22),
+                    SizedBox(width: design.spacing.xs),
+                    Text('播放模式', style: design.typography.body15Strong),
+                  ],
+                ),
+                SizedBox(height: design.spacing.sm),
+                DropdownButtonFormField<String>(
+                  isExpanded: true,
+                  value: _selectedPatternId,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    contentPadding:
+                        EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                  ),
+                  disabledHint: Text(_currentPattern.displayName),
+                  items: patterns
+                      .map((pattern) => DropdownMenuItem(
+                            value: pattern.id,
+                            child: Text(pattern.displayName),
+                          ))
+                      .toList(),
+                  onChanged: _isRunning ? null : _onModeChanged,
+                ),
+                const SizedBox(height: 6),
+                Text(
+                  _currentPattern.groupedDescription,
+                  style: design.typography.caption.copyWith(
+                    color: design.textSecondaryOf(context),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Divider(height: 1, color: design.borderOf(context)),
+          ListTile(
+            leading: Icon(Icons.tune_rounded, color: design.colors.primary),
+            title: const Text('管理十念法'),
+            subtitle: const Text('编辑内置节奏或创建自己的敲击方式'),
+            trailing: const Icon(Icons.chevron_right),
+            onTap: _isRunning ? null : _openManagement,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildIntervalCard() {
+    final design = RcmTheme.of(context);
+    return Container(
+      padding: EdgeInsets.all(design.spacing.md),
+      decoration: BoxDecoration(
+        color: design.cardBackgroundOf(context),
+        borderRadius: BorderRadius.circular(design.radius.lg),
+        border: Border.all(color: design.borderOf(context)),
+      ),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              Icon(Icons.speed_rounded, color: design.colors.primary, size: 22),
+              SizedBox(width: design.spacing.xs),
+              Expanded(
+                child: Text('敲击间隔', style: design.typography.body15Strong),
+              ),
+              RcmBadge('${interval.toStringAsFixed(1)} 秒'),
+            ],
+          ),
+          SizedBox(height: design.spacing.sm),
+          Slider(
+            min: 0.5,
+            max: 3.0,
+            value: interval,
+            divisions: 25,
+            label: '${interval.toStringAsFixed(1)} 秒',
+            onChanged:
+                _isRunning ? null : (value) => setState(() => interval = value),
+            onChangeEnd: _isRunning ? null : (_) => _saveInterval(),
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: design.spacing.xs),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text('较快 · 0.5秒', style: design.typography.caption),
+                Text('3.0秒 · 较慢', style: design.typography.caption),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
