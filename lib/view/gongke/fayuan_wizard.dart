@@ -10,6 +10,7 @@ import '../../comm/shared_preferences.dart';
 import '../../comm/pub_tools.dart';
 import '../../comm/widget_sync_hooks.dart';
 import '../../comm/gongke_type_presentation.dart';
+import 'package:my_flutter_app_tools/my_flutter_app_tools.dart';
 
 class VMFaYuanData {
   String? name; // 发愿名称
@@ -79,12 +80,10 @@ class _FaYuanWizardPageState extends State<FaYuanWizardPage> {
   final TextEditingController startDateController = TextEditingController();
   final TextEditingController endDateController = TextEditingController();
 
-  // 添加状态变量跟踪时长
-  int _durationDays = 0;
-
   // 添加 controller 作为类成员
   late TextEditingController nameController;
   late TextEditingController fodiziNameController;
+  late TextEditingController yuanwangController;
   // 添加初始化标记，避免重复初始化
   bool _initialized = false; // 添加初始化标记
   bool _isSaving = false;
@@ -95,6 +94,7 @@ class _FaYuanWizardPageState extends State<FaYuanWizardPage> {
     // 初始化 controllers
     nameController = TextEditingController();
     fodiziNameController = TextEditingController();
+    yuanwangController = TextEditingController();
     // 不需要在这里初始化控制器了
     _data.startDate = DateTime.now();
   }
@@ -125,6 +125,7 @@ class _FaYuanWizardPageState extends State<FaYuanWizardPage> {
     // 释放 controllers
     nameController.dispose();
     fodiziNameController.dispose();
+    yuanwangController.dispose();
     // 释放 controller
     startDateController.dispose();
     endDateController.dispose();
@@ -146,6 +147,7 @@ class _FaYuanWizardPageState extends State<FaYuanWizardPage> {
     _data.startDate = fayuan.startDate;
     _data.endDate = fayuan.endDate;
     _data.yuanwang = fayuan.yuanwang;
+    yuanwangController.text = fayuan.yuanwang;
 
     final items = await (globalDB.select(globalDB.gongKeItemsOneDay)
           ..where((tbl) => tbl.fayuanId.equals(fayuanId!)))
@@ -189,6 +191,7 @@ class _FaYuanWizardPageState extends State<FaYuanWizardPage> {
       _data.fodiziName = fodiziName;
       fodiziNameController.text = fodiziName ?? '';
       _data.yuanwang = yuanwang;
+      yuanwangController.text = yuanwang ?? '';
       // 如果没有有效的日期，则使用默认值
       _data.startDate ??= startDate;
       _data.endDate ??= endDate;
@@ -204,39 +207,53 @@ class _FaYuanWizardPageState extends State<FaYuanWizardPage> {
   }
 
   Widget _buildStep1() {
-    return Form(
-      key: _formKey,
-      child: Column(
-        children: [
-          TextFormField(
-            controller: nameController,
-            decoration: const InputDecoration(labelText: '发愿名称'),
-            validator: (value) {
-              if (value?.isEmpty ?? true) {
-                return '请输入发愿名称';
-              }
-              return null;
-            },
-            onSaved: (value) {
-              _data.name = value;
-              saveStringValue('fayuanName', _data.name ?? '');
-            },
-          ),
-          TextFormField(
-            controller: fodiziNameController,
-            decoration: const InputDecoration(labelText: '佛弟子名称'),
-            validator: (value) {
-              if (value?.isEmpty ?? true) {
-                return '请输入佛弟子名称';
-              }
-              return null;
-            },
-            onSaved: (value) {
-              _data.fodiziName = value;
-              saveStringValue('fodiziName', _data.fodiziName ?? '');
-            },
-          ),
-        ],
+    return _sectionCard(
+      icon: Icons.edit_note_rounded,
+      title: '填写基本信息',
+      subtitle: '用于生成发愿文，之后仍可修改',
+      child: Form(
+        key: _formKey,
+        child: Column(
+          children: [
+            TextFormField(
+              controller: nameController,
+              textInputAction: TextInputAction.next,
+              decoration: const InputDecoration(
+                labelText: '发愿名称 *',
+                hintText: '例如：求智慧疏',
+                prefixIcon: Icon(Icons.auto_awesome_outlined),
+              ),
+              validator: (value) {
+                if (value?.isEmpty ?? true) {
+                  return '请输入发愿名称';
+                }
+                return null;
+              },
+              onSaved: (value) {
+                _data.name = value;
+                saveStringValue('fayuanName', _data.name ?? '');
+              },
+            ),
+            TextFormField(
+              controller: fodiziNameController,
+              decoration: const InputDecoration(
+                labelText: '佛弟子名称 *',
+                hintText: '请输入发愿人名称',
+                prefixIcon: Icon(Icons.person_outline_rounded),
+              ),
+              validator: (value) {
+                if (value?.isEmpty ?? true) {
+                  return '请输入佛弟子名称';
+                }
+                return null;
+              },
+              onSaved: (value) {
+                _data.fodiziName = value;
+                saveStringValue('fodiziName', _data.fodiziName ?? '');
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -246,158 +263,222 @@ class _FaYuanWizardPageState extends State<FaYuanWizardPage> {
     // print('Updating date controllers...');
     // print('1 Start Date: ${_data.startDate}');
     // print('1 End Date: ${_data.endDate}');
-    // print('1 Duration Days: $_durationDays');
     startDateController.text = _data.startDate != null
         ? DateTools.getDateStringByDate(_data.startDate!)
         : '';
     endDateController.text = _data.endDate != null
         ? DateTools.getDateStringByDate(_data.endDate!)
         : '';
-    _durationDays = _data.getDurationDays(); // 更新时长
     // print('2 Start Date: ${_data.startDate}');
     // print('2 End Date: ${_data.endDate}');
-    // print('2 Duration Days: $_durationDays');
   }
 
   Widget _buildStep2() {
-    return Column(
-      children: [
-        Row(
-          children: [
-            Expanded(
-              child: TextFormField(
-                readOnly: true,
-                controller: startDateController,
-                decoration: const InputDecoration(labelText: '起始日期'),
-                onTap: () async {
-                  final date = await showDatePicker(
-                    context: context,
-                    initialDate: _data.startDate ?? DateTime.now(),
-                    firstDate: DateTime(2000),
-                    lastDate: DateTime(2100),
-                  );
-                  if (date != null) {
-                    setState(() {
-                      _data.startDate = date;
-                      _updateDateControllers(); // 更新显示
-                    });
-                    //print(_data.startDate);
-                  }
-                },
+    return _sectionCard(
+      icon: Icons.date_range_rounded,
+      title: '设定发愿时间',
+      subtitle: '选择开始日期和持续周期',
+      child: Column(
+        children: [
+          Row(
+            children: [
+              Expanded(
+                child: TextFormField(
+                  readOnly: true,
+                  controller: startDateController,
+                  decoration: const InputDecoration(
+                    labelText: '起始日期',
+                    prefixIcon: Icon(Icons.calendar_today_outlined),
+                  ),
+                  onTap: () async {
+                    final date = await showDatePicker(
+                      context: context,
+                      initialDate: _data.startDate ?? DateTime.now(),
+                      firstDate: DateTime(2000),
+                      lastDate: DateTime(2100),
+                    );
+                    if (date != null) {
+                      setState(() {
+                        _data.startDate = date;
+                        _updateDateControllers(); // 更新显示
+                      });
+                      //print(_data.startDate);
+                    }
+                  },
+                ),
               ),
-            ),
-            const SizedBox(width: 16),
-            Expanded(
-              child: DropdownButtonFormField<int>(
-                decoration: const InputDecoration(labelText: '持续月数'),
-                items: _monthOptions.map((month) {
-                  return DropdownMenuItem(
-                    value: month,
-                    child: Text('$month个月'),
-                  );
-                }).toList(),
-                onChanged: (value) {
-                  if (value != null && _data.startDate != null) {
-                    setState(() {
-                      // 直接更新 endDate，不调用 _updateDateControllers
-                      final endDate = DateTime(
-                        _data.startDate!.year,
-                        _data.startDate!.month + value,
-                        _data.startDate!.day,
-                      );
-                      _data.endDate = endDate.subtract(const Duration(days: 1));
-                      endDateController.text = DateTools.getDateStringByDate(
-                        _data.endDate!,
-                      );
-                      _durationDays = _data.getDurationDays();
-                    });
-                  }
-                },
+              const SizedBox(width: 16),
+              Expanded(
+                child: DropdownButtonFormField<int>(
+                  decoration: const InputDecoration(labelText: '持续月数'),
+                  items: _monthOptions.map((month) {
+                    return DropdownMenuItem(
+                      value: month,
+                      child: Text('$month个月'),
+                    );
+                  }).toList(),
+                  onChanged: (value) {
+                    if (value != null && _data.startDate != null) {
+                      setState(() {
+                        // 直接更新 endDate，不调用 _updateDateControllers
+                        final endDate = DateTime(
+                          _data.startDate!.year,
+                          _data.startDate!.month + value,
+                          _data.startDate!.day,
+                        );
+                        _data.endDate =
+                            endDate.subtract(const Duration(days: 1));
+                        endDateController.text = DateTools.getDateStringByDate(
+                          _data.endDate!,
+                        );
+                      });
+                    }
+                  },
+                ),
               ),
+            ],
+          ),
+          const SizedBox(height: 16),
+          TextFormField(
+            readOnly: true,
+            controller: endDateController,
+            decoration: const InputDecoration(
+              labelText: '截止日期',
+              prefixIcon: Icon(Icons.event_available_outlined),
             ),
-          ],
-        ),
-        const SizedBox(height: 16),
-        TextFormField(
-          readOnly: true,
-          controller: endDateController,
-          decoration: const InputDecoration(labelText: '截止日期'),
-          onTap: () async {
-            final date = await showDatePicker(
-              context: context,
-              initialDate: _data.endDate ?? DateTime.now(),
-              firstDate: _data.startDate ?? DateTime.now(),
-              lastDate: DateTime(2100),
-            );
-            if (date != null) {
-              setState(() {
-                _data.endDate = date;
-                _updateDateControllers(); // 更新显示
-              });
-            }
-          },
-        ),
-        const SizedBox(height: 16),
-        Builder(
-          builder: (context) {
-            _durationDays = _data.getDurationDays();
-            return Text('发愿时长：$_durationDays天'); // 直接使用状态变量
-          },
-        ),
-      ],
+            onTap: () async {
+              final date = await showDatePicker(
+                context: context,
+                initialDate: _data.endDate ?? DateTime.now(),
+                firstDate: _data.startDate ?? DateTime.now(),
+                lastDate: DateTime(2100),
+              );
+              if (date != null) {
+                setState(() {
+                  _data.endDate = date;
+                  _updateDateControllers(); // 更新显示
+                });
+              }
+            },
+          ),
+          const SizedBox(height: 16),
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+            decoration: BoxDecoration(
+              color: RcmTheme.of(context).colors.accentSoft,
+              borderRadius:
+                  BorderRadius.circular(RcmTheme.of(context).radius.md),
+            ),
+            child: Row(
+              children: [
+                Icon(Icons.timelapse_rounded,
+                    color: Theme.of(context).colorScheme.primary),
+                const SizedBox(width: 10),
+                Text('共 ${_data.getDurationDays()} 天',
+                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                          fontWeight: FontWeight.w700,
+                        )),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 
   Widget _buildStep3() {
-    return Column(
-      children: [
-        ListView.builder(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          itemCount: _data.gkiODList.length,
-          itemBuilder: (context, index) {
-            final item = _data.gkiODList[index];
-            return Slidable(
-              endActionPane: ActionPane(
-                motion: const ScrollMotion(),
+    final design = RcmTheme.of(context);
+    return _sectionCard(
+      icon: Icons.checklist_rounded,
+      title: '安排每日功课',
+      subtitle: '每天将按照以下清单进行修持',
+      child: Column(
+        children: [
+          if (_data.gkiODList.isEmpty)
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: design.spacing.lg),
+              child: Column(
                 children: [
-                  SlidableAction(
-                    onPressed: (_) {
-                      setState(() {
-                        _data.gkiODList.removeAt(index);
-                      });
-                    },
-                    backgroundColor: Colors.red,
-                    foregroundColor: Colors.white,
-                    icon: Icons.delete,
-                    label: '删除',
-                  ),
+                  Icon(Icons.playlist_add_rounded,
+                      size: 48, color: design.textSecondaryOf(context)),
+                  const SizedBox(height: 8),
+                  Text('暂未添加每日功课',
+                      style: Theme.of(context).textTheme.titleMedium),
+                  const SizedBox(height: 4),
+                  Text('请至少添加一项功课',
+                      style: TextStyle(color: design.textSecondaryOf(context))),
                 ],
               ),
-              child: ListTile(
-                title: Text(item.name),
-                subtitle: Text('${item.gongketype.label} x ${item.cnt}'),
+            ),
+          ListView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: _data.gkiODList.length,
+            itemBuilder: (context, index) {
+              final item = _data.gkiODList[index];
+              return Slidable(
+                endActionPane: ActionPane(
+                  motion: const ScrollMotion(),
+                  children: [
+                    SlidableAction(
+                      onPressed: (_) {
+                        setState(() {
+                          _data.gkiODList.removeAt(index);
+                        });
+                      },
+                      backgroundColor: Colors.red,
+                      foregroundColor: Colors.white,
+                      icon: Icons.delete,
+                      label: '删除',
+                    ),
+                  ],
+                ),
+                child: ListTile(
+                  contentPadding: const EdgeInsets.symmetric(horizontal: 4),
+                  leading: CircleAvatar(
+                    backgroundColor: design.colors.accentSoft,
+                    foregroundColor: design.colors.primary,
+                    child: Icon(
+                      GongKeTypePresentation.of(item.gongketype.name).icon,
+                    ),
+                  ),
+                  title: Text(item.name,
+                      style: const TextStyle(fontWeight: FontWeight.w600)),
+                  subtitle: Text(item.gongketype.label),
+                  trailing: Text(
+                    '${item.cnt} ${GongKeTypePresentation.of(item.gongketype.name).unit}',
+                    style: TextStyle(
+                      color: design.colors.primary,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ),
+              );
+            },
+          ),
+          const SizedBox(height: 16),
+          Row(
+            children: [
+              Expanded(
+                child: OutlinedButton.icon(
+                  onPressed: () => _showCopyGongKeDialog(),
+                  icon: const Icon(Icons.copy_all_outlined),
+                  label: const Text('复制功课'),
+                ),
               ),
-            );
-          },
-        ),
-        const SizedBox(height: 16),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            ElevatedButton(
-              style: AppButtonStyle.primaryButton,
-              onPressed: () => _showAddGongKeDialog(),
-              child: const Text('新增功课'),
-            ),
-            ElevatedButton(
-              style: AppButtonStyle.primaryButton,
-              onPressed: () => _showCopyGongKeDialog(),
-              child: const Text('复制功课'),
-            ),
-          ],
-        ),
-      ],
+              const SizedBox(width: 12),
+              Expanded(
+                child: FilledButton.icon(
+                  onPressed: () => _showAddGongKeDialog(),
+                  icon: const Icon(Icons.add_rounded),
+                  label: const Text('新增功课'),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 
@@ -413,7 +494,7 @@ class _FaYuanWizardPageState extends State<FaYuanWizardPage> {
       var rec = _data.gkiODList[i];
       cnt = rec.cnt;
       gongketext +=
-          "(${i + 1})${rec.gongketype.label}${rec.name}${cnt}${getDanWeiByLabel(rec.gongketype.label)}。";
+          "(${i + 1})${rec.gongketype.label}${rec.name}$cnt${getDanWeiByLabel(rec.gongketype.label)}。";
       if (i < _data.gkiODList.length - 1) {
         gongketext += "\n";
       }
@@ -432,42 +513,51 @@ class _FaYuanWizardPageState extends State<FaYuanWizardPage> {
 
   Future<void> _showCopyGongKeDialog() async {
     final allItems = await globalDB.select(globalDB.gongKeItemsOneDay).get();
-    final uniqueItems = <String>{};
+    if (!mounted) return;
     final itemMap = <String, VMGongKeItemOneDayData>{};
-    final selectedItems = <String>{}; // 移到这里
 
     for (var item in allItems) {
       final displayText = '${item.name} x ${item.cnt}';
-      uniqueItems.add(displayText);
-      itemMap[displayText] = VMGongKeItemOneDayData(
-        gongketype: GongKeType.values.firstWhere(
-          (t) => t.name == item.gongketype,
-        ),
-        name: item.name,
-        cnt: item.cnt,
-        idx: item.idx,
-      );
+      final types = GongKeType.values.where((t) => t.name == item.gongketype);
+      if (types.isNotEmpty) {
+        itemMap[displayText] = VMGongKeItemOneDayData(
+          gongketype: types.first,
+          name: item.name,
+          cnt: item.cnt,
+          idx: item.idx,
+        );
+      }
     }
 
-    await showDialog(
+    if (itemMap.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('还没有可复制的历史功课')),
+      );
+      return;
+    }
+
+    final selectedItems = <String>{};
+    final result = await showDialog<Set<String>>(
       context: context,
       builder: (context) => StatefulBuilder(
-        // 添加 StatefulBuilder
-        builder: (context, setState) => AlertDialog(
+        builder: (context, setDialogState) => AlertDialog(
           title: const Text('复制功课'),
-          content: SizedBox(
-            width: double.maxFinite,
+          content: ConstrainedBox(
+            constraints: const BoxConstraints(
+              minWidth: 280,
+              maxWidth: 420,
+              maxHeight: 420,
+            ),
             child: ListView.builder(
               shrinkWrap: true,
-              itemCount: uniqueItems.length,
+              itemCount: itemMap.length,
               itemBuilder: (context, index) {
-                final item = uniqueItems.elementAt(index);
+                final item = itemMap.keys.elementAt(index);
                 return CheckboxListTile(
                   title: Text(item),
                   value: selectedItems.contains(item),
                   onChanged: (bool? value) {
-                    setState(() {
-                      // 使用 StatefulBuilder 的 setState
+                    setDialogState(() {
                       if (value == true) {
                         selectedItems.add(item);
                       } else {
@@ -481,35 +571,35 @@ class _FaYuanWizardPageState extends State<FaYuanWizardPage> {
           ),
           actions: [
             TextButton(
-              onPressed: () => Navigator.pop(context),
+              onPressed: () => Navigator.pop(context, <String>{}),
               child: const Text('取消'),
             ),
-            TextButton(
-              onPressed: () {
-                // 将选中的项目添加到功课列表
-                for (var selected in selectedItems) {
-                  if (itemMap.containsKey(selected)) {
-                    final item = itemMap[selected]!;
-                    setState(() {
-                      _data.gkiODList.add(
-                        VMGongKeItemOneDayData(
-                          gongketype: item.gongketype,
-                          name: item.name,
-                          cnt: item.cnt,
-                          idx: _data.gkiODList.length + 1,
-                        ),
-                      );
-                    });
-                  }
-                }
-                Navigator.pop(context);
-              },
+            FilledButton(
+              onPressed: selectedItems.isEmpty
+                  ? null
+                  : () => Navigator.pop(context, Set.of(selectedItems)),
               child: const Text('确定'),
             ),
           ],
         ),
       ),
     );
+
+    if (!mounted || result == null || result.isEmpty) return;
+    setState(() {
+      for (final selected in result) {
+        final item = itemMap[selected];
+        if (item == null) continue;
+        _data.gkiODList.add(
+          VMGongKeItemOneDayData(
+            gongketype: item.gongketype,
+            name: item.name,
+            cnt: item.cnt,
+            idx: _data.gkiODList.length + 1,
+          ),
+        );
+      }
+    });
   }
 
   Future<void> _showAddGongKeDialog() async {
@@ -688,39 +778,196 @@ class _FaYuanWizardPageState extends State<FaYuanWizardPage> {
   }
 
   Widget _buildStep4() {
-    return TextFormField(
-      // 使用 controller 替代 initialValue
-      controller: TextEditingController(text: _data.yuanwang),
-      decoration: const InputDecoration(
-        labelText: '发愿',
-        hintText: '请输入您的愿望...',
+    return _sectionCard(
+      icon: Icons.favorite_border_rounded,
+      title: '写下愿望',
+      subtitle: '愿望将写入最终生成的发愿文',
+      child: TextFormField(
+        controller: yuanwangController,
+        decoration: const InputDecoration(
+          labelText: '愿望内容',
+          hintText: '例如：消除烦恼，增长智慧……',
+          alignLabelWithHint: true,
+        ),
+        minLines: 7,
+        maxLines: 10,
+        maxLength: 500,
+        onChanged: (value) {
+          _data.yuanwang = value;
+          saveStringValue('yuanwang', _data.yuanwang ?? '');
+        },
       ),
-      maxLines: 5,
-      onChanged: (value) {
-        _data.yuanwang = value;
-        saveStringValue('yuanwang', _data.yuanwang ?? '');
-      },
     );
   }
 
   Widget _buildStep5() {
+    final design = RcmTheme.of(context);
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('发愿名称：${_data.name}'),
-        Text('佛弟子名称：${_data.fodiziName}'),
-        Text('起始日期：${_data.startDate?.toString().split(' ')[0]}'),
-        Text('截止日期：${_data.endDate?.toString().split(' ')[0]}'),
-        Text('发愿时长：${_data.getDurationDays()}天'),
-        const Divider(),
-        const Text('每日功课：'),
-        ..._data.gkiODList.map(
-          (item) =>
-              Text('${item.gongketype.label} - ${item.name} x ${item.cnt}'),
+        _summaryCard(
+          icon: Icons.badge_outlined,
+          title: '基本信息',
+          children: [
+            _summaryRow('发愿名称', _data.name ?? ''),
+            _summaryRow('佛弟子名称', _data.fodiziName ?? ''),
+          ],
         ),
-        const Divider(),
-        Text('愿望：${_data.yuanwang}'),
+        SizedBox(height: design.spacing.sm),
+        _summaryCard(
+          icon: Icons.date_range_rounded,
+          title: '时间安排',
+          children: [
+            _summaryRow('开始日期', startDateController.text),
+            _summaryRow('截止日期', endDateController.text),
+            _summaryRow('发愿时长', '${_data.getDurationDays()} 天'),
+          ],
+        ),
+        SizedBox(height: design.spacing.sm),
+        _summaryCard(
+          icon: Icons.checklist_rounded,
+          title: '每日功课',
+          children: _data.gkiODList.map((item) {
+            final presentation =
+                GongKeTypePresentation.of(item.gongketype.name);
+            return ListTile(
+              dense: true,
+              contentPadding: EdgeInsets.zero,
+              leading: Icon(presentation.icon, color: design.colors.primary),
+              title: Text(item.name),
+              trailing: Text('${item.cnt} ${presentation.unit}',
+                  style: const TextStyle(fontWeight: FontWeight.w700)),
+            );
+          }).toList(),
+        ),
+        SizedBox(height: design.spacing.sm),
+        _summaryCard(
+          icon: Icons.favorite_border_rounded,
+          title: '愿望',
+          children: [
+            Text(
+              (_data.yuanwang?.trim().isNotEmpty ?? false)
+                  ? _data.yuanwang!.trim()
+                  : '未填写愿望',
+              style: TextStyle(
+                height: 1.6,
+                color: (_data.yuanwang?.trim().isNotEmpty ?? false)
+                    ? design.textPrimaryOf(context)
+                    : design.textSecondaryOf(context),
+              ),
+            ),
+          ],
+        ),
       ],
+    );
+  }
+
+  Widget _sectionCard({
+    required IconData icon,
+    required String title,
+    required String subtitle,
+    required Widget child,
+  }) {
+    final design = RcmTheme.of(context);
+    return Container(
+      width: double.infinity,
+      padding: EdgeInsets.all(design.spacing.md),
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.surfaceContainerLowest,
+        borderRadius: BorderRadius.circular(design.radius.lg),
+        border: Border.all(color: design.colors.primary.withOpacity(0.12)),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.04),
+            blurRadius: 14,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              CircleAvatar(
+                backgroundColor: design.colors.accentSoft,
+                foregroundColor: design.colors.primary,
+                child: Icon(icon),
+              ),
+              SizedBox(width: design.spacing.sm),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(title,
+                        style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                              fontWeight: FontWeight.w700,
+                            )),
+                    const SizedBox(height: 2),
+                    Text(subtitle,
+                        style:
+                            TextStyle(color: design.textSecondaryOf(context))),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: design.spacing.lg),
+          child,
+        ],
+      ),
+    );
+  }
+
+  Widget _summaryCard({
+    required IconData icon,
+    required String title,
+    required List<Widget> children,
+  }) {
+    final design = RcmTheme.of(context);
+    return Container(
+      width: double.infinity,
+      padding: EdgeInsets.all(design.spacing.md),
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.surfaceContainerLowest,
+        borderRadius: BorderRadius.circular(design.radius.lg),
+        border: Border.all(color: design.colors.primary.withOpacity(0.12)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(children: [
+            Icon(icon, color: design.colors.primary),
+            const SizedBox(width: 8),
+            Text(title,
+                style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                      fontWeight: FontWeight.w700,
+                    )),
+          ]),
+          const Divider(height: 24),
+          ...children,
+        ],
+      ),
+    );
+  }
+
+  Widget _summaryRow(String label, String value) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 10),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(
+            width: 92,
+            child: Text(label,
+                style: TextStyle(
+                    color: RcmTheme.of(context).textSecondaryOf(context))),
+          ),
+          Expanded(
+            child: Text(value,
+                style: const TextStyle(fontWeight: FontWeight.w600)),
+          ),
+        ],
+      ),
     );
   }
 
@@ -845,83 +1092,159 @@ class _FaYuanWizardPageState extends State<FaYuanWizardPage> {
     }
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('发愿${actType == 'A' ? '新增' : '修改'}')),
-      body: Stepper(
+  void _continue() {
+    if (_currentStep == 4) {
+      _handleSave();
+      return;
+    }
+    switch (_currentStep) {
+      case 0:
+        if (!(_formKey.currentState?.validate() ?? false)) return;
+        _formKey.currentState?.save();
+        break;
+      case 1:
+        if (!_data.isDateValid()) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('请选择有效的起始日期和截止日期')),
+          );
+          return;
+        }
+        break;
+      case 2:
+        if (!_data.isGongKeValid()) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('请至少添加一个功课')),
+          );
+          return;
+        }
+        break;
+    }
+    FocusScope.of(context).unfocus();
+    setState(() => _currentStep++);
+  }
+
+  Widget _buildProgressHeader() {
+    const labels = ['基本', '时间', '功课', '愿望', '确认'];
+    final design = RcmTheme.of(context);
+    return Container(
+      padding: EdgeInsets.fromLTRB(
+        design.spacing.sm,
+        design.spacing.sm,
+        design.spacing.sm,
+        design.spacing.md,
+      ),
+      child: RcmStepProgress(
+        steps: labels,
         currentStep: _currentStep,
-        onStepContinue: () {
-          if (_currentStep < 4) {
-            switch (_currentStep) {
-              case 0:
-                if (_formKey.currentState?.validate() ?? false) {
-                  _formKey.currentState?.save();
-                  setState(() => _currentStep++);
-                }
-                break;
-              case 1:
-                if (_data.isDateValid()) {
-                  setState(() => _currentStep++);
-                } else {
-                  ScaffoldMessenger.of(
-                    context,
-                  ).showSnackBar(const SnackBar(content: Text('请选择起始日期和截止日期')));
-                }
-                break;
-              case 2:
-                if (_data.isGongKeValid()) {
-                  setState(() => _currentStep++);
-                } else {
-                  ScaffoldMessenger.of(
-                    context,
-                  ).showSnackBar(const SnackBar(content: Text('请至少添加一个功课')));
-                }
-                break;
-              default:
-                setState(() => _currentStep++);
-            }
-          } else {
-            _handleSave();
-          }
-        },
-        onStepCancel: () {
-          if (_currentStep > 0) {
-            setState(() => _currentStep--);
-          }
-        },
-        steps: [
-          Step(title: const Text('基本信息'), content: _buildStep1()),
-          Step(title: const Text('时间选择'), content: _buildStep2()),
-          Step(title: const Text('功课设定'), content: _buildStep3()),
-          Step(title: const Text('愿望'), content: _buildStep4()),
-          Step(title: const Text('发愿确认'), content: _buildStep5()),
-        ],
-        controlsBuilder: (context, controls) => Padding(
-          padding: const EdgeInsets.symmetric(vertical: 16.0),
-          child: Row(
-            children: [
-              const Spacer(),
-              if (_currentStep > 0) ...[
-                const SizedBox(width: 8),
-                ElevatedButton(
-                  style: AppButtonStyle.primaryButton,
-                  onPressed: controls.onStepCancel,
-                  child: const Text('上一步'),
+      ),
+    );
+  }
+
+  Widget _buildBottomActions() {
+    final design = RcmTheme.of(context);
+    return SafeArea(
+      top: false,
+      child: Container(
+        padding: EdgeInsets.fromLTRB(
+          design.spacing.md,
+          design.spacing.sm,
+          design.spacing.md,
+          design.spacing.md,
+        ),
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.surface,
+          border:
+              Border(top: BorderSide(color: Theme.of(context).dividerColor)),
+        ),
+        child: Row(
+          children: [
+            if (_currentStep > 0) ...[
+              Expanded(
+                child: OutlinedButton.icon(
+                  onPressed: _isSaving
+                      ? null
+                      : () {
+                          FocusScope.of(context).unfocus();
+                          setState(() => _currentStep--);
+                        },
+                  icon: const Icon(Icons.arrow_back_rounded),
+                  label: const Text('上一步'),
                 ),
-              ],
-              const Spacer(),
-              ElevatedButton(
-                style: AppButtonStyle.primaryButton,
-                onPressed: _isSaving ? null : controls.onStepContinue,
-                child: Text(
-                    _currentStep < 4 ? '下一步' : (_isSaving ? '保存中...' : '保存')),
               ),
-              const Spacer(),
+              const SizedBox(width: 12),
             ],
-          ),
+            Expanded(
+              flex: _currentStep > 0 ? 1 : 2,
+              child: FilledButton.icon(
+                onPressed: _isSaving ? null : _continue,
+                icon: _isSaving
+                    ? const SizedBox(
+                        width: 18,
+                        height: 18,
+                        child: CircularProgressIndicator(
+                          strokeWidth: 2,
+                          color: Colors.white,
+                        ),
+                      )
+                    : Icon(_currentStep == 4
+                        ? Icons.check_rounded
+                        : Icons.arrow_forward_rounded),
+                label: Text(_currentStep == 4
+                    ? (_isSaving ? '保存中...' : '保存发愿')
+                    : '下一步'),
+              ),
+            ),
+          ],
         ),
       ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final design = RcmTheme.of(context);
+    final steps = [
+      _buildStep1(),
+      _buildStep2(),
+      _buildStep3(),
+      _buildStep4(),
+      _buildStep5(),
+    ];
+    return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.surface,
+      appBar: AppBar(
+        title: Text(actType == 'A' ? '新建发愿' : '修改发愿'),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+      ),
+      body: SafeArea(
+        bottom: false,
+        child: Column(
+          children: [
+            _buildProgressHeader(),
+            Expanded(
+              child: SingleChildScrollView(
+                keyboardDismissBehavior:
+                    ScrollViewKeyboardDismissBehavior.onDrag,
+                padding: EdgeInsets.fromLTRB(
+                  design.spacing.md,
+                  0,
+                  design.spacing.md,
+                  design.spacing.lg,
+                ),
+                child: AnimatedSwitcher(
+                  duration: const Duration(milliseconds: 180),
+                  child: KeyedSubtree(
+                    key: ValueKey(_currentStep),
+                    child: steps[_currentStep],
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+      bottomNavigationBar: _buildBottomActions(),
     );
   }
 }

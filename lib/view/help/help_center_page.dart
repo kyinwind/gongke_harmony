@@ -30,6 +30,11 @@ final AppHelpCenterConfig harmonyHelpConfig = AppHelpCenterConfig(
   ],
   versionHistory: [
     VersionHistoryItem(
+      versionName: 'v1.1.5',
+      publishedAt: DateTime(2026, 9, 3),
+      changes: '1.优化界面\n2.fixed卡片提示bug',
+    ),
+    VersionHistoryItem(
       versionName: 'v1.1.3',
       publishedAt: DateTime(2026, 8, 21),
       changes: '1.fixed卡片显示时间和更新时间应该分别处理的问题。\n2.优化功课日历显示逻辑',
