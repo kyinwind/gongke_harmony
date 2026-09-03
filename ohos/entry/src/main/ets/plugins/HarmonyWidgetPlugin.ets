@@ -115,14 +115,18 @@ export default class HarmonyWidgetPlugin
       }
       const formIds = Object.keys(instances);
       const retainedInstances: Record<string, string> = {};
+      const repository = new WidgetSnapshotRepository(this.appContext);
       for (let index = 0; index < formIds.length; index++) {
         const formId = formIds[index];
         const formName = instances[formId];
         try {
           if (changedNames.includes(formName)) {
-            const snapshot = formName === 'TodayTipCard'
-              ? JSON.stringify(new WidgetSnapshotRepository(this.appContext).readForForm(formId, formName))
-              : snapshots[formName] ?? store.getSync(formName, '{}') as string;
+            // FormBindingData updates are incremental. Always decorate every
+            // card from the just-written snapshot so runtime-only fields such
+            // as staleLevel/staleMessage are explicitly overwritten. Sending
+            // raw task/calendar snapshots would leave yesterday's warning in
+            // place even after generatedAt had advanced to today.
+            const snapshot = JSON.stringify(repository.readForForm(formId, formName));
             await formProvider.updateForm(
               formId,
               formBindingData.createFormBindingData(JSON.parse(snapshot) as object),

@@ -37,15 +37,15 @@ class _GongKeSettingPageState extends State<GongKeSettingPage> {
   }
 
   void _updateEditState(String dateStr) {
-    final today = DateTime.now();
+    final today = DateUtils.dateOnly(DateTime.now());
     final yesterday = today.subtract(const Duration(days: 1));
-    final inputDate = DateTime.parse(dateStr);
+    final inputDate = DateUtils.dateOnly(DateTime.parse(dateStr));
 
     setState(() {
-      // 只有今天和昨天可以编辑
-      _canEdit = inputDate.year == today.year &&
-          inputDate.month == today.month &&
-          (inputDate.day == today.day || inputDate.day == yesterday.day);
+      // 只有今天和昨天可以编辑。直接比较完整日期，避免每月 1 日或
+      // 每年 1 月 1 日时，昨天因月份/年份不同而被错误禁用。
+      _canEdit = DateUtils.isSameDay(inputDate, today) ||
+          DateUtils.isSameDay(inputDate, yesterday);
 
       // 同样的条件控制按钮显示
       _showCompleteButton = _canEdit;
