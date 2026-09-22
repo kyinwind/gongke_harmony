@@ -9,6 +9,7 @@ import '../../comm/pub_tools.dart';
 import '../../comm/widget_sync_hooks.dart';
 import '../../comm/gongke_type_presentation.dart';
 import 'package:easy_design_system/easy_design_system.dart';
+import 'package:my_flutter_app_tools/my_flutter_app_tools.dart';
 
 class VMFaYuanData {
   String? name; // 发愿名称

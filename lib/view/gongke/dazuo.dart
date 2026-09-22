@@ -150,7 +150,7 @@ class _DaZuoPageState extends State<DaZuoPage> {
         color: scheme.cardBackground,
         borderRadius: BorderRadius.circular(tokens.radius.lg),
         border: Border.all(color: scheme.border),
-        boxShadow: [EdsShadowTokens.subtle.boxShadow],
+        boxShadow: [BoxShadow(color: tokens.colors.primary.withValues(alpha: 0.06), blurRadius: 18, offset: const Offset(0, 10))],
       ),
       child: Row(
         children: [
@@ -199,7 +199,7 @@ class _DaZuoPageState extends State<DaZuoPage> {
         color: scheme.cardBackground,
         borderRadius: BorderRadius.circular(tokens.radius.xl),
         border: Border.all(color: tokens.colors.primary.withValues(alpha: 0.16)),
-        boxShadow: [tokens.shadow.boxShadow],
+        boxShadow: [BoxShadow(color: tokens.colors.primary.withValues(alpha: 0.06), blurRadius: 18, offset: const Offset(0, 10))],
       ),
       child: Column(
         children: [
