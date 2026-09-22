@@ -3,7 +3,7 @@ import 'dart:async';
 import '../../database.dart';
 import '../../main.dart';
 import 'package:drift/drift.dart' hide Column;
-import 'package:my_flutter_app_tools/my_flutter_app_tools.dart';
+import 'package:easy_design_system/easy_design_system.dart';
 import '../../comm/audio_tools.dart';
 import '../../comm/wakelock_tools.dart';
 import '../../comm/widget_sync_hooks.dart';
@@ -18,7 +18,7 @@ class DaZuoPage extends StatefulWidget {
 
 class _DaZuoPageState extends State<DaZuoPage> {
   GongKeItemData? gki; //根据传入的参数获取功课项
-  bool isLoaded = false; //是否已经载入数据，如果已经载入就不需要重复载入
+  bool isLoaded = false;//是否已经载入数据，如果已经载入就不需要重复载入
   bool isGoingon = false;
   int totalMinutes = 0;
   int loopIndex = 0;
@@ -27,7 +27,6 @@ class _DaZuoPageState extends State<DaZuoPage> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    // Get route arguments
     if (!isLoaded) {
       final args = ModalRoute.of(context)?.settings.arguments as Map?;
       if (args != null && args['gongkeitem'] is GongKeItemData) {
@@ -112,7 +111,7 @@ class _DaZuoPageState extends State<DaZuoPage> {
     if (!isLoaded || gki == null) {
       return const Scaffold(body: Center(child: CircularProgressIndicator()));
     }
-    final design = RcmTheme.of(context);
+    final tokens = context.edsTokens; final scheme = context.edsScheme;
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
@@ -123,18 +122,18 @@ class _DaZuoPageState extends State<DaZuoPage> {
       body: SafeArea(
         child: ListView(
           padding: EdgeInsets.fromLTRB(
-            design.spacing.md,
-            design.spacing.xs,
-            design.spacing.md,
-            design.spacing.xl,
+            tokens.spacing.md,
+            tokens.spacing.xs,
+            tokens.spacing.md,
+            tokens.spacing.xl,
           ),
           children: [
             _buildTaskSummary(),
-            SizedBox(height: design.spacing.md),
+            SizedBox(height: tokens.spacing.md),
             _buildTimerCard(),
-            SizedBox(height: design.spacing.md),
+            SizedBox(height: tokens.spacing.md),
             _buildDurationCard(),
-            SizedBox(height: design.spacing.md),
+            SizedBox(height: tokens.spacing.md),
             _buildHintCard(),
           ],
         ),
@@ -143,15 +142,15 @@ class _DaZuoPageState extends State<DaZuoPage> {
   }
 
   Widget _buildTaskSummary() {
-    final design = RcmTheme.of(context);
+    final tokens = context.edsTokens; final scheme = context.edsScheme;
     final presentation = GongKeTypePresentation.of(gki!.gongketype);
     return Container(
-      padding: EdgeInsets.all(design.spacing.md),
+      padding: EdgeInsets.all(tokens.spacing.md),
       decoration: BoxDecoration(
-        color: design.cardBackgroundOf(context),
-        borderRadius: BorderRadius.circular(design.radius.lg),
-        border: Border.all(color: design.borderOf(context)),
-        boxShadow: [RcmShadowTokens.subtle.boxShadow],
+        color: scheme.cardBackground,
+        borderRadius: BorderRadius.circular(tokens.radius.lg),
+        border: Border.all(color: scheme.border),
+        boxShadow: [EdsShadowTokens.subtle.boxShadow],
       ),
       child: Row(
         children: [
@@ -159,25 +158,25 @@ class _DaZuoPageState extends State<DaZuoPage> {
             width: 48,
             height: 48,
             decoration: BoxDecoration(
-              color: design.colors.accentSoft,
-              borderRadius: BorderRadius.circular(design.radius.md),
+              color: tokens.colors.primarySoft,
+              borderRadius: BorderRadius.circular(tokens.radius.md),
             ),
             child:
-                Icon(presentation.icon, size: 26, color: design.colors.primary),
+                Icon(presentation.icon, size: 26, color: tokens.colors.primary),
           ),
-          SizedBox(width: design.spacing.sm),
+          SizedBox(width: tokens.spacing.sm),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(gki!.name,
-                    style: design.typography.body15Strong.copyWith(
-                      color: design.textPrimaryOf(context),
+                    style: tokens.typography.body15Strong.copyWith(
+                      color: scheme.textPrimary,
                     )),
                 const SizedBox(height: 4),
                 Text('每日目标 ${gki!.cnt} ${presentation.unit}',
-                    style: design.typography.caption.copyWith(
-                      color: design.textSecondaryOf(context),
+                    style: tokens.typography.caption.copyWith(
+                      color: scheme.textSecondary,
                     )),
               ],
             ),
@@ -188,19 +187,19 @@ class _DaZuoPageState extends State<DaZuoPage> {
   }
 
   Widget _buildTimerCard() {
-    final design = RcmTheme.of(context);
+    final tokens = context.edsTokens; final scheme = context.edsScheme;
     final totalSeconds = totalMinutes * 60;
     final elapsed = totalSeconds <= 0
         ? 0.0
         : ((totalSeconds - loopIndex) / totalSeconds).clamp(0.0, 1.0);
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.all(design.spacing.lg),
+      padding: EdgeInsets.all(tokens.spacing.lg),
       decoration: BoxDecoration(
-        color: design.cardBackgroundOf(context),
-        borderRadius: BorderRadius.circular(design.radius.xl),
-        border: Border.all(color: design.colors.primary.withOpacity(0.16)),
-        boxShadow: [design.shadow.boxShadow],
+        color: scheme.cardBackground,
+        borderRadius: BorderRadius.circular(tokens.radius.xl),
+        border: Border.all(color: tokens.colors.primary.withValues(alpha: 0.16)),
+        boxShadow: [tokens.shadow.boxShadow],
       ),
       child: Column(
         children: [
@@ -214,9 +213,9 @@ class _DaZuoPageState extends State<DaZuoPage> {
                   child: CircularProgressIndicator(
                     value: isGoingon ? elapsed : 0,
                     strokeWidth: 10,
-                    backgroundColor: design.colors.primary.withOpacity(0.1),
+                    backgroundColor: tokens.colors.primary.withValues(alpha: 0.1),
                     valueColor:
-                        AlwaysStoppedAnimation<Color>(design.colors.primary),
+                        AlwaysStoppedAnimation<Color>(tokens.colors.primary),
                   ),
                 ),
                 Column(
@@ -227,17 +226,17 @@ class _DaZuoPageState extends State<DaZuoPage> {
                       style: TextStyle(
                         fontSize: 48,
                         fontWeight: FontWeight.w700,
-                        color: design.textPrimaryOf(context),
+                        color: scheme.textPrimary,
                         fontFeatures: const [FontFeature.tabularFigures()],
                       ),
                     ),
                     const SizedBox(height: 6),
                     Text(
                       isGoingon ? '正在入静' : '准备开始',
-                      style: design.typography.body.copyWith(
+                      style: tokens.typography.body.copyWith(
                         color: isGoingon
-                            ? design.colors.primary
-                            : design.textSecondaryOf(context),
+                            ? tokens.colors.primary
+                            : scheme.textSecondary,
                       ),
                     ),
                   ],
@@ -245,14 +244,14 @@ class _DaZuoPageState extends State<DaZuoPage> {
               ],
             ),
           ),
-          SizedBox(height: design.spacing.lg),
+          SizedBox(height: tokens.spacing.lg),
           SizedBox(
             width: double.infinity,
-            child: RcmButton(
-              role: isGoingon ? RcmButtonRole.danger : RcmButtonRole.primary,
-              icon: isGoingon ? Icons.stop_rounded : Icons.play_arrow_rounded,
-              text: isGoingon ? '结束本次打坐' : '开始打坐',
-              onPressed: isGoingon ? stopTimer : () => startTimer(gki!),
+            child: EdsButton(
+              isGoingon ? '结束本次打坐' : '开始打坐',
+              role: isGoingon ? EdsButtonRole.danger : EdsButtonRole.primary,
+              systemImage: isGoingon ? Icons.stop_rounded : Icons.play_arrow_rounded,
+              action: isGoingon ? stopTimer : () => startTimer(gki!),
             ),
           ),
         ],
@@ -261,13 +260,13 @@ class _DaZuoPageState extends State<DaZuoPage> {
   }
 
   Widget _buildDurationCard() {
-    final design = RcmTheme.of(context);
+    final tokens = context.edsTokens; final scheme = context.edsScheme;
     return Container(
-      padding: EdgeInsets.all(design.spacing.md),
+      padding: EdgeInsets.all(tokens.spacing.md),
       decoration: BoxDecoration(
-        color: design.cardBackgroundOf(context),
-        borderRadius: BorderRadius.circular(design.radius.lg),
-        border: Border.all(color: design.borderOf(context)),
+        color: scheme.cardBackground,
+        borderRadius: BorderRadius.circular(tokens.radius.lg),
+        border: Border.all(color: scheme.border),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -275,14 +274,14 @@ class _DaZuoPageState extends State<DaZuoPage> {
           Row(
             children: [
               Icon(Icons.timer_outlined,
-                  color: design.colors.primary, size: 22),
-              SizedBox(width: design.spacing.xs),
-              Text('打坐时长', style: design.typography.body15Strong),
+                  color: tokens.colors.primary, size: 22),
+              SizedBox(width: tokens.spacing.xs),
+              Text('打坐时长', style: tokens.typography.body15Strong),
               const Spacer(),
-              RcmBadge('$totalMinutes 分钟'),
+              EdsBadge('$totalMinutes 分钟'),
             ],
           ),
-          SizedBox(height: design.spacing.sm),
+          SizedBox(height: tokens.spacing.sm),
           DaZuoTimeView(
             initialMinutes: totalMinutes,
             onChanged: (val) {
@@ -299,24 +298,24 @@ class _DaZuoPageState extends State<DaZuoPage> {
   }
 
   Widget _buildHintCard() {
-    final design = RcmTheme.of(context);
+    final tokens = context.edsTokens; final scheme = context.edsScheme;
     return Container(
-      padding: EdgeInsets.all(design.spacing.sm),
+      padding: EdgeInsets.all(tokens.spacing.sm),
       decoration: BoxDecoration(
-        color: design.colors.accentSoft,
-        borderRadius: BorderRadius.circular(design.radius.md),
+        color: tokens.colors.primarySoft,
+        borderRadius: BorderRadius.circular(tokens.radius.md),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Icon(Icons.notifications_active_outlined,
-              color: design.colors.primary, size: 20),
-          SizedBox(width: design.spacing.xs),
+              color: tokens.colors.primary, size: 20),
+          SizedBox(width: tokens.spacing.xs),
           Expanded(
             child: Text(
               '开始与结束时各敲三声引磬。计时期间屏幕将保持点亮。',
-              style: design.typography.caption.copyWith(
-                color: design.textSecondaryOf(context),
+              style: tokens.typography.caption.copyWith(
+                color: scheme.textSecondary,
                 height: 1.45,
               ),
             ),

@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:gongke/database.dart';
 import 'package:drift/drift.dart' hide Column;
-import 'package:my_flutter_app_tools/my_flutter_app_tools.dart';
+import 'package:easy_design_system/easy_design_system.dart';
 import '../../main.dart';
 import '../../comm/audio_tools.dart';
 import '../../comm/wakelock_tools.dart';
@@ -198,7 +198,8 @@ class _NianShengHaoPageState extends State<NianShengHaoPage> {
     final total = gongkeitem!.cnt;
     final current = _session.playedCount;
     final patterns = muyuRhythmStore.selectablePatterns;
-    final design = RcmTheme.of(context);
+    final tokens = context.edsTokens;
+    final scheme = context.edsScheme;
 
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
@@ -210,18 +211,18 @@ class _NianShengHaoPageState extends State<NianShengHaoPage> {
       body: SafeArea(
         child: ListView(
           padding: EdgeInsets.fromLTRB(
-            design.spacing.md,
-            design.spacing.xs,
-            design.spacing.md,
-            design.spacing.xl,
+            tokens.spacing.md,
+            tokens.spacing.xs,
+            tokens.spacing.md,
+            tokens.spacing.xl,
           ),
           children: [
             _buildTaskSummary(),
-            SizedBox(height: design.spacing.md),
+            SizedBox(height: tokens.spacing.md),
             _buildPatternCard(patterns),
-            SizedBox(height: design.spacing.md),
+            SizedBox(height: tokens.spacing.md),
             _buildIntervalCard(),
-            SizedBox(height: design.spacing.md),
+            SizedBox(height: tokens.spacing.md),
             _buildMuyuCard(total: total, current: current),
           ],
         ),
@@ -230,15 +231,16 @@ class _NianShengHaoPageState extends State<NianShengHaoPage> {
   }
 
   Widget _buildTaskSummary() {
-    final design = RcmTheme.of(context);
+    final tokens = context.edsTokens;
+    final scheme = context.edsScheme;
     final presentation = GongKeTypePresentation.of(gongkeitem!.gongketype);
     return Container(
-      padding: EdgeInsets.all(design.spacing.md),
+      padding: EdgeInsets.all(tokens.spacing.md),
       decoration: BoxDecoration(
-        color: design.cardBackgroundOf(context),
-        borderRadius: BorderRadius.circular(design.radius.lg),
-        border: Border.all(color: design.borderOf(context)),
-        boxShadow: [RcmShadowTokens.subtle.boxShadow],
+        color: scheme.cardBackground,
+        borderRadius: BorderRadius.circular(tokens.radius.lg),
+        border: Border.all(color: scheme.border),
+        boxShadow: [tokens.shadow.shadowColor],
       ),
       child: Row(
         children: [
@@ -246,13 +248,13 @@ class _NianShengHaoPageState extends State<NianShengHaoPage> {
             width: 48,
             height: 48,
             decoration: BoxDecoration(
-              color: design.colors.accentSoft,
-              borderRadius: BorderRadius.circular(design.radius.md),
+              color: tokens.colors.primarySoft,
+              borderRadius: BorderRadius.circular(tokens.radius.md),
             ),
             child:
-                Icon(presentation.icon, color: design.colors.primary, size: 25),
+                Icon(presentation.icon, color: tokens.colors.primary, size: 25),
           ),
-          SizedBox(width: design.spacing.sm),
+          SizedBox(width: tokens.spacing.sm),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -260,13 +262,13 @@ class _NianShengHaoPageState extends State<NianShengHaoPage> {
                 Text(gongkeitem!.name,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
-                    style: design.typography.body15Strong.copyWith(
-                      color: design.textPrimaryOf(context),
+                    style: tokens.typography.body15Strong.copyWith(
+                      color: scheme.textPrimary,
                     )),
                 const SizedBox(height: 4),
                 Text('目标 ${gongkeitem!.cnt} ${presentation.unit}',
-                    style: design.typography.caption.copyWith(
-                      color: design.textSecondaryOf(context),
+                    style: tokens.typography.caption.copyWith(
+                      color: scheme.textSecondary,
                     )),
               ],
             ),
@@ -277,11 +279,12 @@ class _NianShengHaoPageState extends State<NianShengHaoPage> {
   }
 
   Widget _buildMuyuCard({required int total, required int current}) {
-    final design = RcmTheme.of(context);
+    final tokens = context.edsTokens;
+    final scheme = context.edsScheme;
     final progress = total > 0 ? (current / total).clamp(0.0, 1.0) : 0.0;
     final completed = total > 0 && current >= total;
     final statusColor =
-        completed ? design.colors.success : design.colors.primary;
+        completed ? tokens.colors.success : tokens.colors.primary;
     final stateLabel = completed
         ? '今日目标已完成'
         : _isRunning
@@ -291,12 +294,12 @@ class _NianShengHaoPageState extends State<NianShengHaoPage> {
                 : '准备开始';
 
     return Container(
-      padding: EdgeInsets.all(design.spacing.lg),
+      padding: EdgeInsets.all(tokens.spacing.lg),
       decoration: BoxDecoration(
-        color: design.cardBackgroundOf(context),
-        borderRadius: BorderRadius.circular(design.radius.xl),
-        border: Border.all(color: statusColor.withOpacity(0.18)),
-        boxShadow: [design.shadow.boxShadow],
+        color: scheme.cardBackground,
+        borderRadius: BorderRadius.circular(tokens.radius.xl),
+        border: Border.all(color: statusColor.withValues(alpha: 0.18)),
+        boxShadow: [tokens.shadow.boxShadow],
       ),
       child: Column(
         children: [
@@ -310,7 +313,7 @@ class _NianShengHaoPageState extends State<NianShengHaoPage> {
                   child: CircularProgressIndicator(
                     value: progress,
                     strokeWidth: 10,
-                    backgroundColor: statusColor.withOpacity(0.1),
+                    backgroundColor: statusColor.withValues(alpha: 0.1),
                     valueColor: AlwaysStoppedAnimation<Color>(statusColor),
                   ),
                 ),
@@ -330,15 +333,15 @@ class _NianShengHaoPageState extends State<NianShengHaoPage> {
                     const SizedBox(height: 9),
                     Text(
                       stateLabel,
-                      style: design.typography.bodyStrong.copyWith(
-                        color: design.textSecondaryOf(context),
+                      style: tokens.typography.bodyStrong.copyWith(
+                        color: scheme.textSecondary,
                       ),
                     ),
                     const SizedBox(height: 4),
                     Text(
                       '共 $total 声',
-                      style: design.typography.caption.copyWith(
-                        color: design.textTertiaryOf(context),
+                      style: tokens.typography.caption.copyWith(
+                        color: scheme.textTertiary,
                       ),
                     ),
                   ],
@@ -346,17 +349,17 @@ class _NianShengHaoPageState extends State<NianShengHaoPage> {
               ],
             ),
           ),
-          SizedBox(height: design.spacing.lg),
+          SizedBox(height: tokens.spacing.lg),
           SizedBox(
             width: double.infinity,
-            child: RcmButton(
-              icon: _isRunning
+            child: EdsButton(
+              _primaryLabel,
+              systemImage: _isRunning
                   ? Icons.pause_rounded
                   : _canResume
                       ? Icons.play_arrow_rounded
                       : Icons.notifications_active_outlined,
-              text: _primaryLabel,
-              onPressed: _onPrimary,
+              action: _onPrimary,
             ),
           ),
         ],
@@ -365,30 +368,31 @@ class _NianShengHaoPageState extends State<NianShengHaoPage> {
   }
 
   Widget _buildPatternCard(List<MuyuRhythmPattern> patterns) {
-    final design = RcmTheme.of(context);
+    final tokens = context.edsTokens;
+    final scheme = context.edsScheme;
     return Container(
       decoration: BoxDecoration(
-        color: design.cardBackgroundOf(context),
-        borderRadius: BorderRadius.circular(design.radius.lg),
-        border: Border.all(color: design.borderOf(context)),
+        color: scheme.cardBackground,
+        borderRadius: BorderRadius.circular(tokens.radius.lg),
+        border: Border.all(color: scheme.border),
       ),
       clipBehavior: Clip.antiAlias,
       child: Column(
         children: [
           Padding(
-            padding: EdgeInsets.all(design.spacing.md),
+            padding: EdgeInsets.all(tokens.spacing.md),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
                   children: [
                     Icon(Icons.graphic_eq_rounded,
-                        color: design.colors.primary, size: 22),
-                    SizedBox(width: design.spacing.xs),
-                    Text('播放模式', style: design.typography.body15Strong),
+                        color: tokens.colors.primary, size: 22),
+                    SizedBox(width: tokens.spacing.xs),
+                    Text('播放模式', style: tokens.typography.body15Strong),
                   ],
                 ),
-                SizedBox(height: design.spacing.sm),
+                SizedBox(height: tokens.spacing.sm),
                 DropdownButtonFormField<String>(
                   isExpanded: true,
                   value: _selectedPatternId,
@@ -409,16 +413,16 @@ class _NianShengHaoPageState extends State<NianShengHaoPage> {
                 const SizedBox(height: 6),
                 Text(
                   _currentPattern.groupedDescription,
-                  style: design.typography.caption.copyWith(
-                    color: design.textSecondaryOf(context),
+                  style: tokens.typography.caption.copyWith(
+                    color: scheme.textSecondary,
                   ),
                 ),
               ],
             ),
           ),
-          Divider(height: 1, color: design.borderOf(context)),
+          Divider(height: 1, color: scheme.border),
           ListTile(
-            leading: Icon(Icons.tune_rounded, color: design.colors.primary),
+            leading: Icon(Icons.tune_rounded, color: tokens.colors.primary),
             title: const Text('管理十念法'),
             subtitle: const Text('编辑内置节奏或创建自己的敲击方式'),
             trailing: const Icon(Icons.chevron_right),
@@ -430,27 +434,28 @@ class _NianShengHaoPageState extends State<NianShengHaoPage> {
   }
 
   Widget _buildIntervalCard() {
-    final design = RcmTheme.of(context);
+    final tokens = context.edsTokens;
+    final scheme = context.edsScheme;
     return Container(
-      padding: EdgeInsets.all(design.spacing.md),
+      padding: EdgeInsets.all(tokens.spacing.md),
       decoration: BoxDecoration(
-        color: design.cardBackgroundOf(context),
-        borderRadius: BorderRadius.circular(design.radius.lg),
-        border: Border.all(color: design.borderOf(context)),
+        color: scheme.cardBackground,
+        borderRadius: BorderRadius.circular(tokens.radius.lg),
+        border: Border.all(color: scheme.border),
       ),
       child: Column(
         children: [
           Row(
             children: [
-              Icon(Icons.speed_rounded, color: design.colors.primary, size: 22),
-              SizedBox(width: design.spacing.xs),
+              Icon(Icons.speed_rounded, color: tokens.colors.primary, size: 22),
+              SizedBox(width: tokens.spacing.xs),
               Expanded(
-                child: Text('敲击间隔', style: design.typography.body15Strong),
+                child: Text('敲击间隔', style: tokens.typography.body15Strong),
               ),
-              RcmBadge('${interval.toStringAsFixed(1)} 秒'),
+              EdsBadge('${interval.toStringAsFixed(1)} 秒'),
             ],
           ),
-          SizedBox(height: design.spacing.sm),
+          SizedBox(height: tokens.spacing.sm),
           Slider(
             min: 0.5,
             max: 3.0,
@@ -462,12 +467,12 @@ class _NianShengHaoPageState extends State<NianShengHaoPage> {
             onChangeEnd: _isRunning ? null : (_) => _saveInterval(),
           ),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: design.spacing.xs),
+            padding: EdgeInsets.symmetric(horizontal: tokens.spacing.xs),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('较快 · 0.5秒', style: design.typography.caption),
-                Text('3.0秒 · 较慢', style: design.typography.caption),
+                Text('较快 · 0.5秒', style: tokens.typography.caption),
+                Text('3.0秒 · 较慢', style: tokens.typography.caption),
               ],
             ),
           ),

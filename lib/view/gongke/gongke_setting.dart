@@ -4,7 +4,7 @@ import 'package:gongke/database.dart';
 import '../../main.dart';
 import '../../comm/pdf_view.dart';
 import '../../comm/pub_tools.dart';
-import 'package:my_flutter_app_tools/my_flutter_app_tools.dart';
+import 'package:easy_design_system/easy_design_system.dart';
 import 'package:flutter/services.dart';
 import '../../comm/widget_sync_hooks.dart';
 import '../../comm/gongke_type_presentation.dart';
@@ -25,6 +25,7 @@ class _GongKeSettingPageState extends State<GongKeSettingPage> {
   Map<int, List<GongKeItemData>> dayRecordsGroupedByFaYuan = {};
 
   // 添加一个Map来存储本地状态
+
   final Map<int, bool> _switchStates = {};
 
   bool _canEdit = false;
@@ -50,6 +51,7 @@ class _GongKeSettingPageState extends State<GongKeSettingPage> {
           DateUtils.isSameDay(inputDate, yesterday);
 
       // 同样的条件控制按钮显示
+
       _showCompleteButton = _canEdit;
     });
   }
@@ -94,9 +96,10 @@ class _GongKeSettingPageState extends State<GongKeSettingPage> {
 
   @override
   Widget build(BuildContext context) {
-    final design = RcmTheme.of(context);
+    final tokens = context.edsTokens;
+    final scheme = context.edsScheme;
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.surface,
+      backgroundColor: scheme.pageBackground,
       appBar: AppBar(
         title: const Text('功课设置'),
         backgroundColor: Colors.transparent,
@@ -105,10 +108,10 @@ class _GongKeSettingPageState extends State<GongKeSettingPage> {
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.fromLTRB(
-            design.spacing.md,
-            design.spacing.xs,
-            design.spacing.md,
-            design.spacing.md,
+            tokens.spacing.md,
+            tokens.spacing.xs,
+            tokens.spacing.md,
+            tokens.spacing.md,
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -119,18 +122,18 @@ class _GongKeSettingPageState extends State<GongKeSettingPage> {
                       fontWeight: FontWeight.w700,
                     ),
               ),
-              SizedBox(height: design.spacing.xxs),
+              SizedBox(height: tokens.spacing.xxs),
               Text(
                 _canEdit ? '记录当天的修持完成情况' : '仅可修改今天和昨天的功课',
-                style: design.typography.body15.copyWith(
-                  color: design.textSecondaryOf(context),
+                style: tokens.typography.body15.copyWith(
+                  color: scheme.textSecondary,
                 ),
               ),
-              SizedBox(height: design.spacing.md),
+              SizedBox(height: tokens.spacing.md),
               _buildDateCard(),
-              SizedBox(height: design.spacing.md),
+              SizedBox(height: tokens.spacing.md),
               _buildTaskList(),
-              SizedBox(height: design.spacing.md),
+              SizedBox(height: tokens.spacing.md),
               _buildButtons(),
             ],
           ),
@@ -140,17 +143,19 @@ class _GongKeSettingPageState extends State<GongKeSettingPage> {
   }
 
   Widget _buildDateCard() {
-    final design = RcmTheme.of(context);
+    final tokens = context.edsTokens;
+    final scheme = context.edsScheme;
     final completed =
         dayRecords.where((item) => _switchStates[item.id] == true).length;
     final total = dayRecords.length;
     final progress = total == 0 ? 0.0 : completed / total;
     return Container(
-      padding: EdgeInsets.all(design.spacing.md),
+      padding: EdgeInsets.all(tokens.spacing.md),
       decoration: BoxDecoration(
-        color: design.colors.accentSoft,
-        borderRadius: BorderRadius.circular(design.radius.lg),
-        border: Border.all(color: design.colors.primary.withOpacity(0.16)),
+        color: tokens.colors.primarySoft,
+        borderRadius: BorderRadius.circular(tokens.radius.lg),
+        border:
+            Border.all(color: tokens.colors.primary.withValues(alpha: 0.16)),
       ),
       child: Column(
         children: [
@@ -160,48 +165,67 @@ class _GongKeSettingPageState extends State<GongKeSettingPage> {
                 width: 42,
                 height: 42,
                 decoration: BoxDecoration(
-                  color: design.colors.primary,
-                  borderRadius: BorderRadius.circular(design.radius.sm),
+                  color: tokens.colors.primary,
+                  borderRadius: BorderRadius.circular(tokens.radius.sm),
                 ),
                 child: const Icon(Icons.calendar_today_outlined,
                     color: Colors.white, size: 22),
               ),
-              SizedBox(width: design.spacing.sm),
+              SizedBox(width: tokens.spacing.sm),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text('功课日期',
-                        style: design.typography.caption.copyWith(
-                          color: design.textSecondaryOf(context),
+                        style: tokens.typography.caption.copyWith(
+                          color: scheme.textSecondary,
                         )),
                     const SizedBox(height: 2),
                     Text(date,
-                        style: design.typography.body15Strong.copyWith(
-                          color: design.textPrimaryOf(context),
+                        style: tokens.typography.body15Strong.copyWith(
+                          color: scheme.textPrimary,
                         )),
                   ],
                 ),
               ),
-              RcmBadge(
+              EdsBadge(
                 '$completed / $total 已完成',
                 style: completed == total && total > 0
-                    ? RcmBadgeStyle.success
-                    : RcmBadgeStyle.accent,
+                    ? EdsBadgeStyle.success
+                    : EdsBadgeStyle.accent,
+              ),
+              SizedBox(width: tokens.spacing.xs),
+              IconButton(
+                icon: Icon(Icons.share_outlined,
+                    size: 22, color: tokens.colors.primary),
+                padding: EdgeInsets.zero,
+                constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
+                onPressed: () {
+                  Navigator.pushNamed(
+                    context,
+                    '/GongKe/GongKeShare',
+                    arguments: {
+                      'date': date,
+                      'dayRecords': dayRecords,
+                      'switchStates': _switchStates,
+                      'dayRecordsGroupedByFaYuan': dayRecordsGroupedByFaYuan,
+                    },
+                  );
+                },
               ),
             ],
           ),
-          SizedBox(height: design.spacing.sm),
+          SizedBox(height: tokens.spacing.sm),
           ClipRRect(
             borderRadius: BorderRadius.circular(999),
             child: LinearProgressIndicator(
               value: progress,
               minHeight: 6,
-              backgroundColor: design.colors.primary.withOpacity(0.12),
+              backgroundColor: tokens.colors.primary.withValues(alpha: 0.12),
               valueColor: AlwaysStoppedAnimation<Color>(
                 completed == total && total > 0
-                    ? design.colors.success
-                    : design.colors.primary,
+                    ? tokens.colors.success
+                    : tokens.colors.primary,
               ),
             ),
           ),
@@ -222,21 +246,22 @@ class _GongKeSettingPageState extends State<GongKeSettingPage> {
   }
 
   Widget _buildTaskList() {
-    final design = RcmTheme.of(context);
+    final tokens = context.edsTokens;
+    final scheme = context.edsScheme;
     return Expanded(
       child: dayRecordsGroupedByFaYuan.isEmpty
           ? Center(
               child: Text(
                 '当天没有功课',
-                style: design.typography.body15.copyWith(
-                  color: design.textSecondaryOf(context),
+                style: tokens.typography.body15.copyWith(
+                  color: scheme.textSecondary,
                 ),
               ),
             )
           : ListView.separated(
               padding: EdgeInsets.zero,
               itemCount: dayRecordsGroupedByFaYuan.length,
-              separatorBuilder: (_, __) => SizedBox(height: design.spacing.sm),
+              separatorBuilder: (_, __) => SizedBox(height: tokens.spacing.sm),
               itemBuilder: (context, index) {
                 int fayuanId = dayRecordsGroupedByFaYuan.keys.elementAt(index);
                 List<GongKeItemData> fayuanItems =
@@ -244,10 +269,15 @@ class _GongKeSettingPageState extends State<GongKeSettingPage> {
 
                 return Container(
                   decoration: BoxDecoration(
-                    color: design.cardBackgroundOf(context),
-                    borderRadius: BorderRadius.circular(design.radius.lg),
-                    border: Border.all(color: design.borderOf(context)),
-                    boxShadow: [design.shadow.boxShadow],
+                    color: scheme.cardBackground,
+                    borderRadius: BorderRadius.circular(tokens.radius.lg),
+                    border: Border.all(color: scheme.border),
+                    boxShadow: [
+                      BoxShadow(
+                          color: tokens.colors.primary.withValues(alpha: 0.06),
+                          blurRadius: 18,
+                          offset: const Offset(0, 10))
+                    ],
                   ),
                   clipBehavior: Clip.antiAlias,
                   child: Column(
@@ -255,10 +285,10 @@ class _GongKeSettingPageState extends State<GongKeSettingPage> {
                     children: [
                       Padding(
                         padding: EdgeInsets.fromLTRB(
-                          design.spacing.md,
-                          design.spacing.md,
-                          design.spacing.md,
-                          design.spacing.xs,
+                          tokens.spacing.md,
+                          tokens.spacing.md,
+                          tokens.spacing.md,
+                          tokens.spacing.xs,
                         ),
                         child: FutureBuilder<FaYuanData?>(
                           future: (globalDB.select(globalDB.faYuan)
@@ -269,21 +299,21 @@ class _GongKeSettingPageState extends State<GongKeSettingPage> {
                             return Row(
                               children: [
                                 Icon(Icons.auto_awesome,
-                                    size: 18, color: design.colors.primary),
-                                SizedBox(width: design.spacing.xs),
+                                    size: 18, color: tokens.colors.primary),
+                                SizedBox(width: tokens.spacing.xs),
                                 Expanded(
                                   child: Text(
                                     snapshot.data?.name ?? '',
                                     style:
-                                        design.typography.sectionTitle.copyWith(
-                                      color: design.textPrimaryOf(context),
+                                        tokens.typography.sectionTitle.copyWith(
+                                      color: scheme.textPrimary,
                                     ),
                                   ),
                                 ),
                                 Text(
                                   '${fayuanItems.where((item) => _switchStates[item.id] == true).length}/${fayuanItems.length}',
-                                  style: design.typography.caption.copyWith(
-                                    color: design.textSecondaryOf(context),
+                                  style: tokens.typography.caption.copyWith(
+                                    color: scheme.textSecondary,
                                   ),
                                 ),
                               ],
@@ -296,8 +326,7 @@ class _GongKeSettingPageState extends State<GongKeSettingPage> {
                         return Column(
                           children: [
                             if (entry.key > 0)
-                              Divider(
-                                  height: 1, color: design.borderOf(context)),
+                              Divider(height: 1, color: scheme.border),
                             _buildTaskRow(item),
                           ],
                         );
@@ -353,7 +382,8 @@ class _GongKeSettingPageState extends State<GongKeSettingPage> {
   }
 
   Widget _buildTaskRow(GongKeItemData item) {
-    final design = RcmTheme.of(context);
+    final tokens = context.edsTokens;
+    final scheme = context.edsScheme;
     final presentation = GongKeTypePresentation.of(item.gongketype);
     final complete = _switchStates[item.id] ?? false;
     final hasDetails = _hasDetailPage(item);
@@ -361,8 +391,8 @@ class _GongKeSettingPageState extends State<GongKeSettingPage> {
       onTap: _canEdit && hasDetails ? () => _openTask(item) : null,
       child: Padding(
         padding: EdgeInsets.symmetric(
-          horizontal: design.spacing.md,
-          vertical: design.spacing.sm,
+          horizontal: tokens.spacing.md,
+          vertical: tokens.spacing.sm,
         ),
         child: Row(
           children: [
@@ -371,17 +401,17 @@ class _GongKeSettingPageState extends State<GongKeSettingPage> {
               height: 38,
               decoration: BoxDecoration(
                 color: complete
-                    ? design.colors.success.withOpacity(0.12)
-                    : design.colors.accentSoft,
-                borderRadius: BorderRadius.circular(design.radius.sm),
+                    ? tokens.colors.success.withValues(alpha: 0.12)
+                    : tokens.colors.primarySoft,
+                borderRadius: BorderRadius.circular(tokens.radius.sm),
               ),
               child: Icon(
                 presentation.icon,
                 size: 20,
-                color: complete ? design.colors.success : design.colors.primary,
+                color: complete ? tokens.colors.success : tokens.colors.primary,
               ),
             ),
-            SizedBox(width: design.spacing.sm),
+            SizedBox(width: tokens.spacing.sm),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -390,32 +420,32 @@ class _GongKeSettingPageState extends State<GongKeSettingPage> {
                     item.name,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
-                    style: design.typography.body15Strong.copyWith(
-                      color: design.textPrimaryOf(context),
+                    style: tokens.typography.body15Strong.copyWith(
+                      color: scheme.textPrimary,
                     ),
                   ),
                   const SizedBox(height: 3),
                   Text(
                     '${presentation.label} · 目标 ${item.cnt} ${presentation.unit}',
-                    style: design.typography.caption.copyWith(
-                      color: design.textSecondaryOf(context),
+                    style: tokens.typography.caption.copyWith(
+                      color: scheme.textSecondary,
                     ),
                   ),
                 ],
               ),
             ),
             if (hasDetails) ...[
-              SizedBox(width: design.spacing.xs),
+              SizedBox(width: tokens.spacing.xs),
               Icon(
                 Icons.chevron_right,
                 size: 20,
-                color: design.textTertiaryOf(context),
+                color: scheme.textTertiary,
               ),
             ],
-            SizedBox(width: design.spacing.xs),
+            SizedBox(width: tokens.spacing.xs),
             Switch(
               value: complete,
-              activeColor: design.colors.primary,
+              activeColor: tokens.colors.primary,
               onChanged: _canEdit
                   ? (value) async {
                       setState(() => _switchStates[item.id] = value);
@@ -439,14 +469,16 @@ class _GongKeSettingPageState extends State<GongKeSettingPage> {
       return const SizedBox.shrink();
     }
 
-    final design = RcmTheme.of(context);
+    final tokens = context.edsTokens;
+    final scheme = context.edsScheme;
     return Row(
       children: [
         Expanded(
-          child: RcmButton(
-            icon: Icons.done_all,
-            text: '全部完成',
-            onPressed: _canEdit
+          child: EdsButton(
+            '全部完成',
+            role: EdsButtonRole.primary,
+            systemImage: Icons.done_all,
+            action: _canEdit
                 ? () async {
                     if (!mounted) return;
                     await _setAllComplete();
@@ -457,13 +489,13 @@ class _GongKeSettingPageState extends State<GongKeSettingPage> {
                 : null,
           ),
         ),
-        SizedBox(width: design.spacing.sm),
+        SizedBox(width: tokens.spacing.sm),
         Expanded(
-          child: RcmButton(
-            role: RcmButtonRole.secondary,
-            icon: Icons.copy_outlined,
-            text: '复制报课文本',
-            onPressed: () {
+          child: EdsButton(
+            '复制报课文本',
+            role: EdsButtonRole.secondary,
+            systemImage: Icons.copy_outlined,
+            action: () {
               String gongkeText = '!!';
               for (var record in dayRecords) {
                 if (_switchStates[record.id] == true) {

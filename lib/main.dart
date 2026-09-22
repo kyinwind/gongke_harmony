@@ -4,6 +4,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:gongke/comm/shared_preferences.dart';
 import 'package:gongke/comm/platform_tools.dart';
 import 'package:gongke/view/gongke/fayuan_wizard.dart';
+import 'view/gongke/gongke_share_page.dart';
 import 'view/gongke/gongke.dart';
 import 'view/gongke/modify_fayuanwen.dart';
 import 'view/gongke/gongke_setting.dart';
@@ -32,10 +33,10 @@ import 'view/shanshu/shanshu.dart';
 import 'view/songjing/import_files.dart';
 import 'welcome.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:my_flutter_app_tools/my_flutter_app_tools.dart';
+import 'package:easy_design_system/easy_design_system.dart';
 
 // 声明全局数据库变量
-late AppDatabase globalDB; // 在main函数中创建单一实例;
+late AppDatabase globalDB;// 在main函数中创建单一实例;
 
 // 声明全局变量 app第一次运行的日期，用于后续显示开示
 late String? firstDate;
@@ -51,15 +52,9 @@ void main() {
   };
 
   WidgetsFlutterBinding.ensureInitialized();
-  RcmTheme.instance.configure((tokens) {
-    tokens.colors.primary = const Color(0xFF2196F3);
-    tokens.colors.accent = const Color(0xFF2196F3);
-    tokens.colors.success = const Color(0xFF34A853);
-    tokens.colors.warning = const Color(0xFFF9AB00);
-    tokens.colors.danger = const Color(0xFFE94235);
-  });
+  EdsTheme.instance.applyPreset(EdsPresetTheme.blue);
   runApp(
-    RcmThemeScope(
+    EdsThemeScope(
       child: const ProviderScope(child: BootstrapApp()),
     ),
   );
@@ -387,6 +382,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
         '/GongKe/GongKeSetting/nianshenghao': (context) =>
             const NianShengHaoPage(),
         '/GongKe/GongKeSetting/dazuo': (context) => const DaZuoPage(),
+        '/GongKe/GongKeShare': (context) => const GongKeSharePage(),
         '/GongKe/MuyuRhythmManagement': (context) =>
             const MuyuRhythmManagementPage(),
         '/GongKe/MuyuRhythmEditor': (context) => const MuyuRhythmEditorPage(

@@ -5,7 +5,7 @@ import 'dart:async';
 import 'package:drift/drift.dart' hide Column;
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:my_flutter_app_tools/my_flutter_app_tools.dart';
+import 'package:easy_design_system/easy_design_system.dart';
 import '../../comm/audio_tools.dart';
 import '../../comm/platform_tools.dart';
 import '../../comm/sensor_tools.dart';
@@ -129,7 +129,8 @@ class _NianzhouPageState extends State<NianzhouPage> {
 
   @override
   Widget build(BuildContext context) {
-    final design = RcmTheme.of(context);
+    final tokens = context.edsTokens;
+    final scheme = context.edsScheme;
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
@@ -140,19 +141,19 @@ class _NianzhouPageState extends State<NianzhouPage> {
       body: SafeArea(
         child: SingleChildScrollView(
           padding: EdgeInsets.fromLTRB(
-            design.spacing.md,
-            design.spacing.xs,
-            design.spacing.md,
-            design.spacing.xl,
+            tokens.spacing.md,
+            tokens.spacing.xs,
+            tokens.spacing.md,
+            tokens.spacing.xl,
           ),
           child: Column(
             children: [
               _buildTaskSummary(),
-              SizedBox(height: design.spacing.md),
+              SizedBox(height: tokens.spacing.md),
               _buildCounterSection(),
-              SizedBox(height: design.spacing.md),
+              SizedBox(height: tokens.spacing.md),
               _buildSwitchSection(),
-              SizedBox(height: design.spacing.md),
+              SizedBox(height: tokens.spacing.md),
               _buildHintCard(),
             ],
           ),
@@ -162,16 +163,22 @@ class _NianzhouPageState extends State<NianzhouPage> {
   }
 
   Widget _buildTaskSummary() {
-    final design = RcmTheme.of(context);
+    final tokens = context.edsTokens;
+    final scheme = context.edsScheme;
     final presentation = GongKeTypePresentation.of(gongkeitem.gongketype);
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.all(design.spacing.md),
+      padding: EdgeInsets.all(tokens.spacing.md),
       decoration: BoxDecoration(
-        color: design.cardBackgroundOf(context),
-        borderRadius: BorderRadius.circular(design.radius.lg),
-        border: Border.all(color: design.borderOf(context)),
-        boxShadow: [RcmShadowTokens.subtle.boxShadow],
+        color: scheme.cardBackground,
+        borderRadius: BorderRadius.circular(tokens.radius.lg),
+        border: Border.all(color: scheme.border),
+        boxShadow: [
+          BoxShadow(
+              color: tokens.colors.primary.withValues(alpha: 0.06),
+              blurRadius: 18,
+              offset: const Offset(0, 10))
+        ],
       ),
       child: Row(
         children: [
@@ -179,16 +186,16 @@ class _NianzhouPageState extends State<NianzhouPage> {
             width: 48,
             height: 48,
             decoration: BoxDecoration(
-              color: design.colors.accentSoft,
-              borderRadius: BorderRadius.circular(design.radius.md),
+              color: tokens.colors.primarySoft,
+              borderRadius: BorderRadius.circular(tokens.radius.md),
             ),
             child: Icon(
               presentation.icon,
-              color: design.colors.primary,
+              color: tokens.colors.primary,
               size: 25,
             ),
           ),
-          SizedBox(width: design.spacing.sm),
+          SizedBox(width: tokens.spacing.sm),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -197,34 +204,35 @@ class _NianzhouPageState extends State<NianzhouPage> {
                   gongkeitem.name,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
-                  style: design.typography.body15Strong.copyWith(
-                    color: design.textPrimaryOf(context),
+                  style: tokens.typography.body15Strong.copyWith(
+                    color: scheme.textPrimary,
                   ),
                 ),
                 const SizedBox(height: 4),
                 Text(
                   '目标 ${gongkeitem.cnt} ${presentation.unit}',
-                  style: design.typography.caption.copyWith(
-                    color: design.textSecondaryOf(context),
+                  style: tokens.typography.caption.copyWith(
+                    color: scheme.textSecondary,
                   ),
                 ),
               ],
             ),
           ),
           if (count >= gongkeitem.cnt)
-            const RcmBadge('已完成', style: RcmBadgeStyle.success),
+            const EdsBadge('已完成', style: EdsBadgeStyle.success),
         ],
       ),
     );
   }
 
   Widget _buildSwitchSection() {
-    final design = RcmTheme.of(context);
+    final tokens = context.edsTokens;
+    final scheme = context.edsScheme;
     return Container(
       decoration: BoxDecoration(
-        color: design.cardBackgroundOf(context),
-        borderRadius: BorderRadius.circular(design.radius.lg),
-        border: Border.all(color: design.borderOf(context)),
+        color: scheme.cardBackground,
+        borderRadius: BorderRadius.circular(tokens.radius.lg),
+        border: Border.all(color: scheme.border),
       ),
       clipBehavior: Clip.antiAlias,
       child: Column(
@@ -236,7 +244,7 @@ class _NianzhouPageState extends State<NianzhouPage> {
             value: shakeEnabled,
             onChanged: (val) => setState(() => shakeEnabled = val),
           ),
-          Divider(height: 1, indent: 64, color: design.borderOf(context)),
+          Divider(height: 1, indent: 64, color: scheme.border),
           _buildSettingRow(
             icon: Icons.vibration_outlined,
             title: '震动与木鱼声',
@@ -256,26 +264,27 @@ class _NianzhouPageState extends State<NianzhouPage> {
     required bool value,
     required ValueChanged<bool> onChanged,
   }) {
-    final design = RcmTheme.of(context);
+    final tokens = context.edsTokens;
+    final scheme = context.edsScheme;
     return Padding(
       padding: EdgeInsets.symmetric(
-        horizontal: design.spacing.md,
-        vertical: design.spacing.sm,
+        horizontal: tokens.spacing.md,
+        vertical: tokens.spacing.sm,
       ),
       child: Row(
         children: [
-          Icon(icon, color: design.colors.primary, size: 24),
-          SizedBox(width: design.spacing.sm),
+          Icon(icon, color: tokens.colors.primary, size: 24),
+          SizedBox(width: tokens.spacing.sm),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(title, style: design.typography.body15Strong),
+                Text(title, style: tokens.typography.body15Strong),
                 const SizedBox(height: 3),
                 Text(
                   subtitle,
-                  style: design.typography.caption.copyWith(
-                    color: design.textSecondaryOf(context),
+                  style: tokens.typography.caption.copyWith(
+                    color: scheme.textSecondary,
                   ),
                 ),
               ],
@@ -283,7 +292,7 @@ class _NianzhouPageState extends State<NianzhouPage> {
           ),
           Switch(
             value: value,
-            activeColor: design.colors.primary,
+            activeColor: tokens.colors.primary,
             onChanged: onChanged,
           ),
         ],
@@ -292,21 +301,27 @@ class _NianzhouPageState extends State<NianzhouPage> {
   }
 
   Widget _buildCounterSection() {
-    final design = RcmTheme.of(context);
+    final tokens = context.edsTokens;
+    final scheme = context.edsScheme;
     final target = gongkeitem.cnt;
     final progress = target <= 0 ? 0.0 : (count / target).clamp(0.0, 1.0);
     final complete = count >= target;
     final statusColor =
-        complete ? design.colors.success : design.colors.primary;
+        complete ? tokens.colors.success : tokens.colors.primary;
 
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.all(design.spacing.lg),
+      padding: EdgeInsets.all(tokens.spacing.lg),
       decoration: BoxDecoration(
-        color: design.cardBackgroundOf(context),
-        borderRadius: BorderRadius.circular(design.radius.xl),
-        border: Border.all(color: statusColor.withOpacity(0.18)),
-        boxShadow: [design.shadow.boxShadow],
+        color: scheme.cardBackground,
+        borderRadius: BorderRadius.circular(tokens.radius.xl),
+        border: Border.all(color: statusColor.withValues(alpha: 0.18)),
+        boxShadow: [
+          BoxShadow(
+              color: tokens.colors.primary.withValues(alpha: 0.06),
+              blurRadius: 18,
+              offset: const Offset(0, 10))
+        ],
       ),
       child: Column(
         children: [
@@ -322,26 +337,24 @@ class _NianzhouPageState extends State<NianzhouPage> {
           const SizedBox(height: 8),
           Text(
             complete ? '今日目标已完成' : '目标 $target 遍',
-            style: design.typography.body15.copyWith(
-              color: complete
-                  ? design.colors.success
-                  : design.textSecondaryOf(context),
+            style: tokens.typography.body15.copyWith(
+              color: complete ? tokens.colors.success : scheme.textSecondary,
             ),
           ),
-          SizedBox(height: design.spacing.md),
+          SizedBox(height: tokens.spacing.md),
           ClipRRect(
             borderRadius: BorderRadius.circular(999),
             child: LinearProgressIndicator(
               value: progress,
               minHeight: 7,
-              backgroundColor: statusColor.withOpacity(0.12),
+              backgroundColor: statusColor.withValues(alpha: 0.12),
               valueColor: AlwaysStoppedAnimation<Color>(statusColor),
             ),
           ),
-          SizedBox(height: design.spacing.lg),
+          SizedBox(height: tokens.spacing.lg),
           Material(
             color: statusColor,
-            borderRadius: BorderRadius.circular(design.radius.lg),
+            borderRadius: BorderRadius.circular(tokens.radius.lg),
             clipBehavior: Clip.antiAlias,
             child: InkWell(
               onTap: _incrementCount,
@@ -371,13 +384,13 @@ class _NianzhouPageState extends State<NianzhouPage> {
               ),
             ),
           ),
-          SizedBox(height: design.spacing.sm),
+          SizedBox(height: tokens.spacing.sm),
           TextButton.icon(
             onPressed: count > 0 ? _decrementCount : null,
             icon: const Icon(Icons.undo_rounded, size: 20),
             label: const Text('撤销上一次计数'),
             style: TextButton.styleFrom(
-              foregroundColor: design.textSecondaryOf(context),
+              foregroundColor: scheme.textSecondary,
             ),
           ),
         ],
@@ -386,24 +399,25 @@ class _NianzhouPageState extends State<NianzhouPage> {
   }
 
   Widget _buildHintCard() {
-    final design = RcmTheme.of(context);
+    final tokens = context.edsTokens;
+    final scheme = context.edsScheme;
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.all(design.spacing.sm),
+      padding: EdgeInsets.all(tokens.spacing.sm),
       decoration: BoxDecoration(
-        color: design.colors.accentSoft,
-        borderRadius: BorderRadius.circular(design.radius.md),
+        color: tokens.colors.primarySoft,
+        borderRadius: BorderRadius.circular(tokens.radius.md),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(Icons.lightbulb_outline, size: 20, color: design.colors.primary),
-          SizedBox(width: design.spacing.xs),
+          Icon(Icons.lightbulb_outline, size: 20, color: tokens.colors.primary),
+          SizedBox(width: tokens.spacing.xs),
           Expanded(
             child: Text(
               '开启摇晃计数后，在屏幕点亮时摇晃手机即可计数。',
-              style: design.typography.caption.copyWith(
-                color: design.textSecondaryOf(context),
+              style: tokens.typography.caption.copyWith(
+                color: scheme.textSecondary,
                 height: 1.45,
               ),
             ),

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:drift/drift.dart' hide Column;
 import '../../database.dart';
-//import 'package:gongke/database.dart';
-//import '../../database.dart';
 import '../../main.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import '../../comm/date_tools.dart';
@@ -10,7 +8,7 @@ import '../../comm/shared_preferences.dart';
 import '../../comm/pub_tools.dart';
 import '../../comm/widget_sync_hooks.dart';
 import '../../comm/gongke_type_presentation.dart';
-import 'package:my_flutter_app_tools/my_flutter_app_tools.dart';
+import 'package:easy_design_system/easy_design_system.dart';
 
 class VMFaYuanData {
   String? name; // 发愿名称
@@ -26,7 +24,6 @@ class VMFaYuanData {
   }
 
   bool isDateValid() {
-    //print('isDateValid: startDate=$startDate, endDate=$endDate');
     if (startDate == null || endDate == null) return false;
     // 确保结束日期不早于开始日期
     if (endDate!.isBefore(startDate!)) return false;
@@ -79,7 +76,6 @@ class _FaYuanWizardPageState extends State<FaYuanWizardPage> {
   // 修改控制器的初始化方式
   final TextEditingController startDateController = TextEditingController();
   final TextEditingController endDateController = TextEditingController();
-
   // 添加 controller 作为类成员
   late TextEditingController nameController;
   late TextEditingController fodiziNameController;
@@ -134,7 +130,6 @@ class _FaYuanWizardPageState extends State<FaYuanWizardPage> {
 
   // 在加载数据后更新控制器的值
   Future<void> _loadExistingData() async {
-    //print('--------------------------------_loadExistingData----');
     final fayuan = await (globalDB.select(globalDB.faYuan)
           ..where((tbl) => tbl.id.equals(fayuanId!)))
         .getSingle();
@@ -366,9 +361,8 @@ class _FaYuanWizardPageState extends State<FaYuanWizardPage> {
             width: double.infinity,
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
             decoration: BoxDecoration(
-              color: RcmTheme.of(context).colors.accentSoft,
-              borderRadius:
-                  BorderRadius.circular(RcmTheme.of(context).radius.md),
+              color: context.edsTokens.colors.primarySoft,
+              borderRadius: BorderRadius.circular(context.edsTokens.radius.md),
             ),
             child: Row(
               children: [
@@ -388,7 +382,8 @@ class _FaYuanWizardPageState extends State<FaYuanWizardPage> {
   }
 
   Widget _buildStep3() {
-    final design = RcmTheme.of(context);
+    final tokens = context.edsTokens;
+    final scheme = context.edsScheme;
     return _sectionCard(
       icon: Icons.checklist_rounded,
       title: '安排每日功课',
@@ -397,17 +392,17 @@ class _FaYuanWizardPageState extends State<FaYuanWizardPage> {
         children: [
           if (_data.gkiODList.isEmpty)
             Padding(
-              padding: EdgeInsets.symmetric(vertical: design.spacing.lg),
+              padding: EdgeInsets.symmetric(vertical: tokens.spacing.lg),
               child: Column(
                 children: [
                   Icon(Icons.playlist_add_rounded,
-                      size: 48, color: design.textSecondaryOf(context)),
+                      size: 48, color: scheme.textSecondary),
                   const SizedBox(height: 8),
                   Text('暂未添加每日功课',
                       style: Theme.of(context).textTheme.titleMedium),
                   const SizedBox(height: 4),
                   Text('请至少添加一项功课',
-                      style: TextStyle(color: design.textSecondaryOf(context))),
+                      style: TextStyle(color: scheme.textSecondary)),
                 ],
               ),
             ),
@@ -437,8 +432,8 @@ class _FaYuanWizardPageState extends State<FaYuanWizardPage> {
                 child: ListTile(
                   contentPadding: const EdgeInsets.symmetric(horizontal: 4),
                   leading: CircleAvatar(
-                    backgroundColor: design.colors.accentSoft,
-                    foregroundColor: design.colors.primary,
+                    backgroundColor: tokens.colors.primarySoft,
+                    foregroundColor: tokens.colors.primary,
                     child: Icon(
                       GongKeTypePresentation.of(item.gongketype.name).icon,
                     ),
@@ -449,7 +444,7 @@ class _FaYuanWizardPageState extends State<FaYuanWizardPage> {
                   trailing: Text(
                     '${item.cnt} ${GongKeTypePresentation.of(item.gongketype.name).unit}',
                     style: TextStyle(
-                      color: design.colors.primary,
+                      color: tokens.colors.primary,
                       fontWeight: FontWeight.w700,
                     ),
                   ),
@@ -673,7 +668,6 @@ class _FaYuanWizardPageState extends State<FaYuanWizardPage> {
                   controller: nameController,
                   decoration: const InputDecoration(labelText: '功课名称'),
                 ),
-
               const SizedBox(height: 16),
               // 数量输入框
               TextField(
@@ -754,7 +748,6 @@ class _FaYuanWizardPageState extends State<FaYuanWizardPage> {
                   );
                   return;
                 }
-
                 // 添加功课
                 setState(() {
                   _data.gkiODList.add(
@@ -801,7 +794,8 @@ class _FaYuanWizardPageState extends State<FaYuanWizardPage> {
   }
 
   Widget _buildStep5() {
-    final design = RcmTheme.of(context);
+    final tokens = context.edsTokens;
+    final scheme = context.edsScheme;
     return Column(
       children: [
         _summaryCard(
@@ -812,7 +806,7 @@ class _FaYuanWizardPageState extends State<FaYuanWizardPage> {
             _summaryRow('佛弟子名称', _data.fodiziName ?? ''),
           ],
         ),
-        SizedBox(height: design.spacing.sm),
+        SizedBox(height: tokens.spacing.sm),
         _summaryCard(
           icon: Icons.date_range_rounded,
           title: '时间安排',
@@ -822,7 +816,7 @@ class _FaYuanWizardPageState extends State<FaYuanWizardPage> {
             _summaryRow('发愿时长', '${_data.getDurationDays()} 天'),
           ],
         ),
-        SizedBox(height: design.spacing.sm),
+        SizedBox(height: tokens.spacing.sm),
         _summaryCard(
           icon: Icons.checklist_rounded,
           title: '每日功课',
@@ -832,14 +826,14 @@ class _FaYuanWizardPageState extends State<FaYuanWizardPage> {
             return ListTile(
               dense: true,
               contentPadding: EdgeInsets.zero,
-              leading: Icon(presentation.icon, color: design.colors.primary),
+              leading: Icon(presentation.icon, color: tokens.colors.primary),
               title: Text(item.name),
               trailing: Text('${item.cnt} ${presentation.unit}',
                   style: const TextStyle(fontWeight: FontWeight.w700)),
             );
           }).toList(),
         ),
-        SizedBox(height: design.spacing.sm),
+        SizedBox(height: tokens.spacing.sm),
         _summaryCard(
           icon: Icons.favorite_border_rounded,
           title: '愿望',
@@ -851,8 +845,8 @@ class _FaYuanWizardPageState extends State<FaYuanWizardPage> {
               style: TextStyle(
                 height: 1.6,
                 color: (_data.yuanwang?.trim().isNotEmpty ?? false)
-                    ? design.textPrimaryOf(context)
-                    : design.textSecondaryOf(context),
+                    ? scheme.textPrimary
+                    : scheme.textSecondary,
               ),
             ),
           ],
@@ -867,17 +861,19 @@ class _FaYuanWizardPageState extends State<FaYuanWizardPage> {
     required String subtitle,
     required Widget child,
   }) {
-    final design = RcmTheme.of(context);
+    final tokens = context.edsTokens;
+    final scheme = context.edsScheme;
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.all(design.spacing.md),
+      padding: EdgeInsets.all(tokens.spacing.md),
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.surfaceContainerLowest,
-        borderRadius: BorderRadius.circular(design.radius.lg),
-        border: Border.all(color: design.colors.primary.withOpacity(0.12)),
+        borderRadius: BorderRadius.circular(tokens.radius.lg),
+        border:
+            Border.all(color: tokens.colors.primary.withValues(alpha: 0.12)),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.04),
+            color: Colors.black.withValues(alpha: 0.04),
             blurRadius: 14,
             offset: const Offset(0, 4),
           ),
@@ -889,11 +885,11 @@ class _FaYuanWizardPageState extends State<FaYuanWizardPage> {
           Row(
             children: [
               CircleAvatar(
-                backgroundColor: design.colors.accentSoft,
-                foregroundColor: design.colors.primary,
+                backgroundColor: tokens.colors.primarySoft,
+                foregroundColor: tokens.colors.primary,
                 child: Icon(icon),
               ),
-              SizedBox(width: design.spacing.sm),
+              SizedBox(width: tokens.spacing.sm),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -904,14 +900,13 @@ class _FaYuanWizardPageState extends State<FaYuanWizardPage> {
                             )),
                     const SizedBox(height: 2),
                     Text(subtitle,
-                        style:
-                            TextStyle(color: design.textSecondaryOf(context))),
+                        style: TextStyle(color: scheme.textSecondary)),
                   ],
                 ),
               ),
             ],
           ),
-          SizedBox(height: design.spacing.lg),
+          SizedBox(height: tokens.spacing.lg),
           child,
         ],
       ),
@@ -923,20 +918,21 @@ class _FaYuanWizardPageState extends State<FaYuanWizardPage> {
     required String title,
     required List<Widget> children,
   }) {
-    final design = RcmTheme.of(context);
+    final tokens = context.edsTokens;
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.all(design.spacing.md),
+      padding: EdgeInsets.all(tokens.spacing.md),
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.surfaceContainerLowest,
-        borderRadius: BorderRadius.circular(design.radius.lg),
-        border: Border.all(color: design.colors.primary.withOpacity(0.12)),
+        borderRadius: BorderRadius.circular(tokens.radius.lg),
+        border:
+            Border.all(color: tokens.colors.primary.withValues(alpha: 0.12)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(children: [
-            Icon(icon, color: design.colors.primary),
+            Icon(icon, color: tokens.colors.primary),
             const SizedBox(width: 8),
             Text(title,
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
@@ -959,8 +955,7 @@ class _FaYuanWizardPageState extends State<FaYuanWizardPage> {
           SizedBox(
             width: 92,
             child: Text(label,
-                style: TextStyle(
-                    color: RcmTheme.of(context).textSecondaryOf(context))),
+                style: TextStyle(color: context.edsScheme.textSecondary)),
           ),
           Expanded(
             child: Text(value,
@@ -1125,13 +1120,13 @@ class _FaYuanWizardPageState extends State<FaYuanWizardPage> {
 
   Widget _buildProgressHeader() {
     const labels = ['基本', '时间', '功课', '愿望', '确认'];
-    final design = RcmTheme.of(context);
+    final tokens = context.edsTokens;
     return Container(
       padding: EdgeInsets.fromLTRB(
-        design.spacing.sm,
-        design.spacing.sm,
-        design.spacing.sm,
-        design.spacing.md,
+        tokens.spacing.sm,
+        tokens.spacing.sm,
+        tokens.spacing.sm,
+        tokens.spacing.md,
       ),
       child: RcmStepProgress(
         steps: labels,
@@ -1141,15 +1136,15 @@ class _FaYuanWizardPageState extends State<FaYuanWizardPage> {
   }
 
   Widget _buildBottomActions() {
-    final design = RcmTheme.of(context);
+    final tokens = context.edsTokens;
     return SafeArea(
       top: false,
       child: Container(
         padding: EdgeInsets.fromLTRB(
-          design.spacing.md,
-          design.spacing.sm,
-          design.spacing.md,
-          design.spacing.md,
+          tokens.spacing.md,
+          tokens.spacing.sm,
+          tokens.spacing.md,
+          tokens.spacing.md,
         ),
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.surface,
@@ -1202,7 +1197,7 @@ class _FaYuanWizardPageState extends State<FaYuanWizardPage> {
 
   @override
   Widget build(BuildContext context) {
-    final design = RcmTheme.of(context);
+    final tokens = context.edsTokens;
     final steps = [
       _buildStep1(),
       _buildStep2(),
@@ -1227,10 +1222,10 @@ class _FaYuanWizardPageState extends State<FaYuanWizardPage> {
                 keyboardDismissBehavior:
                     ScrollViewKeyboardDismissBehavior.onDrag,
                 padding: EdgeInsets.fromLTRB(
-                  design.spacing.md,
+                  tokens.spacing.md,
                   0,
-                  design.spacing.md,
-                  design.spacing.lg,
+                  tokens.spacing.md,
+                  tokens.spacing.lg,
                 ),
                 child: AnimatedSwitcher(
                   duration: const Duration(milliseconds: 180),

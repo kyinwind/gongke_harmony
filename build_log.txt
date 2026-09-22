@@ -1,0 +1,1282 @@
+=== Build Output ===
+> /Applications/DevEco-Studio.app/contents/tools/node/bin/node /Applications/DevEco-Studio.app/contents/tools/hvigor/bin/hvigorw.js --mode project -p product=default assembleApp -p buildMode=debug --daemon
+
+> hvigor hvigor client: Starting hvigor daemon.
+> hvigor Hvigor Daemon started in 239 ms
+> hvigor Finished ::PreBuildApp... after 1 ms 
+> hvigor UP-TO-DATE :entry:default@PreBuild...  
+> hvigor Finished ::DuplicateDependencyCheck... after 1 ms 
+> hvigor Finished :entry:default@CreateModuleInfo... after 1 ms 
+> hvigor UP-TO-DATE :entry:default@GenerateMetadata...  
+> hvigor Finished :entry:default@ConfigureCmake... after 1 ms 
+> hvigor UP-TO-DATE :entry:default@MergeProfile...  
+> hvigor UP-TO-DATE :entry:default@CreateBuildProfile...  
+> hvigor Finished :entry:default@PreCheckSyscap... after 1 ms 
+> hvigor Finished :entry:default@GeneratePkgContextInfo... after 8 ms 
+> hvigor UP-TO-DATE :entry:default@GeneratePkgSdkInfo...  
+> hvigor Finished :entry:default@ProcessIntegratedHsp... after 1 ms 
+> hvigor Finished :entry:default@BuildNativeWithCmake... after 1 ms 
+> hvigor UP-TO-DATE :entry:default@MakePackInfo...  
+> hvigor Finished :entry:default@SyscapTransform... after 1 ms 
+> hvigor UP-TO-DATE :entry:default@ProcessProfile...  
+> hvigor UP-TO-DATE :entry:default@ProcessRouterMap...  
+> hvigor UP-TO-DATE :entry:default@ProcessShareConfig...  
+> hvigor Finished :entry:default@ProcessStartupConfig... after 1 ms 
+> hvigor Finished :entry:default@BuildNativeWithNinja... after 1 ms 
+> hvigor Finished :entry:default@ProcessResource... after 3 ms 
+> hvigor UP-TO-DATE :entry:default@GenerateLoaderJson...  
+> hvigor UP-TO-DATE :entry:default@ProcessLibs...  
+> hvigor WARN: Warning: 'page_show' conflict, first declared.
+at /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/sqflite@b51zpasgzkqiyqsckhapsb+wjoslgqavzxc2uvqbd+0=/oh_modules/sqflite/src/main/resources/base/element/string.json
+but declared again.
+at /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/audioplayers_ohos@py4mjk6vvdhc3vma3ukfm5r1m0fvoqflsat6mxjwy6s=/oh_modules/audioplayers_ohos/src/main/resources/base/element/string.json
+Warning: 'page_show' conflict, first declared.
+at /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/sqflite@b51zpasgzkqiyqsckhapsb+wjoslgqavzxc2uvqbd+0=/oh_modules/sqflite/src/main/resources/en_US/element/string.json
+but declared again.
+at /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/audioplayers_ohos@py4mjk6vvdhc3vma3ukfm5r1m0fvoqflsat6mxjwy6s=/oh_modules/audioplayers_ohos/src/main/resources/en_US/element/string.json
+Warning: 'page_show' conflict, first declared.
+at /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/sqflite@b51zpasgzkqiyqsckhapsb+wjoslgqavzxc2uvqbd+0=/oh_modules/sqflite/src/main/resources/zh_CN/element/string.json
+but declared again.
+at /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/audioplayers_ohos@py4mjk6vvdhc3vma3ukfm5r1m0fvoqflsat6mxjwy6s=/oh_modules/audioplayers_ohos/src/main/resources/zh_CN/element/string.json
+Warning: 'page_show' conflict, first declared.
+at /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/sqflite@b51zpasgzkqiyqsckhapsb+wjoslgqavzxc2uvqbd+0=/oh_modules/sqflite/src/main/resources/base/element/string.json
+but declared again.
+at /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/entry/build/default/intermediates/res/default/resource_str/base/element/string.json
+Warning: 'page_show' conflict, first declared.
+at /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/sqflite@b51zpasgzkqiyqsckhapsb+wjoslgqavzxc2uvqbd+0=/oh_modules/sqflite/src/main/resources/en_US/element/string.json
+but declared again.
+at /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/entry/build/default/intermediates/res/default/resource_str/en_US/element/string.json
+Warning: 'page_show' conflict, first declared.
+at /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/sqflite@b51zpasgzkqiyqsckhapsb+wjoslgqavzxc2uvqbd+0=/oh_modules/sqflite/src/main/resources/zh_CN/element/string.json
+but declared again.
+at /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/entry/build/default/intermediates/res/default/resource_str/zh_CN/element/string.json
+
+> hvigor Finished :entry:default@CompileResource... after 692 ms 
+> hvigor UP-TO-DATE :entry:default@DoNativeStrip...  
+> hvigor Finished :entry:default@BuildJS... after 1 ms 
+> hvigor UP-TO-DATE :entry:default@CacheNativeLibs...  
+> hvigor WARN: WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/common/Any.ets:7:20
+ Usage of 'ESObject' type is restricted (arkts-limited-esobj)
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/shared_preferences_ohos@siwkilmwlnpmlg5xbafwf+jlbn5xo5oianw152aaige=/oh_modules/shared_preferences_ohos/src/main/ets/shared_preferences/SharedPreferencesListEncoder.ets:15:31
+ Usage of 'ESObject' type is restricted (arkts-limited-esobj)
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/shared_preferences_ohos@siwkilmwlnpmlg5xbafwf+jlbn5xo5oianw152aaige=/oh_modules/shared_preferences_ohos/src/main/ets/shared_preferences/SharedPreferencesOhosPlugin.ets:350:47
+ Usage of 'ESObject' type is restricted (arkts-limited-esobj)
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/path_provider_ohos@uwajh7vrslu2g7gennmhyot7fsido5jqoz3dypxbzei=/oh_modules/path_provider_ohos/src/main/ets/io/flutter/plugins/pathprovider/Messages.ets:97:14
+ Usage of 'ESObject' type is restricted (arkts-limited-esobj)
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/path_provider_ohos@uwajh7vrslu2g7gennmhyot7fsido5jqoz3dypxbzei=/oh_modules/path_provider_ohos/src/main/ets/io/flutter/plugins/pathprovider/Messages.ets:122:14
+ Usage of 'ESObject' type is restricted (arkts-limited-esobj)
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/path_provider_ohos@uwajh7vrslu2g7gennmhyot7fsido5jqoz3dypxbzei=/oh_modules/path_provider_ohos/src/main/ets/io/flutter/plugins/pathprovider/Messages.ets:147:14
+ Usage of 'ESObject' type is restricted (arkts-limited-esobj)
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/path_provider_ohos@uwajh7vrslu2g7gennmhyot7fsido5jqoz3dypxbzei=/oh_modules/path_provider_ohos/src/main/ets/io/flutter/plugins/pathprovider/Messages.ets:172:14
+ Usage of 'ESObject' type is restricted (arkts-limited-esobj)
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/path_provider_ohos@uwajh7vrslu2g7gennmhyot7fsido5jqoz3dypxbzei=/oh_modules/path_provider_ohos/src/main/ets/io/flutter/plugins/pathprovider/Messages.ets:197:14
+ Usage of 'ESObject' type is restricted (arkts-limited-esobj)
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/path_provider_ohos@uwajh7vrslu2g7gennmhyot7fsido5jqoz3dypxbzei=/oh_modules/path_provider_ohos/src/main/ets/io/flutter/plugins/pathprovider/Messages.ets:222:14
+ Usage of 'ESObject' type is restricted (arkts-limited-esobj)
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/path_provider_ohos@uwajh7vrslu2g7gennmhyot7fsido5jqoz3dypxbzei=/oh_modules/path_provider_ohos/src/main/ets/io/flutter/plugins/pathprovider/Messages.ets:249:14
+ Usage of 'ESObject' type is restricted (arkts-limited-esobj)
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/path_provider_ohos@uwajh7vrslu2g7gennmhyot7fsido5jqoz3dypxbzei=/oh_modules/path_provider_ohos/src/main/ets/io/flutter/plugins/pathprovider/PathProviderPlugin.ets:108:34
+ Argument of type 'Context | null' is not assignable to parameter of type 'Context'.
+  Type 'null' is not assignable to type 'Context'.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/path_provider_ohos@uwajh7vrslu2g7gennmhyot7fsido5jqoz3dypxbzei=/oh_modules/path_provider_ohos/src/main/ets/io/flutter/plugins/pathprovider/PathProviderPlugin.ets:112:39
+ Argument of type 'Context | null' is not assignable to parameter of type 'Context'.
+  Type 'null' is not assignable to type 'Context'.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/flutter_pdfview_ohos@lqbk95qvjkfsqpna2ojuv6g9m+h5jwy3q8dkyy6d66o=/oh_modules/flutter_pdfview_ohos/src/main/ets/components/plugin/PDFView.ets:105:93
+ Classes cannot be used as objects (arkts-no-classes-as-obj)
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/audioplayers_ohos@py4mjk6vvdhc3vma3ukfm5r1m0fvoqflsat6mxjwy6s=/oh_modules/audioplayers_ohos/src/main/ets/components/plugin/AudioplayersPlugin.ets:415:27
+ Argument of type 'string | undefined' is not assignable to parameter of type 'string'.
+  Type 'undefined' is not assignable to type 'string'.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/audioplayers_ohos@py4mjk6vvdhc3vma3ukfm5r1m0fvoqflsat6mxjwy6s=/oh_modules/audioplayers_ohos/src/main/ets/components/plugin/AudioplayersPlugin.ets:423:41
+ Argument of type 'null' is not assignable to parameter of type 'StreamHandler'.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/entry/src/main/ets/plugins/OhosSensorPlugin.ets:65:50
+ Argument of type 'null' is not assignable to parameter of type 'StreamHandler'.
+
+WARN: ArkTS:WARN: For details about ArkTS syntax errors, see FAQs
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/util/StringUtils.ets:7:21
+ Currently module for 'libflutter.so' is not verified. If you're importing napi, its verification will be enabled in later SDK version. Please make sure the corresponding .d.ts file is provided and the napis are correctly declared.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/engine/dart/DartMessenger.ets:402:5
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/engine/dart/DartMessenger.ets:443:5
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/engine/dart/DartMessenger.ets:453:20
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/engine/loader/FlutterLoader.ets:129:34
+ 'decodeWithStream' has been deprecated.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/engine/loader/FlutterLoader.ets:186:11
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8> hvigor Finished :entry:default@CompileArkTS... after 3 s 995 ms 
+> hvigor Finished :entry:default@GeneratePkgModuleJson... after 2 ms 
+> hvigor Finished :entry:default@ProcessCompiledResources... after 1 ms 
+rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/engine/loader/FlutterLoader.ets:188:9
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/engine/loader/FlutterLoader.ets:191:12
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/engine/loader/FlutterLoader.ets:192:9
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/engine/loader/FlutterLoader.ets:196:9
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/engine/loader/FlutterLoader.ets:199:9
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/engine/loader/FlutterLoader.ets:200:7
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/engine/loader/FlutterLoader.ets:203:9
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/engine/loader/FlutterLoader.ets:205:20
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/engine/loader/FlutterLoader.ets:207:7
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/engine/loader/FlutterLoader.ets:210:9
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/engine/loader/FlutterLoader.ets:212:25
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/engine/loader/FlutterLoader.ets:214:7
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/engine/loader/FlutterLoader.ets:217:9
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/engine/loader/FlutterLoader.ets:217:22
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/engine/loader/FlutterLoader.ets:219:7
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/engine/loader/FlutterLoader.ets:220:7
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/engine/loader/FlutterLoader.ets:221:7
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/engine/loader/FlutterLoader.ets:363:12
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/engine/loader/FlutterLoader.ets:363:37
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/common/JSONMessageCodec.ets:87:30
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/common/JSONMessageCodec.ets:91:7
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/util/ByteBuffer.ets:744:20
+ 'decode' has been deprecated.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/util/ByteBuffer.ets:780:29
+ 'encodeInto' has been deprecated.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/common/StandardMessageCodec.ets:196:7
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/view/DynamicView/dynamicView.ets:222:6
+ 'clip' has been deprecated.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/view/DynamicView/dynamicView.ets:227:6
+ 'clip' has been deprecated.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/engine/systemchannels/TextInputChannel.ets:109:5
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/util/PasteboardUtils.ets:53:30
+ To use this API, you need to apply for the permissions: ohos.permission.READ_PASTEBOARD
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/util/PasteboardUtils.ets:59:35
+ The 'getValidTypes' API is supported since SDK version 14. However, the current compatible SDK version is 5.0.0(12).
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/util/PasteboardUtils.ets:94:37
+ The 'getValidTypes' API is supported since SDK version 14. However, the current compatible SDK version is 5.0.0(12).
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/editing/ListenableEditingState.ets:565:5
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/editing/ListenableEditingState.ets:568:5
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/editing/ListenableEditingState.ets:576:5
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/editing/ListenableEditingState.ets:591:5
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/editing/ListenableEditingState.ets:1452:43
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/editing/ListenableEditingState.ets:1474:12
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/editing/ListenableEditingState.ets:1484:7
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/editing/ListenableEditingState.ets:1486:5
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/editing/ListenableEditingState.ets:1499:7
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/editing/ListenableEditingState.ets:1501:7
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/editing/ListenableEditingState.ets:1513:5
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/editing/ListenableEditingState.ets:1515:7
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/editing/TextInputPlugin.ets:322:5
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/editing/TextInputPlugin.ets:338:7
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/editing/TextInputPlugin.ets:340:7
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/editing/TextInputPlugin.ets:652:17
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/editing/TextInputPlugin.ets:654:17
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/editing/TextInputPlugin.ets:762:28
+ The 'RequestKeyboardReason' API is supported since SDK version 15. However, the current compatible SDK version is 5.0.0(12).
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/editing/TextInputPlugin.ets:762:50
+ The 'TOUCH' API is supported since SDK version 15. However, the current compatible SDK version is 5.0.0(12).
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/editing/TextInputPlugin.ets:764:28
+ The 'RequestKeyboardReason' API is supported since SDK version 15. However, the current compatible SDK version is 5.0.0(12).
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/editing/TextInputPlugin.ets:764:50
+ The 'MOUSE' API is supported since SDK version 15. However, the current compatible SDK version is 5.0.0(12).
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/editing/TextInputPlugin.ets:768:28
+ The 'RequestKeyboardReason' API is supported since SDK version 15. However, the current compatible SDK version is 5.0.0(12).
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/editing/TextInputPlugin.ets:768:50
+ The 'OTHER' API is supported since SDK version 15. However, the current compatible SDK version is 5.0.0(12).
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/editing/TextInputPlugin.ets:770:28
+ The 'RequestKeyboardReason' API is supported since SDK version 15. However, the current compatible SDK version is 5.0.0(12).
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/editing/TextInputPlugin.ets:770:50
+ The 'NONE' API is supported since SDK version 15. However, the current compatible SDK version is 5.0.0(12).
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/editing/TextInputPlugin.ets:906:33
+ The 'off' API is supported since SDK version 17. However, the current compatible SDK version is 5.0.0(12).
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/editing/TextInputPlugin.ets:907:33
+ The 'off' API is supported since SDK version 17. However, the current compatible SDK version is 5.0.0(12).
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/ohos/KeyData.ets:74:34
+ 'decode' has been deprecated.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/ohos/KeyData.ets:85:70
+ 'encode' has been deprecated.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/ohos/KeyEventHandler.ets:140:34
+ The 'isCapsLockOn' API is supported since SDK version 19. However, the current compatible SDK version is 5.0.0(12).
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/ohos/KeyEventHandler.ets:140:69
+ The 'isCapsLockOn' API is supported since SDK version 19. However, the current compatible SDK version is 5.0.0(12).
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/ohos/KeyEventHandler.ets:231:37
+ The 'isNumLockOn' API is supported since SDK version 19. However, the current compatible SDK version is 5.0.0(12).
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/ohos/KeyEventHandler.ets:231:71
+ The 'isNumLockOn' API is supported since SDK version 19. However, the current compatible SDK version is 5.0.0(12).
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/mouse/MouseCursorPlugin.ets:66:7
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/mouse/MouseCursorPlugin.ets:67:7
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/mouse/MouseCursorPlugin.ets:68:7
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/mouse/MouseCursorPlugin.ets:69:7
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/mouse/MouseCursorPlugin.ets:70:7
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/mouse/MouseCursorPlugin.ets:71:7
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/mouse/MouseCursorPlugin.ets:72:7
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/mouse/MouseCursorPlugin.ets:73:7
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/mouse/MouseCursorPlugin.ets:74:7
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/mouse/MouseCursorPlugin.ets:75:7
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/mouse/MouseCursorPlugin.ets:76:7
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/mouse/MouseCursorPlugin.ets:77:7
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/mouse/MouseCursorPlugin.ets:78:7
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/mouse/MouseCursorPlugin.ets:79:7
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/mouse/MouseCursorPlugin.ets:80:7
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/mouse/MouseCursorPlugin.ets:81:7
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/mouse/MouseCursorPlugin.ets:82:7
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/mouse/MouseCursorPlugin.ets:83:7
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/mouse/MouseCursorPlugin.ets:84:7
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/mouse/MouseCursorPlugin.ets:85:7
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/mouse/MouseCursorPlugin.ets:86:7
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/mouse/MouseCursorPlugin.ets:87:7
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/mouse/MouseCursorPlugin.ets:88:7
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/mouse/MouseCursorPlugin.ets:89:7
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/mouse/MouseCursorPlugin.ets:90:7
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/mouse/MouseCursorPlugin.ets:91:7
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/mouse/MouseCursorPlugin.ets:92:7
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/mouse/MouseCursorPlugin.ets:93:7
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/mouse/MouseCursorPlugin.ets:94:7
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/mouse/MouseCursorPlugin.ets:95:7
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/mouse/MouseCursorPlugin.ets:96:7
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/mouse/MouseCursorPlugin.ets:97:7
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/mouse/MouseCursorPlugin.ets:98:7
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/mouse/MouseCursorPlugin.ets:99:7
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/mouse/MouseCursorPlugin.ets:100:7
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/mouse/MouseCursorPlugin.ets:101:7
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/mouse/MouseCursorPlugin.ets:102:7
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/mouse/MouseCursorPlugin.ets:103:7
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/mouse/MouseCursorPlugin.ets:104:7
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/mouse/MouseCursorPlugin.ets:105:7
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/mouse/MouseCursorPlugin.ets:106:7
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/mouse/MouseCursorPlugin.ets:107:7
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/mouse/MouseCursorPlugin.ets:108:7
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/mouse/MouseCursorPlugin.ets:109:7
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/mouse/MouseCursorPlugin.ets:111:7
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/mouse/MouseCursorPlugin.ets:112:7
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/mouse/MouseCursorPlugin.ets:113:7
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/mouse/MouseCursorPlugin.ets:114:7
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/mouse/MouseCursorPlugin.ets:115:7
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/mouse/MouseCursorPlugin.ets:116:7
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/mouse/MouseCursorPlugin.ets:117:7
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/mouse/MouseCursorPlugin.ets:118:7
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/mouse/MouseCursorPlugin.ets:120:44
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/ohos/EmbeddingNodeController.ets:238:44
+ 'vp2px' has been deprecated.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/ohos/EmbeddingNodeController.ets:239:44
+ 'vp2px' has been deprecated.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/ohos/EmbeddingNodeController.ets:240:43
+ 'vp2px' has been deprecated.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/ohos/EmbeddingNodeController.ets:241:43
+ 'vp2px' has been deprecated.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/ohos/EmbeddingNodeController.ets:242:33
+ 'screenX' has been deprecated.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/ohos/EmbeddingNodeController.ets:242:43
+ 'vp2px' has been deprecated.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/ohos/EmbeddingNodeController.ets:242:73
+ 'screenX' has been deprecated.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/ohos/EmbeddingNodeController.ets:243:33
+ 'screenY' has been deprecated.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/ohos/EmbeddingNodeController.ets:243:43
+ 'vp2px' has been deprecated.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/ohos/EmbeddingNodeController.ets:243:73
+ 'screenY' has been deprecated.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/ohos/EmbeddingNodeController.ets:244:37
+ 'vp2px' has been deprecated.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/ohos/EmbeddingNodeController.ets:245:37
+ 'vp2px' has been deprecated.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/ohos/EmbeddingNodeController.ets:251:37
+ 'vp2px' has been deprecated.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/ohos/EmbeddingNodeController.ets:252:37
+ 'vp2px' has been deprecated.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/ohos/EmbeddingNodeController.ets:253:36
+ 'vp2px' has been deprecated.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/ohos/EmbeddingNodeController.ets:254:36
+ 'vp2px' has been deprecated.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/ohos/EmbeddingNodeController.ets:255:26
+ 'screenX' has been deprecated.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/ohos/EmbeddingNodeController.ets:255:36
+ 'vp2px' has been deprecated.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/ohos/EmbeddingNodeController.ets:255:59
+ 'screenX' has been deprecated.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/ohos/EmbeddingNodeController.ets:256:26
+ 'screenY' has been deprecated.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/ohos/EmbeddingNodeController.ets:256:36
+ 'vp2px' has been deprecated.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/ohos/EmbeddingNodeController.ets:256:59
+ 'screenY' has been deprecated.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/ohos/EmbeddingNodeController.ets:257:30
+ 'vp2px' has been deprecated.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/ohos/EmbeddingNodeController.ets:258:30
+ 'vp2px' has been deprecated.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/view/FlutterView.ets:436:25
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/view/FlutterView.ets:461:29
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/view/FlutterView.ets:463:7
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/view/FlutterView.ets:761:26
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/view/FlutterView.ets:900:14
+ 'px2vp' has been deprecated.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/view/FlutterView.ets:901:15
+ 'px2vp' has been deprecated.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/view/FlutterView.ets:910:20
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/view/FlutterView.ets:1087:44
+ 'vp2px' has been deprecated.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/view/FlutterView.ets:1088:45
+ 'vp2px' has been deprecated.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/view/FlutterView.ets:1289:5
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/view/FlutterView.ets:1297:5
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/view/FlutterView.ets:1305:5
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/view/FlutterView.ets:1313:5
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/view/FlutterView.ets:1331:23
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/view/FlutterView.ets:1332:7
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/view/FlutterView.ets:1336:23
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/view/FlutterView.ets:1337:7
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/ohos/FlutterManager.ets:57:5
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/ohos/FlutterManager.ets:101:5
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/ohos/FlutterManager.ets:111:5
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/ohos/FlutterManager.ets:121:5
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/ohos/FlutterManager.ets:131:5
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/ohos/FlutterManager.ets:140:5
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/ohos/FlutterManager.ets:148:5
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/ohos/FlutterManager.ets:156:5
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/ohos/FlutterManager.ets:164:5
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/ohos/FlutterManager.ets:218:5
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/ohos/FlutterManager.ets:470:24
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/ohos/FlutterManager.ets:488:9
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/ohos/FlutterManager.ets:488:20
+ The 'getWindowDecorVisible' API is supported since SDK version 18. However, the current compatible SDK version is 5.0.0(12).
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/ohos/FlutterManager.ets:493:29
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/ohos/FlutterManager.ets:499:31
+ 'vp2px' has been deprecated.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/ohos/FlutterManager.ets:513:24
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/ohos/FlutterManager.ets:589:24
+ 'getContext' has been deprecated.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/ohos/FlutterManager.ets:593:5
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/ohos/FlutterManager.ets:593:5
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/ohos/FlutterManager.ets:596:7
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/ohos/FlutterManager.ets:596:7
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/platform/PlatformViewRegistryImpl.ets:36:9
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/platform/PlatformViewRegistryImpl.ets:40:5
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/platform/PlatformViewRegistryImpl.ets:50:12
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/engine/mutatorsstack/FlutterMutatorsStack.ets:149:5
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/engine/mutatorsstack/FlutterMutatorsStack.ets:162:5
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/engine/mutatorsstack/FlutterMutatorsStack.ets:163:5
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/engine/mutatorsstack/FlutterMutatorsStack.ets:175:5
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/engine/mutatorsstack/FlutterMutatorsStack.ets:176:5
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/engine/mutatorsstack/FlutterMutatorView.ets:124:10
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/engine/mutatorsstack/FlutterMutatorView.ets:125:18
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/engine/mutatorsstack/FlutterMutatorView.ets:130:10
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/engine/mutatorsstack/FlutterMutatorView.ets:131:18
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/platform/PlatformViewsController.ets:851:12
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/platform/PlatformViewsController.ets:861:23
+ 'px2vp' has been deprecated.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/platform/PlatformViewsController.ets:919:5
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/platform/PlatformViewsController.ets:920:5
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/engine/FlutterEngineGroup.ets:103:5
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/engine/FlutterEngineGroup.ets:172:5
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/engine/FlutterEngineConnectionRegistry.ets:288:5
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/engine/FlutterEngineConnectionRegistry.ets:296:5
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/engine/FlutterEngineConnectionRegistry.ets:304:5
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/engine/FlutterEngineConnectionRegistry.ets:312:5
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/engine/FlutterEngineConnectionRegistry.ets:320:5
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/engine/FlutterEngineConnectionRegistry.ets:328:5
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/engine/FlutterEngineConnectionRegistry.ets:337:5
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/engine/FlutterEngineConnectionRegistry.ets:347:5
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/engine/FlutterEngineConnectionRegistry.ets:359:5
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/engine/systemchannels/PlatformChannel.ets:23:21
+ Currently module for 'libflutter.so' is not verified. If you're importing napi, its verification will be enabled in later SDK version. Please make sure the corresponding .d.ts file is provided and the napis are correctly declared.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/engine/systemchannels/LocalizationChannel.ets:84:29
+ 'Locale' has been deprecated.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/engine/systemchannels/LocalizationChannel.ets:85:24
+ 'language' has been deprecated.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/engine/systemchannels/LocalizationChannel.ets:86:24
+ 'region' has been deprecated.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/engine/systemchannels/LocalizationChannel.ets:87:24
+ 'script' has been deprecated.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/engine/systemchannels/AccessibilityChannel.ets:19:21
+ Currently module for 'libflutter.so' is not verified. If you're importing napi, its verification will be enabled in later SDK version. Please make sure the corresponding .d.ts file is provided and the napis are correctly declared.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/engine/systemchannels/AccessibilityChannel.ets:46:24
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/engine/systemchannels/AccessibilityChannel.ets:47:38
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/engine/systemchannels/AccessibilityChannel.ets:53:39
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/engine/systemchannels/AccessibilityChannel.ets:62:30
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/engine/systemchannels/AccessibilityChannel.ets:70:30
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/engine/systemchannels/AccessibilityChannel.ets:78:38
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/localization/LocalizationPlugin.ets:52:21
+ 'Locale' has been deprecated.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/localization/LocalizationPlugin.ets:97:44
+ 'getSystemLocale' has been deprecated.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/PlatformPlugin.ets:86:5
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/PlatformPlugin.ets:90:7
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/PlatformPlugin.ets:94:33
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/PlatformPlugin.ets:96:50
+ 'vp2px' has been deprecated.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/PlatformPlugin.ets:203:15
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/PlatformPlugin.ets:207:15
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/PlatformPlugin.ets:211:15
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/PlatformPlugin.ets:215:15
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/PlatformPlugin.ets:219:15
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/PlatformPlugin.ets:310:12
+ 'back' has been deprecated.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/PlatformPlugin.ets:339:28
+ To use this API, you need to apply for the permissions: ohos.permission.READ_PASTEBOARD
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/PlatformPlugin.ets:345:33
+ The 'getValidTypes' API is supported since SDK version 14. However, the current compatible SDK version is 5.0.0(12).
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/PlatformPlugin.ets:449:26
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/PlatformPlugin.ets:511:5
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/view/SensitiveContentPlugin.ets:47:28
+ 'getContext' has been deprecated.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/view/SensitiveContentPlugin.ets:53:28
+ To use this API, you need to apply for the permissions: ohos.permission.PRIVACY_WINDOW
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/ohos/FlutterAbility.ets:111:27
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/ohos/FlutterAbility.ets:127:5
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/ohos/FlutterAbility.ets:162:23
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/engine/renderer/FlutterRenderer.ets:174:47
+ 'createImageReceiver' has been deprecated.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/ohos/TouchEventProcessor.ets:338:33
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/ohos/TouchEventProcessor.ets:413:27
+ 'vp2px' has been deprecated.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/ohos/TouchEventProcessor.ets:414:27
+ 'vp2px' has been deprecated.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/ohos/TouchEventProcessor.ets:415:33
+ 'vp2px' has been deprecated.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/ohos/TouchEventProcessor.ets:416:33
+ 'vp2px' has been deprecated.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/ohos/TouchEventProcessor.ets:417:34
+ 'vp2px' has been deprecated.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/ohos/TouchEventProcessor.ets:418:34
+ 'vp2px' has been deprecated.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/ohos/TouchEventProcessor.ets:488:21
+ 'vp2px' has been deprecated.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/ohos/TouchEventProcessor.ets:489:21
+ 'vp2px' has been deprecated.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/ohos/TouchEventProcessor.ets:490:27
+ 'vp2px' has been deprecated.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/ohos/TouchEventProcessor.ets:491:27
+ 'vp2px' has been deprecated.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/ohos/TouchEventProcessor.ets:534:33
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/engine/FlutterNapi.ets:7:21
+ Currently module for 'libflutter.so' is not verified. If you're importing napi, its verification will be enabled in later SDK version. Please make sure the corresponding .d.ts file is provided and the napis are correctly declared.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/engine/FlutterEnginePreload.ets:55:43
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/engine/FlutterEnginePreload.ets:111:43
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/ohos/FlutterEntry.ets:89:7
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/ohos/FlutterPage.ets:13:21
+ Currently module for 'libflutter.so' is not verified. If you're importing napi, its verification will be enabled in later SDK version. Please make sure the corresponding .d.ts file is provided and the napis are correctly declared.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/ohos/TouchEventTracker.ets:46:5
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/ohos/TouchEventTracker.ets:47:5
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/ohos/TouchEventTracker.ets:59:45
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/ohos/TouchEventTracker.ets:60:7
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/ohos/TouchEventTracker.ets:60:29
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/ohos/TouchEventTracker.ets:64:42
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/ohos/TouchEventTracker.ets:65:7
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/ohos/TouchEventTracker.ets:68:31
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/embedding/ohos/TouchEventTracker.ets:69:5
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/common/SendableStandardMessageCodec.ets:193:7
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/common/SendableJSONMessageCodec.ets:92:30
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/plugin/common/SendableJSONMessageCodec.ets:96:7
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/@ohos+flutter_ohos@lzebfwd4c8aqhhxfbjmepfl6ae5qkwuvo5rd8zo8rfq=/oh_modules/@ohos/flutter_ohos/src/main/ets/util/PathUtils.ets:43:10
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/path_provider_ohos@uwajh7vrslu2g7gennmhyot7fsido5jqoz3dypxbzei=/oh_modules/path_provider_ohos/src/main/ets/io/flutter/plugins/pathprovider/PathProviderPlugin.ets:165:10
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/flutter_pdfview_ohos@lqbk95qvjkfsqpna2ojuv6g9m+h5jwy3q8dkyy6d66o=/oh_modules/flutter_pdfview_ohos/src/main/ets/components/plugin/PDFView.ets:75:19
+ 'getContext' has been deprecated.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/file_picker_ohos@s7o+evjclsen12qf4u4s78yo36ccybggu86oijxhck8=/oh_modules/file_picker_ohos/src/main/ets/components/plugin/FilePlckerDelegate.ets:82:38
+ 'PhotoViewPicker' has been deprecated.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/file_picker_ohos@s7o+evjclsen12qf4u4s78yo36ccybggu86oijxhck8=/oh_modules/file_picker_ohos/src/main/ets/components/plugin/FilePlckerDelegate.ets:83:45
+ 'PhotoSelectOptions' has been deprecated.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/file_picker_ohos@s7o+evjclsen12qf4u4s78yo36ccybggu86oijxhck8=/oh_modules/file_picker_ohos/src/main/ets/components/plugin/FilePlckerDelegate.ets:84:28
+ 'MIMEType' has been deprecated.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/file_picker_ohos@s7o+evjclsen12qf4u4s78yo36ccybggu86oijxhck8=/oh_modules/file_picker_ohos/src/main/ets/components/plugin/FilePlckerDelegate.ets:84:46
+ 'PhotoViewMIMETypes' has been deprecated.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/file_picker_ohos@s7o+evjclsen12qf4u4s78yo36ccybggu86oijxhck8=/oh_modules/file_picker_ohos/src/main/ets/components/plugin/FilePlckerDelegate.ets:84:65
+ 'IMAGE_TYPE' has been deprecated.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/file_picker_ohos@s7o+evjclsen12qf4u4s78yo36ccybggu86oijxhck8=/oh_modules/file_picker_ohos/src/main/ets/components/plugin/FilePlckerDelegate.ets:85:28
+ 'maxSelectNumber' has been deprecated.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/file_picker_ohos@s7o+evjclsen12qf4u4s78yo36ccybggu86oijxhck8=/oh_modules/file_picker_ohos/src/main/ets/components/plugin/FilePlckerDelegate.ets:86:27
+ 'select' has been deprecated.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/file_picker_ohos@s7o+evjclsen12qf4u4s78yo36ccybggu86oijxhck8=/oh_modules/file_picker_ohos/src/main/ets/components/plugin/FilePlckerDelegate.ets:88:49
+ 'photoUris' has been deprecated.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/file_picker_ohos@s7o+evjclsen12qf4u4s78yo36ccybggu86oijxhck8=/oh_modules/file_picker_ohos/src/main/ets/components/plugin/FilePlckerDelegate.ets:89:62
+ 'photoUris' has been deprecated.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/file_picker_ohos@s7o+evjclsen12qf4u4s78yo36ccybggu86oijxhck8=/oh_modules/file_picker_ohos/src/main/ets/components/plugin/FilePlckerDelegate.ets:93:60
+ 'photoUris' has been deprecated.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/file_picker_ohos@s7o+evjclsen12qf4u4s78yo36ccybggu86oijxhck8=/oh_modules/file_picker_ohos/src/main/ets/components/plugin/FilePlckerDelegate.ets:95:55
+ 'photoUris' has been deprecated.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/file_picker_ohos@s7o+evjclsen12qf4u4s78yo36ccybggu86oijxhck8=/oh_modules/file_picker_ohos/src/main/ets/components/plugin/FilePlckerDelegate.ets:103:38
+ 'PhotoViewPicker' has been deprecated.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/file_picker_ohos@s7o+evjclsen12qf4u4s78yo36ccybggu86oijxhck8=/oh_modules/file_picker_ohos/src/main/ets/components/plugin/FilePlckerDelegate.ets:104:45
+ 'PhotoSelectOptions' has been deprecated.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/file_picker_ohos@s7o+evjclsen12qf4u4s78yo36ccybggu86oijxhck8=/oh_modules/file_picker_ohos/src/main/ets/components/plugin/FilePlckerDelegate.ets:105:28
+ 'maxSelectNumber' has been deprecated.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/file_picker_ohos@s7o+evjclsen12qf4u4s78yo36ccybggu86oijxhck8=/oh_modules/file_picker_ohos/src/main/ets/components/plugin/FilePlckerDelegate.ets:106:28
+ 'MIMEType' has been deprecated.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/file_picker_ohos@s7o+evjclsen12qf4u4s78yo36ccybggu86oijxhck8=/oh_modules/file_picker_ohos/src/main/ets/components/plugin/FilePlckerDelegate.ets:106:46
+ 'PhotoViewMIMETypes' has been deprecated.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/file_picker_ohos@s7o+evjclsen12qf4u4s78yo36ccybggu86oijxhck8=/oh_modules/file_picker_ohos/src/main/ets/components/plugin/FilePlckerDelegate.ets:106:65
+ 'VIDEO_TYPE' has been deprecated.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/file_picker_ohos@s7o+evjclsen12qf4u4s78yo36ccybggu86oijxhck8=/oh_modules/file_picker_ohos/src/main/ets/components/plugin/FilePlckerDelegate.ets:107:21
+ 'select' has been deprecated.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/file_picker_ohos@s7o+evjclsen12qf4u4s78yo36ccybggu86oijxhck8=/oh_modules/file_picker_ohos/src/main/ets/components/plugin/FilePlckerDelegate.ets:108:49
+ 'photoUris' has been deprecated.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/file_picker_ohos@s7o+evjclsen12qf4u4s78yo36ccybggu86oijxhck8=/oh_modules/file_picker_ohos/src/main/ets/components/plugin/FilePlckerDelegate.ets:109:62
+ 'photoUris' has been deprecated.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/file_picker_ohos@s7o+evjclsen12qf4u4s78yo36ccybggu86oijxhck8=/oh_modules/file_picker_ohos/src/main/ets/components/plugin/FilePlckerDelegate.ets:112:63
+ 'photoUris' has been deprecated.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/file_picker_ohos@s7o+evjclsen12qf4u4s78yo36ccybggu86oijxhck8=/oh_modules/file_picker_ohos/src/main/ets/components/plugin/FilePlckerDelegate.ets:124:23
+ 'getContext' has been deprecated.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/file_picker_ohos@s7o+evjclsen12qf4u4s78yo36ccybggu86oijxhck8=/oh_modules/file_picker_ohos/src/main/ets/components/plugin/FilePlckerDelegate.ets:214:23
+ 'getContext' has been deprecated.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/file_picker_ohos@s7o+evjclsen12qf4u4s78yo36ccybggu86oijxhck8=/oh_modules/file_picker_ohos/src/main/ets/components/plugin/FilePlckerDelegate.ets:250:11
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/file_picker_ohos@s7o+evjclsen12qf4u4s78yo36ccybggu86oijxhck8=/oh_modules/file_picker_ohos/src/main/ets/components/plugin/FilePlckerDelegate.ets:265:9
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/file_picker_ohos@s7o+evjclsen12qf4u4s78yo36ccybggu86oijxhck8=/oh_modules/file_picker_ohos/src/main/ets/components/plugin/FilePlckerDelegate.ets:267:12
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/file_picker_ohos@s7o+evjclsen12qf4u4s78yo36ccybggu86oijxhck8=/oh_modules/file_picker_ohos/src/main/ets/components/plugin/FilePlckerDelegate.ets:288:9
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/file_picker_ohos@s7o+evjclsen12qf4u4s78yo36ccybggu86oijxhck8=/oh_modules/file_picker_ohos/src/main/ets/components/plugin/FilePlckerDelegate.ets:335:16
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/file_picker_ohos@s7o+evjclsen12qf4u4s78yo36ccybggu86oijxhck8=/oh_modules/file_picker_ohos/src/main/ets/components/plugin/FilePlckerDelegate.ets:336:17
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/file_picker_ohos@s7o+evjclsen12qf4u4s78yo36ccybggu86oijxhck8=/oh_modules/file_picker_ohos/src/main/ets/components/plugin/FilePlckerDelegate.ets:337:5
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/file_picker_ohos@s7o+evjclsen12qf4u4s78yo36ccybggu86oijxhck8=/oh_modules/file_picker_ohos/src/main/ets/components/plugin/FilePlckerDelegate.ets:338:5
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/file_picker_ohos@s7o+evjclsen12qf4u4s78yo36ccybggu86oijxhck8=/oh_modules/file_picker_ohos/src/main/ets/components/plugin/FilePlckerDelegate.ets:339:5
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/file_picker_ohos@s7o+evjclsen12qf4u4s78yo36ccybggu86oijxhck8=/oh_modules/file_picker_ohos/src/main/ets/components/plugin/FilePlckerDelegate.ets:400:25
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/file_picker_ohos@s7o+evjclsen12qf4u4s78yo36ccybggu86oijxhck8=/oh_modules/file_picker_ohos/src/main/ets/components/plugin/FilePlckerDelegate.ets:437:25
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/file_picker_ohos@s7o+evjclsen12qf4u4s78yo36ccybggu86oijxhck8=/oh_modules/file_picker_ohos/src/main/ets/components/plugin/FilePickerPlugin.ets:95:9
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/sqflite@b51zpasgzkqiyqsckhapsb+wjoslgqavzxc2uvqbd+0=/oh_modules/sqflite/src/main/ets/io/flutter/plugins/sqflite/DatabaseHelper.ets:152:35
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/sqflite@b51zpasgzkqiyqsckhapsb+wjoslgqavzxc2uvqbd+0=/oh_modules/sqflite/src/main/ets/io/flutter/plugins/sqflite/DatabaseHelper.ets:261:15
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/sqflite@b51zpasgzkqiyqsckhapsb+wjoslgqavzxc2uvqbd+0=/oh_modules/sqflite/src/main/ets/io/flutter/plugins/sqflite/Database.ets:111:7
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/sqflite@b51zpasgzkqiyqsckhapsb+wjoslgqavzxc2uvqbd+0=/oh_modules/sqflite/src/main/ets/io/flutter/plugins/sqflite/Database.ets:120:7
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/sqflite@b51zpasgzkqiyqsckhapsb+wjoslgqavzxc2uvqbd+0=/oh_modules/sqflite/src/main/ets/io/flutter/plugins/sqflite/Database.ets:127:7
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/sqflite@b51zpasgzkqiyqsckhapsb+wjoslgqavzxc2uvqbd+0=/oh_modules/sqflite/src/main/ets/io/flutter/plugins/sqflite/Database.ets:263:11
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/sqflite@b51zpasgzkqiyqsckhapsb+wjoslgqavzxc2uvqbd+0=/oh_modules/sqflite/src/main/ets/io/flutter/plugins/sqflite/Database.ets:268:47
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/sqflite@b51zpasgzkqiyqsckhapsb+wjoslgqavzxc2uvqbd+0=/oh_modules/sqflite/src/main/ets/io/flutter/plugins/sqflite/Database.ets:270:28
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/sqflite@b51zpasgzkqiyqsckhapsb+wjoslgqavzxc2uvqbd+0=/oh_modules/sqflite/src/main/ets/io/flutter/plugins/sqflite/Database.ets:288:5
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/sqflite@b51zpasgzkqiyqsckhapsb+wjoslgqavzxc2uvqbd+0=/oh_modules/sqflite/src/main/ets/io/flutter/plugins/sqflite/Database.ets:303:12
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/audioplayers_ohos@py4mjk6vvdhc3vma3ukfm5r1m0fvoqflsat6mxjwy6s=/oh_modules/audioplayers_ohos/src/main/ets/components/plugin/source/UrlSource.ets:35:18
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/audioplayers_ohos@py4mjk6vvdhc3vma3ukfm5r1m0fvoqflsat6mxjwy6s=/oh_modules/audioplayers_ohos/src/main/ets/components/plugin/player/MediaPlayerPlayer.ets:45:30
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/audioplayers_ohos@py4mjk6vvdhc3vma3ukfm5r1m0fvoqflsat6mxjwy6s=/oh_modules/audioplayers_ohos/src/main/ets/components/plugin/player/MediaPlayerPlayer.ets:135:31
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/audioplayers_ohos@py4mjk6vvdhc3vma3ukfm5r1m0fvoqflsat6mxjwy6s=/oh_modules/audioplayers_ohos/src/main/ets/components/plugin/player/MediaPlayerPlayer.ets:139:71
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/audioplayers_ohos@py4mjk6vvdhc3vma3ukfm5r1m0fvoqflsat6mxjwy6s=/oh_modules/audioplayers_ohos/src/main/ets/components/plugin/player/MediaPlayerPlayer.ets:144:31
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/audioplayers_ohos@py4mjk6vvdhc3vma3ukfm5r1m0fvoqflsat6mxjwy6s=/oh_modules/audioplayers_ohos/src/main/ets/components/plugin/player/MediaPlayerPlayer.ets:153:13
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/audioplayers_ohos@py4mjk6vvdhc3vma3ukfm5r1m0fvoqflsat6mxjwy6s=/oh_modules/audioplayers_ohos/src/main/ets/components/plugin/player/MediaPlayerPlayer.ets:154:13
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/audioplayers_ohos@py4mjk6vvdhc3vma3ukfm5r1m0fvoqflsat6mxjwy6s=/oh_modules/audioplayers_ohos/src/main/ets/components/plugin/player/MediaPlayerPlayer.ets:194:23
+ 'getContext' has been deprecated.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/audioplayers_ohos@py4mjk6vvdhc3vma3ukfm5r1m0fvoqflsat6mxjwy6s=/oh_modules/audioplayers_ohos/src/main/ets/components/plugin/player/MediaPlayerPlayer.ets:195:45
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/audioplayers_ohos@py4mjk6vvdhc3vma3ukfm5r1m0fvoqflsat6mxjwy6s=/oh_modules/audioplayers_ohos/src/main/ets/components/plugin/player/MediaPlayerPlayer.ets:196:7
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/audioplayers_ohos@py4mjk6vvdhc3vma3ukfm5r1m0fvoqflsat6mxjwy6s=/oh_modules/audioplayers_ohos/src/main/ets/components/plugin/player/MediaPlayerPlayer.ets:209:13
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/audioplayers_ohos@py4mjk6vvdhc3vma3ukfm5r1m0fvoqflsat6mxjwy6s=/oh_modules/audioplayers_ohos/src/main/ets/components/plugin/player/MediaPlayerPlayer.ets:220:31
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/audioplayers_ohos@py4mjk6vvdhc3vma3ukfm5r1m0fvoqflsat6mxjwy6s=/oh_modules/audioplayers_ohos/src/main/ets/components/plugin/player/SoundPoolPlayer.ets:84:29
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/audioplayers_ohos@py4mjk6vvdhc3vma3ukfm5r1m0fvoqflsat6mxjwy6s=/oh_modules/audioplayers_ohos/src/main/ets/components/plugin/player/SoundPoolPlayer.ets:90:7
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/audioplayers_ohos@py4mjk6vvdhc3vma3ukfm5r1m0fvoqflsat6mxjwy6s=/oh_modules/audioplayers_ohos/src/main/ets/components/plugin/player/SoundPoolPlayer.ets:97:7
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/audioplayers_ohos@py4mjk6vvdhc3vma3ukfm5r1m0fvoqflsat6mxjwy6s=/oh_modules/audioplayers_ohos/src/main/ets/components/plugin/player/SoundPoolPlayer.ets:115:10
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/audioplayers_ohos@py4mjk6vvdhc3vma3ukfm5r1m0fvoqflsat6mxjwy6s=/oh_modules/audioplayers_ohos/src/main/ets/components/plugin/player/SoundPoolPlayer.ets:118:29
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/audioplayers_ohos@py4mjk6vvdhc3vma3ukfm5r1m0fvoqflsat6mxjwy6s=/oh_modules/audioplayers_ohos/src/main/ets/components/plugin/player/SoundPoolPlayer.ets:120:7
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/audioplayers_ohos@py4mjk6vvdhc3vma3ukfm5r1m0fvoqflsat6mxjwy6s=/oh_modules/audioplayers_ohos/src/main/ets/components/plugin/player/SoundPoolPlayer.ets:121:13
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/audioplayers_ohos@py4mjk6vvdhc3vma3ukfm5r1m0fvoqflsat6mxjwy6s=/oh_modules/audioplayers_ohos/src/main/ets/components/plugin/player/SoundPoolPlayer.ets:122:7
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/audioplayers_ohos@py4mjk6vvdhc3vma3ukfm5r1m0fvoqflsat6mxjwy6s=/oh_modules/audioplayers_ohos/src/main/ets/components/plugin/player/SoundPoolPlayer.ets:136:13
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/audioplayers_ohos@py4mjk6vvdhc3vma3ukfm5r1m0fvoqflsat6mxjwy6s=/oh_modules/audioplayers_ohos/src/main/ets/components/plugin/player/SoundPoolPlayer.ets:142:13
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/audioplayers_ohos@py4mjk6vvdhc3vma3ukfm5r1m0fvoqflsat6mxjwy6s=/oh_modules/audioplayers_ohos/src/main/ets/components/plugin/player/SoundPoolPlayer.ets:148:13
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/audioplayers_ohos@py4mjk6vvdhc3vma3ukfm5r1m0fvoqflsat6mxjwy6s=/oh_modules/audioplayers_ohos/src/main/ets/components/plugin/player/SoundPoolPlayer.ets:186:10
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/audioplayers_ohos@py4mjk6vvdhc3vma3ukfm5r1m0fvoqflsat6mxjwy6s=/oh_modules/audioplayers_ohos/src/main/ets/components/plugin/player/SoundPoolPlayer.ets:187:7
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/audioplayers_ohos@py4mjk6vvdhc3vma3ukfm5r1m0fvoqflsat6mxjwy6s=/oh_modules/audioplayers_ohos/src/main/ets/components/plugin/player/SoundPoolPlayer.ets:189:22
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/audioplayers_ohos@py4mjk6vvdhc3vma3ukfm5r1m0fvoqflsat6mxjwy6s=/oh_modules/audioplayers_ohos/src/main/ets/components/plugin/player/SoundPoolPlayer.ets:204:30
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/audioplayers_ohos@py4mjk6vvdhc3vma3ukfm5r1m0fvoqflsat6mxjwy6s=/oh_modules/audioplayers_ohos/src/main/ets/components/plugin/player/SoundPoolPlayer.ets:205:7
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/audioplayers_ohos@py4mjk6vvdhc3vma3ukfm5r1m0fvoqflsat6mxjwy6s=/oh_modules/audioplayers_ohos/src/main/ets/components/plugin/player/SoundPoolPlayer.ets:230:10
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/audioplayers_ohos@py4mjk6vvdhc3vma3ukfm5r1m0fvoqflsat6mxjwy6s=/oh_modules/audioplayers_ohos/src/main/ets/components/plugin/player/SoundPoolPlayer.ets:231:29
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/audioplayers_ohos@py4mjk6vvdhc3vma3ukfm5r1m0fvoqflsat6mxjwy6s=/oh_modules/audioplayers_ohos/src/main/ets/components/plugin/player/SoundPoolPlayer.ets:251:7
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/audioplayers_ohos@py4mjk6vvdhc3vma3ukfm5r1m0fvoqflsat6mxjwy6s=/oh_modules/audioplayers_ohos/src/main/ets/components/plugin/player/SoundPoolPlayer.ets:261:12
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/audioplayers_ohos@py4mjk6vvdhc3vma3ukfm5r1m0fvoqflsat6mxjwy6s=/oh_modules/audioplayers_ohos/src/main/ets/components/plugin/player/SoundPoolPlayer.ets:261:49
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/audioplayers_ohos@py4mjk6vvdhc3vma3ukfm5r1m0fvoqflsat6mxjwy6s=/oh_modules/audioplayers_ohos/src/main/ets/components/plugin/player/SoundPoolPlayer.ets:265:5
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/audioplayers_ohos@py4mjk6vvdhc3vma3ukfm5r1m0fvoqflsat6mxjwy6s=/oh_modules/audioplayers_ohos/src/main/ets/components/plugin/player/SoundPoolPlayer.ets:266:5
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/audioplayers_ohos@py4mjk6vvdhc3vma3ukfm5r1m0fvoqflsat6mxjwy6s=/oh_modules/audioplayers_ohos/src/main/ets/components/plugin/player/SoundPoolPlayer.ets:289:5
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/audioplayers_ohos@py4mjk6vvdhc3vma3ukfm5r1m0fvoqflsat6mxjwy6s=/oh_modules/audioplayers_ohos/src/main/ets/components/plugin/player/SoundPoolPlayer.ets:290:5
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/audioplayers_ohos@py4mjk6vvdhc3vma3ukfm5r1m0fvoqflsat6mxjwy6s=/oh_modules/audioplayers_ohos/src/main/ets/components/plugin/player/SoundPoolPlayer.ets:291:5
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/audioplayers_ohos@py4mjk6vvdhc3vma3ukfm5r1m0fvoqflsat6mxjwy6s=/oh_modules/audioplayers_ohos/src/main/ets/components/plugin/AudioplayersPlugin.ets:79:5
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/audioplayers_ohos@py4mjk6vvdhc3vma3ukfm5r1m0fvoqflsat6mxjwy6s=/oh_modules/audioplayers_ohos/src/main/ets/components/plugin/AudioplayersPlugin.ets:80:5
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/audioplayers_ohos@py4mjk6vvdhc3vma3ukfm5r1m0fvoqflsat6mxjwy6s=/oh_modules/audioplayers_ohos/src/main/ets/components/plugin/AudioplayersPlugin.ets:210:9
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/audioplayers_ohos@py4mjk6vvdhc3vma3ukfm5r1m0fvoqflsat6mxjwy6s=/oh_modules/audioplayers_ohos/src/main/ets/components/plugin/AudioplayersPlugin.ets:211:14
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/audioplayers_ohos@py4mjk6vvdhc3vma3ukfm5r1m0fvoqflsat6mxjwy6s=/oh_modules/audioplayers_ohos/src/main/ets/components/plugin/AudioplayersPlugin.ets:296:5
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/audioplayers_ohos@py4mjk6vvdhc3vma3ukfm5r1m0fvoqflsat6mxjwy6s=/oh_modules/audioplayers_ohos/src/main/ets/components/plugin/AudioplayersPlugin.ets:350:26
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/audioplayers_ohos@py4mjk6vvdhc3vma3ukfm5r1m0fvoqflsat6mxjwy6s=/oh_modules/audioplayers_ohos/src/main/ets/components/plugin/AudioplayersPlugin.ets:352:11
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/audioplayers_ohos@py4mjk6vvdhc3vma3ukfm5r1m0fvoqflsat6mxjwy6s=/oh_modules/audioplayers_ohos/src/main/ets/components/plugin/AudioplayersPlugin.ets:367:5
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/audioplayers_ohos@py4mjk6vvdhc3vma3ukfm5r1m0fvoqflsat6mxjwy6s=/oh_modules/audioplayers_ohos/src/main/ets/components/plugin/AudioplayersPlugin.ets:368:29
+ To use this API, you need to apply for the permissions: ohos.permission.KEEP_BACKGROUND_RUNNING
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/audioplayers_ohos@py4mjk6vvdhc3vma3ukfm5r1m0fvoqflsat6mxjwy6s=/oh_modules/audioplayers_ohos/src/main/ets/components/plugin/AudioplayersPlugin.ets:382:11
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/oh_modules/.ohpm/audioplayers_ohos@py4mjk6vvdhc3vma3ukfm5r1m0fvoqflsat6mxjwy6s=/oh_modules/audioplayers_ohos/src/main/ets/components/plugin/AudioplayersPlugin.ets:383:11
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/entry/src/main/ets/plugins/OhosTtsPlugin.ets:249:5
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/entry/src/main/ets/widget/WidgetSnapshotRepository.ets:145:5
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/entry/src/main/ets/widget/WidgetSnapshotRepository.ets:146:5
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/entry/src/main/ets/widget/WidgetSnapshotRepository.ets:147:5
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/entry/src/main/ets/widget/WidgetSnapshotRepository.ets:154:5
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/entry/src/main/ets/widget/WidgetSnapshotRepository.ets:155:5
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/entry/src/main/ets/widget/WidgetSnapshotRepository.ets:164:5
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/entry/src/main/ets/widget/WidgetSnapshotRepository.ets:165:5
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/entry/src/main/ets/widget/WidgetSnapshotRepository.ets:171:5
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/entry/src/main/ets/widget/WidgetSnapshotRepository.ets:172:5
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/entry/src/main/ets/formability/GongKeFormAbility.ets:23:13
+ Function may throw exceptions. Special handling is required.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/entry/src/main/ets/pages/Index.ets:7:28
+ 'getShared' has been deprecated.
+
+WARN: ArkTS:WARN File: /Users/yangxuehui/Documents/dev/Harmony/gongke_harmony/ohos/entry/src/main/ets/pages/Index.ets:14:21
+ 'getContext' has been deprecated.
+
+
+> hvigor Finished :entry:default@PackageHap... after 439 ms 
+> hvigor Finished :entry:default@PackingCheck... after 5 ms 
+> hvigor Finished :entry:default@SignHap... after 967 ms 
+> hvigor Finished :entry:default@CollectDebugSymbol... after 1 ms 
+> hvigor Finished :entry:assembleHap... after 1 ms 
+> hvigor Finished ::MakeProjectPackInfo... after 2 ms 
+> hvigor Finished ::ProcessProjectPrivacyProfile... after 3 ms 
+> hvigor Finished ::GeneratePackRes... after 1 ms 
+> hvigor Finished ::PackageApp... after 789 ms 
+> hvigor Finished ::SignPackagesFromApp... after 1 ms 
+> hvigor Finished ::SignApp... after 230 ms 
+> hvigor Finished ::assembleApp... after 1 ms 
+> hvigor BUILD SUCCESSFUL in 9 s 162 ms 
+
+
+Process finished with exit code 0
+

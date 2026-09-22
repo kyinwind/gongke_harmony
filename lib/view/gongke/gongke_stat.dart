@@ -1,5 +1,5 @@
+import 'package:easy_design_system/easy_design_system.dart';
 import 'package:flutter/material.dart';
-import 'package:my_flutter_app_tools/my_flutter_app_tools.dart';
 import '../../comm/date_tools.dart';
 import '../../comm/gongke_type_presentation.dart';
 import '../../main.dart';
@@ -68,13 +68,15 @@ class _GongKeStatPageState extends State<GongKeStatPage> {
   }
 
   Widget _buildDateRangePicker() {
-    final design = RcmTheme.of(context);
+    final tokens = context.edsTokens;
+    final scheme = context.edsScheme;
     return Container(
-      padding: EdgeInsets.all(design.spacing.md),
+      padding: EdgeInsets.all(tokens.spacing.md),
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.surfaceContainerLowest,
-        borderRadius: BorderRadius.circular(design.radius.lg),
-        border: Border.all(color: design.colors.primary.withOpacity(0.12)),
+        borderRadius: BorderRadius.circular(tokens.radius.lg),
+        border:
+            Border.all(color: tokens.colors.primary.withValues(alpha: 0.12)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -82,11 +84,11 @@ class _GongKeStatPageState extends State<GongKeStatPage> {
           Row(
             children: [
               CircleAvatar(
-                backgroundColor: design.colors.accentSoft,
-                foregroundColor: design.colors.primary,
+                backgroundColor: tokens.colors.primarySoft,
+                foregroundColor: tokens.colors.primary,
                 child: const Icon(Icons.date_range_rounded),
               ),
-              SizedBox(width: design.spacing.sm),
+              SizedBox(width: tokens.spacing.sm),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -95,14 +97,13 @@ class _GongKeStatPageState extends State<GongKeStatPage> {
                             fontWeight: FontWeight.w700,
                           )),
                   Text('点击日期可重新选择',
-                      style: TextStyle(
-                          color: design.textSecondaryOf(context),
-                          fontSize: 13)),
+                      style:
+                          TextStyle(color: scheme.textSecondary, fontSize: 13)),
                 ],
               ),
             ],
           ),
-          SizedBox(height: design.spacing.md),
+          SizedBox(height: tokens.spacing.md),
           Row(
             children: [
               Expanded(
@@ -113,9 +114,9 @@ class _GongKeStatPageState extends State<GongKeStatPage> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: design.spacing.sm),
+                padding: EdgeInsets.symmetric(horizontal: tokens.spacing.sm),
                 child: Icon(Icons.arrow_forward_rounded,
-                    size: 20, color: design.textSecondaryOf(context)),
+                    size: 20, color: scheme.textSecondary),
               ),
               Expanded(
                 child: _dateButton(
@@ -136,22 +137,22 @@ class _GongKeStatPageState extends State<GongKeStatPage> {
     required DateTime date,
     required VoidCallback onTap,
   }) {
-    final design = RcmTheme.of(context);
+    final tokens = context.edsTokens;
+    final scheme = context.edsScheme;
     return InkWell(
       onTap: onTap,
-      borderRadius: BorderRadius.circular(design.radius.md),
+      borderRadius: BorderRadius.circular(tokens.radius.md),
       child: Container(
-        padding: EdgeInsets.all(design.spacing.sm),
+        padding: EdgeInsets.all(tokens.spacing.sm),
         decoration: BoxDecoration(
-          color: design.colors.accentSoft,
-          borderRadius: BorderRadius.circular(design.radius.md),
+          color: tokens.colors.primarySoft,
+          borderRadius: BorderRadius.circular(tokens.radius.md),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(label,
-                style: TextStyle(
-                    color: design.textSecondaryOf(context), fontSize: 12)),
+                style: TextStyle(color: scheme.textSecondary, fontSize: 12)),
             const SizedBox(height: 5),
             FittedBox(
               fit: BoxFit.scaleDown,
@@ -191,17 +192,19 @@ class _GongKeStatPageState extends State<GongKeStatPage> {
   }
 
   Widget _buildStatistics() {
-    final design = RcmTheme.of(context);
+    final tokens = context.edsTokens;
+    final scheme = context.edsScheme;
     final completionRate = planDays == 0 ? 0 : practiceDays / planDays;
     return Column(
       children: [
         Container(
           width: double.infinity,
-          padding: EdgeInsets.all(design.spacing.md),
+          padding: EdgeInsets.all(tokens.spacing.md),
           decoration: BoxDecoration(
-            color: design.colors.accentSoft,
-            borderRadius: BorderRadius.circular(design.radius.lg),
-            border: Border.all(color: design.colors.primary.withOpacity(0.14)),
+            color: tokens.colors.primarySoft,
+            borderRadius: BorderRadius.circular(tokens.radius.lg),
+            border: Border.all(
+                color: tokens.colors.primary.withValues(alpha: 0.14)),
           ),
           child: Column(
             children: [
@@ -218,8 +221,8 @@ class _GongKeStatPageState extends State<GongKeStatPage> {
                             value: completionRate.toDouble(),
                             strokeWidth: 7,
                             backgroundColor:
-                                design.colors.primary.withOpacity(0.12),
-                            color: design.colors.primary,
+                                tokens.colors.primary.withValues(alpha: 0.12),
+                            color: tokens.colors.primary,
                           ),
                         ),
                         Text('${(completionRate * 100).round()}%',
@@ -228,7 +231,7 @@ class _GongKeStatPageState extends State<GongKeStatPage> {
                       ],
                     ),
                   ),
-                  SizedBox(width: design.spacing.md),
+                  SizedBox(width: tokens.spacing.md),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -243,15 +246,14 @@ class _GongKeStatPageState extends State<GongKeStatPage> {
                           planDays == 0
                               ? '这段时间没有安排功课'
                               : '计划 $planDays 天，已坚持 $practiceDays 天',
-                          style:
-                              TextStyle(color: design.textSecondaryOf(context)),
+                          style: TextStyle(color: scheme.textSecondary),
                         ),
                       ],
                     ),
                   ),
                 ],
               ),
-              SizedBox(height: design.spacing.md),
+              SizedBox(height: tokens.spacing.md),
               Row(
                 children: [
                   Expanded(
@@ -268,21 +270,22 @@ class _GongKeStatPageState extends State<GongKeStatPage> {
             ],
           ),
         ),
-        SizedBox(height: design.spacing.md),
+        SizedBox(height: tokens.spacing.md),
         Container(
           width: double.infinity,
-          padding: EdgeInsets.all(design.spacing.md),
+          padding: EdgeInsets.all(tokens.spacing.md),
           decoration: BoxDecoration(
             color: Theme.of(context).colorScheme.surfaceContainerLowest,
-            borderRadius: BorderRadius.circular(design.radius.lg),
-            border: Border.all(color: design.colors.primary.withOpacity(0.12)),
+            borderRadius: BorderRadius.circular(tokens.radius.lg),
+            border: Border.all(
+                color: tokens.colors.primary.withValues(alpha: 0.12)),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
                 children: [
-                  Icon(Icons.bar_chart_rounded, color: design.colors.primary),
+                  Icon(Icons.bar_chart_rounded, color: tokens.colors.primary),
                   const SizedBox(width: 8),
                   Text('已完成功课',
                       style: Theme.of(context).textTheme.titleMedium?.copyWith(
@@ -290,19 +293,18 @@ class _GongKeStatPageState extends State<GongKeStatPage> {
                           )),
                 ],
               ),
-              SizedBox(height: design.spacing.sm),
+              SizedBox(height: tokens.spacing.sm),
               if (gongkeStats.isEmpty)
                 Padding(
-                  padding: EdgeInsets.symmetric(vertical: design.spacing.lg),
+                  padding: EdgeInsets.symmetric(vertical: tokens.spacing.lg),
                   child: Center(
                     child: Column(
                       children: [
                         Icon(Icons.inbox_outlined,
-                            size: 44, color: design.textSecondaryOf(context)),
+                            size: 44, color: scheme.textSecondary),
                         const SizedBox(height: 8),
                         Text('所选时间内暂无已完成功课',
-                            style: TextStyle(
-                                color: design.textSecondaryOf(context))),
+                            style: TextStyle(color: scheme.textSecondary)),
                       ],
                     ),
                   ),
@@ -319,19 +321,19 @@ class _GongKeStatPageState extends State<GongKeStatPage> {
                   final presentation = GongKeTypePresentation.of(type);
                   return Container(
                     margin: const EdgeInsets.only(top: 8),
-                    padding: EdgeInsets.all(design.spacing.sm),
+                    padding: EdgeInsets.all(tokens.spacing.sm),
                     decoration: BoxDecoration(
                       color: Theme.of(context)
                           .colorScheme
                           .surfaceContainerHighest
-                          .withOpacity(0.45),
-                      borderRadius: BorderRadius.circular(design.radius.md),
+                          .withValues(alpha: 0.45),
+                      borderRadius: BorderRadius.circular(tokens.radius.md),
                     ),
                     child: Row(
                       children: [
                         CircleAvatar(
-                          backgroundColor: design.colors.accentSoft,
-                          foregroundColor: design.colors.primary,
+                          backgroundColor: tokens.colors.primarySoft,
+                          foregroundColor: tokens.colors.primary,
                           child: Icon(presentation.icon, size: 21),
                         ),
                         const SizedBox(width: 12),
@@ -345,13 +347,13 @@ class _GongKeStatPageState extends State<GongKeStatPage> {
                               Text(presentation.label,
                                   style: TextStyle(
                                       fontSize: 13,
-                                      color: design.textSecondaryOf(context))),
+                                      color: scheme.textSecondary)),
                             ],
                           ),
                         ),
                         Text('${entry.value} ${presentation.unit}',
                             style: TextStyle(
-                                color: design.colors.primary,
+                                color: tokens.colors.primary,
                                 fontSize: 16,
                                 fontWeight: FontWeight.w800)),
                       ],
@@ -366,10 +368,11 @@ class _GongKeStatPageState extends State<GongKeStatPage> {
   }
 
   Widget _metric(String label, String value, String unit, IconData icon) {
-    final design = RcmTheme.of(context);
+    final tokens = context.edsTokens;
+    final scheme = context.edsScheme;
     return Column(
       children: [
-        Icon(icon, size: 20, color: design.colors.primary),
+        Icon(icon, size: 20, color: tokens.colors.primary),
         const SizedBox(height: 4),
         Text.rich(
           TextSpan(
@@ -383,17 +386,17 @@ class _GongKeStatPageState extends State<GongKeStatPage> {
           ),
         ),
         Text(label,
-            style: TextStyle(
-                color: design.textSecondaryOf(context), fontSize: 12)),
+            style: TextStyle(color: scheme.textSecondary, fontSize: 12)),
       ],
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    final design = RcmTheme.of(context);
+    final tokens = context.edsTokens;
+    final scheme = context.edsScheme;
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.surface,
+      backgroundColor: scheme.pageBackground,
       appBar: AppBar(
         title: const Text('功课统计'),
         backgroundColor: Colors.transparent,
@@ -401,10 +404,10 @@ class _GongKeStatPageState extends State<GongKeStatPage> {
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.fromLTRB(
-          design.spacing.md,
-          design.spacing.xs,
-          design.spacing.md,
-          design.spacing.xl,
+          tokens.spacing.md,
+          tokens.spacing.xs,
+          tokens.spacing.md,
+          tokens.spacing.xl,
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -415,10 +418,10 @@ class _GongKeStatPageState extends State<GongKeStatPage> {
                     )),
             const SizedBox(height: 4),
             Text('查看一段时间内的坚持情况和功课总量',
-                style: TextStyle(color: design.textSecondaryOf(context))),
-            SizedBox(height: design.spacing.md),
+                style: TextStyle(color: scheme.textSecondary)),
+            SizedBox(height: tokens.spacing.md),
             _buildDateRangePicker(),
-            SizedBox(height: design.spacing.md),
+            SizedBox(height: tokens.spacing.md),
             _buildStatistics(),
           ],
         ),

@@ -30,6 +30,11 @@ final AppHelpCenterConfig harmonyHelpConfig = AppHelpCenterConfig(
   ],
   versionHistory: [
     VersionHistoryItem(
+      versionName: 'v1.1.6',
+      publishedAt: DateTime(2026, 9, 10),
+      changes: '1.帮助中心增加培训视频',
+    ),
+    VersionHistoryItem(
       versionName: 'v1.1.5',
       publishedAt: DateTime(2026, 9, 3),
       changes: '1.优化界面\n2.fixed卡片提示bug',
@@ -115,6 +120,15 @@ final AppHelpCenterConfig harmonyHelpConfig = AppHelpCenterConfig(
       changes: '首次发布。',
     ),
   ],
+  trainingVideos: TrainingVideoConfig(
+    items: [
+      TrainingVideo(
+        id: 'getting-started',
+        title: '快速入门',
+        url: Uri.parse('https://www.bilibili.com/video/BV1nN9fBYEcH/'),
+      ),
+    ],
+  ),
   faqItems: [
     const HelpFaqItem(
       id: 'why_no_builtin_sutras',
@@ -150,9 +164,23 @@ final AppHelpCenterConfig harmonyHelpConfig = AppHelpCenterConfig(
   },
 );
 
-final AppHelpCenterController helpCenterController = AppHelpCenterController(
+final AppHelpCenterController helpCenterController =
+    _HarmonyAppHelpCenterController(
   config: harmonyHelpConfig,
 );
+
+/// Ensures every external link in the help center uses the HarmonyOS-native
+/// launcher. The package's default `url_launcher` implementation does not have
+/// a HarmonyOS platform implementation, so training and version video links
+/// would otherwise do nothing on HarmonyOS.
+class _HarmonyAppHelpCenterController extends AppHelpCenterController {
+  _HarmonyAppHelpCenterController({required super.config});
+
+  @override
+  Future<void> openUrl(Uri url) {
+    return ExternalLauncherTools.launch(url.toString());
+  }
+}
 
 Future<void> _submitFeedbackWithHarmony(HelpFeedbackPayload payload) async {
   final subject = harmonyHelpConfig.feedback?.subject ?? '诵经助手意见反馈';
