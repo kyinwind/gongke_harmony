@@ -93,7 +93,7 @@ class _GongKeSharePageState extends State<GongKeSharePage> {
     final progress = total == 0 ? 0.0 : completed / total;
 
     return Scaffold(
-      backgroundColor: scheme.pageBackground,
+      backgroundColor: scheme.surfacePage,
       appBar: AppBar(
         title: const Text('分享功课'),
         backgroundColor: Colors.transparent,
@@ -113,9 +113,9 @@ class _GongKeSharePageState extends State<GongKeSharePage> {
                   width: double.infinity,
                   padding: EdgeInsets.all(tokens.spacing.lg),
                   decoration: BoxDecoration(
-                    color: scheme.cardBackground,
+                    color: scheme.surfaceRaised,
                     borderRadius: BorderRadius.circular(tokens.radius.lg),
-                    border: Border.all(color: scheme.border),
+                    border: Border.all(color: scheme.borderDefault),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -127,7 +127,7 @@ class _GongKeSharePageState extends State<GongKeSharePage> {
                       ],
                       if (_hasTipData) ...[
                         SizedBox(height: tokens.spacing.lg),
-                        Divider(color: scheme.border, height: 1),
+                        Divider(color: scheme.borderDefault, height: 1),
                         SizedBox(height: tokens.spacing.md),
                         _buildTipSection(tokens, scheme),
                       ],
@@ -161,7 +161,7 @@ class _GongKeSharePageState extends State<GongKeSharePage> {
               width: 42,
               height: 42,
               decoration: BoxDecoration(
-                color: tokens.colors.primary,
+                color: scheme.brandForeground,
                 borderRadius: BorderRadius.circular(tokens.radius.sm),
               ),
               child: const Icon(Icons.calendar_today_outlined,
@@ -175,13 +175,13 @@ class _GongKeSharePageState extends State<GongKeSharePage> {
                   Text(
                     '功课日期',
                     style: tokens.typography.caption
-                        .copyWith(color: scheme.textSecondary),
+                        .copyWith(color: scheme.foregroundSecondary),
                   ),
                   const SizedBox(height: 2),
                   Text(
                     _date,
                     style: tokens.typography.body
-                        .copyWith(color: scheme.textPrimary),
+                        .copyWith(color: scheme.foregroundPrimary),
                   ),
                 ],
               ),
@@ -190,7 +190,7 @@ class _GongKeSharePageState extends State<GongKeSharePage> {
               '$completed / $total 已完成',
               style: completed == total && total > 0
                   ? EdsBadgeStyle.success
-                  : EdsBadgeStyle.accent,
+                  : EdsBadgeStyle.brand,
             ),
           ],
         ),
@@ -200,11 +200,11 @@ class _GongKeSharePageState extends State<GongKeSharePage> {
           child: LinearProgressIndicator(
             value: progress,
             minHeight: 6,
-              backgroundColor: tokens.colors.primary.withValues(alpha: 0.12),
+              backgroundColor: scheme.brandSurface,
             valueColor: AlwaysStoppedAnimation<Color>(
               completed == total && total > 0
-                  ? tokens.colors.success
-                  : tokens.colors.primary,
+                  ? scheme.successForeground
+                  : scheme.brandForeground,
             ),
           ),
         ),
@@ -232,19 +232,19 @@ class _GongKeSharePageState extends State<GongKeSharePage> {
                   child: Row(
                     children: [
                       Icon(Icons.auto_awesome,
-                          size: 18, color: tokens.colors.primary),
+                          size: 18, color: scheme.brandForeground),
                       SizedBox(width: tokens.spacing.xs),
                       Expanded(
                         child: Text(
                           snapshot.data?.name ?? '',
                           style: tokens.typography.sectionTitle
-                              .copyWith(color: scheme.textPrimary),
+                              .copyWith(color: scheme.foregroundPrimary),
                         ),
                       ),
                       Text(
                         '${fayuanItems.where((item) => _switchStates[item.id] == true).length}/${fayuanItems.length}',
                         style: tokens.typography.caption
-                            .copyWith(color: scheme.textSecondary),
+                            .copyWith(color: scheme.foregroundSecondary),
                       ),
                     ],
                   ),
@@ -263,8 +263,8 @@ class _GongKeSharePageState extends State<GongKeSharePage> {
                       height: 32,
                       decoration: BoxDecoration(
                         color: complete
-                            ? tokens.colors.success.withValues(alpha: 0.12)
-                            : tokens.colors.primary.withValues(alpha: 0.08),
+                            ? scheme.successSurface
+                            : scheme.brandSurface,
                         borderRadius:
                             BorderRadius.circular(tokens.radius.sm),
                       ),
@@ -272,8 +272,8 @@ class _GongKeSharePageState extends State<GongKeSharePage> {
                         presentation.icon,
                         size: 18,
                         color: complete
-                            ? tokens.colors.success
-                            : tokens.colors.primary,
+                            ? scheme.successForeground
+                            : scheme.brandForeground,
                       ),
                     ),
                     SizedBox(width: tokens.spacing.sm),
@@ -283,9 +283,7 @@ class _GongKeSharePageState extends State<GongKeSharePage> {
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: tokens.typography.body.copyWith(
-                          color: scheme.textPrimary,
-                          decoration:
-                              complete ? TextDecoration.lineThrough : null,
+                          color: scheme.foregroundPrimary,
                         ),
                       ),
                     ),
@@ -293,15 +291,15 @@ class _GongKeSharePageState extends State<GongKeSharePage> {
                     Text(
                       '${presentation.label} · ${item.cnt} ${presentation.unit}',
                       style: tokens.typography.caption
-                          .copyWith(color: scheme.textSecondary),
+                          .copyWith(color: scheme.foregroundSecondary),
                     ),
                     SizedBox(width: tokens.spacing.xs),
                     Icon(
                       complete ? Icons.check_circle : Icons.radio_button_unchecked,
                       size: 20,
                       color: complete
-                          ? tokens.colors.success
-                          : scheme.textSecondary,
+                          ? scheme.successForeground
+                          : scheme.foregroundSecondary,
                     ),
                   ],
                 ),
@@ -319,19 +317,19 @@ class _GongKeSharePageState extends State<GongKeSharePage> {
       children: [
         Row(
           children: [
-            Icon(Icons.chat_bubble_outline, size: 18, color: tokens.colors.primary),
+            Icon(Icons.chat_bubble_outline, size: 18, color: scheme.brandForeground),
             SizedBox(width: tokens.spacing.xs),
             Text(
               '今日开示',
               style: tokens.typography.sectionTitle.copyWith(
-                color: scheme.textPrimary,
+                color: scheme.foregroundPrimary,
               ),
             ),
             SizedBox(width: tokens.spacing.xs),
             Text(
               '《${_todayTip!.bookName}》',
               style: tokens.typography.caption.copyWith(
-                color: scheme.textSecondary,
+                color: scheme.foregroundSecondary,
               ),
             ),
           ],
@@ -340,7 +338,7 @@ class _GongKeSharePageState extends State<GongKeSharePage> {
         Text(
           _todayTip!.content,
           style: tokens.typography.body.copyWith(
-            color: scheme.textPrimary,
+            color: scheme.foregroundPrimary,
             height: 1.6,
           ),
         ),
@@ -366,14 +364,14 @@ class _GongKeSharePageState extends State<GongKeSharePage> {
                 Text(
                   '诵经助手',
                   style: tokens.typography.body.copyWith(
-                    color: scheme.textPrimary,
+                    color: scheme.foregroundPrimary,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
                 Text(
                   '鸿蒙应用商店下载',
                   style: tokens.typography.caption.copyWith(
-                    color: scheme.textSecondary,
+                    color: scheme.foregroundSecondary,
                   ),
                 ),
               ],

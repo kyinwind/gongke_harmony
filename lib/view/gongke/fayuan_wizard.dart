@@ -362,7 +362,7 @@ class _FaYuanWizardPageState extends State<FaYuanWizardPage> {
             width: double.infinity,
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
             decoration: BoxDecoration(
-              color: context.edsTokens.colors.primarySoft,
+              color: context.edsScheme.brandSurface,
               borderRadius: BorderRadius.circular(context.edsTokens.radius.md),
             ),
             child: Row(
@@ -397,13 +397,13 @@ class _FaYuanWizardPageState extends State<FaYuanWizardPage> {
               child: Column(
                 children: [
                   Icon(Icons.playlist_add_rounded,
-                      size: 48, color: scheme.textSecondary),
+                      size: 48, color: scheme.foregroundSecondary),
                   const SizedBox(height: 8),
                   Text('暂未添加每日功课',
                       style: Theme.of(context).textTheme.titleMedium),
                   const SizedBox(height: 4),
                   Text('请至少添加一项功课',
-                      style: TextStyle(color: scheme.textSecondary)),
+                      style: TextStyle(color: scheme.foregroundSecondary)),
                 ],
               ),
             ),
@@ -433,8 +433,8 @@ class _FaYuanWizardPageState extends State<FaYuanWizardPage> {
                 child: ListTile(
                   contentPadding: const EdgeInsets.symmetric(horizontal: 4),
                   leading: CircleAvatar(
-                    backgroundColor: tokens.colors.primarySoft,
-                    foregroundColor: tokens.colors.primary,
+                    backgroundColor: scheme.brandSurface,
+                    foregroundColor: scheme.brandForeground,
                     child: Icon(
                       GongKeTypePresentation.of(item.gongketype.name).icon,
                     ),
@@ -445,7 +445,7 @@ class _FaYuanWizardPageState extends State<FaYuanWizardPage> {
                   trailing: Text(
                     '${item.cnt} ${GongKeTypePresentation.of(item.gongketype.name).unit}',
                     style: TextStyle(
-                      color: tokens.colors.primary,
+                      color: scheme.brandForeground,
                       fontWeight: FontWeight.w700,
                     ),
                   ),
@@ -827,7 +827,7 @@ class _FaYuanWizardPageState extends State<FaYuanWizardPage> {
             return ListTile(
               dense: true,
               contentPadding: EdgeInsets.zero,
-              leading: Icon(presentation.icon, color: tokens.colors.primary),
+              leading: Icon(presentation.icon, color: scheme.brandForeground),
               title: Text(item.name),
               trailing: Text('${item.cnt} ${presentation.unit}',
                   style: const TextStyle(fontWeight: FontWeight.w700)),
@@ -846,8 +846,8 @@ class _FaYuanWizardPageState extends State<FaYuanWizardPage> {
               style: TextStyle(
                 height: 1.6,
                 color: (_data.yuanwang?.trim().isNotEmpty ?? false)
-                    ? scheme.textPrimary
-                    : scheme.textSecondary,
+                    ? scheme.foregroundPrimary
+                    : scheme.foregroundSecondary,
               ),
             ),
           ],
@@ -871,7 +871,7 @@ class _FaYuanWizardPageState extends State<FaYuanWizardPage> {
         color: Theme.of(context).colorScheme.surfaceContainerLowest,
         borderRadius: BorderRadius.circular(tokens.radius.lg),
         border:
-            Border.all(color: tokens.colors.primary.withValues(alpha: 0.12)),
+            Border.all(color: context.edsScheme.brandBorder),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.04),
@@ -886,8 +886,8 @@ class _FaYuanWizardPageState extends State<FaYuanWizardPage> {
           Row(
             children: [
               CircleAvatar(
-                backgroundColor: tokens.colors.primarySoft,
-                foregroundColor: tokens.colors.primary,
+                backgroundColor: scheme.brandSurface,
+                foregroundColor: scheme.brandForeground,
                 child: Icon(icon),
               ),
               SizedBox(width: tokens.spacing.sm),
@@ -901,7 +901,7 @@ class _FaYuanWizardPageState extends State<FaYuanWizardPage> {
                             )),
                     const SizedBox(height: 2),
                     Text(subtitle,
-                        style: TextStyle(color: scheme.textSecondary)),
+                        style: TextStyle(color: scheme.foregroundSecondary)),
                   ],
                 ),
               ),
@@ -927,13 +927,13 @@ class _FaYuanWizardPageState extends State<FaYuanWizardPage> {
         color: Theme.of(context).colorScheme.surfaceContainerLowest,
         borderRadius: BorderRadius.circular(tokens.radius.lg),
         border:
-            Border.all(color: tokens.colors.primary.withValues(alpha: 0.12)),
+            Border.all(color: context.edsScheme.brandBorder),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(children: [
-            Icon(icon, color: tokens.colors.primary),
+            Icon(icon, color: context.edsScheme.brandForeground),
             const SizedBox(width: 8),
             Text(title,
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
@@ -956,7 +956,7 @@ class _FaYuanWizardPageState extends State<FaYuanWizardPage> {
           SizedBox(
             width: 92,
             child: Text(label,
-                style: TextStyle(color: context.edsScheme.textSecondary)),
+                style: TextStyle(color: context.edsScheme.foregroundSecondary)),
           ),
           Expanded(
             child: Text(value,

@@ -225,6 +225,11 @@ class _GongKePageState extends State<GongKePage> {
     final dateString = DateTools.getStringByDate(day);
     final completion = _completionRates[dateString] ?? 0.0;
     final todayString = DateTools.getStringByDate(DateTime.now());
+    // 格子内文字颜色跟背景走：绿底白字、黄底黑字；无记录格子跟主题明暗
+    final hasRecord = groupedCurrentMonthRecords[dateString] != null;
+    final cellTextColor = hasRecord
+        ? (completion > 0 ? Colors.white : Colors.black87)
+        : Theme.of(context).colorScheme.onSurface;
     return GestureDetector(
       onTap: () {
         // 点击日期单元格时，跳转到功课设置页面
@@ -258,12 +263,13 @@ class _GongKePageState extends State<GongKePage> {
 
         decoration: BoxDecoration(
           color: groupedCurrentMonthRecords[dateString] == null
-              ? Colors.white // 有功课记录时背景为白色
-              : (completion > 0 ? Colors.green : Colors.yellow), // 没有记录时背景为浅灰色
+              ? Theme.of(context).colorScheme.surfaceContainerLowest // 没有记录时背景为浅灰
+              : (completion > 0 ? Colors.green : Colors.yellow), // 黄=进行中，绿=完成
           // 添加背景颜色
           border: Border.all(
-            color:
-                dateString == todayString ? Colors.red : Colors.grey.shade200,
+            color: dateString == todayString
+                ? Colors.red
+                : Theme.of(context).colorScheme.outlineVariant,
             width: 1.5,
           ),
           borderRadius: BorderRadius.circular(4),
@@ -272,7 +278,8 @@ class _GongKePageState extends State<GongKePage> {
           mainAxisSize: MainAxisSize.min,
           children: [
             // 阳历日期
-            Text('${day.day}', style: const TextStyle(fontSize: 14)),
+            Text('${day.day}',
+                style: TextStyle(fontSize: 14, color: cellTextColor)),
             // 完成度进度条
             if (groupedCurrentMonthRecords[dateString] != null &&
                 completion >= 0)
@@ -293,8 +300,9 @@ class _GongKePageState extends State<GongKePage> {
               style: TextStyle(
                 fontSize: 10,
                 // 节日显示红色
-                color:
-                    lunar.getFestivals().isNotEmpty ? Colors.red : Colors.black,
+                color: lunar.getFestivals().isNotEmpty
+                    ? Colors.red
+                    : cellTextColor,
               ),
             ),
           ],
@@ -614,7 +622,7 @@ class _GongKePageState extends State<GongKePage> {
               Container(
                 margin: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: Theme.of(context).colorScheme.surface,
                   borderRadius: BorderRadius.circular(8),
                   boxShadow: [
                     BoxShadow(
@@ -648,17 +656,33 @@ class _GongKePageState extends State<GongKePage> {
                     todayBuilder: _buildCalendarCell,
                   ),
                   locale: 'zh_CN', // 设置中文区域
-                  headerStyle: const HeaderStyle(
+                  headerStyle: HeaderStyle(
                     formatButtonVisible: false,
                     titleCentered: true,
-                  ),
-                  calendarStyle: const CalendarStyle(
+                    titleTextStyle: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                      color: Theme.of(context).colorScheme.onSurface,
+                    ),
+                    leftChevronIcon: Icon(
+                      Icons.chevron_left,
+                      color: Theme.of(context).colorScheme.onSurfaceVariant,
+                    ),
+                    rightChevronIcon: Icon(
+                      Icons.chevron_right,
+                      color: Theme.of(context).colorScheme.onSurfaceVariant,
+                    ),
+                  ),                  calendarStyle: const CalendarStyle(
                     outsideDaysVisible: false, // 隐藏非当前月份的日期
                   ),
                   daysOfWeekHeight: 32, // 增加星期标题行高度
-                  daysOfWeekStyle: const DaysOfWeekStyle(
-                    weekdayStyle: TextStyle(color: Colors.black87),
-                    weekendStyle: TextStyle(color: Colors.red),
+                  daysOfWeekStyle: DaysOfWeekStyle(
+                    weekdayStyle: TextStyle(
+                      color: Theme.of(context).colorScheme.onSurfaceVariant,
+                    ),
+                    weekendStyle: TextStyle(
+                      color: Colors.redAccent.shade100,
+                    ),
                     // 添加下边距
                     dowTextFormatter: null,
                     decoration: BoxDecoration(

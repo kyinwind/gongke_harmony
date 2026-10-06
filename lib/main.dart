@@ -8,6 +8,7 @@ import 'view/gongke/gongke_share_page.dart';
 import 'view/gongke/gongke.dart';
 import 'view/gongke/modify_fayuanwen.dart';
 import 'view/gongke/gongke_setting.dart';
+import 'view/gongke/modify_gongke_cnt.dart';
 import 'view/gongke/nianshenghao.dart';
 import 'view/gongke/dazuo.dart';
 import 'view/gongke/nianzhou.dart';
@@ -116,7 +117,6 @@ class _BootstrapAppState extends State<BootstrapApp> {
         if (snapshot.connectionState != ConnectionState.done) {
           return const MaterialApp(
             home: Scaffold(
-              backgroundColor: Colors.white,
               body: SizedBox.expand(),
             ),
           );
@@ -349,6 +349,19 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     }
   }
 
+  /// 统一构建明/暗两套 Material 主题（种子色一致，仅 brightness 不同）。
+  ThemeData _buildAppTheme(Brightness brightness, String? fontFamily) {
+    return ThemeData(
+      colorScheme: ColorScheme.fromSeed(
+        seedColor: const Color(0xFF2196F3),
+        brightness: brightness,
+      ),
+      textTheme: TextTheme(
+        bodyMedium: TextStyle(fontFamily: fontFamily),
+      ).apply(fontFamily: fontFamily),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     _ensurePrivacyDialogIfNeeded();
@@ -356,14 +369,12 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     return MaterialApp(
       // title: '诵经助手',
       navigatorKey: _navigatorKey,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color(0xFF2196F3),
-        ),
-        textTheme: TextTheme(
-          bodyMedium: TextStyle(fontFamily: fontFamily),
-        ).apply(fontFamily: fontFamily),
-      ),
+      // 明暗双主题 + 跟随系统：系统切暗色时 Material 层（Scaffold/AppBar/
+      // TabBar）与 EDS 语义色层（EdsCard 等，按 Theme brightness 解析）
+      // 同步切换，避免"半黑半白"。
+      theme: _buildAppTheme(Brightness.light, fontFamily),
+      darkTheme: _buildAppTheme(Brightness.dark, fontFamily),
+      themeMode: ThemeMode.system,
       home: _hasSeenWelcome
           ? const TabbedHomePage(title: '诵经助手')
           : WelcomePage(onFinish: _finishWelcome),
@@ -382,6 +393,8 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
         '/GongKe/GongKeSetting/nianshenghao': (context) =>
             const NianShengHaoPage(),
         '/GongKe/GongKeSetting/dazuo': (context) => const DaZuoPage(),
+        '/GongKe/GongKeSetting/modifyCnt': (context) =>
+          const ModifyGongKeCntPage(),
         '/GongKe/GongKeShare': (context) => const GongKeSharePage(),
         '/GongKe/MuyuRhythmManagement': (context) =>
             const MuyuRhythmManagementPage(),

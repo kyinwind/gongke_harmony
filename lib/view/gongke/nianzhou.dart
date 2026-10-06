@@ -170,12 +170,12 @@ class _NianzhouPageState extends State<NianzhouPage> {
       width: double.infinity,
       padding: EdgeInsets.all(tokens.spacing.md),
       decoration: BoxDecoration(
-        color: scheme.cardBackground,
+        color: scheme.surfaceRaised,
         borderRadius: BorderRadius.circular(tokens.radius.lg),
-        border: Border.all(color: scheme.border),
+        border: Border.all(color: scheme.borderDefault),
         boxShadow: [
           BoxShadow(
-              color: tokens.colors.primary.withValues(alpha: 0.06),
+              color: scheme.brandForeground.withValues(alpha: 0.06),
               blurRadius: 18,
               offset: const Offset(0, 10))
         ],
@@ -186,12 +186,12 @@ class _NianzhouPageState extends State<NianzhouPage> {
             width: 48,
             height: 48,
             decoration: BoxDecoration(
-              color: tokens.colors.primarySoft,
+              color: scheme.brandSurface,
               borderRadius: BorderRadius.circular(tokens.radius.md),
             ),
             child: Icon(
               presentation.icon,
-              color: tokens.colors.primary,
+              color: scheme.brandForeground,
               size: 25,
             ),
           ),
@@ -205,14 +205,14 @@ class _NianzhouPageState extends State<NianzhouPage> {
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   style: tokens.typography.body15Strong.copyWith(
-                    color: scheme.textPrimary,
+                    color: scheme.foregroundPrimary,
                   ),
                 ),
                 const SizedBox(height: 4),
                 Text(
                   '目标 ${gongkeitem.cnt} ${presentation.unit}',
                   style: tokens.typography.caption.copyWith(
-                    color: scheme.textSecondary,
+                    color: scheme.foregroundSecondary,
                   ),
                 ),
               ],
@@ -230,9 +230,9 @@ class _NianzhouPageState extends State<NianzhouPage> {
     final scheme = context.edsScheme;
     return Container(
       decoration: BoxDecoration(
-        color: scheme.cardBackground,
+        color: scheme.surfaceRaised,
         borderRadius: BorderRadius.circular(tokens.radius.lg),
-        border: Border.all(color: scheme.border),
+        border: Border.all(color: scheme.borderDefault),
       ),
       clipBehavior: Clip.antiAlias,
       child: Column(
@@ -244,7 +244,7 @@ class _NianzhouPageState extends State<NianzhouPage> {
             value: shakeEnabled,
             onChanged: (val) => setState(() => shakeEnabled = val),
           ),
-          Divider(height: 1, indent: 64, color: scheme.border),
+          Divider(height: 1, indent: 64, color: scheme.borderDefault),
           _buildSettingRow(
             icon: Icons.vibration_outlined,
             title: '震动与木鱼声',
@@ -273,7 +273,7 @@ class _NianzhouPageState extends State<NianzhouPage> {
       ),
       child: Row(
         children: [
-          Icon(icon, color: tokens.colors.primary, size: 24),
+          Icon(icon, color: scheme.brandForeground, size: 24),
           SizedBox(width: tokens.spacing.sm),
           Expanded(
             child: Column(
@@ -284,7 +284,7 @@ class _NianzhouPageState extends State<NianzhouPage> {
                 Text(
                   subtitle,
                   style: tokens.typography.caption.copyWith(
-                    color: scheme.textSecondary,
+                    color: scheme.foregroundSecondary,
                   ),
                 ),
               ],
@@ -292,7 +292,7 @@ class _NianzhouPageState extends State<NianzhouPage> {
           ),
           Switch(
             value: value,
-            activeColor: tokens.colors.primary,
+            activeColor: scheme.brandForeground,
             onChanged: onChanged,
           ),
         ],
@@ -307,18 +307,18 @@ class _NianzhouPageState extends State<NianzhouPage> {
     final progress = target <= 0 ? 0.0 : (count / target).clamp(0.0, 1.0);
     final complete = count >= target;
     final statusColor =
-        complete ? tokens.colors.success : tokens.colors.primary;
+        complete ? scheme.successForeground : scheme.brandForeground;
 
     return Container(
       width: double.infinity,
       padding: EdgeInsets.all(tokens.spacing.lg),
       decoration: BoxDecoration(
-        color: scheme.cardBackground,
+        color: scheme.surfaceRaised,
         borderRadius: BorderRadius.circular(tokens.radius.xl),
         border: Border.all(color: statusColor.withValues(alpha: 0.18)),
         boxShadow: [
           BoxShadow(
-              color: tokens.colors.primary.withValues(alpha: 0.06),
+              color: scheme.brandForeground.withValues(alpha: 0.06),
               blurRadius: 18,
               offset: const Offset(0, 10))
         ],
@@ -338,7 +338,7 @@ class _NianzhouPageState extends State<NianzhouPage> {
           Text(
             complete ? '今日目标已完成' : '目标 $target 遍',
             style: tokens.typography.body15.copyWith(
-              color: complete ? tokens.colors.success : scheme.textSecondary,
+              color: complete ? scheme.successForeground : scheme.foregroundSecondary,
             ),
           ),
           SizedBox(height: tokens.spacing.md),
@@ -390,7 +390,7 @@ class _NianzhouPageState extends State<NianzhouPage> {
             icon: const Icon(Icons.undo_rounded, size: 20),
             label: const Text('撤销上一次计数'),
             style: TextButton.styleFrom(
-              foregroundColor: scheme.textSecondary,
+              foregroundColor: scheme.foregroundSecondary,
             ),
           ),
         ],
@@ -405,19 +405,19 @@ class _NianzhouPageState extends State<NianzhouPage> {
       width: double.infinity,
       padding: EdgeInsets.all(tokens.spacing.sm),
       decoration: BoxDecoration(
-        color: tokens.colors.primarySoft,
+        color: scheme.brandSurface,
         borderRadius: BorderRadius.circular(tokens.radius.md),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(Icons.lightbulb_outline, size: 20, color: tokens.colors.primary),
+          Icon(Icons.lightbulb_outline, size: 20, color: scheme.brandForeground),
           SizedBox(width: tokens.spacing.xs),
           Expanded(
             child: Text(
               '开启摇晃计数后，在屏幕点亮时摇晃手机即可计数。',
               style: tokens.typography.caption.copyWith(
-                color: scheme.textSecondary,
+                color: scheme.foregroundSecondary,
                 height: 1.45,
               ),
             ),

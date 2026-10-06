@@ -56,18 +56,26 @@ export default class HarmonySharePlugin
     const isFile = call.method === 'shareFile';
     const contentKey = call.method === 'shareJson' ? 'json' : (isFile ? 'path' : 'text');
     const rawContent = call.argument(contentKey) as string ?? '';
-    const content = isFile ? fileUri.getUriFromPath(rawContent) : rawContent;
-    if (content.trim().length === 0) {
+    if (rawContent.trim().length === 0) {
       result.error('empty_content', 'Share content is empty.', null);
       return;
     }
-    const record: systemShare.SharedRecord = {
-      utd: isFile ? (call.argument('utd') as string ?? 'general.file') :
-        (call.method === 'shareJson' ? 'general.json' : 'general.plain-text'),
-      title: title,
-      content: content,
-      description: title
-    };
+    // 关键：文件必须走 SharedRecord.uri 字段（分享面板会对目标应用做临时授权），
+    // 塞进 content 会被当成纯文本记录，微信拉起后拿不到文件。
+    // 文本类走 content 字段。
+    const record: systemShare.SharedRecord = isFile
+      ? {
+        utd: call.argument('utd') as string ?? 'general.file',
+        uri: fileUri.getUriFromPath(rawContent),
+        title: title,
+        description: title
+      }
+      : {
+        utd: call.method === 'shareJson' ? 'general.json' : 'general.plain-text',
+        content: rawContent,
+        title: title,
+        description: title
+      };
     try {
       const data = new systemShare.SharedData(record);
       const controller = new systemShare.ShareController(data);

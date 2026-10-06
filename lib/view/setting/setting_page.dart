@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:easy_design_system/easy_design_system.dart';
 import 'package:gongke/comm/pub_tools.dart';
+import 'package:gongke/comm/shared_preferences.dart';
 import 'package:gongke/view/help/help_center_page.dart';
+
+/// 「允许修改当天功课数量」开关的 KV key（功课设置页右滑修改入口读取）。
+const String kAllowModifyTodayCntKey = 'gongke.allowModifyTodayCnt';
 
 class SettingPage extends StatefulWidget {
   const SettingPage({super.key});
@@ -16,11 +21,19 @@ const String feedbackEmail = 'yangxuehui@outlook.com';
 class _SettingPageState extends State<SettingPage> {
   static const _appInfoChannel = MethodChannel('gongke/app_info');
   late final Future<String> _versionText;
+  bool _allowModifyTodayCnt = false;
 
   @override
   void initState() {
     super.initState();
     _versionText = _loadVersionText();
+    _loadAllowModifyTodayCnt();
+  }
+
+  Future<void> _loadAllowModifyTodayCnt() async {
+    final value = await getBoolValue(kAllowModifyTodayCntKey);
+    if (!mounted || value == null) return;
+    setState(() => _allowModifyTodayCnt = value);
   }
 
   Future<String> _loadVersionText() async {
@@ -51,12 +64,33 @@ class _SettingPageState extends State<SettingPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               _buildSection(
+                '功能设置',
+                EdsCard(
+                  style: EdsCardStyle.raised,
+                  padding: 0,
+                  child: SwitchListTile(
+                    secondary: const Icon(Icons.tune),
+                    title: const Text('允许修改当天功课数量'),
+                    subtitle: const Text(
+                      '开启后，在当天功课页右滑条目可修改目标数量（仅限今天和昨天）',
+                    ),
+                    value: _allowModifyTodayCnt,
+                    onChanged: (value) {
+                      setState(() => _allowModifyTodayCnt = value);
+                      saveBoolValue(kAllowModifyTodayCntKey, value);
+                    },
+                  ),
+                ),
+              ),
+              const SizedBox(height: 24),
+              _buildSection(
                 '帮助中心',
                 const HelpCenterEntryTile(),
               ),
               const SizedBox(height: 24),
-              Card(
-                margin: EdgeInsets.zero,
+              EdsCard(
+                style: EdsCardStyle.raised,
+                padding: 0,
                 child: ListTile(
                   leading: const Icon(Icons.email_outlined),
                   title: const Text('反馈方式'),

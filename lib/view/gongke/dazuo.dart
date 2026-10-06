@@ -147,10 +147,10 @@ class _DaZuoPageState extends State<DaZuoPage> {
     return Container(
       padding: EdgeInsets.all(tokens.spacing.md),
       decoration: BoxDecoration(
-        color: scheme.cardBackground,
+        color: scheme.surfaceRaised,
         borderRadius: BorderRadius.circular(tokens.radius.lg),
-        border: Border.all(color: scheme.border),
-        boxShadow: [BoxShadow(color: tokens.colors.primary.withValues(alpha: 0.06), blurRadius: 18, offset: const Offset(0, 10))],
+        border: Border.all(color: scheme.borderDefault),
+        boxShadow: [BoxShadow(color: scheme.brandForeground.withValues(alpha: 0.06), blurRadius: 18, offset: const Offset(0, 10))],
       ),
       child: Row(
         children: [
@@ -158,11 +158,11 @@ class _DaZuoPageState extends State<DaZuoPage> {
             width: 48,
             height: 48,
             decoration: BoxDecoration(
-              color: tokens.colors.primarySoft,
+              color: scheme.brandSurface,
               borderRadius: BorderRadius.circular(tokens.radius.md),
             ),
             child:
-                Icon(presentation.icon, size: 26, color: tokens.colors.primary),
+                Icon(presentation.icon, size: 26, color: scheme.brandForeground),
           ),
           SizedBox(width: tokens.spacing.sm),
           Expanded(
@@ -171,12 +171,12 @@ class _DaZuoPageState extends State<DaZuoPage> {
               children: [
                 Text(gki!.name,
                     style: tokens.typography.body15Strong.copyWith(
-                      color: scheme.textPrimary,
+                      color: scheme.foregroundPrimary,
                     )),
                 const SizedBox(height: 4),
                 Text('每日目标 ${gki!.cnt} ${presentation.unit}',
                     style: tokens.typography.caption.copyWith(
-                      color: scheme.textSecondary,
+                      color: scheme.foregroundSecondary,
                     )),
               ],
             ),
@@ -196,10 +196,10 @@ class _DaZuoPageState extends State<DaZuoPage> {
       width: double.infinity,
       padding: EdgeInsets.all(tokens.spacing.lg),
       decoration: BoxDecoration(
-        color: scheme.cardBackground,
+        color: scheme.surfaceRaised,
         borderRadius: BorderRadius.circular(tokens.radius.xl),
-        border: Border.all(color: tokens.colors.primary.withValues(alpha: 0.16)),
-        boxShadow: [BoxShadow(color: tokens.colors.primary.withValues(alpha: 0.06), blurRadius: 18, offset: const Offset(0, 10))],
+        border: Border.all(color: scheme.brandBorder),
+        boxShadow: [BoxShadow(color: scheme.brandForeground.withValues(alpha: 0.06), blurRadius: 18, offset: const Offset(0, 10))],
       ),
       child: Column(
         children: [
@@ -213,9 +213,9 @@ class _DaZuoPageState extends State<DaZuoPage> {
                   child: CircularProgressIndicator(
                     value: isGoingon ? elapsed : 0,
                     strokeWidth: 10,
-                    backgroundColor: tokens.colors.primary.withValues(alpha: 0.1),
+                    backgroundColor: scheme.brandSurface,
                     valueColor:
-                        AlwaysStoppedAnimation<Color>(tokens.colors.primary),
+                        AlwaysStoppedAnimation<Color>(scheme.brandForeground),
                   ),
                 ),
                 Column(
@@ -226,7 +226,7 @@ class _DaZuoPageState extends State<DaZuoPage> {
                       style: TextStyle(
                         fontSize: 48,
                         fontWeight: FontWeight.w700,
-                        color: scheme.textPrimary,
+                        color: scheme.foregroundPrimary,
                         fontFeatures: const [FontFeature.tabularFigures()],
                       ),
                     ),
@@ -235,8 +235,8 @@ class _DaZuoPageState extends State<DaZuoPage> {
                       isGoingon ? '正在入静' : '准备开始',
                       style: tokens.typography.body.copyWith(
                         color: isGoingon
-                            ? tokens.colors.primary
-                            : scheme.textSecondary,
+                            ? scheme.brandForeground
+                            : scheme.foregroundSecondary,
                       ),
                     ),
                   ],
@@ -264,9 +264,9 @@ class _DaZuoPageState extends State<DaZuoPage> {
     return Container(
       padding: EdgeInsets.all(tokens.spacing.md),
       decoration: BoxDecoration(
-        color: scheme.cardBackground,
+        color: scheme.surfaceRaised,
         borderRadius: BorderRadius.circular(tokens.radius.lg),
-        border: Border.all(color: scheme.border),
+        border: Border.all(color: scheme.borderDefault),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -274,7 +274,7 @@ class _DaZuoPageState extends State<DaZuoPage> {
           Row(
             children: [
               Icon(Icons.timer_outlined,
-                  color: tokens.colors.primary, size: 22),
+                  color: scheme.brandForeground, size: 22),
               SizedBox(width: tokens.spacing.xs),
               Text('打坐时长', style: tokens.typography.body15Strong),
               const Spacer(),
@@ -302,20 +302,20 @@ class _DaZuoPageState extends State<DaZuoPage> {
     return Container(
       padding: EdgeInsets.all(tokens.spacing.sm),
       decoration: BoxDecoration(
-        color: tokens.colors.primarySoft,
+        color: scheme.brandSurface,
         borderRadius: BorderRadius.circular(tokens.radius.md),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Icon(Icons.notifications_active_outlined,
-              color: tokens.colors.primary, size: 20),
+              color: scheme.brandForeground, size: 20),
           SizedBox(width: tokens.spacing.xs),
           Expanded(
             child: Text(
               '开始与结束时各敲三声引磬。计时期间屏幕将保持点亮。',
               style: tokens.typography.caption.copyWith(
-                color: scheme.textSecondary,
+                color: scheme.foregroundSecondary,
                 height: 1.45,
               ),
             ),

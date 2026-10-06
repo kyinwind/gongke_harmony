@@ -1,6 +1,7 @@
 import 'package:app_help_center/app_help_center.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:easy_design_system/easy_design_system.dart';
 
 import '../../comm/external_launcher_tools.dart';
 
@@ -29,6 +30,11 @@ final AppHelpCenterConfig harmonyHelpConfig = AppHelpCenterConfig(
     ),
   ],
   versionHistory: [
+    VersionHistoryItem(
+      versionName: 'v1.1.7',
+      publishedAt: DateTime(2026, 10, 7),
+      changes: '1.系统设置提供可修改功课数量开关，供佛友修改功课数量。\n2.App支持系统深色模式。\n3.增加当日功课分享功能。',
+    ),
     VersionHistoryItem(
       versionName: 'v1.1.6',
       publishedAt: DateTime(2026, 9, 10),
@@ -255,8 +261,9 @@ class _HelpCenterEntryTileState extends State<HelpCenterEntryTile> {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      margin: EdgeInsets.zero,
+    return EdsCard(
+      style: EdsCardStyle.raised,
+      padding: 0,
       child: ListTile(
         leading: const Icon(Icons.help_outline),
         title: const Text('打开帮助中心'),

@@ -237,10 +237,10 @@ class _NianShengHaoPageState extends State<NianShengHaoPage> {
     return Container(
       padding: EdgeInsets.all(tokens.spacing.md),
       decoration: BoxDecoration(
-        color: scheme.cardBackground,
+        color: scheme.surfaceRaised,
         borderRadius: BorderRadius.circular(tokens.radius.lg),
-        border: Border.all(color: scheme.border),
-        boxShadow: [BoxShadow(color: tokens.colors.primary.withValues(alpha: 0.06), blurRadius: 18, offset: const Offset(0, 10))],
+        border: Border.all(color: scheme.borderDefault),
+        boxShadow: [BoxShadow(color: scheme.brandForeground.withValues(alpha: 0.06), blurRadius: 18, offset: const Offset(0, 10))],
       ),
       child: Row(
         children: [
@@ -248,11 +248,11 @@ class _NianShengHaoPageState extends State<NianShengHaoPage> {
             width: 48,
             height: 48,
             decoration: BoxDecoration(
-              color: tokens.colors.primarySoft,
+              color: scheme.brandSurface,
               borderRadius: BorderRadius.circular(tokens.radius.md),
             ),
             child:
-                Icon(presentation.icon, color: tokens.colors.primary, size: 25),
+                Icon(presentation.icon, color: scheme.brandForeground, size: 25),
           ),
           SizedBox(width: tokens.spacing.sm),
           Expanded(
@@ -263,12 +263,12 @@ class _NianShengHaoPageState extends State<NianShengHaoPage> {
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     style: tokens.typography.body15Strong.copyWith(
-                      color: scheme.textPrimary,
+                      color: scheme.foregroundPrimary,
                     )),
                 const SizedBox(height: 4),
                 Text('目标 ${gongkeitem!.cnt} ${presentation.unit}',
                     style: tokens.typography.caption.copyWith(
-                      color: scheme.textSecondary,
+                      color: scheme.foregroundSecondary,
                     )),
               ],
             ),
@@ -284,7 +284,7 @@ class _NianShengHaoPageState extends State<NianShengHaoPage> {
     final progress = total > 0 ? (current / total).clamp(0.0, 1.0) : 0.0;
     final completed = total > 0 && current >= total;
     final statusColor =
-        completed ? tokens.colors.success : tokens.colors.primary;
+        completed ? scheme.successForeground : scheme.brandForeground;
     final stateLabel = completed
         ? '今日目标已完成'
         : _isRunning
@@ -296,10 +296,10 @@ class _NianShengHaoPageState extends State<NianShengHaoPage> {
     return Container(
       padding: EdgeInsets.all(tokens.spacing.lg),
       decoration: BoxDecoration(
-        color: scheme.cardBackground,
+        color: scheme.surfaceRaised,
         borderRadius: BorderRadius.circular(tokens.radius.xl),
         border: Border.all(color: statusColor.withValues(alpha: 0.18)),
-        boxShadow: [BoxShadow(color: tokens.colors.primary.withValues(alpha: 0.06), blurRadius: 18, offset: const Offset(0, 10))],
+        boxShadow: [BoxShadow(color: scheme.brandForeground.withValues(alpha: 0.06), blurRadius: 18, offset: const Offset(0, 10))],
       ),
       child: Column(
         children: [
@@ -334,14 +334,14 @@ class _NianShengHaoPageState extends State<NianShengHaoPage> {
                     Text(
                       stateLabel,
                       style: tokens.typography.bodyStrong.copyWith(
-                        color: scheme.textSecondary,
+                        color: scheme.foregroundSecondary,
                       ),
                     ),
                     const SizedBox(height: 4),
                     Text(
                       '共 $total 声',
                       style: tokens.typography.caption.copyWith(
-                        color: scheme.textTertiary,
+                        color: scheme.foregroundTertiary,
                       ),
                     ),
                   ],
@@ -372,9 +372,9 @@ class _NianShengHaoPageState extends State<NianShengHaoPage> {
     final scheme = context.edsScheme;
     return Container(
       decoration: BoxDecoration(
-        color: scheme.cardBackground,
+        color: scheme.surfaceRaised,
         borderRadius: BorderRadius.circular(tokens.radius.lg),
-        border: Border.all(color: scheme.border),
+        border: Border.all(color: scheme.borderDefault),
       ),
       clipBehavior: Clip.antiAlias,
       child: Column(
@@ -387,7 +387,7 @@ class _NianShengHaoPageState extends State<NianShengHaoPage> {
                 Row(
                   children: [
                     Icon(Icons.graphic_eq_rounded,
-                        color: tokens.colors.primary, size: 22),
+                        color: scheme.brandForeground, size: 22),
                     SizedBox(width: tokens.spacing.xs),
                     Text('播放模式', style: tokens.typography.body15Strong),
                   ],
@@ -414,15 +414,15 @@ class _NianShengHaoPageState extends State<NianShengHaoPage> {
                 Text(
                   _currentPattern.groupedDescription,
                   style: tokens.typography.caption.copyWith(
-                    color: scheme.textSecondary,
+                    color: scheme.foregroundSecondary,
                   ),
                 ),
               ],
             ),
           ),
-          Divider(height: 1, color: scheme.border),
+          Divider(height: 1, color: scheme.borderDefault),
           ListTile(
-            leading: Icon(Icons.tune_rounded, color: tokens.colors.primary),
+            leading: Icon(Icons.tune_rounded, color: scheme.brandForeground),
             title: const Text('管理十念法'),
             subtitle: const Text('编辑内置节奏或创建自己的敲击方式'),
             trailing: const Icon(Icons.chevron_right),
@@ -439,15 +439,15 @@ class _NianShengHaoPageState extends State<NianShengHaoPage> {
     return Container(
       padding: EdgeInsets.all(tokens.spacing.md),
       decoration: BoxDecoration(
-        color: scheme.cardBackground,
+        color: scheme.surfaceRaised,
         borderRadius: BorderRadius.circular(tokens.radius.lg),
-        border: Border.all(color: scheme.border),
+        border: Border.all(color: scheme.borderDefault),
       ),
       child: Column(
         children: [
           Row(
             children: [
-              Icon(Icons.speed_rounded, color: tokens.colors.primary, size: 22),
+              Icon(Icons.speed_rounded, color: scheme.brandForeground, size: 22),
               SizedBox(width: tokens.spacing.xs),
               Expanded(
                 child: Text('敲击间隔', style: tokens.typography.body15Strong),
